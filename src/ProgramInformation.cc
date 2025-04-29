@@ -1,0 +1,35 @@
+/*****************************************************************************
+ * DASH MPD parsing library in C++: ProgramInformation class
+ *****************************************************************************
+ * Copyright: (C) 2025 British Broadcasting Corporation
+ * Author(s): David Waring <david.waring2@bbc.co.uk>
+ * License: LGPL?
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * library or refer to: [URL here].
+ */
+#include <iostream>
+#include <string>
+
+#include <libxml++/libxml++.h>
+
+#include "libmpd++/macros.hh"
+
+#include "libmpd++/ProgramInformation.hh"
+
+LIBPARSEMPD_NAMESPACE_BEGIN
+
+ProgramInformation::ProgramInformation(xmlpp::Node &elem)
+{
+    // TODO: parse the element into this new ProgramInformation
+}
+
+void ProgramInformation::setXMLElement(xmlpp::Element &elem) const
+{
+    // TODO: Use this ProgramInformation to fill in an XML element
+}
+
+LIBPARSEMPD_NAMESPACE_END
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
