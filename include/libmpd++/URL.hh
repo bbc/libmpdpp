@@ -27,9 +27,11 @@ public:
     using URI::URI;
     using URI::operator=;
     using URI::operator std::string;
-    using URI::operator==;
 
     virtual ~URL() {};
+
+    bool operator==(const URL &other) const { return this->URI::operator==(static_cast<const URI&>(other)); };
+    bool operator==(const URI &other) const { return other == static_cast<const URI&>(*this); };
 
 protected:
     friend class MPD;

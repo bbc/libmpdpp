@@ -21,7 +21,7 @@ LIBPARSEMPD_NAMESPACE_BEGIN
 template <class Rep, class Period>
 std::string format_duration(const std::chrono::duration<Rep,Period> &durn)
 {   
-    auto total_ms = std::chrono::milliseconds(durn).count();
+    auto total_ms = std::chrono::duration_cast<std::chrono::milliseconds>(durn).count();
     auto ms = total_ms % 1000;
     total_ms /= 1000;
     auto secs = total_ms % 60;
@@ -39,7 +39,7 @@ std::string format_duration(const std::chrono::duration<Rep,Period> &durn)
     if (mins != 0) {
         oss << mins << "M";
     }
-    if (secs != 0 || ms != 0) {
+    if ((hours == 0 && mins == 0) || secs != 0 || ms != 0) {
         oss << secs;
         if (ms != 0) {
             oss << "." << std::setw(3) << ms;

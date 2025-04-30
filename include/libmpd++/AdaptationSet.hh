@@ -16,17 +16,29 @@
 #include "macros.hh"
 
 namespace xmlpp {
+    class Element;
     class Node;
 }
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
+class Period;
+
 class LIBPARSEMPD_PUBLIC_API AdaptationSet {
 public:
     LIBPARSEMPD_PUBLIC_API AdaptationSet() {};
+
+    bool operator==(const AdaptationSet &) const { return true; };
+
+    AdaptationSet &setPeriod(Period *period) { m_period = period; return *this; };
+
 protected:
     friend class Period;
     AdaptationSet(xmlpp::Node&);
+    void setXMLElement(xmlpp::Element&) const;
+
+private:
+    Period *m_period;
 };
 
 LIBPARSEMPD_NAMESPACE_END

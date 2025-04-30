@@ -25,6 +25,7 @@ LIBPARSEMPD_NAMESPACE_BEGIN
 class LIBPARSEMPD_PUBLIC_API Metrics {
 public:
     Metrics() {};
+    bool operator==(const Metrics &other) const { return true; };
 protected:
     friend class MPD;
     Metrics(xmlpp::Node&);

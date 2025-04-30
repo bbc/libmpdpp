@@ -29,6 +29,8 @@ public:
 
     virtual ~Subset() {};
 
+    bool operator==(const Subset&) const { return true; };
+
 protected:
     friend class Period;
     Subset(xmlpp::Node&);

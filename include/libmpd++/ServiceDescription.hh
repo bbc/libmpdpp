@@ -28,6 +28,7 @@ public:
     bool operator==(const ServiceDescription &other) const { return true; };
 protected:
     friend class MPD;
+    friend class Period;
     ServiceDescription(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 };

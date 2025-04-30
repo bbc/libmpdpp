@@ -22,17 +22,26 @@ libparsempd_private_inc_dir = include_directories('.')
 libparsempd_srcs = files('''
 AdaptationSet.cc
 BaseURL.cc
+constants.hh
 ContentProtection.cc
+conversions.hh
 Descriptor.cc
+EventStream.cc
 InitializationSet.cc
+Label.cc
 LeapSecondInformation.cc
 Metrics.cc
 MPD.cc
 PatchLocation.cc
 Period.cc
+Preselection.cc
 ProgramInformation.cc
 Representation.cc
+SegmentBase.cc
+SegmentList.cc
+SegmentTemplate.cc
 ServiceDescription.cc
+Subset.cc
 UIntVWithID.cc
 URI.cc
 URL.cc

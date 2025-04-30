@@ -28,6 +28,7 @@ public:
     bool operator==(const ContentProtection &other) const { return true; };
 protected:
     friend class MPD;
+    friend class Period;
     ContentProtection(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 };

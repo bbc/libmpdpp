@@ -83,6 +83,7 @@ MPD::MPD(const duration_type &minimum_buffer_time, const URI &profile, const Per
     ,m_supplementaryProperties()
     ,m_utcTimings()
     ,m_leapSecondInformation()
+    ,m_mpdURL()
 {
 }
 
@@ -115,11 +116,12 @@ MPD::MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&
     ,m_supplementaryProperties()
     ,m_utcTimings()
     ,m_leapSecondInformation()
+    ,m_mpdURL()
 {
     m_periods.push_back(std::move(period));
 }
 
-MPD::MPD(std::istream &input_stream)
+MPD::MPD(std::istream &input_stream, const std::optional<URL> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)
@@ -148,6 +150,7 @@ MPD::MPD(std::istream &input_stream)
     ,m_supplementaryProperties()
     ,m_utcTimings()
     ,m_leapSecondInformation()
+    ,m_mpdURL(mpd_location)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_stream(input_stream);
@@ -156,7 +159,7 @@ MPD::MPD(std::istream &input_stream)
     }
 }
 
-MPD::MPD(const std::vector<char> &mpd_xml)
+MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URL> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)
@@ -185,6 +188,7 @@ MPD::MPD(const std::vector<char> &mpd_xml)
     ,m_supplementaryProperties()
     ,m_utcTimings()
     ,m_leapSecondInformation()
+    ,m_mpdURL(mpd_location)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_memory(Glib::ustring(mpd_xml.data(), mpd_xml.size()));
@@ -193,7 +197,7 @@ MPD::MPD(const std::vector<char> &mpd_xml)
     }
 }
 
-MPD::MPD(const std::string &filename)
+MPD::MPD(const std::string &filename, const std::optional<URL> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)
@@ -222,6 +226,7 @@ MPD::MPD(const std::string &filename)
     ,m_supplementaryProperties()
     ,m_utcTimings()
     ,m_leapSecondInformation()
+    ,m_mpdURL(mpd_location)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_file(filename);
@@ -259,6 +264,7 @@ MPD::MPD(const MPD &other)
     ,m_supplementaryProperties(other.m_supplementaryProperties)
     ,m_utcTimings(other.m_utcTimings)
     ,m_leapSecondInformation(other.m_leapSecondInformation)
+    ,m_mpdURL(other.m_mpdURL)
 {
 }
 
@@ -291,6 +297,7 @@ MPD::MPD(MPD &&other)
     ,m_supplementaryProperties(std::move(other.m_supplementaryProperties))
     ,m_utcTimings(std::move(other.m_utcTimings))
     ,m_leapSecondInformation(std::move(other.m_leapSecondInformation))
+    ,m_mpdURL(std::move(other.m_mpdURL))
 {
 }
 
@@ -541,13 +548,22 @@ MPD &MPD::profileAdd(URI &&uri)
 
 MPD &MPD::profileRemove(const std::list<URI>::const_iterator &it)
 {
+    if (m_profiles.size() == 1) {
+        throw InvalidMPD("Removing the last profile will make the MPD invalid");
+    }
     m_profiles.erase(it);
     return *this;
 }
 
 MPD &MPD::profileRemove(const URI &uri)
 {
-    m_profiles.remove(uri);
+    auto it = std::find(m_profiles.begin(), m_profiles.end(), uri);
+    if (it != m_profiles.end()) {
+        if (m_profiles.size() == 1) {
+            throw InvalidMPD("Removing the last profile will make the MPD invalid");
+        }
+        m_profiles.erase(it);
+    }
     return *this;
 }
 
@@ -908,24 +924,169 @@ MPD &MPD::periodRemove(const Period &period)
         // remove by id only
         auto id = period.id().value();
         auto it = std::find_if(m_periods.begin(), m_periods.end(), [id](const Period &p) -> bool { return p.hasId() && p.id().value() == id; });
-        if (it != m_periods.end()) m_periods.erase(it);
+        if (it != m_periods.end()) {
+            if (m_periods.size() == 1) {
+                throw InvalidMPD("Removing the only Period will make the MPD invalid");
+            }
+            m_periods.erase(it);
+        }
     } else {
         // remove by value comparison
-        m_periods.remove(period);
+        auto it = std::find(m_periods.begin(), m_periods.end(), period);
+        if (it != m_periods.end()) {
+            if (m_periods.size() == 1) {
+                throw InvalidMPD("Removing the only Period will make the MPD invalid");
+            }
+            m_periods.erase(it);
+        }
     }
     return *this;
 }
 
 MPD &MPD::periodRemove(const std::list<Period>::const_iterator &period_it)
 {
+    if (m_periods.size() == 1) {
+        throw InvalidMPD("Removing the only Period will make the MPD invalid");
+    }
+
     m_periods.erase(period_it);
     return *this;
 }
 
 MPD &MPD::periodRemove(const std::list<Period>::iterator &period_it)
 {
+    if (m_periods.size() == 1) {
+        throw InvalidMPD("Removing the only Period will make the MPD invalid");
+    }
+
     m_periods.erase(period_it);
     return *this;
+}
+
+MPD &MPD::metricAdd(const Metrics &metrics)
+{
+    m_metrics.push_back(metrics);
+    return *this;
+}
+
+MPD &MPD::metricAdd(Metrics &&metrics)
+{
+    m_metrics.push_back(std::move(metrics));
+    return *this;
+}
+
+MPD &MPD::metricRemove(const Metrics &metrics)
+{
+    m_metrics.remove(metrics);
+    return *this;
+}
+
+MPD &MPD::metricRemove(const std::list<Metrics>::const_iterator &it)
+{
+    m_metrics.erase(it);
+    return *this;
+}
+
+MPD &MPD::metricRemove(const std::list<Metrics>::iterator &it)
+{
+    m_metrics.erase(it);
+    return *this;
+}
+
+MPD &MPD::essentialPropertyAdd(const Descriptor &property)
+{
+    m_essentialProperties.push_back(property);
+    return *this;
+}
+
+MPD &MPD::essentialPropertyAdd(Descriptor &&property)
+{
+    m_essentialProperties.push_back(std::move(property));
+    return *this;
+}
+
+MPD &MPD::essentialPropertyRemove(const Descriptor &property)
+{
+    m_essentialProperties.remove(property);
+    return *this;
+}
+
+MPD &MPD::essentialPropertyRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    m_essentialProperties.erase(it);
+    return *this;
+}
+
+MPD &MPD::essentialPropertyRemove(const std::list<Descriptor>::iterator &it)
+{
+    m_essentialProperties.erase(it);
+    return *this;
+}
+
+MPD &MPD::supplementaryPropertyAdd(const Descriptor &property)
+{
+    m_supplementaryProperties.push_back(property);
+    return *this;
+}
+
+MPD &MPD::supplementaryPropertyAdd(Descriptor &&property)
+{
+    m_supplementaryProperties.push_back(std::move(property));
+    return *this;
+}
+
+MPD &MPD::supplementaryPropertyRemove(const Descriptor &property)
+{
+    m_supplementaryProperties.remove(property);
+    return *this;
+}
+
+MPD &MPD::supplementaryPropertyRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    m_supplementaryProperties.erase(it);
+    return *this;
+}
+
+MPD &MPD::supplementaryPropertyRemove(const std::list<Descriptor>::iterator &it)
+{
+    m_supplementaryProperties.erase(it);
+    return *this;
+}
+
+MPD &MPD::utcTimingAdd(const Descriptor &utc_timing)
+{
+    m_utcTimings.push_back(utc_timing);
+    return *this;
+}
+
+MPD &MPD::utcTimingAdd(Descriptor &&utc_timing)
+{
+    m_utcTimings.push_back(std::move(utc_timing));
+    return *this;
+}
+
+MPD &MPD::utcTimingRemove(const Descriptor &utc_timing)
+{
+    m_utcTimings.remove(utc_timing);
+    return *this;
+}
+
+MPD &MPD::utcTimingRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    m_utcTimings.erase(it);
+    return *this;
+}
+
+MPD &MPD::utcTimingRemove(const std::list<Descriptor>::iterator &it)
+{
+    m_utcTimings.erase(it);
+    return *this;
+}
+
+const LeapSecondInformation &MPD::leapSecondInformation(const LeapSecondInformation &default_val) const
+{
+    if (!m_leapSecondInformation.has_value()) return default_val;
+    return m_leapSecondInformation.value();
 }
 
 template <class T>

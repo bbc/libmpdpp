@@ -29,6 +29,8 @@ public:
 
     virtual ~Label() {};
 
+    bool operator==(const Label&) const { return true; };
+
 protected:
     friend class Period;
     Label(xmlpp::Node&);

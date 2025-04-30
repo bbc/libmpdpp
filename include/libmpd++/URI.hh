@@ -38,7 +38,6 @@ public:
     URI &operator=(std::string &&val) { m_uri = std::move(val); validate(); return *this; };
 
     bool operator==(const URI &other) const { return m_uri == other.m_uri; };
-    bool operator==(const std::string &uri) const { return m_uri == uri; };
 
     operator std::string() const { return m_uri; };
 

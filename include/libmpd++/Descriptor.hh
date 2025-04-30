@@ -24,6 +24,9 @@ namespace xmlpp {
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
+class MPD;
+class Period;
+
 class LIBPARSEMPD_PUBLIC_API Descriptor {
 public:
     Descriptor() = delete;
@@ -62,6 +65,15 @@ public:
         return *this;
     };
 
+    bool operator==(const Descriptor &other) const {
+        if (m_schemeIdUri != other.m_schemeIdUri) return false;
+        if (m_value.has_value() != other.m_value.has_value()) return false;
+        if (m_value.has_value() && m_value.value() != other.m_value.value()) return false;
+        if (m_id.has_value() != other.m_id.has_value()) return false;
+        if (m_id.has_value() && m_id.value() != other.m_id.value()) return false;
+        return true;
+    }
+
     const URI &schemeId() const { return m_schemeIdUri; };
     URI &schemeId() { return m_schemeIdUri; };
     Descriptor &schemeId(const URI &scheme_id) { m_schemeIdUri = scheme_id; return *this; };
@@ -83,6 +95,7 @@ public:
 
 protected:
     friend class MPD;
+    friend class Period;
     Descriptor(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 

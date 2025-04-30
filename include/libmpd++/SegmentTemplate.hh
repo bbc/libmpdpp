@@ -29,6 +29,8 @@ public:
 
     virtual ~SegmentTemplate() {};
 
+    bool operator==(const SegmentTemplate &) const { return true; };
+
 protected:
     friend class Period;
     SegmentTemplate(xmlpp::Node&);

@@ -46,9 +46,9 @@ public:
     MPD() = delete;
     MPD(const duration_type &minimum_buffer_time, const URI &profile, const Period &period, PresentationType presentation_type = STATIC);
     MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&period, PresentationType presentation_type = STATIC);
-    MPD(std::istream &input_stream);
-    MPD(const std::vector<char> &mpd_xml);
-    MPD(const std::string &filename);
+    MPD(std::istream &input_stream, const std::optional<URL> &mpd_location = std::nullopt);
+    MPD(const std::vector<char> &mpd_xml, const std::optional<URL> &mpd_location = std::nullopt);
+    MPD(const std::string &filename, const std::optional<URL> &mpd_location = std::nullopt);
     MPD(const MPD &other);
     MPD(MPD &&other);
 
@@ -56,6 +56,17 @@ public:
 
     MPD &operator=(const MPD &other);
     MPD &operator=(MPD &&other);
+
+    bool operator==(const MPD &other) const;
+
+    bool hasSourceURL() const { return m_mpdURL.has_value(); };
+    const URL &sourceURL(const URL &default_val) const { if (!m_mpdURL.has_value()) return default_val; return m_mpdURL.value(); };
+    const std::optional<URL> &sourceURL() const { return m_mpdURL; };
+    MPD &sourceURL(const std::nullopt_t &) { m_mpdURL.reset(); return *this; };
+    MPD &sourceURL(const URL &url) { m_mpdURL = url; return *this; };
+    MPD &sourceURL(URL &&url) { m_mpdURL = std::move(url); return *this; };
+    MPD &sourceURL(const std::optional<URL> &url) { m_mpdURL = url; return *this; };
+    MPD &sourceURL(std::optional<URL> &&url) { m_mpdURL = std::move(url); return *this; };
 
     bool isLive() const;
     std::string asXML(bool compact_form) const;
@@ -355,6 +366,9 @@ private:
     std::list<Descriptor> m_supplementaryProperties;
     std::list<Descriptor> m_utcTimings;
     std::optional<LeapSecondInformation> m_leapSecondInformation;
+
+    // MPD original location (if known)
+    std::optional<URL> m_mpdURL;
 };
 
 LIBPARSEMPD_NAMESPACE_END

@@ -25,9 +25,70 @@ class Period;
 
 class LIBPARSEMPD_PUBLIC_API XLink {
 public:
-    XLink() {};
+    enum ActuateEnum {
+        ACTUATE_ON_REQUEST,
+        ACTUATE_ON_LOAD
+    };
+
+    enum TypeEnum {
+        TYPE_SIMPLE
+    };
+
+    enum ShowEnum {
+        SHOW_EMBED
+    };
+
+    XLink()
+        :m_href()
+        ,m_actuate(ACTUATE_ON_REQUEST)
+        ,m_type(TYPE_SIMPLE)
+        ,m_show(SHOW_EMBED)
+    {};
+    XLink(const URL &href, ActuateEnum actuate = ACTUATE_ON_REQUEST, TypeEnum typ = TYPE_SIMPLE, ShowEnum show = SHOW_EMBED)
+        :m_href(href)
+        ,m_actuate(actuate)
+        ,m_type(typ)
+        ,m_show(show)
+    {};
+    XLink(const XLink &other)
+        :m_href(other.m_href)
+        ,m_actuate(other.m_actuate)
+        ,m_type(other.m_type)
+        ,m_show(other.m_show)
+    {};
+    XLink(XLink &&other)
+        :m_href(std::move(other.m_href))
+        ,m_actuate(other.m_actuate)
+        ,m_type(other.m_type)
+        ,m_show(other.m_show)
+    {};
 
     virtual ~XLink() {};
+
+    XLink &operator=(const XLink &other) {
+        m_href = other.m_href;
+        m_actuate = other.m_actuate;
+        m_type = other.m_type;
+        m_show = other.m_show;
+        return *this;
+    }
+    XLink &operator=(XLink &&other) {
+        m_href = std::move(other.m_href);
+        m_actuate = other.m_actuate;
+        m_type = other.m_type;
+        m_show = other.m_show;
+        return *this;
+    }
+
+    bool operator==(const XLink &other) const;
+
+    const URL &href() const { return m_href; };
+
+    const ActuateEnum actuate() const { return m_actuate; };
+
+    const TypeEnum type() const { return m_type; };
+
+    const ShowEnum show() const { return m_show; };
 
 protected:
     friend class Period;
@@ -35,6 +96,10 @@ protected:
     void setXMLElement(xmlpp::Element&) const;
 
 private:
+    URL m_href;
+    ActuateEnum m_actuate;
+    TypeEnum m_type;
+    ShowEnum m_show;
 };
 
 LIBPARSEMPD_NAMESPACE_END

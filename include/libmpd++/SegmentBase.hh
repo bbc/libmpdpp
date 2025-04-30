@@ -29,6 +29,8 @@ public:
 
     virtual ~SegmentBase() {};
 
+    bool operator==(const SegmentBase &other) const { return true; };
+
 protected:
     friend class Period;
     SegmentBase(xmlpp::Node&);

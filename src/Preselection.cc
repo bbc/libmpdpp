@@ -1,5 +1,3 @@
-#ifndef _BBC_PARSE_DASH_MPD_PRESELECTION_HH_
-#define _BBC_PARSE_DASH_MPD_PRESELECTION_HH_
 /*****************************************************************************
  * DASH MPD parsing library in C++: Preselection class
  *****************************************************************************
@@ -12,35 +10,24 @@
  */
 #include <optional>
 
-#include "macros.hh"
+#include <libxml++/libxml++.h>
 
-namespace xmlpp {
-    class Element;
-    class Node;
-}
+#include "libmpd++/macros.hh"
+#include "libmpd++/Period.hh"
+#include "libmpd++/Preselection.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-class Period;
+/* protected: */
+Preselection::Preselection(xmlpp::Node&)
+{
+}
 
-class LIBPARSEMPD_PUBLIC_API Preselection {
-public:
-    Preselection() {};
-
-    virtual ~Preselection() {};
-
-    bool operator==(const Preselection&) const { return true; };
-
-protected:
-    friend class Period;
-    Preselection(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
-
-private:
-};
+void Preselection::setXMLElement(xmlpp::Element&) const
+{
+}
 
 LIBPARSEMPD_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
-#endif /*_BBC_PARSE_DASH_MPD_PRESELECTION_HH_*/

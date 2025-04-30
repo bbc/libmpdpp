@@ -12,6 +12,8 @@
  */
 #include <exception>
 
+#include "macros.hh"
+
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 class LIBPARSEMPD_PUBLIC_API ParseError : public std::runtime_error {
@@ -20,6 +22,14 @@ public:
     using std::runtime_error::operator=;
 
     virtual ~ParseError() = default;
+};
+
+class LIBPARSEMPD_PUBLIC_API InvalidMPD : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+    using std::runtime_error::operator=;
+
+    virtual ~InvalidMPD() = default;
 };
 
 LIBPARSEMPD_NAMESPACE_END

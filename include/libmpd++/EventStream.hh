@@ -29,6 +29,8 @@ public:
 
     virtual ~EventStream() {};
 
+    bool operator==(const EventStream&) const { return true; };
+
 protected:
     friend class Period;
     EventStream(xmlpp::Node&);
