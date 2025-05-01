@@ -35,6 +35,10 @@ public:
 
 protected:
     friend class MPD;
+    friend class Period;
+    friend class AdaptationSet;
+    friend class BaseURL;
+    friend class SegmentBase;
     URL(xmlpp::Node&);
 };
 

@@ -35,6 +35,11 @@ URI::URI(xmlpp::Node &node)
     validate();
 }
 
+void URI::setXMLElement(xmlpp::Element &elem) const
+{
+    elem.add_child_text(m_uri);
+}
+
 LIBPARSEMPD_NAMESPACE_END
 
 std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(URI) &uri)

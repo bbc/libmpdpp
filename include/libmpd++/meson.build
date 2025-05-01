@@ -16,6 +16,7 @@ ContentProtection.hh
 Descriptor.hh
 EventStream.hh
 exceptions.hh
+FailoverContent.hh
 InitializationSet.hh
 Label.hh
 LeapSecondInformation.hh
@@ -32,6 +33,7 @@ SegmentList.hh
 SegmentTemplate.hh
 SegmentType.hh
 ServiceDescription.hh
+SingleRFC7233Range.hh
 Subset.hh
 UIntVWithID.hh
 URI.hh

@@ -27,6 +27,7 @@ ContentProtection.cc
 conversions.hh
 Descriptor.cc
 EventStream.cc
+FailoverContent.cc
 InitializationSet.cc
 Label.cc
 LeapSecondInformation.cc
@@ -41,6 +42,7 @@ SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc
 ServiceDescription.cc
+SingleRFC7233Range.cc
 Subset.cc
 UIntVWithID.cc
 URI.cc

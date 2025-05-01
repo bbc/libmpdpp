@@ -118,7 +118,7 @@ bool BaseURL::operator==(const BaseURL &other) const
 }
 
 BaseURL::BaseURL(xmlpp::Node &node)
-    :m_url()
+    :m_url(node)
     ,m_serviceLocation()
     ,m_byteRange()
     ,m_availabilityTimeOffset()
@@ -126,8 +126,6 @@ BaseURL::BaseURL(xmlpp::Node &node)
     ,m_timeShiftBufferDepth()
     ,m_rangeAccess(false)
 {
-    m_url = node.eval_to_string(".//text()");
-
     auto node_set = node.find("@serviceLocation");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
@@ -185,7 +183,7 @@ void BaseURL::setXMLElement(xmlpp::Element &elem) const
     if (m_rangeAccess) {
         elem.set_attribute("rangeAccess", "true");
     }
-    elem.add_child_text(std::string(m_url));
+    m_url.setXMLElement(elem);
 }
 
 LIBPARSEMPD_NAMESPACE_END

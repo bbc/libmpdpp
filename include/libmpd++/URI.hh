@@ -16,6 +16,7 @@
 #include "macros.hh"
 
 namespace xmlpp {
+    class Element;
     class Node;
 }
 
@@ -43,7 +44,12 @@ public:
 
 protected:
     friend class MPD;
+    friend class Period;
+    friend class AdaptationSet;
+    friend class BaseURL;
+    friend class SegmentBase;
     URI(xmlpp::Node&);
+    void setXMLElement(xmlpp::Element&) const;
 
 private:
     void validate();
