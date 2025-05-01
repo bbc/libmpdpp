@@ -19,6 +19,11 @@
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
+bool SegmentTemplate::operator==(const SegmentTemplate &other) const
+{
+    return MultipleSegmentBase::operator==(other);
+}
+
 /* protected: */
 SegmentTemplate::SegmentTemplate(xmlpp::Node&)
 {

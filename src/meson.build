@@ -33,6 +33,7 @@ Label.cc
 LeapSecondInformation.cc
 Metrics.cc
 MPD.cc
+MultipleSegmentBase.cc
 PatchLocation.cc
 Period.cc
 Preselection.cc
@@ -41,6 +42,7 @@ Representation.cc
 SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc
+SegmentTimeline.cc
 ServiceDescription.cc
 SingleRFC7233Range.cc
 Subset.cc

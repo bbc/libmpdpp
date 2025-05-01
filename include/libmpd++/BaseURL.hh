@@ -15,7 +15,7 @@
 #include <string>
 
 #include "macros.hh"
-#include "URL.hh"
+#include "URI.hh"
 
 namespace xmlpp {
     class Element;
@@ -28,7 +28,7 @@ class MPD;
 class Period;
 class AdaptationSet;
 
-class LIBPARSEMPD_PUBLIC_API BaseURL {
+class LIBPARSEMPD_PUBLIC_API BaseURL : public URI {
 public:
     using duration_type = std::chrono::microseconds;
 
@@ -45,11 +45,10 @@ public:
 
     bool operator==(const BaseURL &other) const;
 
-    operator std::string() const { return std::string(m_url); };
-    const URL &url() const { return m_url; };
-    URL &url() { return m_url; };
-    BaseURL &url(const URL &_url) { m_url = _url; return *this; };
-    BaseURL &url(URL &&_url) { m_url = std::move(_url); return *this; };
+    const URI &url() const { return static_cast<const URI&>(*this); };
+    URI &url() { return static_cast<URI&>(*this); };
+    BaseURL &url(const URI &_url) { URI::operator=(_url); return *this; };
+    BaseURL &url(URI &&_url) { URI::operator=(std::move(_url)); return *this; };
 
 protected:
     friend class MPD;
@@ -59,9 +58,6 @@ protected:
     void setXMLElement(xmlpp::Element&) const;
 
 private:
-    // BaseURL contents ISO 23009-1 Table 30
-    URL                          m_url;
-
     // BaseURL attributes ISO 23009-1 Table 30
     std::optional<std::string>   m_serviceLocation;
     std::optional<std::string>   m_byteRange;

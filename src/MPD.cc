@@ -121,7 +121,7 @@ MPD::MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&
     m_periods.push_back(std::move(period));
 }
 
-MPD::MPD(std::istream &input_stream, const std::optional<URL> &mpd_location)
+MPD::MPD(std::istream &input_stream, const std::optional<URI> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)
@@ -159,7 +159,7 @@ MPD::MPD(std::istream &input_stream, const std::optional<URL> &mpd_location)
     }
 }
 
-MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URL> &mpd_location)
+MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)
@@ -197,7 +197,7 @@ MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URL> &mpd_locatio
     }
 }
 
-MPD::MPD(const std::string &filename, const std::optional<URL> &mpd_location)
+MPD::MPD(const std::string &filename, const std::optional<URI> &mpd_location)
     :m_id()
     ,m_profiles()
     ,m_type(MPD::STATIC)

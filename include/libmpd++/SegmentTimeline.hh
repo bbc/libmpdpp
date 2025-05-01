@@ -1,0 +1,84 @@
+#ifndef _BBC_PARSE_DASH_MPD_SEGMENT_TIMELINE_HH_
+#define _BBC_PARSE_DASH_MPD_SEGMENT_TIMELINE_HH_
+/*****************************************************************************
+ * DASH MPD parsing library in C++: SegmentTimeline class
+ *****************************************************************************
+ * Copyright: (C) 2025 British Broadcasting Corporation
+ * Author(s): David Waring <david.waring2@bbc.co.uk>
+ * License: LGPL?
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * library or refer to: [URL here].
+ */
+#include <chrono>
+#include <optional>
+
+#include "macros.hh"
+#include "FailoverContent.hh"
+#include "SingleRFC7233Range.hh"
+#include "URL.hh"
+
+namespace xmlpp {
+    class Element;
+    class Node;
+}
+
+LIBPARSEMPD_NAMESPACE_BEGIN
+
+class LIBPARSEMPD_PUBLIC_API SegmentTimeline {
+public:
+    using duration_type = std::chrono::microseconds;
+
+    class LIBPARSEMPD_PUBLIC_API S {
+    public:
+        S();
+        S(const S&);
+        S(S&&);
+
+        virtual ~S() {};
+
+        S &operator=(const S&);
+        S &operator=(S&&);
+
+        bool operator==(const S&) const;
+
+    protected:
+        friend class SegmentTimeline;
+        S(xmlpp::Node&);
+        void setXMLElement(xmlpp::Element&) const;
+
+    private:
+        // S element type ISO 23009-1:2022 Clause 5.3.9.6.3
+        std::optional<unsigned long> m_t;
+        std::optional<unsigned long> m_n;
+        unsigned long m_d;
+        int m_r;
+        unsigned long m_k;
+    };
+
+    SegmentTimeline() :m_sLines() {};
+    SegmentTimeline(const SegmentTimeline &other) :m_sLines(other.m_sLines) {};
+    SegmentTimeline(SegmentTimeline &&other) :m_sLines(std::move(other.m_sLines)) {};
+
+    virtual ~SegmentTimeline() {};
+
+    SegmentTimeline &operator=(const SegmentTimeline &other) { m_sLines = other.m_sLines; return *this; };
+    SegmentTimeline &operator=(SegmentTimeline &&other) { m_sLines = std::move(other.m_sLines); return *this; };
+
+    bool operator==(const SegmentTimeline &other) const { return m_sLines == other.m_sLines; };
+
+protected:
+    friend class MultipleSegmentBase;
+    SegmentTimeline(xmlpp::Node&);
+    void setXMLElement(xmlpp::Element&) const;
+
+private:
+    // SegmentTimeline element from ISO 23009-1:2022 Clause 5.3.9.6.3
+    std::list<S> m_sLines;
+};
+
+LIBPARSEMPD_NAMESPACE_END
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+#endif /*_BBC_PARSE_DASH_MPD_SEGMENT_TIMELINE_HH_*/

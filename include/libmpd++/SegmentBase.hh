@@ -1,5 +1,5 @@
-#ifndef _BBC_PARSE_DASH_MPD_SEGMENTBASE_HH_
-#define _BBC_PARSE_DASH_MPD_SEGMENTBASE_HH_
+#ifndef _BBC_PARSE_DASH_MPD_SEGMENT_BASE_HH_
+#define _BBC_PARSE_DASH_MPD_SEGMENT_BASE_HH_
 /*****************************************************************************
  * DASH MPD parsing library in C++: SegmentBase class
  *****************************************************************************
@@ -24,8 +24,6 @@ namespace xmlpp {
 }
 
 LIBPARSEMPD_NAMESPACE_BEGIN
-
-class Period;
 
 class LIBPARSEMPD_PUBLIC_API SegmentBase {
 public:
@@ -149,4 +147,4 @@ LIBPARSEMPD_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
-#endif /*_BBC_PARSE_DASH_MPD_SEGMENTBASE_HH_*/
+#endif /*_BBC_PARSE_DASH_MPD_SEGMENT_BASE_HH_*/

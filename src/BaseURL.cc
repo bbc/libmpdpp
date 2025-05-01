@@ -24,7 +24,7 @@
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 BaseURL::BaseURL(const std::string &url)
-    :m_url(url)
+    :URI(url)
     ,m_serviceLocation()
     ,m_byteRange()
     ,m_availabilityTimeOffset()
@@ -35,7 +35,7 @@ BaseURL::BaseURL(const std::string &url)
 }
 
 BaseURL::BaseURL(std::string &&url)
-    :m_url(std::move(url))
+    :URI(std::move(url))
     ,m_serviceLocation()
     ,m_byteRange()
     ,m_availabilityTimeOffset()
@@ -46,7 +46,7 @@ BaseURL::BaseURL(std::string &&url)
 }
 
 BaseURL::BaseURL(const BaseURL &other)
-    :m_url(other.m_url)
+    :URI(other)
     ,m_serviceLocation(other.m_serviceLocation)
     ,m_byteRange(other.m_byteRange)
     ,m_availabilityTimeOffset(other.m_availabilityTimeOffset)
@@ -57,7 +57,7 @@ BaseURL::BaseURL(const BaseURL &other)
 }
 
 BaseURL::BaseURL(BaseURL &&other)
-    :m_url(std::move(other.m_url))
+    :URI(std::move(other))
     ,m_serviceLocation(std::move(other.m_serviceLocation))
     ,m_byteRange(std::move(other.m_byteRange))
     ,m_availabilityTimeOffset(std::move(other.m_availabilityTimeOffset))
@@ -69,7 +69,7 @@ BaseURL::BaseURL(BaseURL &&other)
 
 BaseURL &BaseURL::operator=(const BaseURL &other)
 {
-    m_url = other.m_url;
+    URI::operator=(other);
     m_serviceLocation = other.m_serviceLocation;
     m_byteRange = other.m_byteRange;
     m_availabilityTimeOffset = other.m_availabilityTimeOffset;
@@ -82,7 +82,7 @@ BaseURL &BaseURL::operator=(const BaseURL &other)
 
 BaseURL &BaseURL::operator=(BaseURL &&other)
 {
-    m_url = std::move(other.m_url);
+    URI::operator=(std::move(other));
     m_serviceLocation = std::move(other.m_serviceLocation);
     m_byteRange = std::move(other.m_byteRange);
     m_availabilityTimeOffset = std::move(other.m_availabilityTimeOffset);
@@ -95,6 +95,8 @@ BaseURL &BaseURL::operator=(BaseURL &&other)
 
 bool BaseURL::operator==(const BaseURL &other) const
 {
+    if (!URI::operator==(other)) return false;
+
     if (m_rangeAccess != other.m_rangeAccess) return false;
 
     if (m_timeShiftBufferDepth.has_value() != other.m_timeShiftBufferDepth.has_value()) return false;
@@ -114,11 +116,11 @@ bool BaseURL::operator==(const BaseURL &other) const
     if (m_serviceLocation.has_value() != other.m_serviceLocation.has_value()) return false;
     if (m_serviceLocation.has_value() && m_serviceLocation.value() != other.m_serviceLocation.value()) return false;
 
-    return m_url == other.m_url;
+    return true;
 }
 
 BaseURL::BaseURL(xmlpp::Node &node)
-    :m_url(node)
+    :URI(node)
     ,m_serviceLocation()
     ,m_byteRange()
     ,m_availabilityTimeOffset()
@@ -183,7 +185,7 @@ void BaseURL::setXMLElement(xmlpp::Element &elem) const
     if (m_rangeAccess) {
         elem.set_attribute("rangeAccess", "true");
     }
-    m_url.setXMLElement(elem);
+    URI::setXMLElement(elem);
 }
 
 LIBPARSEMPD_NAMESPACE_END

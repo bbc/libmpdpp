@@ -44,7 +44,7 @@ public:
         ,m_type(TYPE_SIMPLE)
         ,m_show(SHOW_EMBED)
     {};
-    XLink(const URL &href, ActuateEnum actuate = ACTUATE_ON_REQUEST, TypeEnum typ = TYPE_SIMPLE, ShowEnum show = SHOW_EMBED)
+    XLink(const URI &href, ActuateEnum actuate = ACTUATE_ON_REQUEST, TypeEnum typ = TYPE_SIMPLE, ShowEnum show = SHOW_EMBED)
         :m_href(href)
         ,m_actuate(actuate)
         ,m_type(typ)
@@ -82,7 +82,7 @@ public:
 
     bool operator==(const XLink &other) const;
 
-    const URL &href() const { return m_href; };
+    const URI &href() const { return m_href; };
 
     const ActuateEnum actuate() const { return m_actuate; };
 
@@ -96,7 +96,7 @@ protected:
     void setXMLElement(xmlpp::Element&) const;
 
 private:
-    URL m_href;
+    URI m_href;
     ActuateEnum m_actuate;
     TypeEnum m_type;
     ShowEnum m_show;

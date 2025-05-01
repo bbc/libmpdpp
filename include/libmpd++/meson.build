@@ -23,6 +23,7 @@ LeapSecondInformation.hh
 macros.hh
 Metrics.hh
 MPD.hh
+MultipleSegmentBase.hh
 PatchLocation.hh
 Period.hh
 Preselection.hh
@@ -31,6 +32,7 @@ Representation.hh
 SegmentBase.hh
 SegmentList.hh
 SegmentTemplate.hh
+SegmentTimeline.hh
 SegmentType.hh
 ServiceDescription.hh
 SingleRFC7233Range.hh
