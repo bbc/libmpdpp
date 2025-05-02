@@ -92,8 +92,8 @@ public:
 
 protected:
     friend class Period;
-    XLink(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
+    //XLink(xmlpp::Node&);
+    //void setXMLElement(xmlpp::Element&) const;
 
 private:
     URI m_href;

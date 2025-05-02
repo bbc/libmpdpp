@@ -43,12 +43,14 @@ SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc
 SegmentTimeline.cc
+SegmentURL.cc
 ServiceDescription.cc
 SingleRFC7233Range.cc
 Subset.cc
 UIntVWithID.cc
 URI.cc
 URL.cc
+XLink.cc
 '''.split())
 
 project_name = meson.project_name()
