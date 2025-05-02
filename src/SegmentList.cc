@@ -13,6 +13,7 @@
 #include <libxml++/libxml++.h>
 
 #include "libmpd++/macros.hh"
+#include "libmpd++/MultipleSegmentBase.hh"
 #include "libmpd++/Period.hh"
 
 #include "libmpd++/SegmentList.hh"
@@ -20,12 +21,14 @@
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 /* protected: */
-SegmentList::SegmentList(xmlpp::Node&)
+SegmentList::SegmentList(xmlpp::Node &node)
+    :MultipleSegmentBase(node)
 {
 }
 
-void SegmentList::setXMLElement(xmlpp::Element&) const
+void SegmentList::setXMLElement(xmlpp::Element &elem) const
 {
+    MultipleSegmentBase::setXMLElement(elem);
 }
 
 LIBPARSEMPD_NAMESPACE_END

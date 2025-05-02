@@ -13,6 +13,7 @@
 #include <optional>
 
 #include "macros.hh"
+#include "MultipleSegmentBase.hh"
 
 namespace xmlpp {
     class Element;
@@ -23,13 +24,13 @@ LIBPARSEMPD_NAMESPACE_BEGIN
 
 class Period;
 
-class LIBPARSEMPD_PUBLIC_API SegmentList {
+class LIBPARSEMPD_PUBLIC_API SegmentList : public MultipleSegmentBase {
 public:
-    SegmentList() {};
+    SegmentList() :MultipleSegmentBase() {};
 
     virtual ~SegmentList() {};
 
-    bool operator==(const SegmentList &) const { return true; };
+    bool operator==(const SegmentList &other) const { return MultipleSegmentBase::operator==(other); };
 
 protected:
     friend class Period;

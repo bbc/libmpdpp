@@ -12,6 +12,7 @@
  */
 #include <chrono>
 #include <optional>
+#include <list>
 
 #include "macros.hh"
 #include "FailoverContent.hh"
