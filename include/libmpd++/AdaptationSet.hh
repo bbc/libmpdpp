@@ -63,7 +63,7 @@ public:
 
 
 
-    bool operator==(const AdaptationSet &) const { return true; };
+    bool operator==(const AdaptationSet &) const;
 
     bool hasId() const { return m_id.has_value(); };
     const std::optional<unsigned int> &id() const { return m_id; };

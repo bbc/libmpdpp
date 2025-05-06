@@ -168,6 +168,61 @@ AdaptationSet &AdaptationSet::operator=(AdaptationSet &&to_move)
     return *this;
 }
 
+bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
+{
+
+#define COMPARE_OPT_VALUES(var) do { \
+        if (var.has_value() != to_compare.var.has_value()) return false; \
+        if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
+    } while(0)
+#define COMPARE_ANY_ORDER_LISTS(var) do { \
+        if (var.size() != to_compare.var.size()) return false; \
+        if (var.size() != 0) { \
+            auto list_copy = to_compare.var; \
+            for (const auto &item : var) { \
+                auto it = std::find(list_copy.begin(), list_copy.end(), item); \
+                if (it == list_copy.end()) return false; \
+                list_copy.erase(it); \
+            } \
+        } \
+    } while (0)
+
+   if (m_bitstreamSwitching != to_compare.m_bitstreamSwitching) return false;
+
+    COMPARE_OPT_VALUES(m_id);
+    COMPARE_OPT_VALUES(m_group);
+    COMPARE_OPT_VALUES(m_lang);
+    COMPARE_OPT_VALUES(m_contentType);
+    COMPARE_OPT_VALUES(m_par);
+    COMPARE_OPT_VALUES(m_minBandwidth);
+    COMPARE_OPT_VALUES(m_maxBandwidth);
+    COMPARE_OPT_VALUES(m_minWidth);
+    COMPARE_OPT_VALUES(m_maxWidth);
+    COMPARE_OPT_VALUES(m_minHeight);
+    COMPARE_OPT_VALUES(m_maxHeight);
+    COMPARE_OPT_VALUES(m_minFrameRate);
+    COMPARE_OPT_VALUES(m_maxFrameRate);
+    COMPARE_OPT_VALUES(m_segmentAlignment);
+    COMPARE_OPT_VALUES(m_subsegmentStartsWithSAP);
+    COMPARE_OPT_VALUES(m_initializationPrincipal);
+    COMPARE_OPT_VALUES(m_segmentBase);
+    COMPARE_OPT_VALUES(m_segmentList);
+    COMPARE_OPT_VALUES(m_segmentTemplate);
+
+    COMPARE_ANY_ORDER_LISTS(m_accessibility);
+    COMPARE_ANY_ORDER_LISTS(m_roles);
+    COMPARE_ANY_ORDER_LISTS(m_ratings);
+    COMPARE_ANY_ORDER_LISTS(m_viewpoints);
+    COMPARE_ANY_ORDER_LISTS(m_contentComponents);
+    COMPARE_ANY_ORDER_LISTS(m_contentComponents);
+    COMPARE_ANY_ORDER_LISTS(m_baseURLs);
+    COMPARE_ANY_ORDER_LISTS(m_representations);
+
+    //return false;
+    return true;
+}
+
+
 /* protected: */
 AdaptationSet::AdaptationSet(xmlpp::Node &node)
 :m_xlink()
