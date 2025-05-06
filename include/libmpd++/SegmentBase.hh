@@ -25,6 +25,9 @@ namespace xmlpp {
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
+class AdaptationSet;
+class Representation;
+
 class LIBPARSEMPD_PUBLIC_API SegmentBase {
 public:
     using duration_type = std::chrono::microseconds;
@@ -121,6 +124,8 @@ public:
 
 protected:
     friend class Period;
+    friend class Representation;
+    friend class AdaptationSet;
     SegmentBase(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 

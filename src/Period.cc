@@ -30,6 +30,7 @@
 #include "libmpd++/SegmentTemplate.hh"
 #include "libmpd++/SegmentList.hh"
 #include "libmpd++/XLink.hh"
+#include <glibmm/ustring.h>
 
 #include "constants.hh"
 #include "conversions.hh"

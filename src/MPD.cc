@@ -22,6 +22,7 @@
 #include "libmpd++/exceptions.hh"
 #include "libmpd++/BaseURL.hh"
 #include "libmpd++/URI.hh"
+#include <glibmm/ustring.h>
 
 #include "constants.hh"
 #include "conversions.hh"

@@ -13,18 +13,17 @@
 #include <libxml++/libxml++.h>
 
 #include "libmpd++/macros.hh"
-#include "libmpd++/Period.hh"
 
 #include "libmpd++/Label.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 /* protected: */
-Label::Label(xmlpp::Node&)
+Label::Label(xmlpp::Node &node)
 {
 }
 
-void Label::setXMLElement(xmlpp::Element&) const
+void Label::setXMLElement(xmlpp::Element &element) const
 {
 }
 

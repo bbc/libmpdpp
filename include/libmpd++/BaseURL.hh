@@ -26,6 +26,7 @@ LIBPARSEMPD_NAMESPACE_BEGIN
 
 class MPD;
 class Period;
+class Representation;
 class AdaptationSet;
 
 class LIBPARSEMPD_PUBLIC_API BaseURL : public URI {
@@ -53,6 +54,7 @@ public:
 protected:
     friend class MPD;
     friend class Period;
+    friend class Representation;
     friend class AdaptationSet;
     BaseURL(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;

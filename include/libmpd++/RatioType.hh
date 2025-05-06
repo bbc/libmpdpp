@@ -1,0 +1,69 @@
+#ifndef _BBC_PARSE_DASH_MPD_RATIO_TYPE_HH_
+#define _BBC_PARSE_DASH_MPD_RATIO_TYPE_HH_
+/*****************************************************************************
+ * DASH MPD parsing library in C++: RatioType class
+ *****************************************************************************
+ * Copyright: (C) 2025 British Broadcasting Corporation
+ * Author(s): David Waring <david.waring2@bbc.co.uk>
+ * License: LGPL?
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * library or refer to: [URL here].
+ */
+#include <optional>
+#include <string>
+#include <sstream>
+
+#include "macros.hh"
+
+namespace xmlpp {
+    class Element;
+    class Node;
+}
+
+LIBPARSEMPD_NAMESPACE_BEGIN
+
+class LIBPARSEMPD_PUBLIC_API RatioType {
+public:
+    using size_type = size_t;
+
+    RatioType()
+        : m_numerator(0)
+        , m_denominator(0)
+    {};
+
+    RatioType(const std::string &ratio_str);
+
+    RatioType(size_type numerator, size_type denominator)
+        : m_numerator(numerator)
+        , m_denominator(denominator)
+    {};
+
+    virtual ~RatioType() {};
+
+    bool operator==(const RatioType &other) const;
+
+    operator std::string() const;
+
+    size_type numerator() const { return m_numerator; }
+    RatioType &numerator(size_type num) { m_numerator = num; return *this; }
+    size_type denominator() const { return m_denominator; }
+    RatioType &denominator(size_type den) { m_denominator = den; return *this; }
+
+protected:
+    friend class AdaptationSet;
+    RatioType(xmlpp::Node &node);
+    void setXMLElement(xmlpp::Element &elem) const;
+
+private:
+    void convertString(const std::string &ratio_str);
+
+    size_type m_numerator;
+    size_type m_denominator;
+};
+
+LIBPARSEMPD_NAMESPACE_END
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+#endif /*_BBC_PARSE_DASH_MPD_RATIO_TYPE_HH_*/

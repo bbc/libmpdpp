@@ -17,17 +17,23 @@ if cpp.has_function_attribute('visibility:default')
 endif
 
 libxml_dep = dependency('libxml++-3.0', required: true)
+glibmm_dep = dependency('glibmm-2.4', required: true)
 
 libparsempd_private_inc_dir = include_directories('.')
 libparsempd_srcs = files('''
+Accessibility.cc
 AdaptationSet.cc
 BaseURL.cc
+common.hh
 constants.hh
+ContentComponent.cc
 ContentProtection.cc
 conversions.hh
 Descriptor.cc
 EventStream.cc
+ExtendedBandwidth.cc
 FailoverContent.cc
+FrameRate.cc
 InitializationSet.cc
 Label.cc
 LeapSecondInformation.cc
@@ -38,7 +44,12 @@ PatchLocation.cc
 Period.cc
 Preselection.cc
 ProgramInformation.cc
+Rating.cc
+RatioType.cc
 Representation.cc
+RFC6838ContentType.cc
+Role.cc
+Sap.cc
 SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc
@@ -46,10 +57,12 @@ SegmentTimeline.cc
 SegmentURL.cc
 ServiceDescription.cc
 SingleRFC7233Range.cc
+SubRepresentation.cc
 Subset.cc
 UIntVWithID.cc
 URI.cc
 URL.cc
+Viewpoint.cc
 XLink.cc
 '''.split())
 
@@ -78,7 +91,7 @@ project_config.set_quoted('PROJECT_VERSION_FLAG', project_version_flag, descript
 libparsempd_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBPARSEMPD_CONFIG_HH_', output_format: 'c', install: false)
 
 libparsempd = both_libraries('mpd++', libparsempd_srcs + [libparsempd_config_h],
-               dependencies: [libxml_dep],
+               dependencies: [libxml_dep, glibmm_dep],
                cpp_args: ['-DBUILD_LIBPARSEMPD'],
                install: true,
                include_directories: [libparsempd_inc_dir, libparsempd_private_inc_dir],
@@ -87,4 +100,4 @@ libparsempd = both_libraries('mpd++', libparsempd_srcs + [libparsempd_config_h],
 
 pkg.generate(libparsempd)
 
-libparsempd_dep = declare_dependency(dependencies: [libxml_dep], link_with: [libparsempd], include_directories: [libparsempd_inc_dir])
+libparsempd_dep = declare_dependency(dependencies: [libxml_dep, glibmm_dep], link_with: [libparsempd], include_directories: [libparsempd_inc_dir])

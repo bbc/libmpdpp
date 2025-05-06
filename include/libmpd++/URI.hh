@@ -46,6 +46,7 @@ protected:
     friend class MPD;
     friend class Period;
     friend class AdaptationSet;
+    friend class Representation;
     friend class BaseURL;
     friend class SegmentBase;
     URI(xmlpp::Node&);

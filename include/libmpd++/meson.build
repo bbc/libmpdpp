@@ -10,13 +10,17 @@
 #
 
 libparsempd_public_hdrs = files('''
+Accessibility.hh
 AdaptationSet.hh
 BaseURL.hh
+ContentComponent.hh
 ContentProtection.hh
 Descriptor.hh
 EventStream.hh
 exceptions.hh
+ExtendedBandwidth.hh
 FailoverContent.hh
+FrameRate.hh
 InitializationSet.hh
 Label.hh
 LeapSecondInformation.hh
@@ -28,7 +32,12 @@ PatchLocation.hh
 Period.hh
 Preselection.hh
 ProgramInformation.hh
+Rating.hh
+RatioType.hh
+Role.hh
 Representation.hh
+RFC6838ContentType.hh
+Sap.hh
 SegmentBase.hh
 SegmentList.hh
 SegmentTemplate.hh
@@ -38,7 +47,9 @@ SegmentURL.hh
 ServiceDescription.hh
 SingleRFC7233Range.hh
 Subset.hh
+SubRepresentation.hh
 UIntVWithID.hh
+Viewpoint.hh
 URI.hh
 URL.hh
 XLink.hh

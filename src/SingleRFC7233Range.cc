@@ -10,6 +10,7 @@
  */
 #include <optional>
 #include <string>
+#include <sstream>
 
 #include <libxml++/libxml++.h>
 

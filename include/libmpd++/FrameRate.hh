@@ -1,0 +1,76 @@
+#ifndef _BBC_PARSE_DASH_MPD_FRAME_RATE_HH_
+#define _BBC_PARSE_DASH_MPD_FRAME_RATE_RANGE_HH_
+/*****************************************************************************
+ * DASH MPD parsing library in C++: FrameRate class
+ *****************************************************************************
+ * Copyright: (C) 2025 British Broadcasting Corporation
+ * Author(s): David Waring <david.waring2@bbc.co.uk>
+ * License: LGPL?
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * library or refer to: [URL here].
+ */
+#include <optional>
+#include <string>
+#include <sstream>
+
+#include "macros.hh"
+
+namespace xmlpp {
+    class Element;
+    class Node;
+}
+
+LIBPARSEMPD_NAMESPACE_BEGIN
+
+class LIBPARSEMPD_PUBLIC_API FrameRate {
+public:
+    using size_type = size_t;
+
+    FrameRate()
+        : m_numerator(0)
+        , m_denominator(1)
+    {}
+
+    FrameRate(const std::string &frame_rate_str);
+
+    FrameRate(size_type numerator, const std::optional<size_type>& denominator = std::nullopt)
+        : m_numerator(numerator),
+          m_denominator(denominator.has_value() ? denominator.value() : 1)
+    {}
+
+    virtual ~FrameRate() {};
+
+    bool operator==(const FrameRate &other) const;
+
+    operator std::string() const;
+
+    size_type numerator() const { return m_numerator; }
+    FrameRate &numerator(size_type num) { m_numerator = num; return *this; }
+
+    size_type denominator() const { return m_denominator; }
+    FrameRate &denominator(size_type den) { m_denominator = den; return *this; }
+
+protected:
+    friend class AdaptationSet;
+    // Construct from an XML node; extracts the text content and converts.
+    FrameRate(xmlpp::Node &node);
+
+    // Sets the XML element’s text to the string representation of this frame rate.
+    void setXMLElement(xmlpp::Element &elem) const;
+
+private:
+    // Converts a frame rate string into numeric components.
+    // Throws ParseError if the string is empty or doesn’t follow the pattern.
+    void convertString(const std::string &frame_rate_str);
+
+    size_type m_numerator;
+    size_type m_denominator;
+};
+
+
+LIBPARSEMPD_NAMESPACE_END
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+#endif /*_BBC_PARSE_DASH_MPD_FRAME_RATE_HH_*/

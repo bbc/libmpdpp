@@ -22,6 +22,7 @@ namespace xmlpp {
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 class Period;
+class AdaptationSet;
 
 class LIBPARSEMPD_PUBLIC_API XLink {
 public:
@@ -92,6 +93,7 @@ public:
 
 protected:
     friend class Period;
+    friend class AdaptationSet;
     //XLink(xmlpp::Node&);
     //void setXMLElement(xmlpp::Element&) const;
 

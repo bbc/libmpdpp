@@ -25,6 +25,8 @@ namespace xmlpp {
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 class Period;
+class AdaptationSet;
+class Representation;
 
 class LIBPARSEMPD_PUBLIC_API SegmentList : public MultipleSegmentBase {
 public:
@@ -85,6 +87,8 @@ public:
 
 protected:
     friend class Period;
+    friend class Representation;
+    friend class AdaptationSet;
     SegmentList(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 

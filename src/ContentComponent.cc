@@ -1,5 +1,5 @@
 /*****************************************************************************
- * DASH MPD parsing library in C++: EventStream class
+ * DASH MPD parsing library in C++: ContentComponent class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
@@ -14,16 +14,15 @@
 
 #include "libmpd++/macros.hh"
 
-#include "libmpd++/EventStream.hh"
+#include "libmpd++/ContentComponent.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-/* protected: */
-EventStream::EventStream(xmlpp::Node &node)
+ContentComponent::ContentComponent(xmlpp::Node&)
 {
 }
 
-void EventStream::setXMLElement(xmlpp::Element &element) const
+void ContentComponent::setXMLElement(xmlpp::Element&) const
 {
 }
 

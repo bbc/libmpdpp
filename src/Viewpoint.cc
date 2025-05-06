@@ -1,5 +1,5 @@
 /*****************************************************************************
- * DASH MPD parsing library in C++: EventStream class
+ * DASH MPD parsing library in C++: Viewpoint class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
@@ -13,17 +13,18 @@
 #include <libxml++/libxml++.h>
 
 #include "libmpd++/macros.hh"
+#include "libmpd++/AdaptationSet.hh"
+#include "libmpd++/Representation.hh"
 
-#include "libmpd++/EventStream.hh"
+#include "libmpd++/Viewpoint.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-/* protected: */
-EventStream::EventStream(xmlpp::Node &node)
+Viewpoint::Viewpoint(xmlpp::Node&)
 {
 }
 
-void EventStream::setXMLElement(xmlpp::Element &element) const
+void Viewpoint::setXMLElement(xmlpp::Element&) const
 {
 }
 
