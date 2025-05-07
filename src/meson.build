@@ -3,10 +3,10 @@
 ##############################################################################
 # Copyright: (C) 2025 British Broadcasting Corporation
 # Author(s): David Waring <david.waring2@bbc.co.uk>
-# License: LGPL?
+# License: LGPLv3
 #
 # For full license terms please see the LICENSE file distributed with this
-# library or refer to: [URL here].
+# library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
 #
 
 pkg = import('pkgconfig')
@@ -21,12 +21,12 @@ glibmm_dep = dependency('glibmm-2.4', required: true)
 
 libparsempd_private_inc_dir = include_directories('.')
 libparsempd_srcs = files('''
-Accessibility.cc
 AdaptationSet.cc
 BaseURL.cc
-common.hh
+Codecs.cc
 constants.hh
 ContentComponent.cc
+ContentPopularityRate.cc
 ContentProtection.cc
 conversions.hh
 Descriptor.cc
@@ -43,13 +43,15 @@ MultipleSegmentBase.cc
 PatchLocation.cc
 Period.cc
 Preselection.cc
+ProducerReferenceTime.cc
 ProgramInformation.cc
-Rating.cc
-RatioType.cc
+RandomAccess.cc
+Ratio.cc
 Representation.cc
+RepresentationBase.cc
+Resync.cc
 RFC6838ContentType.cc
-Role.cc
-Sap.cc
+SAP.cc
 SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc
@@ -59,10 +61,10 @@ ServiceDescription.cc
 SingleRFC7233Range.cc
 SubRepresentation.cc
 Subset.cc
+Switching.cc
 UIntVWithID.cc
 URI.cc
 URL.cc
-Viewpoint.cc
 XLink.cc
 '''.split())
 

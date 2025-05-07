@@ -2,11 +2,12 @@
  * DASH MPD parsing library in C++: AdaptationSet class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
- * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
+ *            David Waring <david.waring2@bbc.co.uk>
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 
 #include <list>
@@ -18,159 +19,200 @@
 #include <libxml++/libxml++.h>
 #include <libxml/tree.h>
 
-#include "libmpd++/exceptions.hh"
 #include "libmpd++/macros.hh"
-#include "libmpd++/AdaptationSet.hh"
-#include "libmpd++/XLink.hh"
+#include "libmpd++/ContentComponent.hh"
+#include "libmpd++/exceptions.hh"
 #include "libmpd++/Representation.hh"
+#include "libmpd++/XLink.hh"
 
 #include "constants.hh"
 #include "conversions.hh"
 
+#include "libmpd++/AdaptationSet.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-AdaptationSet::AdaptationSet(const AdaptationSet &to_copy)
-    :m_xlink(to_copy.m_xlink)
-    ,m_id(to_copy.m_id)
-    ,m_group(to_copy.m_group)
-    ,m_lang(to_copy.m_lang)
-    ,m_contentType(to_copy.m_contentType)
-    ,m_par(to_copy.m_par)
-    ,m_minBandwidth(to_copy.m_minBandwidth)
-    ,m_maxBandwidth(to_copy.m_maxBandwidth)
-    ,m_minWidth(to_copy.m_minWidth)
-    ,m_maxWidth(to_copy.m_maxWidth)
-    ,m_minHeight(to_copy.m_minHeight)
-    ,m_maxHeight(to_copy.m_maxHeight)
-    ,m_minFrameRate(to_copy.m_minFrameRate)
-    ,m_maxFrameRate(to_copy.m_maxFrameRate)
-    ,m_segmentAlignment(to_copy.m_segmentAlignment)
-    ,m_bitstreamSwitching(to_copy.m_bitstreamSwitching)
-    ,m_subsegmentAlignment(to_copy.m_subsegmentAlignment)
-    ,m_subsegmentStartsWithSAP(to_copy.m_subsegmentStartsWithSAP)
-    ,m_initializationSetRefs(to_copy.m_initializationSetRefs)
-    ,m_initializationPrincipal(to_copy.m_initializationPrincipal)
-    ,m_accessibility(to_copy.m_accessibility)
-    ,m_roles(to_copy.m_roles)
-    ,m_ratings(to_copy.m_ratings)
-    ,m_viewpoints(to_copy.m_viewpoints)
-    ,m_contentComponents(to_copy.m_contentComponents)
-    ,m_baseURLs(to_copy.m_baseURLs)
-    ,m_segmentBase(to_copy.m_segmentBase)
-    ,m_segmentList(to_copy.m_segmentList)
-    ,m_segmentTemplate(to_copy.m_segmentTemplate)
-    ,m_representations(to_copy.m_representations)
+AdaptationSet::AdaptationSet()
+    :RepresentationBase()
+    ,m_xlink()
+    ,m_id()
+    ,m_group()
+    ,m_lang()
+    ,m_contentType()
+    ,m_par()
+    ,m_minBandwidth()
+    ,m_maxBandwidth()
+    ,m_minWidth()
+    ,m_maxWidth()
+    ,m_minHeight()
+    ,m_maxHeight()
+    ,m_minFrameRate()
+    ,m_maxFrameRate()
+    ,m_segmentAlignment(false)
+    ,m_subsegmentAlignment(false)
+    ,m_subsegmentStartsWithSAP(0)
+    ,m_bitstreamSwitching()
+    ,m_initializationSetRefs()
+    ,m_initializationPrincipal()
+    ,m_accessibilities()
+    ,m_roles()
+    ,m_ratings()
+    ,m_viewpoints()
+    ,m_contentComponents()
+    ,m_baseURLs()
+    ,m_segmentBase()
+    ,m_segmentList()
+    ,m_segmentTemplate()
+    ,m_representations()
 {
 }
 
-AdaptationSet::AdaptationSet(AdaptationSet &&to_move)
-    :m_xlink(std::move(to_move.m_xlink))
-    ,m_id(std::move(to_move.m_id))
-    ,m_group(std::move(to_move.m_group))
-    ,m_lang(std::move(to_move.m_lang))
-    ,m_contentType(std::move(to_move.m_contentType))
-    ,m_par(std::move(to_move.m_par))
-    ,m_minBandwidth(std::move(to_move.m_minBandwidth))
-    ,m_maxBandwidth(std::move(to_move.m_maxBandwidth))
-    ,m_minWidth(std::move(to_move.m_minWidth))
-    ,m_maxWidth(std::move(to_move.m_maxWidth))
-    ,m_minHeight(std::move(to_move.m_minHeight))
-    ,m_maxHeight(std::move(to_move.m_maxHeight))
-    ,m_minFrameRate(std::move(to_move.m_minFrameRate))
-    ,m_maxFrameRate(std::move(to_move.m_maxFrameRate))
-    ,m_segmentAlignment(std::move(to_move.m_segmentAlignment))
-    ,m_bitstreamSwitching(std::move(to_move.m_bitstreamSwitching))
-    ,m_subsegmentAlignment(std::move(to_move.m_subsegmentAlignment))
-    ,m_subsegmentStartsWithSAP(std::move(to_move.m_subsegmentStartsWithSAP))
-    ,m_initializationSetRefs(std::move(to_move.m_initializationSetRefs))
-    ,m_initializationPrincipal(std::move(to_move.m_initializationPrincipal))
-    ,m_accessibility(std::move(to_move.m_accessibility))
-    ,m_roles(std::move(to_move.m_roles))
-    ,m_ratings(std::move(to_move.m_ratings))
-    ,m_viewpoints(std::move(to_move.m_viewpoints))
-    ,m_contentComponents(std::move(to_move.m_contentComponents))
-    ,m_baseURLs(std::move(to_move.m_baseURLs))
-    ,m_segmentBase(std::move(to_move.m_segmentBase))
-    ,m_segmentList(std::move(to_move.m_segmentList))
-    ,m_segmentTemplate(std::move(to_move.m_segmentTemplate))
-    ,m_representations(std::move(to_move.m_representations))
+AdaptationSet::AdaptationSet(const AdaptationSet &other)
+    :RepresentationBase(other)
+    ,m_xlink(other.m_xlink)
+    ,m_id(other.m_id)
+    ,m_group(other.m_group)
+    ,m_lang(other.m_lang)
+    ,m_contentType(other.m_contentType)
+    ,m_par(other.m_par)
+    ,m_minBandwidth(other.m_minBandwidth)
+    ,m_maxBandwidth(other.m_maxBandwidth)
+    ,m_minWidth(other.m_minWidth)
+    ,m_maxWidth(other.m_maxWidth)
+    ,m_minHeight(other.m_minHeight)
+    ,m_maxHeight(other.m_maxHeight)
+    ,m_minFrameRate(other.m_minFrameRate)
+    ,m_maxFrameRate(other.m_maxFrameRate)
+    ,m_segmentAlignment(other.m_segmentAlignment)
+    ,m_subsegmentAlignment(other.m_subsegmentAlignment)
+    ,m_subsegmentStartsWithSAP(other.m_subsegmentStartsWithSAP)
+    ,m_bitstreamSwitching(other.m_bitstreamSwitching)
+    ,m_initializationSetRefs(other.m_initializationSetRefs)
+    ,m_initializationPrincipal(other.m_initializationPrincipal)
+    ,m_accessibilities(other.m_accessibilities)
+    ,m_roles(other.m_roles)
+    ,m_ratings(other.m_ratings)
+    ,m_viewpoints(other.m_viewpoints)
+    ,m_contentComponents(other.m_contentComponents)
+    ,m_baseURLs(other.m_baseURLs)
+    ,m_segmentBase(other.m_segmentBase)
+    ,m_segmentList(other.m_segmentList)
+    ,m_segmentTemplate(other.m_segmentTemplate)
+    ,m_representations(other.m_representations)
 {
 }
 
-AdaptationSet &AdaptationSet::operator=(const AdaptationSet &to_copy)
+AdaptationSet::AdaptationSet(AdaptationSet &&other)
+    :RepresentationBase(std::move(other))
+    ,m_xlink(std::move(other.m_xlink))
+    ,m_id(std::move(other.m_id))
+    ,m_group(std::move(other.m_group))
+    ,m_lang(std::move(other.m_lang))
+    ,m_contentType(std::move(other.m_contentType))
+    ,m_par(std::move(other.m_par))
+    ,m_minBandwidth(std::move(other.m_minBandwidth))
+    ,m_maxBandwidth(std::move(other.m_maxBandwidth))
+    ,m_minWidth(std::move(other.m_minWidth))
+    ,m_maxWidth(std::move(other.m_maxWidth))
+    ,m_minHeight(std::move(other.m_minHeight))
+    ,m_maxHeight(std::move(other.m_maxHeight))
+    ,m_minFrameRate(std::move(other.m_minFrameRate))
+    ,m_maxFrameRate(std::move(other.m_maxFrameRate))
+    ,m_segmentAlignment(std::move(other.m_segmentAlignment))
+    ,m_subsegmentAlignment(std::move(other.m_subsegmentAlignment))
+    ,m_subsegmentStartsWithSAP(std::move(other.m_subsegmentStartsWithSAP))
+    ,m_bitstreamSwitching(std::move(other.m_bitstreamSwitching))
+    ,m_initializationSetRefs(std::move(other.m_initializationSetRefs))
+    ,m_initializationPrincipal(std::move(other.m_initializationPrincipal))
+    ,m_accessibilities(std::move(other.m_accessibilities))
+    ,m_roles(std::move(other.m_roles))
+    ,m_ratings(std::move(other.m_ratings))
+    ,m_viewpoints(std::move(other.m_viewpoints))
+    ,m_contentComponents(std::move(other.m_contentComponents))
+    ,m_baseURLs(std::move(other.m_baseURLs))
+    ,m_segmentBase(std::move(other.m_segmentBase))
+    ,m_segmentList(std::move(other.m_segmentList))
+    ,m_segmentTemplate(std::move(other.m_segmentTemplate))
+    ,m_representations(std::move(other.m_representations))
 {
-    m_xlink = to_copy.m_xlink;
-    m_id = to_copy.m_id;
-    m_group = to_copy.m_group;
-    m_lang = to_copy.m_lang;
-    m_contentType = to_copy.m_contentType;
-    m_par = to_copy.m_par;
-    m_minBandwidth = to_copy.m_minBandwidth;
-    m_maxBandwidth = to_copy.m_maxBandwidth;
-    m_minWidth = to_copy.m_minWidth;
-    m_maxWidth = to_copy.m_maxWidth;
-    m_minHeight = to_copy.m_minHeight;
-    m_maxHeight = to_copy.m_maxHeight;
-    m_minFrameRate = to_copy.m_minFrameRate;
-    m_maxFrameRate = to_copy.m_maxFrameRate;
-    m_segmentAlignment = to_copy.m_segmentAlignment;
-    m_bitstreamSwitching = to_copy.m_bitstreamSwitching;
-    m_subsegmentAlignment = to_copy.m_subsegmentAlignment;
-    m_subsegmentStartsWithSAP = to_copy.m_subsegmentStartsWithSAP;
-    m_initializationSetRefs = to_copy.m_initializationSetRefs;
-    m_initializationPrincipal = to_copy.m_initializationPrincipal;
-    m_accessibility = to_copy.m_accessibility;
-    m_roles = to_copy.m_roles;
-    m_ratings = to_copy.m_ratings;
-    m_viewpoints = to_copy.m_viewpoints;
-    m_contentComponents = to_copy.m_contentComponents;
-    m_baseURLs = to_copy.m_baseURLs;
-    m_segmentBase = to_copy.m_segmentBase;
-    m_segmentList = to_copy.m_segmentList;
-    m_segmentTemplate = to_copy.m_segmentTemplate;
-    m_representations = to_copy.m_representations;
+}
+
+AdaptationSet &AdaptationSet::operator=(const AdaptationSet &other)
+{
+    RepresentationBase::operator=(other);
+    m_xlink = other.m_xlink;
+    m_id = other.m_id;
+    m_group = other.m_group;
+    m_lang = other.m_lang;
+    m_contentType = other.m_contentType;
+    m_par = other.m_par;
+    m_minBandwidth = other.m_minBandwidth;
+    m_maxBandwidth = other.m_maxBandwidth;
+    m_minWidth = other.m_minWidth;
+    m_maxWidth = other.m_maxWidth;
+    m_minHeight = other.m_minHeight;
+    m_maxHeight = other.m_maxHeight;
+    m_minFrameRate = other.m_minFrameRate;
+    m_maxFrameRate = other.m_maxFrameRate;
+    m_segmentAlignment = other.m_segmentAlignment;
+    m_subsegmentAlignment = other.m_subsegmentAlignment;
+    m_subsegmentStartsWithSAP = other.m_subsegmentStartsWithSAP;
+    m_bitstreamSwitching = other.m_bitstreamSwitching;
+    m_initializationSetRefs = other.m_initializationSetRefs;
+    m_initializationPrincipal = other.m_initializationPrincipal;
+    m_accessibilities = other.m_accessibilities;
+    m_roles = other.m_roles;
+    m_ratings = other.m_ratings;
+    m_viewpoints = other.m_viewpoints;
+    m_contentComponents = other.m_contentComponents;
+    m_baseURLs = other.m_baseURLs;
+    m_segmentBase = other.m_segmentBase;
+    m_segmentList = other.m_segmentList;
+    m_segmentTemplate = other.m_segmentTemplate;
+    m_representations = other.m_representations;
+
     return *this;
 }
 
-AdaptationSet &AdaptationSet::operator=(AdaptationSet &&to_move)
+AdaptationSet &AdaptationSet::operator=(AdaptationSet &&other)
 {
-    m_xlink = std::move(to_move.m_xlink);
-    m_id = std::move(to_move.m_id);
-    m_group = std::move(to_move.m_group);
-    m_lang = std::move(to_move.m_lang);
-    m_contentType = std::move(to_move.m_contentType);
-    m_par = std::move(to_move.m_par);
-    m_minBandwidth = std::move(to_move.m_minBandwidth);
-    m_maxBandwidth = std::move(to_move.m_maxBandwidth);
-    m_minWidth = std::move(to_move.m_minWidth);
-    m_maxWidth = std::move(to_move.m_maxWidth);
-    m_minHeight = std::move(to_move.m_minHeight);
-    m_maxHeight = std::move(to_move.m_maxHeight);
-    m_minFrameRate = std::move(to_move.m_minFrameRate);
-    m_maxFrameRate = std::move(to_move.m_maxFrameRate);
-    m_segmentAlignment = std::move(to_move.m_segmentAlignment);
-    m_bitstreamSwitching = std::move(to_move.m_bitstreamSwitching);
-    m_subsegmentAlignment = std::move(to_move.m_subsegmentAlignment);
-    m_subsegmentStartsWithSAP = std::move(to_move.m_subsegmentStartsWithSAP);
-    m_initializationSetRefs = std::move(to_move.m_initializationSetRefs);
-    m_initializationPrincipal = std::move(to_move.m_initializationPrincipal);
-    m_accessibility = std::move(to_move.m_accessibility);
-    m_roles = std::move(to_move.m_roles);
-    m_ratings = std::move(to_move.m_ratings);
-    m_viewpoints = std::move(to_move.m_viewpoints);
-    m_contentComponents = std::move(to_move.m_contentComponents);
-    m_baseURLs = std::move(to_move.m_baseURLs);
-    m_segmentBase = std::move(to_move.m_segmentBase);
-    m_segmentList = std::move(to_move.m_segmentList);
-    m_segmentTemplate = std::move(to_move.m_segmentTemplate);
-    m_representations = std::move(to_move.m_representations);
+    RepresentationBase::operator=(std::move(other));
+    m_xlink = std::move(other.m_xlink);
+    m_id = std::move(other.m_id);
+    m_group = std::move(other.m_group);
+    m_lang = std::move(other.m_lang);
+    m_contentType = std::move(other.m_contentType);
+    m_par = std::move(other.m_par);
+    m_minBandwidth = std::move(other.m_minBandwidth);
+    m_maxBandwidth = std::move(other.m_maxBandwidth);
+    m_minWidth = std::move(other.m_minWidth);
+    m_maxWidth = std::move(other.m_maxWidth);
+    m_minHeight = std::move(other.m_minHeight);
+    m_maxHeight = std::move(other.m_maxHeight);
+    m_minFrameRate = std::move(other.m_minFrameRate);
+    m_maxFrameRate = std::move(other.m_maxFrameRate);
+    m_segmentAlignment = std::move(other.m_segmentAlignment);
+    m_subsegmentAlignment = std::move(other.m_subsegmentAlignment);
+    m_subsegmentStartsWithSAP = std::move(other.m_subsegmentStartsWithSAP);
+    m_bitstreamSwitching = std::move(other.m_bitstreamSwitching);
+    m_initializationSetRefs = std::move(other.m_initializationSetRefs);
+    m_initializationPrincipal = std::move(other.m_initializationPrincipal);
+    m_accessibilities = std::move(other.m_accessibilities);
+    m_roles = std::move(other.m_roles);
+    m_ratings = std::move(other.m_ratings);
+    m_viewpoints = std::move(other.m_viewpoints);
+    m_contentComponents = std::move(other.m_contentComponents);
+    m_baseURLs = std::move(other.m_baseURLs);
+    m_segmentBase = std::move(other.m_segmentBase);
+    m_segmentList = std::move(other.m_segmentList);
+    m_segmentTemplate = std::move(other.m_segmentTemplate);
+    m_representations = std::move(other.m_representations);
+
     return *this;
 }
 
 bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
 {
-
 #define COMPARE_OPT_VALUES(var) do { \
         if (var.has_value() != to_compare.var.has_value()) return false; \
         if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
@@ -187,7 +229,9 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
         } \
     } while (0)
 
-   if (m_bitstreamSwitching != to_compare.m_bitstreamSwitching) return false;
+    if (m_segmentAlignment != to_compare.m_segmentAlignment) return false;
+    if (m_subsegmentAlignment != to_compare.m_subsegmentAlignment) return false;
+    if (!(m_subsegmentStartsWithSAP == to_compare.m_subsegmentStartsWithSAP)) return false;
 
     COMPARE_OPT_VALUES(m_id);
     COMPARE_OPT_VALUES(m_group);
@@ -202,14 +246,13 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
     COMPARE_OPT_VALUES(m_maxHeight);
     COMPARE_OPT_VALUES(m_minFrameRate);
     COMPARE_OPT_VALUES(m_maxFrameRate);
-    COMPARE_OPT_VALUES(m_segmentAlignment);
-    COMPARE_OPT_VALUES(m_subsegmentStartsWithSAP);
+    COMPARE_OPT_VALUES(m_bitstreamSwitching);
     COMPARE_OPT_VALUES(m_initializationPrincipal);
     COMPARE_OPT_VALUES(m_segmentBase);
     COMPARE_OPT_VALUES(m_segmentList);
     COMPARE_OPT_VALUES(m_segmentTemplate);
 
-    COMPARE_ANY_ORDER_LISTS(m_accessibility);
+    COMPARE_ANY_ORDER_LISTS(m_accessibilities);
     COMPARE_ANY_ORDER_LISTS(m_roles);
     COMPARE_ANY_ORDER_LISTS(m_ratings);
     COMPARE_ANY_ORDER_LISTS(m_viewpoints);
@@ -218,43 +261,42 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
     COMPARE_ANY_ORDER_LISTS(m_baseURLs);
     COMPARE_ANY_ORDER_LISTS(m_representations);
 
-    //return false;
-    return true;
+    return RepresentationBase::operator==(to_compare);
 }
-
 
 /* protected: */
 AdaptationSet::AdaptationSet(xmlpp::Node &node)
-:m_xlink()
-,m_id()
-,m_group()
-,m_lang()
-,m_contentType()
-,m_par()
-,m_minBandwidth()
-,m_maxBandwidth()
-,m_minWidth()
-,m_maxWidth()
-,m_minHeight()
-,m_maxHeight()
-,m_minFrameRate()
-,m_maxFrameRate()
-,m_segmentAlignment(false)
-,m_bitstreamSwitching(false)
-,m_subsegmentAlignment(false)
-,m_subsegmentStartsWithSAP(0)
-,m_initializationSetRefs()
-,m_initializationPrincipal()
-,m_accessibility()
-,m_roles()
-,m_ratings()
-,m_viewpoints()
-,m_contentComponents()
-,m_baseURLs()
-,m_segmentBase()
-,m_segmentList()
-,m_segmentTemplate()
-,m_representations()
+    :RepresentationBase(node)
+    ,m_xlink()
+    ,m_id()
+    ,m_group()
+    ,m_lang()
+    ,m_contentType()
+    ,m_par()
+    ,m_minBandwidth()
+    ,m_maxBandwidth()
+    ,m_minWidth()
+    ,m_maxWidth()
+    ,m_minHeight()
+    ,m_maxHeight()
+    ,m_minFrameRate()
+    ,m_maxFrameRate()
+    ,m_segmentAlignment(false)
+    ,m_subsegmentAlignment(false)
+    ,m_subsegmentStartsWithSAP(0)
+    ,m_bitstreamSwitching()
+    ,m_initializationSetRefs()
+    ,m_initializationPrincipal()
+    ,m_accessibilities()
+    ,m_roles()
+    ,m_ratings()
+    ,m_viewpoints()
+    ,m_contentComponents()
+    ,m_baseURLs()
+    ,m_segmentBase()
+    ,m_segmentList()
+    ,m_segmentTemplate()
+    ,m_representations()
 {
     static const xmlpp::Node::PrefixNsMap ns_map = {
         {"mpd", MPD_NS}, {"xlink", XLINK_NS}
@@ -279,7 +321,7 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
     node_set = node.find("@id");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-	m_id =static_cast<unsigned int>(std::stoul(attr->get_value()));
+        m_id =static_cast<unsigned int>(std::stoul(attr->get_value()));
     }
 
     node_set = node.find("@group");
@@ -303,7 +345,7 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
     node_set = node.find("@par");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        m_par = RatioType(std::string(attr->get_value()));
+        m_par = Ratio(std::string(attr->get_value()));
     }
 
     node_set = node.find("@minBandwidth");
@@ -345,53 +387,72 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
     node_set = node.find("@minFrameRate");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-	m_minFrameRate = FrameRate(std::string(attr->get_value()));
+        m_minFrameRate = FrameRate(std::string(attr->get_value()));
     }
 
     node_set = node.find("@maxFrameRate");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-	m_maxFrameRate = FrameRate(std::string(attr->get_value()));
+        m_maxFrameRate = FrameRate(std::string(attr->get_value()));
     }
 
     node_set = node.find("@segmentAlignment");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        if (attr->get_value() == "true") {
+        if (attr->get_value() == "true" || attr->get_value() == "1") {
             m_segmentAlignment = true;
+        } else if (attr->get_value() == "false" || attr->get_value() == "0") {
+            m_segmentAlignment = false;
+        } else {
+            throw ParseError("AdaptationSet/@segmentAlignment can only be \"true\", \"1\", \"false\" or \"0\", if present");
         }
     }
 
-    node_set = node.find("@bitstreamSwitching");
+    node_set = node.find("@subsegmentAlignment");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        if (attr->get_value() == "true") {
-            m_bitstreamSwitching = true;
-        }
-    }
-
-     node_set = node.find("@subsegmentAlignment");
-    if (node_set.size() > 0) {
-        xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        if (attr->get_value() == "true") {
+        if (attr->get_value() == "true" || attr->get_value() == "1") {
             m_subsegmentAlignment = true;
+        } else if (attr->get_value() == "false" || attr->get_value() == "0") {
+            m_subsegmentAlignment = false;
+        } else {
+            throw ParseError("AdaptationSet/@subsegmentAlignment can only be \"true\", \"1\", \"false\" or \"0\", if present");
         }
     }
 
     node_set = node.find("@subsegmentStartsWithSAP");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-	m_subsegmentStartsWithSAP = Sap(static_cast<unsigned int>(std::stoul(attr->get_value())));
+        m_subsegmentStartsWithSAP = SAP(std::string(attr->get_value()));
+    }
+
+    node_set = node.find("@bitstreamSwitching");
+    if (node_set.size() > 0) {
+        xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
+        if (attr->get_value() == "true" || attr->get_value() == "1") {
+            m_bitstreamSwitching = true;
+        } else if (attr->get_value() == "false" || attr->get_value() == "0") {
+            m_bitstreamSwitching = false;
+        } else {
+            throw ParseError("AdaptationSet/@bitstreamSwitching can only be \"true\", \"1\", \"false\" or \"0\", if present");
+        }
     }
 
     node_set = node.find("@initializationSetRef", ns_map);
     if (node_set.size() > 0) {
 	xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-	std::istringstream iss(attr->get_value());
-	unsigned int value = 0;
-	while (iss >> value) {
-            m_initializationSetRefs.push_back(value);
+        std::string::size_type start_pos = 0;
+        std::string attr_val = attr->get_value();
+        for (auto pos = attr_val.find_first_of(','); pos != std::string::npos; start_pos = pos+1, pos = attr_val.find_first_of(',')) {
+            auto val = attr_val.substr(start_pos, pos - start_pos);
+            if (!val.empty()) {
+                m_initializationSetRefs.push_back(static_cast<unsigned int>(std::stoul(val)));
+            }
         }    
+        auto val = attr_val.substr(start_pos);
+        if (!val.empty()) {
+            m_initializationSetRefs.push_back(static_cast<unsigned int>(std::stoul(val)));
+        }
     }
 
     node_set = node.find("@initializationPrincipal");
@@ -403,28 +464,28 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
     node_set = node.find("mpd:Accessibility", ns_map);
     if (node_set.size() > 0) {
         for (auto node : node_set) {
-            m_accessibility.push_back(Accessibility(*node));
+            m_accessibilities.push_back(Descriptor(*node));
         }
     }
 
     node_set = node.find("mpd:Role", ns_map);
     if (node_set.size() > 0) {
         for (auto node : node_set) {
-            m_roles.push_back(Role(*node));
+            m_roles.push_back(Descriptor(*node));
         }
     }
 
     node_set = node.find("mpd:Rating", ns_map);
     if (node_set.size() > 0) {
         for (auto node : node_set) {
-            m_ratings.push_back(Rating(*node));
+            m_ratings.push_back(Descriptor(*node));
         }
     }
 
     node_set = node.find("mpd:Viewpoint", ns_map);
     if (node_set.size() > 0) {
         for (auto node : node_set) {
-            m_viewpoints.push_back(Viewpoint(*node));
+            m_viewpoints.push_back(Descriptor(*node));
         }
     }
 
@@ -466,121 +527,121 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
 
 }
 
-AdaptationSet &AdaptationSet::accessibilityAdd(const Accessibility &accessibility)
+AdaptationSet &AdaptationSet::accessibilityAdd(const Descriptor &accessibility)
 {
-    m_accessibility.push_back(accessibility);
+    m_accessibilities.push_back(accessibility);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityAdd(Accessibility &&accessibility)
+AdaptationSet &AdaptationSet::accessibilityAdd(Descriptor &&accessibility)
 {
-    m_accessibility.push_back(std::move(accessibility));
+    m_accessibilities.push_back(std::move(accessibility));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const Accessibility &accessibility)
+AdaptationSet &AdaptationSet::accessibilityRemove(const Descriptor &accessibility)
 {
-    m_accessibility.remove(accessibility);
+    m_accessibilities.remove(accessibility);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Accessibility>::const_iterator &it)
+AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Descriptor>::const_iterator &it)
 {
-    m_accessibility.erase(it);
+    m_accessibilities.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Accessibility>::iterator &it)
+AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Descriptor>::iterator &it)
 {
-    m_accessibility.erase(it);
+    m_accessibilities.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleAdd(const Role &role)
+AdaptationSet &AdaptationSet::roleAdd(const Descriptor &role)
 {
     m_roles.push_back(role);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleAdd(Role &&role)
+AdaptationSet &AdaptationSet::roleAdd(Descriptor &&role)
 {
     m_roles.push_back(std::move(role));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const Role &role)
+AdaptationSet &AdaptationSet::roleRemove(const Descriptor &role)
 {
     m_roles.remove(role);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const std::list<Role>::const_iterator &it)
+AdaptationSet &AdaptationSet::roleRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_roles.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const std::list<Role>::iterator &it)
+AdaptationSet &AdaptationSet::roleRemove(const std::list<Descriptor>::iterator &it)
 {
     m_roles.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingAdd(const Rating &rating)
+AdaptationSet &AdaptationSet::ratingAdd(const Descriptor &rating)
 {
     m_ratings.push_back(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingAdd(Rating &&rating)
+AdaptationSet &AdaptationSet::ratingAdd(Descriptor &&rating)
 {
     m_ratings.push_back(std::move(rating));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const Rating &rating)
+AdaptationSet &AdaptationSet::ratingRemove(const Descriptor &rating)
 {
     m_ratings.remove(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const std::list<Rating>::const_iterator &it)
+AdaptationSet &AdaptationSet::ratingRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_ratings.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const std::list<Rating>::iterator &it)
+AdaptationSet &AdaptationSet::ratingRemove(const std::list<Descriptor>::iterator &it)
 {
     m_ratings.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointAdd(const Viewpoint &rating)
+AdaptationSet &AdaptationSet::viewpointAdd(const Descriptor &rating)
 {
     m_viewpoints.push_back(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointAdd(Viewpoint &&rating)
+AdaptationSet &AdaptationSet::viewpointAdd(Descriptor &&rating)
 {
     m_viewpoints.push_back(std::move(rating));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const Viewpoint &rating)
+AdaptationSet &AdaptationSet::viewpointRemove(const Descriptor &rating)
 {
     m_viewpoints.remove(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Viewpoint>::const_iterator &it)
+AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_viewpoints.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Viewpoint>::iterator &it)
+AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Descriptor>::iterator &it)
 {
     m_viewpoints.erase(it);
     return *this;
@@ -689,6 +750,7 @@ static Glib::ustring get_ns_prefix_for(xmlpp::Element &elem, const Glib::ustring
 
 void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
 {
+    RepresentationBase::setXMLElement(elem);
 
     if (m_xlink.has_value()) {
         const Glib::ustring& xlink_prefix = get_ns_prefix_for(elem, XLINK_NS, "xlink");
@@ -702,7 +764,6 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
             elem.set_attribute("id", std::to_string(m_id.value()));
         }
 
-
         if(m_group.has_value()) {
             elem.set_attribute("group", std::to_string(m_group.value()));
         }  
@@ -712,22 +773,20 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
         }
 
         if (m_contentType.has_value()) {
-            m_contentType.value().setXMLElement(elem);
+            elem.set_attribute("contentType", std::string(m_contentType.value()));
         }
 
         if (m_par.has_value()) {
-            m_par.value().setXMLElement(elem);
+            elem.set_attribute("par", std::string(m_par.value()));
         }
 
         if(m_minBandwidth.has_value()) {
            elem.set_attribute("minBandwidth", std::to_string(m_minBandwidth.value()));
         }
 
-
         if(m_maxBandwidth.has_value()) {
             elem.set_attribute("maxBandwidth", std::to_string(m_maxBandwidth.value()));
         }
-
 
         if(m_minWidth.has_value()) {
             elem.set_attribute("minWidth", std::to_string(m_minWidth.value()));
@@ -745,56 +804,56 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
             elem.set_attribute("maxHeight", std::to_string(m_maxHeight.value()));
         }
         if (m_minFrameRate.has_value()) {
-            m_minFrameRate.value().setXMLElement(elem);
+            elem.set_attribute("minFrameRate", std::string(m_minFrameRate.value()));
         }
 
         if (m_maxFrameRate.has_value()) {
-            m_maxFrameRate.value().setXMLElement(elem);
+            elem.set_attribute("maxFrameRate", std::string(m_maxFrameRate.value()));
         }
 
-        if (m_segmentAlignment.has_value()) {
-            if (m_segmentAlignment.value()) {
-                elem.set_attribute("segmentAlignment", "true");
-	    }		
-
+        if (m_segmentAlignment) {
+            elem.set_attribute("segmentAlignment", "true");
         }
 
-        if (m_bitstreamSwitching) {
-            elem.set_attribute("bitstreamSwitching", "true");
+        if (m_subsegmentAlignment) {
+            elem.set_attribute("subsegmentAlignment", "true");
         }
 
-        if (m_subsegmentAlignment.has_value()) {
-            if (m_segmentAlignment.value()) {
-                elem.set_attribute("subsegmentAlignment", "true");
+        if (m_subsegmentStartsWithSAP != 0) {
+            elem.set_attribute("subsegmentStartsWithSAP", std::string(m_subsegmentStartsWithSAP));
+        }
+
+        if (m_bitstreamSwitching.has_value()) {
+            elem.set_attribute("bitstreamSwitching", m_bitstreamSwitching.value()?"true":"false");
+        }
+
+        if (m_initializationSetRefs.size() > 0) {
+            std::ostringstream oss;
+            const char *sep = "";
+            for (const auto &init_set_ref : m_initializationSetRefs) {
+                oss << sep << init_set_ref;
+                sep = ",";
             }
-        }
-
-
-        if (m_subsegmentStartsWithSAP.has_value()) {
-            m_subsegmentStartsWithSAP.value().setXMLElement(elem);
-        }
-
-        for (const auto &init_set_ref : m_initializationSetRefs) {
-	    elem.set_attribute("initializationSetRef", std::to_string(init_set_ref));
+            elem.set_attribute("initializationSetRef", oss.str());
         }
 
         if(m_initializationPrincipal.has_value()) {
-            elem.set_attribute("initializationPrincipal", m_initializationPrincipal.value());
+            elem.set_attribute("initializationPrincipal", std::string(m_initializationPrincipal.value()));
         }
-	
-	for (const auto &accessibility : m_accessibility) {
+
+        for (const auto &accessibility : m_accessibilities) {
             xmlpp::Element *child = elem.add_child_element("Accessibility");
             accessibility.setXMLElement(*child);
         }
 
         for (const auto &role : m_roles) {
-            xmlpp::Element *child = elem.add_child_element("Roles");
+            xmlpp::Element *child = elem.add_child_element("Role");
             role.setXMLElement(*child);
         }
 
 
         for (const auto &rating : m_ratings) {
-            xmlpp::Element *child = elem.add_child_element("Ratings");
+            xmlpp::Element *child = elem.add_child_element("Rating");
             rating.setXMLElement(*child);
         }
 
@@ -829,9 +888,7 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
             xmlpp::Element *child = elem.add_child_element("Representation");
             repr.setXMLElement(*child);
         }
-
     }
-
 }
 
 LIBPARSEMPD_NAMESPACE_END

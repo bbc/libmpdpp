@@ -32,6 +32,14 @@ public:
     virtual ~InvalidMPD() = default;
 };
 
+class LIBPARSEMPD_PUBLIC_API RangeError : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+    using std::runtime_error::operator=;
+
+    virtual ~RangeError() = default;
+};
+
 LIBPARSEMPD_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

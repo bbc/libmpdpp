@@ -1,14 +1,14 @@
 #ifndef _BBC_PARSE_DASH_MPD_FRAME_RATE_HH_
-#define _BBC_PARSE_DASH_MPD_FRAME_RATE_RANGE_HH_
+#define _BBC_PARSE_DASH_MPD_FRAME_RATE_HH_
 /*****************************************************************************
  * DASH MPD parsing library in C++: FrameRate class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <optional>
 #include <string>

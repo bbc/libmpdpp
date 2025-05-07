@@ -1,7 +1,7 @@
-#ifndef _BBC_PARSE_DASH_MPD_EVENT_STREAM_HH_
-#define _BBC_PARSE_DASH_MPD_EVENT_STREAM_HH_
+#ifndef _BBC_PARSE_DASH_MPD_SWITCHING_HH_
+#define _BBC_PARSE_DASH_MPD_SWITCHING_HH_
 /*****************************************************************************
- * DASH MPD parsing library in C++: EventStream class
+ * DASH MPD parsing library in C++: Switching class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
@@ -10,7 +10,7 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
-#include <optional>
+#include <string>
 
 #include "macros.hh"
 
@@ -21,27 +21,33 @@ namespace xmlpp {
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-class Period;
-
-class LIBPARSEMPD_PUBLIC_API EventStream {
+class LIBPARSEMPD_PUBLIC_API Switching {
 public:
-    EventStream() {};
+    Switching();
+    Switching(const Switching &to_copy);
+    Switching(Switching &&to_move);
 
-    virtual ~EventStream() {};
+    virtual ~Switching() {};
 
-    bool operator==(const EventStream&) const { return true; };
+    Switching &operator=(const Switching &to_copy);
+    Switching &operator=(Switching &&to_move);
+
+    bool operator==(const Switching &to_compare) const;
 
 protected:
-    friend class Period;
     friend class RepresentationBase;
-    EventStream(xmlpp::Node&);
+    Switching(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 
 private:
+    // Switching attributes (ISO 23009-1:2022 Clause X.X.X.X)
+
+    // Switching child elements (ISO 23009-1:2022 Clause X.X.X.X)
 };
 
 LIBPARSEMPD_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
-#endif /*_BBC_PARSE_DASH_MPD_EVENT_STREAM_HH_*/
+#endif /*_BBC_PARSE_DASH_MPD_SWITCHING_HH_*/
+

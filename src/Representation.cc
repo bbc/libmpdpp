@@ -3,10 +3,10 @@
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
 #include <list>
@@ -39,7 +39,7 @@
 LIBPARSEMPD_NAMESPACE_BEGIN
 
 Representation::Representation()
-    :m_mpd()
+    :RepresentationBase()
     ,m_adaptationSet()
     ,m_id()
     ,m_bandwidth(0)
@@ -58,8 +58,8 @@ Representation::Representation()
 }
 
 Representation::Representation(const Representation &to_copy)
-    :m_mpd(to_copy.m_mpd)
-    ,m_adaptationSet()
+    :RepresentationBase(to_copy)
+    ,m_adaptationSet(nullptr)
     ,m_id(to_copy.m_id)
     ,m_bandwidth(to_copy.m_bandwidth)
     ,m_qualityRanking(to_copy.m_qualityRanking)
@@ -75,8 +75,8 @@ Representation::Representation(const Representation &to_copy)
 }
 
 Representation::Representation(Representation &&to_move)
-    :m_mpd(std::move(to_move.m_mpd))
-    ,m_adaptationSet(std::move(to_move.m_adaptationSet))	
+    :RepresentationBase(std::move(to_move))
+    ,m_adaptationSet(nullptr)
     ,m_id(std::move(to_move.m_id))
     ,m_bandwidth(to_move.m_bandwidth)
     ,m_qualityRanking(to_move.m_qualityRanking)
@@ -93,7 +93,7 @@ Representation::Representation(Representation &&to_move)
 
 Representation &Representation::operator=(const Representation &to_copy)
 {
-    m_mpd = to_copy.m_mpd;
+    RepresentationBase::operator=(to_copy);
     m_adaptationSet = to_copy.m_adaptationSet;
     m_id = to_copy.m_id;
     m_bandwidth = to_copy.m_bandwidth;
@@ -112,8 +112,8 @@ Representation &Representation::operator=(const Representation &to_copy)
 
 Representation &Representation::operator=(Representation &&to_move)
 {
-    m_mpd = std::move(to_move.m_mpd);
-    m_adaptationSet = std::move(to_move.m_adaptationSet);
+    RepresentationBase::operator=(std::move(to_move));
+    m_adaptationSet = to_move.m_adaptationSet;
     m_id = std::move(to_move.m_id);
     m_bandwidth = std::move(to_move.m_bandwidth);
     m_qualityRanking = std::move(to_move.m_qualityRanking);
@@ -160,12 +160,26 @@ bool Representation::operator==(const Representation &to_compare) const
     COMPARE_ANY_ORDER_LISTS(m_associationTypes);
     COMPARE_ANY_ORDER_LISTS(m_mediaStreamStructureIds);
 
-    //return false;
-    return true;
+    return RepresentationBase::operator==(to_compare);
+}
+
+namespace {
+    template<class T>
+    std::list<T> split_attribute_str(const std::string &attr_value, char sep = ',')
+    {
+        std::list<T> ret;
+        std::string::size_type start_pos = 0;
+        for (auto pos = attr_value.find_first_of(sep); pos != std::string::npos; start_pos = pos+1, pos = attr_value.find_first_of(sep, start_pos)) {
+            ret.push_back(T(attr_value.substr(start_pos, pos-start_pos)));
+        }
+        ret.push_back(T(attr_value.substr(start_pos)));
+
+        return ret;
+    }
 }
 
 Representation::Representation(xmlpp::Node &node)
-    :m_mpd()
+    :RepresentationBase(node)
     ,m_adaptationSet()
     ,m_id()
     ,m_bandwidth()
@@ -181,7 +195,6 @@ Representation::Representation(xmlpp::Node &node)
     ,m_segmentList()
     ,m_segmentTemplate()
 {
-
     static const xmlpp::Node::PrefixNsMap ns_map = {
         {"mpd", MPD_NS}, {"xlink", XLINK_NS}
     };
@@ -221,20 +234,20 @@ Representation::Representation(xmlpp::Node &node)
     node_set = node.find("@associationId");
     if (node_set.size() > 0) {
 	xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        m_associationIds.push_back(std::string(attr->get_value()));     
+        m_associationIds = split_attribute_str<std::string>(attr->get_value());
     }
 
     node_set = node.find("@associationType");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        m_associationTypes.push_back(std::string(attr->get_value()));
+        m_associationTypes = split_attribute_str<std::string>(attr->get_value());
 
     }
 
     node_set = node.find("@mediaStreamStructureId");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        m_mediaStreamStructureIds.push_back(std::string(attr->get_value()));
+        m_mediaStreamStructureIds = split_attribute_str<std::string>(attr->get_value());
     }
 
     node_set = node.find("mpd:BaseURL", ns_map);
@@ -344,4 +357,3 @@ LIBPARSEMPD_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
-

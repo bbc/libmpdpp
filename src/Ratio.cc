@@ -1,12 +1,12 @@
 /*****************************************************************************
- * DASH MPD parsing library in C++: RatioType class
+ * DASH MPD parsing library in C++: Ratio class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <optional>
 #include <string>
@@ -17,29 +17,29 @@
 #include "libmpd++/macros.hh"
 #include "libmpd++/exceptions.hh"
 
-#include "libmpd++/RatioType.hh"
+#include "libmpd++/Ratio.hh"
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-RatioType::RatioType(const std::string &ratio_str)
+Ratio::Ratio(const std::string &ratio_str)
     : m_numerator(0)
     , m_denominator(0)
 {
     convertString(ratio_str);
 }
 
-bool RatioType::operator==(const RatioType &other) const {
+bool Ratio::operator==(const Ratio &other) const {
     return (m_numerator == other.m_numerator) &&
            (m_denominator == other.m_denominator);
 }
 
-RatioType::operator std::string() const {
+Ratio::operator std::string() const {
     std::ostringstream oss;
     oss << m_numerator << ":" << m_denominator;
     return oss.str();
 }
 
-RatioType::RatioType(xmlpp::Node &node)
+Ratio::Ratio(xmlpp::Node &node)
     : m_numerator(0)
     , m_denominator(0)
 {
@@ -47,11 +47,11 @@ RatioType::RatioType(xmlpp::Node &node)
     convertString(ratio);
 }
 
-void RatioType::setXMLElement(xmlpp::Element &elem) const {
+void Ratio::setXMLElement(xmlpp::Element &elem) const {
     elem.add_child_text(std::string(*this));
 }
 
-void RatioType::convertString(const std::string &ratio_str) {
+void Ratio::convertString(const std::string &ratio_str) {
     auto pos = ratio_str.find_first_of(':');
     if (pos == std::string::npos)
         throw ParseError("Bad Ratio string: missing colon");

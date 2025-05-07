@@ -1,14 +1,14 @@
 #ifndef _BBC_PARSE_DASH_MPD_SAP_HH_
 #define _BBC_PARSE_DASH_MPD_SAP_HH_
 /*****************************************************************************
- * DASH MPD parsing library in C++: Sap class
+ * DASH MPD parsing library in C++: SAP class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <optional>
 #include <string>
@@ -23,34 +23,32 @@ namespace xmlpp {
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-class AdaptationSet;
-
-class LIBPARSEMPD_PUBLIC_API Sap {
+class LIBPARSEMPD_PUBLIC_API SAP {
 public:
     using value_type = unsigned int;
 
-    Sap()
-        : m_value(0)
-    {}
+    SAP();
+    SAP(const std::string &sap_str);
+    SAP(value_type value);
+    SAP(const SAP&);
+    SAP(SAP&&);
 
-    Sap(const std::string &sap_str);
+    virtual ~SAP() {};
 
-    Sap(value_type value);
+    SAP &operator=(const SAP&);
+    SAP &operator=(SAP&&);
 
-    virtual ~Sap() {};
-
-    bool operator==(const Sap &other) const;
+    bool operator==(const SAP &other) const;
 
     operator std::string() const;
 
     value_type value() const { return m_value; }
 
-    Sap &value(value_type val);
+    SAP &value(value_type val);
 
 protected:
-    friend AdaptationSet;
-    Sap(xmlpp::Node &node);
-
+    friend class AdaptationSet;
+    SAP(xmlpp::Node &node);
     void setXMLElement(xmlpp::Element &elem) const;
 
 private:

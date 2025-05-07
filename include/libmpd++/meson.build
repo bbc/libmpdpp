@@ -3,14 +3,13 @@
 ##############################################################################
 # Copyright: (C) 2025 British Broadcasting Corporation
 # Author(s): David Waring <david.waring2@bbc.co.uk>
-# License: LGPL?
+# License: LGPLv3
 #
 # For full license terms please see the LICENSE file distributed with this
-# library or refer to: [URL here].
+# library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
 #
 
 libparsempd_public_hdrs = files('''
-Accessibility.hh
 AdaptationSet.hh
 BaseURL.hh
 ContentComponent.hh
@@ -32,12 +31,10 @@ PatchLocation.hh
 Period.hh
 Preselection.hh
 ProgramInformation.hh
-Rating.hh
-RatioType.hh
-Role.hh
+Ratio.hh
 Representation.hh
 RFC6838ContentType.hh
-Sap.hh
+SAP.hh
 SegmentBase.hh
 SegmentList.hh
 SegmentTemplate.hh
@@ -49,7 +46,6 @@ SingleRFC7233Range.hh
 Subset.hh
 SubRepresentation.hh
 UIntVWithID.hh
-Viewpoint.hh
 URI.hh
 URL.hh
 XLink.hh

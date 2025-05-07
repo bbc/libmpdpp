@@ -1,14 +1,14 @@
 #ifndef _BBC_PARSE_DASH_MPD_RATIO_TYPE_HH_
 #define _BBC_PARSE_DASH_MPD_RATIO_TYPE_HH_
 /*****************************************************************************
- * DASH MPD parsing library in C++: RatioType class
+ * DASH MPD parsing library in C++: Ratio class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <optional>
 #include <string>
@@ -23,36 +23,36 @@ namespace xmlpp {
 
 LIBPARSEMPD_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API RatioType {
+class LIBPARSEMPD_PUBLIC_API Ratio {
 public:
     using size_type = size_t;
 
-    RatioType()
+    Ratio()
         : m_numerator(0)
         , m_denominator(0)
     {};
 
-    RatioType(const std::string &ratio_str);
+    Ratio(const std::string &ratio_str);
 
-    RatioType(size_type numerator, size_type denominator)
+    Ratio(size_type numerator, size_type denominator)
         : m_numerator(numerator)
         , m_denominator(denominator)
     {};
 
-    virtual ~RatioType() {};
+    virtual ~Ratio() {};
 
-    bool operator==(const RatioType &other) const;
+    bool operator==(const Ratio &other) const;
 
     operator std::string() const;
 
     size_type numerator() const { return m_numerator; }
-    RatioType &numerator(size_type num) { m_numerator = num; return *this; }
+    Ratio &numerator(size_type num) { m_numerator = num; return *this; }
     size_type denominator() const { return m_denominator; }
-    RatioType &denominator(size_type den) { m_denominator = den; return *this; }
+    Ratio &denominator(size_type den) { m_denominator = den; return *this; }
 
 protected:
     friend class AdaptationSet;
-    RatioType(xmlpp::Node &node);
+    Ratio(xmlpp::Node &node);
     void setXMLElement(xmlpp::Element &elem) const;
 
 private:

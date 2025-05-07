@@ -5,10 +5,10 @@
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <iostream>
 #include <optional>
@@ -94,8 +94,11 @@ public:
     Descriptor &id(std::string &&id) { m_id = std::move(id); return *this; };
 
 protected:
+    friend class AdaptationSet;
     friend class MPD;
     friend class Period;
+    friend class Representation;
+    friend class RepresentationBase;
     Descriptor(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 
