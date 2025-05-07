@@ -290,15 +290,17 @@ Representation::Representation(xmlpp::Node &node)
 
 void Representation::setXMLElement(xmlpp::Element &elem) const
 {
+    RepresentationBase::setXMLElement(elem);
+
     // Attributes
     if(!m_id.empty()) {
         elem.set_attribute("id", m_id);	    
     }
     if (m_bandwidth != 0) {
-        elem.set_attribute("bandwidth", std::format("%lu", m_bandwidth));
+        elem.set_attribute("bandwidth", std::to_string(m_bandwidth));
     }
     if (m_qualityRanking.has_value()) {
-        elem.set_attribute("qualityRanking", std::format("%i", m_qualityRanking.value()));
+        elem.set_attribute("qualityRanking", std::to_string(m_qualityRanking.value()));
     }
 
     for (const auto &depId : m_dependencyIds) {

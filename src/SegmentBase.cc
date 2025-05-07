@@ -3,10 +3,10 @@
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <format>
 #include <optional>
@@ -141,6 +141,19 @@ bool SegmentBase::operator==(const SegmentBase &other) const
 
 /* protected: */
 SegmentBase::SegmentBase(xmlpp::Node &node)
+    :m_timescale()
+    ,m_eptDelta()
+    ,m_pdDelta()
+    ,m_presentationTimeOffset()
+    ,m_presentationDuration()
+    ,m_timeShiftBufferDepth()
+    ,m_indexRange()
+    ,m_indexRangeExact(false)
+    ,m_availabilityTimeOffset()
+    ,m_availabilityTimeComplete(true)
+    ,m_initialization()
+    ,m_representationIndex()
+    ,m_failoverContent()
 {
     static const xmlpp::Node::PrefixNsMap ns_map = {
         {"mpd", MPD_NS}
@@ -150,6 +163,7 @@ SegmentBase::SegmentBase(xmlpp::Node &node)
     node_set = node.find("@timescale");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
+        std::cerr << "Found @timescale=\"" << attr->get_value() << "\"" << std::endl;
         m_timescale = static_cast<unsigned int>(std::stoul(attr->get_value()));
     }
 
@@ -234,19 +248,19 @@ void SegmentBase::setXMLElement(xmlpp::Element &elem) const
 {
     // Attributes
     if (m_timescale.has_value()) {
-        elem.set_attribute("timescale", std::format("%u", m_timescale.value()));
+        elem.set_attribute("timescale", std::to_string(m_timescale.value()));
     }
     if (m_eptDelta.has_value()) {
-        elem.set_attribute("eptDelta", std::format("%i", m_eptDelta.value()));
+        elem.set_attribute("eptDelta", std::to_string(m_eptDelta.value()));
     }
     if (m_pdDelta.has_value()) {
-        elem.set_attribute("pdDelta", std::format("%i", m_pdDelta.value()));
+        elem.set_attribute("pdDelta", std::to_string(m_pdDelta.value()));
     }
     if (m_presentationTimeOffset.has_value()) {
-        elem.set_attribute("presentationTimeOffset", std::format("%lu", m_presentationTimeOffset.value()));
+        elem.set_attribute("presentationTimeOffset", std::to_string(m_presentationTimeOffset.value()));
     }
     if (m_presentationDuration.has_value()) {
-        elem.set_attribute("presentationDuration", std::format("%lu", m_presentationDuration.value()));
+        elem.set_attribute("presentationDuration", std::to_string(m_presentationDuration.value()));
     }
     if (m_timeShiftBufferDepth.has_value()) {
         elem.set_attribute("timeShiftBufferDepth", format_duration(m_timeShiftBufferDepth.value()));
@@ -258,7 +272,7 @@ void SegmentBase::setXMLElement(xmlpp::Element &elem) const
         elem.set_attribute("indexRangeExact", "true");
     }
     if (m_availabilityTimeOffset.has_value()) {
-        elem.set_attribute("availabilityTimeOffset", std::format("%f", m_availabilityTimeOffset.value()));
+        elem.set_attribute("availabilityTimeOffset", std::to_string(m_availabilityTimeOffset.value()));
     }
     if (!m_availabilityTimeComplete) {
         elem.set_attribute("availabilityTimeComplete", "false");

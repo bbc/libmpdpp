@@ -3,10 +3,10 @@
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <optional>
 
@@ -145,15 +145,18 @@ MultipleSegmentBase::MultipleSegmentBase(xmlpp::Node &node)
 
 void MultipleSegmentBase::setXMLElement(xmlpp::Element &elem) const
 {
+    // Do parent class additions first
+    SegmentBase::setXMLElement(elem);
+
     // Attributes
     if (m_duration) {
-        elem.set_attribute("duration", std::format("%u", m_duration.value()));
+        elem.set_attribute("duration", std::to_string(m_duration.value()));
     }
     if (m_startNumber) {
-        elem.set_attribute("startNumber", std::format("%u", m_startNumber.value()));
+        elem.set_attribute("startNumber", std::to_string(m_startNumber.value()));
     }
     if (m_endNumber) {
-        elem.set_attribute("endNumber", std::format("%u", m_endNumber.value()));
+        elem.set_attribute("endNumber", std::to_string(m_endNumber.value()));
     }
     // Elements
     if (m_segmentTimeline) {

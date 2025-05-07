@@ -3,10 +3,10 @@
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
  * Author(s): David Waring <david.waring2@bbc.co.uk>
- * License: LGPL?
+ * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
- * library or refer to: [URL here].
+ * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
 #include <optional>
@@ -174,7 +174,7 @@ void BaseURL::setXMLElement(xmlpp::Element &elem) const
         elem.set_attribute("byteRange", m_byteRange.value());
     }
     if (m_availabilityTimeOffset.has_value()) {
-        elem.set_attribute("availabilityTimeOffset", std::format("%d", m_availabilityTimeOffset.value()));
+        elem.set_attribute("availabilityTimeOffset", std::to_string(m_availabilityTimeOffset.value()));
     }
     if (m_availabilityTimeComplete.has_value()) {
         elem.set_attribute("availabilityTimeComplete", m_availabilityTimeComplete.value()?"true":"false");
