@@ -586,21 +586,21 @@ AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Viewpoint>::iterat
     return *this;
 }
 
-AdaptationSet &AdaptationSet::contentComponentAdd(const ContentComponent &rating)
+AdaptationSet &AdaptationSet::contentComponentAdd(const ContentComponent &content_component)
 {
-    m_contentComponents.push_back(rating);
+    m_contentComponents.push_back(content_component);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::contentComponentAdd(ContentComponent &&rating)
+AdaptationSet &AdaptationSet::contentComponentAdd(ContentComponent &&content_component)
 {
-    m_contentComponents.push_back(std::move(rating));
+    m_contentComponents.push_back(std::move(content_component));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ContentComponentRemove(const ContentComponent &rating)
+AdaptationSet &AdaptationSet::ContentComponentRemove(const ContentComponent &content_component)
 {
-    m_contentComponents.remove(rating);
+    m_contentComponents.remove(content_component);
     return *this;
 }
 

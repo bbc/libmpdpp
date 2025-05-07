@@ -90,10 +90,10 @@ public:
     bool hasContentType() const { return m_contentType.has_value(); };
     const std::optional<RFC6838ContentType> &contentType() const {return m_contentType;};
     AdaptationSet &contentType(const std::nullopt_t &) { m_contentType.reset(); return *this; };
-    AdaptationSet &contentType(const RFC6838ContentType &contentType) {m_contentType = contentType; return *this;};
-    AdaptationSet &contentType(const RFC6838ContentType &&contentType) {m_contentType = std::move(contentType); return *this;};
-    AdaptationSet &contentType(const std::optional<RFC6838ContentType> &contentType) { m_contentType = contentType; return *this;};
-    AdaptationSet &contentType(const std::optional<RFC6838ContentType> &&contentType) { m_contentType = std::move(contentType); return *this;};
+    AdaptationSet &contentType(const RFC6838ContentType &content_type) {m_contentType = content_type; return *this;};
+    AdaptationSet &contentType(const RFC6838ContentType &&content_type) {m_contentType = std::move(content_type); return *this;};
+    AdaptationSet &contentType(const std::optional<RFC6838ContentType> &content_type) { m_contentType = content_type; return *this;};
+    AdaptationSet &contentType(const std::optional<RFC6838ContentType> &&content_type) { m_contentType = std::move(content_type); return *this;};
 
     bool hasPar() const { return m_par.has_value(); };
     const std::optional<RatioType> &par() const {return m_par;};
@@ -106,67 +106,67 @@ public:
     bool hasMinBandwidth() const { return m_minBandwidth.has_value(); };
     const std::optional<double> &minBandwidth() const { return m_minBandwidth; };
     AdaptationSet &minBandwidth(const std::nullopt_t &) { m_minBandwidth.reset(); return *this;};
-    AdaptationSet &minBandwidth(double minBandwidth) { m_minBandwidth = minBandwidth; return *this;};
-    AdaptationSet &minBandwidth(const std::optional<double> &minBandwidth) { m_minBandwidth = minBandwidth; return *this;};
-    AdaptationSet &minBandwidth(std::optional<double> &&minBandwidth) { m_minBandwidth = std::move(minBandwidth);return *this;};
+    AdaptationSet &minBandwidth(double min_bandwidth) { m_minBandwidth = min_bandwidth; return *this;};
+    AdaptationSet &minBandwidth(const std::optional<double> &min_bandwidth) { m_minBandwidth = min_bandwidth; return *this;};
+    AdaptationSet &minBandwidth(std::optional<double> &&min_bandwidth) { m_minBandwidth = std::move(min_bandwidth);return *this;};
 
     bool hasMaxBandwidth() const { return m_maxBandwidth.has_value(); };
     const std::optional<double> &maxBandwidth() const { return m_maxBandwidth; };
     AdaptationSet &maxBandwidth(const std::nullopt_t &) { m_maxBandwidth.reset(); return *this;};
-    AdaptationSet &maxBandwidth(double maxBandwidth) { m_maxBandwidth = maxBandwidth; return *this;};
-    AdaptationSet &maxBandwidth(const std::optional<double> &maxBandwidth) { m_maxBandwidth = maxBandwidth; return *this;};
-    AdaptationSet &maxBandwidth(std::optional<double> &&maxBandwidth) { m_maxBandwidth = std::move(maxBandwidth);return *this;};
+    AdaptationSet &maxBandwidth(double max_bandwidth) { m_maxBandwidth = max_bandwidth; return *this;};
+    AdaptationSet &maxBandwidth(const std::optional<double> &max_bandwidth) { m_maxBandwidth = max_bandwidth; return *this;};
+    AdaptationSet &maxBandwidth(std::optional<double> &&max_bandwidth) { m_maxBandwidth = std::move(max_bandwidth);return *this;};
 
     bool hasMinWidth() const { return m_minWidth.has_value(); };
     const std::optional<unsigned int> &minWidth() const { return m_minWidth; };
     AdaptationSet &minWidth(const std::nullopt_t &) { m_minWidth.reset(); return *this;};
-    AdaptationSet &minWidth(unsigned int minWidth) { m_minWidth = minWidth; return *this;};
-    AdaptationSet &minWidth(const std::optional<unsigned int> &minWidth) { m_minWidth = minWidth; return *this;};
-    AdaptationSet &minWidth(std::optional<unsigned int> &&minWidth) { m_minWidth = std::move(minWidth);return *this;};
+    AdaptationSet &minWidth(unsigned int min_width) { m_minWidth = min_width; return *this;};
+    AdaptationSet &minWidth(const std::optional<unsigned int> &min_width) { m_minWidth = min_width; return *this;};
+    AdaptationSet &minWidth(std::optional<unsigned int> &&min_width) { m_minWidth = std::move(min_width);return *this;};
 
     bool hasMaxWidth() const { return m_maxWidth.has_value(); };
     const std::optional<unsigned int> &maxWidth() const { return m_maxWidth; };
     AdaptationSet &maxWidth(const std::nullopt_t &) { m_maxWidth.reset(); return *this;};
-    AdaptationSet &maxWidth(unsigned int maxWidth) { m_maxWidth = maxWidth; return *this;};
-    AdaptationSet &maxWidth(const std::optional<unsigned int> &maxWidth) { m_maxWidth = maxWidth; return *this;};
-    AdaptationSet &maxWidth(std::optional<unsigned int> &&maxWidth) { m_maxWidth = std::move(maxWidth);return *this;};
+    AdaptationSet &maxWidth(unsigned int max_width) { m_maxWidth = max_width; return *this;};
+    AdaptationSet &maxWidth(const std::optional<unsigned int> &max_width) { m_maxWidth = max_width; return *this;};
+    AdaptationSet &maxWidth(std::optional<unsigned int> &&max_width) { m_maxWidth = std::move(max_width);return *this;};
 
     bool hasMinHeight() const { return m_minHeight.has_value(); };
     const std::optional<unsigned int> &minHeight() const { return m_minHeight; };
     AdaptationSet &minHeight(const std::nullopt_t &) { m_minHeight.reset(); return *this;};
-    AdaptationSet &minHeight(unsigned int minHeight) { m_minHeight = minHeight; return *this;};
-    AdaptationSet &minHeight(const std::optional<unsigned int> &minHeight) { m_minHeight = minHeight; return *this;};
-    AdaptationSet &minHeight(std::optional<unsigned int> &&minHeight) { m_minHeight = std::move(minHeight);return *this;};
+    AdaptationSet &minHeight(unsigned int min_height) { m_minHeight = min_height; return *this;};
+    AdaptationSet &minHeight(const std::optional<unsigned int> &min_height) { m_minHeight = min_height; return *this;};
+    AdaptationSet &minHeight(std::optional<unsigned int> &&min_height) { m_minHeight = std::move(min_height);return *this;};
     
     bool hasMaxHeight() const { return m_maxHeight.has_value(); };
     const std::optional<unsigned int> &maxHeight() const { return m_maxHeight; };
     AdaptationSet &maxHeight(const std::nullopt_t &) { m_maxHeight.reset(); return *this;};
-    AdaptationSet &maxHeight(unsigned int maxHeight) { m_maxHeight = maxHeight; return *this;};
-    AdaptationSet &maxHeight(const std::optional<unsigned int> &maxHeight) { m_maxHeight = maxHeight; return *this;};
-    AdaptationSet &maxHeight(std::optional<unsigned int> &&maxHeight) { m_maxHeight = std::move(maxHeight);return *this;};
+    AdaptationSet &maxHeight(unsigned int max_height) { m_maxHeight = max_height; return *this;};
+    AdaptationSet &maxHeight(const std::optional<unsigned int> &max_height) { m_maxHeight = max_height; return *this;};
+    AdaptationSet &maxHeight(std::optional<unsigned int> &&max_height) { m_maxHeight = std::move(max_height);return *this;};
 
     bool hasMinFrameRate() const { return m_minFrameRate.has_value(); };
     const std::optional<FrameRate> &minFrameRate() const {return m_minFrameRate;};
     AdaptationSet &minFrameRate(const std::nullopt_t &) { m_minFrameRate.reset(); return *this; };
-    AdaptationSet &minFrameRate(const FrameRate &minFrameRate) {m_minFrameRate = minFrameRate; return *this;};
-    AdaptationSet &minFrameRate(const FrameRate &&minFrameRate) {m_minFrameRate = std::move(minFrameRate); return *this;};
-    AdaptationSet &minFrameRate(const std::optional<FrameRate> &minFrameRate) { m_minFrameRate = minFrameRate; return *this;};
-    AdaptationSet &minFrameRate(const std::optional<FrameRate> &&minFrameRate) { m_minFrameRate = std::move(minFrameRate); return *this;};
+    AdaptationSet &minFrameRate(const FrameRate &min_frame_rate) {m_minFrameRate = min_frame_rate; return *this;};
+    AdaptationSet &minFrameRate(const FrameRate &&min_frame_rate) {m_minFrameRate = std::move(min_frame_rate); return *this;};
+    AdaptationSet &minFrameRate(const std::optional<FrameRate> &min_frame_rate) { m_minFrameRate = min_frame_rate; return *this;};
+    AdaptationSet &minFrameRate(const std::optional<FrameRate> &&min_frame_rate) { m_minFrameRate = std::move(min_frame_rate); return *this;};
 
     bool hasMaxFrameRate() const { return m_maxFrameRate.has_value(); };
     const std::optional<FrameRate> &maxFrameRate() const {return m_maxFrameRate;};
     AdaptationSet &maxFrameRate(const std::nullopt_t &) { m_maxFrameRate.reset(); return *this; };
-    AdaptationSet &maxFrameRate(const FrameRate &maxFrameRate) {m_maxFrameRate = maxFrameRate; return *this;};
-    AdaptationSet &maxFrameRate(const FrameRate &&maxFrameRate) {m_maxFrameRate = std::move(maxFrameRate); return *this;};
-    AdaptationSet &maxFrameRate(const std::optional<FrameRate> &maxFrameRate) { m_maxFrameRate = maxFrameRate; return *this;};
-    AdaptationSet &maxFrameRate(const std::optional<FrameRate> &&maxFrameRate) { m_maxFrameRate = std::move(maxFrameRate); return *this;};
+    AdaptationSet &maxFrameRate(const FrameRate &max_frame_rate) {m_maxFrameRate = max_frame_rate; return *this;};
+    AdaptationSet &maxFrameRate(const FrameRate &&max_frame_rate) {m_maxFrameRate = std::move(max_frame_rate); return *this;};
+    AdaptationSet &maxFrameRate(const std::optional<FrameRate> &max_frame_rate) { m_maxFrameRate = max_frame_rate; return *this;};
+    AdaptationSet &maxFrameRate(const std::optional<FrameRate> &&max_frame_rate) { m_maxFrameRate = std::move(max_frame_rate); return *this;};
 
     bool hasSegmentAlignment() const { return m_segmentAlignment.has_value(); };
     const std::optional<bool> &segmentAlignment() const { return m_segmentAlignment; };
     AdaptationSet &segmentAlignment(const std::nullopt_t &) { m_segmentAlignment.reset(); return *this;};
-    AdaptationSet &segmentAlignment(bool segmentAlignment) { m_segmentAlignment = segmentAlignment; return *this;};
-    AdaptationSet &segmentAlignment(const std::optional<bool> &segmentAlignment) { m_segmentAlignment = segmentAlignment; return *this;};
-    AdaptationSet &segmentAlignment(std::optional<bool> &&segmentAlignment) { m_segmentAlignment = std::move(segmentAlignment);return *this;};
+    AdaptationSet &segmentAlignment(bool segment_alignment) { m_segmentAlignment = segment_alignment; return *this;};
+    AdaptationSet &segmentAlignment(const std::optional<bool> &segment_alignment) { m_segmentAlignment = segment_alignment; return *this;};
+    AdaptationSet &segmentAlignment(std::optional<bool> &&segment_alignment) { m_segmentAlignment = std::move(segment_alignment);return *this;};
 
     bool bitstreamSwitching() const { return m_bitstreamSwitching; };
     AdaptationSet &bitstreamSwitching(bool bitstream_switching) { m_bitstreamSwitching = bitstream_switching; return *this; };
@@ -174,28 +174,28 @@ public:
     bool hasSubsegmentAlignment() const { return m_subsegmentAlignment.has_value(); };
     const std::optional<bool> &subsegmentAlignment() const { return m_subsegmentAlignment; };
     AdaptationSet &subsegmentAlignment(const std::nullopt_t &) { m_subsegmentAlignment.reset(); return *this;};
-    AdaptationSet &subsegmentAlignment(bool subsegmentAlignment) { m_subsegmentAlignment = subsegmentAlignment; return *this;};
-    AdaptationSet &subsegmentAlignment(const std::optional<bool> &subsegmentAlignment) { m_subsegmentAlignment = subsegmentAlignment; return *this;};
-    AdaptationSet &subsegmentAlignment(std::optional<bool> &&subsegmentAlignment) { m_subsegmentAlignment = std::move(subsegmentAlignment);return *this;};
+    AdaptationSet &subsegmentAlignment(bool subsegment_alignment) { m_subsegmentAlignment = subsegment_alignment; return *this;};
+    AdaptationSet &subsegmentAlignment(const std::optional<bool> &subsegment_alignment) { m_subsegmentAlignment = subsegment_alignment; return *this;};
+    AdaptationSet &subsegmentAlignment(std::optional<bool> &&subsegment_alignment) { m_subsegmentAlignment = std::move(subsegment_alignment);return *this;};
 
     bool hasSubsegmentStartsWithSAP() const { return m_subsegmentStartsWithSAP.has_value(); };
     const std::optional<Sap> &subsegmentStartsWithSAP() const {return m_subsegmentStartsWithSAP;};
     AdaptationSet &subsegmentStartsWithSAP(const std::nullopt_t &) { m_subsegmentStartsWithSAP.reset(); return *this; };
-    AdaptationSet &subsegmentStartsWithSAP(const Sap &subsegmentStartsWithSAP) {m_subsegmentStartsWithSAP = subsegmentStartsWithSAP; return *this;};
-    AdaptationSet &subsegmentStartsWithSAP(const Sap &&subsegmentStartsWithSAP) {m_subsegmentStartsWithSAP = std::move(subsegmentStartsWithSAP); return *this;};
-    AdaptationSet &subsegmentStartsWithSAP(const std::optional<Sap> &subsegmentStartsWithSAP) { m_subsegmentStartsWithSAP = subsegmentStartsWithSAP; return *this;};
-    AdaptationSet &subsegmentStartsWithSAP(const std::optional<Sap> &&subsegmentStartsWithSAP) { m_subsegmentStartsWithSAP = std::move(subsegmentStartsWithSAP); return *this;};
+    AdaptationSet &subsegmentStartsWithSAP(const Sap &subsegment_starts_with_sap) {m_subsegmentStartsWithSAP = subsegment_starts_with_sap; return *this;};
+    AdaptationSet &subsegmentStartsWithSAP(const Sap &&subsegment_starts_with_sap) {m_subsegmentStartsWithSAP = std::move(subsegment_starts_with_sap); return *this;};
+    AdaptationSet &subsegmentStartsWithSAP(const std::optional<Sap> &subsegment_starts_with_sap) { m_subsegmentStartsWithSAP = subsegment_starts_with_sap; return *this;};
+    AdaptationSet &subsegmentStartsWithSAP(const std::optional<Sap> &&subsegment_starts_with_sap) { m_subsegmentStartsWithSAP = std::move(subsegment_starts_with_sap); return *this;};
 
     const std::list<unsigned int> &initializationSetRefs() const { return m_initializationSetRefs; };
-    AdaptationSet &initializationSetRefs(std::list<unsigned int> initializationSetRefs) { m_initializationSetRefs = initializationSetRefs; return *this;};
+    AdaptationSet &initializationSetRefs(std::list<unsigned int> initialization_set_refs) { m_initializationSetRefs = initialization_set_refs; return *this;};
     
     bool hasinitializationPrincipal() const { return m_initializationPrincipal.has_value(); };
     const std::optional<std::string> &initializationPrincipal() const { return m_initializationPrincipal; };
     AdaptationSet &initializationPrincipal(const std::nullopt_t &) { m_initializationPrincipal.reset(); return *this; };
-    AdaptationSet &initializationPrincipal(const std::string &initializationPrincipal) { m_initializationPrincipal = initializationPrincipal; return *this; };
-    AdaptationSet &initializationPrincipal(std::string &&initializationPrincipal) { m_initializationPrincipal = std::move(initializationPrincipal); return *this; };
-    AdaptationSet &initializationPrincipal(const std::optional<std::string> &initializationPrincipal) { m_initializationPrincipal = initializationPrincipal; return *this; };
-    AdaptationSet &initializationPrincipal(std::optional<std::string> &&initializationPrincipal) { m_lang = std::move(initializationPrincipal); return *this; };
+    AdaptationSet &initializationPrincipal(const std::string &initialization_principal) { m_initializationPrincipal = initialization_principal; return *this; };
+    AdaptationSet &initializationPrincipal(std::string &&initialization_principal) { m_initializationPrincipal = std::move(initialization_principal); return *this; };
+    AdaptationSet &initializationPrincipal(const std::optional<std::string> &initialization_principal) { m_initializationPrincipal = initialization_principal; return *this; };
+    AdaptationSet &initializationPrincipal(std::optional<std::string> &&initialization_principal) { m_lang = std::move(initialization_principal); return *this; };
 
     //std::list<Accessibility>       m_accessibility;
     const std::list<Accessibility> &accessibility() const { return m_accessibility; };
@@ -251,9 +251,9 @@ public:
     std::list<ContentComponent>::const_iterator contentComponentsEnd() const { return m_contentComponents.cend(); };
     std::list<ContentComponent>::iterator contentComponentsBegin() { return m_contentComponents.begin(); };
     std::list<ContentComponent>::iterator contentComponentsEnd() { return m_contentComponents.end(); };
-    AdaptationSet &contentComponentAdd(const ContentComponent &ContentComponent);
-    AdaptationSet &contentComponentAdd(ContentComponent &&ContentComponent);
-    AdaptationSet &ContentComponentRemove(const ContentComponent &ContentComponenti);
+    AdaptationSet &contentComponentAdd(const ContentComponent &content_component);
+    AdaptationSet &contentComponentAdd(ContentComponent &&content_component);
+    AdaptationSet &ContentComponentRemove(const ContentComponent &content_component);
     AdaptationSet &ContentComponentRemove(const std::list<ContentComponent>::const_iterator &);
     AdaptationSet &ContentComponentRemove(const std::list<ContentComponent>::iterator &);
 
@@ -307,7 +307,6 @@ public:
     AdaptationSet &representationRemove(const Representation &representation);
     AdaptationSet &representationRemove(const std::list<Representation>::const_iterator &);
     AdaptationSet &representationRemove(const std::list<Representation>::iterator &);
-
 
     
     AdaptationSet &setPeriod(Period *period) { m_period = period; return *this; };
