@@ -9,7 +9,7 @@
 # library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
 #
 
-project('bbc-parse-dash-mpd-cpp', 'cpp',
+project('libmpdpp', 'cpp',
         version : '0.0.1',
         license : 'LGPL-3.0-only',
         meson_version : '>= 1.4.0',

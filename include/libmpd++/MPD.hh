@@ -333,6 +333,9 @@ public:
     MPD &leapSecondInformation(LeapSecondInformation &&val) { m_leapSecondInformation = std::move(val); return *this; };
     MPD &leapSecondInformation(const std::nullopt_t&) { m_leapSecondInformation.reset(); return *this; };
 
+    void selectAllRepresentations();
+    void deselectAllRepresentations();
+
 private:
     void extractMPD(void *doc);
     // Derived from ISO 23009-1_2022

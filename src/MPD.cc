@@ -1114,6 +1114,20 @@ const LeapSecondInformation &MPD::leapSecondInformation(const LeapSecondInformat
     return m_leapSecondInformation.value();
 }
 
+void MPD::selectAllRepresentations()
+{
+    for (auto &period : m_periods) {
+        period.selectAllRepresentations();
+    }
+}
+
+void MPD::deselectAllRepresentations()
+{
+    for (auto &period : m_periods) {
+        period.deselectAllRepresentations();
+    }
+}
+
 template <class T>
 concept has_setMPD = requires(T a)
 {

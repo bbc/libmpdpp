@@ -246,6 +246,9 @@ public:
     Period &preselectionRemove(const std::list<Preselection>::const_iterator &);
     Period &preselectionRemove(const std::list<Preselection>::iterator &);
 
+    void selectAllRepresentations();
+    void deselectAllRepresentations();
+
 protected:
     friend class MPD;
     friend class AdaptationSet;

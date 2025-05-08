@@ -528,6 +528,20 @@ std::string Period::getInitializationURL(const SegmentTemplate::Variables &vars)
     return std::string();
 }
 
+void Period::selectAllRepresentations()
+{
+    for (auto &adapt_set : m_adaptationSets) {
+        adapt_set.selectAllRepresentations();
+    }
+}
+
+void Period::deselectAllRepresentations()
+{
+    for (auto &adapt_set : m_adaptationSets) {
+        adapt_set.deselectAllRepresentations();
+    }
+}
+
 LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

@@ -14,6 +14,7 @@
 #include <string>
 #include <list>
 #include <optional>
+#include <unordered_set>
 
 #include "macros.hh"
 #include "BaseURL.hh"
@@ -306,6 +307,16 @@ public:
     AdaptationSet &representationRemove(const std::list<Representation>::const_iterator &);
     AdaptationSet &representationRemove(const std::list<Representation>::iterator &);
 
+    void selectAllRepresentations();
+    void selectRepresentation(const Representation&, bool deselect_others = false);
+    void selectRepresentation(const std::list<Representation>::const_iterator&, bool deselect_others = false);
+    void selectRepresentation(const std::list<Representation>::iterator&, bool deselect_others = false);
+
+    void deselectAllRepresentations();
+    void deselectRepresentation(const Representation&);
+    void deselectRepresentation(const std::list<Representation>::const_iterator&);
+    void deselectRepresentation(const std::list<Representation>::iterator&);
+
 protected:
     friend class MPD;
     friend class Period;
@@ -318,6 +329,7 @@ protected:
 
 private:
     Period *m_period;
+    std::unordered_set<const Representation*> m_selectedRepresentations;
 
     // Period attributes (ISO 23009-1:2022 Table 5)
     std::optional<XLink>               m_xlink;
