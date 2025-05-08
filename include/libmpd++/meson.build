@@ -13,7 +13,9 @@ libparsempd_public_hdrs = files('''
 libmpd++.hh
 AdaptationSet.hh
 BaseURL.hh
+Codecs.hh
 ContentComponent.hh
+ContentPopularityRate.hh
 ContentProtection.hh
 Descriptor.hh
 EventStream.hh
@@ -32,8 +34,11 @@ PatchLocation.hh
 Period.hh
 Preselection.hh
 ProgramInformation.hh
+RandomAccess.hh
 Ratio.hh
 Representation.hh
+RepresentationBase.hh
+Resync.hh
 RFC6838ContentType.hh
 SAP.hh
 SegmentBase.hh
@@ -46,6 +51,7 @@ ServiceDescription.hh
 SingleRFC7233Range.hh
 Subset.hh
 SubRepresentation.hh
+Switching.hh
 UIntVWithID.hh
 URI.hh
 URL.hh
