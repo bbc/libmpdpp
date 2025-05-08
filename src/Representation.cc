@@ -425,6 +425,11 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
 
 }
 
+void Representation::setAdaptationSet(AdaptationSet *adapt_set)
+{
+    m_adaptationSet = adapt_set;
+}
+
 // private:
 
 SegmentTemplate::Variables Representation::getTemplateVars() const

@@ -737,32 +737,44 @@ AdaptationSet &AdaptationSet::baseURLRemove(const std::list<BaseURL>::iterator &
 AdaptationSet &AdaptationSet::representationAdd(const Representation &representation)
 {
     m_representations.push_back(representation);
+    m_representations.back().setAdaptationSet(this);
     return *this;
 }
 
 AdaptationSet &AdaptationSet::representationAdd(Representation &&representation)
 {
     m_representations.push_back(std::move(representation));
+    m_representations.back().setAdaptationSet(this);
     return *this;
 }
 
 AdaptationSet &AdaptationSet::representationRemove(const Representation &representation)
 {
-    m_representations.remove(representation);
-    return *this;
+    auto it = std::find(m_representations.begin(), m_representations.end(), representation);
+    return representationRemove(it);
 }
 
 AdaptationSet &AdaptationSet::representationRemove(const std::list<Representation>::const_iterator &it)
 {
-    m_representations.erase(it);
+    if (it != m_representations.end()) {
+        auto &rep = *it;
+        m_representations.erase(it);
+        m_selectedRepresentations.erase(&rep);
+    }
     return *this;
 }
 
 AdaptationSet &AdaptationSet::representationRemove(const std::list<Representation>::iterator &it)
 {
-    m_representations.erase(it);
+    if (it != m_representations.end()) {
+        auto &rep = *it;
+        m_representations.erase(it);
+        m_selectedRepresentations.erase(&rep);
+    }
     return *this;
 }
+
+// protected:
 
 static Glib::ustring get_ns_prefix_for(xmlpp::Element &elem, const Glib::ustring &namespace_uri, const Glib::ustring &namespace_prefix)
 {
