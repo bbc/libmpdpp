@@ -38,10 +38,12 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API Representation : public RepresentationBase {
+class LIBMPDPP_PUBLIC_API Representation : public RepresentationBase {
 public:
+    using time_type = std::chrono::system_clock::time_point;
+
     Representation();
     Representation(const Representation &to_copy);
     Representation(Representation &&to_move);
@@ -80,6 +82,42 @@ public:
     AdaptationSet *getAdaptationSet() { return m_adaptationSet; };
     const AdaptationSet *getAdaptationSet() const { return m_adaptationSet; };
 
+    /** Get media URL
+     * 
+     * Get the media URL for a given @a segment_number.
+     *
+     * @param segment_number The segment number to fetch the URL for.
+     * 
+     * @return The media segment URL or an empty URL if the segment is unknown.
+     */
+    URI getMediaURL(unsigned long segment_number) const;
+
+    /** Get media URL
+     * 
+     * Get the media URL for a given @a segment_number.
+     *
+     * @param segment_number The segment number to fetch the URL for.
+     * 
+     * @return The media segment URL or an empty URL if the segment is unknown.
+     */
+    URI getMediaURL(time_type segment_time) const;
+
+    /** Get initialisation segment URL
+     * 
+     * Get the initialisation segment URL.
+     *
+     * @return The initialisation segment URL or an empty URL if no segment information is available.
+     */
+    URI getInitializationURL() const;
+
+    /** Get the list of relevant BaseURLs
+     * 
+     * Get the list of relevant BaseURLs, resolved to absolute URLs when possible.
+     *
+     * @return A list of resolves BaseURLs that apply at for this Representation.
+     */
+    std::list<BaseURL> getBaseURLs() const;
+
 protected:
     friend class AdaptationSet;
     Representation(xmlpp::Node&);
@@ -87,6 +125,10 @@ protected:
     void setAdaptationSet(AdaptationSet *);
 
 private:
+    SegmentTemplate::Variables getTemplateVars() const;
+    SegmentTemplate::Variables getTemplateVars(unsigned long segment_number) const;
+    SegmentTemplate::Variables getTemplateVars(const Representation::time_type &time) const;
+
     AdaptationSet                 *m_adaptationSet;
 
     // Representation attributes (ISO 23009-1:2022 Table 9)
@@ -107,7 +149,7 @@ private:
     std::optional<SegmentTemplate> m_segmentTemplate;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

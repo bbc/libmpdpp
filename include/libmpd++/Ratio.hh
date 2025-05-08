@@ -21,9 +21,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API Ratio {
+class LIBMPDPP_PUBLIC_API Ratio {
 public:
     using size_type = size_t;
 
@@ -62,7 +62,7 @@ private:
     size_type m_denominator;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

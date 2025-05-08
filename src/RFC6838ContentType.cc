@@ -19,7 +19,7 @@
 
 #include "libmpd++/RFC6838ContentType.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 RFC6838ContentType::RFC6838ContentType(const std::string &value) {
     convertString(value);
@@ -51,7 +51,7 @@ void RFC6838ContentType::convertString(const std::string &val) {
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

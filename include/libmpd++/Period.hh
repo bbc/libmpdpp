@@ -36,9 +36,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API Period {
+class LIBMPDPP_PUBLIC_API Period {
 public:
     using duration_type = std::chrono::microseconds;
 
@@ -100,6 +100,7 @@ public:
     Period &baseURLRemove(const BaseURL &base_url);
     Period &baseURLRemove(const std::list<BaseURL>::const_iterator &);
     Period &baseURLRemove(const std::list<BaseURL>::iterator &);
+    std::list<BaseURL> getBaseURLs() const;
 
     //std::optional<SegmentBase>     m_segmentBase;
     bool hasSegmentBase() const { return m_segmentBase.has_value(); };
@@ -247,8 +248,11 @@ public:
 
 protected:
     friend class MPD;
+    friend class AdaptationSet;
     Period(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+    std::string getMediaURL(const SegmentTemplate::Variables&) const;
+    std::string getInitializationURL(const SegmentTemplate::Variables&) const;
 
 private:
     MPD                           *m_mpd;
@@ -281,7 +285,7 @@ private:
     std::list<Preselection>        m_preselections;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

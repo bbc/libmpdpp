@@ -10,6 +10,7 @@
 #
 
 libparsempd_public_hdrs = files('''
+libmpd++.hh
 AdaptationSet.hh
 BaseURL.hh
 ContentComponent.hh

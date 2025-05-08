@@ -15,10 +15,11 @@
 #include <libxml++/libxml++.h>
 
 #include "libmpd++/macros.hh"
+#include "libmpd++/BaseURL.hh"
 
 #include "libmpd++/URI.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 void URI::validate()
 {
@@ -40,9 +41,35 @@ void URI::setXMLElement(xmlpp::Element &elem) const
     elem.add_child_text(m_uri);
 }
 
-LIBPARSEMPD_NAMESPACE_END
+static const std::regex g_url_split("^(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*)(?:\\?([^#]*))?(?:#(.*))?$");
 
-std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(URI) &uri)
+bool URI::isURL() const
+{
+    return std::regex_match(m_uri, g_url_split);
+}
+
+bool URI::isAbsoluteURL() const
+{
+    std::smatch result;
+    if (!std::regex_match(m_uri, result, g_url_split)) return false;
+    return result[1].matched && result[2].matched;
+}
+
+URI URI::resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const
+{
+    if (!isURL()) return *this;
+    if (isAbsoluteURL()) return *this;
+    
+    // find BaseURL to use
+    for (const auto &base_url : base_urls) {
+    }
+
+    return *this;
+}
+
+LIBMPDPP_NAMESPACE_END
+
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(URI) &uri)
 {
     os << static_cast<const std::string&>(uri);
     return os;

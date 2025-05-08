@@ -19,9 +19,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API ContentPopularityRate {
+class LIBMPDPP_PUBLIC_API ContentPopularityRate {
 public:
     ContentPopularityRate();
     ContentPopularityRate(const ContentPopularityRate &to_copy);
@@ -45,7 +45,7 @@ private:
     // ContentPopularityRate child elements (ISO 23009-1:2022 Clause X.X.X.X)
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

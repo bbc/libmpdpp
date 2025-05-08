@@ -11,6 +11,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <iostream>
+#include <list>
 #include <string>
 
 #include "macros.hh"
@@ -20,9 +21,11 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API URI {
+class BaseURL;
+
+class LIBMPDPP_PUBLIC_API URI {
 public:
     URI() :m_uri() {};
     URI(const char *uri) :m_uri(uri) {validate();};
@@ -41,6 +44,11 @@ public:
     bool operator==(const URI &other) const { return m_uri == other.m_uri; };
 
     operator std::string() const { return m_uri; };
+    const std::string &value() const { return m_uri; };
+
+    URI resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const;
+    bool isURL() const;
+    bool isAbsoluteURL() const;
 
 protected:
     friend class MPD;
@@ -58,9 +66,9 @@ private:
     std::string m_uri;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
-std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(URI) &uri);
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(URI) &uri);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

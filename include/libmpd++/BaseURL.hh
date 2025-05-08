@@ -22,18 +22,18 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 class MPD;
 class Period;
 class Representation;
 class AdaptationSet;
 
-class LIBPARSEMPD_PUBLIC_API BaseURL : public URI {
+class LIBMPDPP_PUBLIC_API BaseURL : public URI {
 public:
     using duration_type = std::chrono::microseconds;
 
-    BaseURL() {};
+    BaseURL();
     BaseURL(const std::string &url);
     BaseURL(std::string &&url);
     BaseURL(const BaseURL&);
@@ -50,6 +50,46 @@ public:
     URI &url() { return static_cast<URI&>(*this); };
     BaseURL &url(const URI &_url) { URI::operator=(_url); return *this; };
     BaseURL &url(URI &&_url) { URI::operator=(std::move(_url)); return *this; };
+
+    /* create a copy of this BaseURL with the url resolved using the provided base_urls */
+    BaseURL resolveURL(const std::list<BaseURL> &base_urls) const;
+    
+    // @serviceLocation
+    bool hasServiceLocation() const { return m_serviceLocation.has_value(); };
+    const std::optional<std::string> &serviceLocation() const { return m_serviceLocation; };
+    BaseURL &serviceLocation(const std::nullopt_t&) { m_serviceLocation.reset(); return *this; };
+    BaseURL &serviceLocation(const std::string &val) { m_serviceLocation = val; return *this; };
+    BaseURL &serviceLocation(std::string &&val) { m_serviceLocation = std::move(val); return *this; };
+
+    // @byteRange
+    bool hasByteRange() const { return m_byteRange.has_value(); };
+    const std::optional<std::string> &byteRange() const { return m_byteRange; };
+    BaseURL &byteRange(const std::nullopt_t&) { m_byteRange.reset(); return *this; };
+    BaseURL &byteRange(const std::string &val) { m_byteRange = val; return *this; };
+    BaseURL &byteRange(std::string &&val) { m_byteRange = std::move(val); return *this; };
+
+    // @availabilityTimeOffset
+    bool hasAvailabilityTimeOffset() const { return m_availabilityTimeOffset.has_value(); };
+    const std::optional<double> &availabilityTimeOffset() const { return m_availabilityTimeOffset; };
+    BaseURL &availabilityTimeOffset(const std::nullopt_t&) { m_availabilityTimeOffset.reset(); return *this; };
+    BaseURL &availabilityTimeOffset(double val) { m_availabilityTimeOffset = val; return *this; };
+
+    // @availabilityTimeComplete
+    bool hasAvailabilityTimeComplete() const { return m_availabilityTimeComplete.has_value(); };
+    const std::optional<bool> &availabilityTimeComplete() const { return m_availabilityTimeComplete; };
+    BaseURL &availabilityTimeComplete(const std::nullopt_t&) { m_availabilityTimeComplete.reset(); return *this; };
+    BaseURL &availabilityTimeComplete(bool val) { m_availabilityTimeComplete = val; return *this; };
+
+    // @timeShiftBufferDepth
+    bool hasTimeShiftBufferDepth() const { return m_timeShiftBufferDepth.has_value(); };
+    const std::optional<duration_type> &timeShiftBufferDepth() const { return m_timeShiftBufferDepth; };
+    BaseURL &timeShiftBufferDepth(const std::nullopt_t&) { m_timeShiftBufferDepth.reset(); return *this; };
+    BaseURL &timeShiftBufferDepth(const duration_type &val) { m_timeShiftBufferDepth = val; return *this; };
+    BaseURL &timeShiftBufferDepth(duration_type &&val) { m_timeShiftBufferDepth = std::move(val); return *this; };
+
+    // @rangeAccess
+    bool rangeAccess() const { return m_rangeAccess; };
+    BaseURL &rangeAccess(bool val) { m_rangeAccess = val; return *this; };
 
 protected:
     friend class MPD;
@@ -69,7 +109,7 @@ private:
     bool                         m_rangeAccess;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

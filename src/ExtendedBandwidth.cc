@@ -17,7 +17,7 @@
 
 #include "libmpd++/ExtendedBandwidth.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 ExtendedBandwidth::ExtendedBandwidth(xmlpp::Node&)
 {
@@ -27,7 +27,7 @@ void ExtendedBandwidth::setXMLElement(xmlpp::Element&) const
 {
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

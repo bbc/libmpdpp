@@ -22,13 +22,13 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 class Period;
 class AdaptationSet;
 class Representation;
 
-class LIBPARSEMPD_PUBLIC_API SegmentList : public MultipleSegmentBase {
+class LIBMPDPP_PUBLIC_API SegmentList : public MultipleSegmentBase {
 public:
     SegmentList()
         :MultipleSegmentBase()
@@ -85,6 +85,10 @@ public:
     SegmentList &segmentURLRemove(const std::list<SegmentURL>::const_iterator &it) { m_segmentURLs.erase(it); return *this; };
     SegmentList &segmentURLRemove(const std::list<SegmentURL>::iterator &it) { m_segmentURLs.erase(it); return *this; };
 
+    const std::string &getMediaURLForSegment(unsigned long segment_number) const;
+    const std::string &getMediaURLForSegmentTime(unsigned long time) const;
+    const std::string &getInitializationURL() const;
+
 protected:
     friend class Period;
     friend class Representation;
@@ -100,7 +104,7 @@ private:
     std::list<SegmentURL> m_segmentURLs;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

@@ -2,7 +2,7 @@
  * DASH MPD parsing library in C++: Resync class
  *****************************************************************************
  * Copyright: (C) 2025 British Broadcasting Corporation
- * Author(s): Dev Audsin <dev.audsin@bbc.co.uk>
+ * Author(s): David Waring <david.waring2@bbc.co.uk>
  * License: LGPLv3
  *
  * For full license terms please see the LICENSE file distributed with this
@@ -16,7 +16,7 @@
 
 #include "libmpd++/Resync.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 Resync::Resync()
 {
@@ -55,7 +55,7 @@ void Resync::setXMLElement(xmlpp::Element &elem) const
 {
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

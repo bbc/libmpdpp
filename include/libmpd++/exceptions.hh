@@ -14,9 +14,9 @@
 
 #include "macros.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API ParseError : public std::runtime_error {
+class LIBMPDPP_PUBLIC_API ParseError : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
     using std::runtime_error::operator=;
@@ -24,7 +24,7 @@ public:
     virtual ~ParseError() = default;
 };
 
-class LIBPARSEMPD_PUBLIC_API InvalidMPD : public std::runtime_error {
+class LIBMPDPP_PUBLIC_API InvalidMPD : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
     using std::runtime_error::operator=;
@@ -32,7 +32,7 @@ public:
     virtual ~InvalidMPD() = default;
 };
 
-class LIBPARSEMPD_PUBLIC_API RangeError : public std::runtime_error {
+class LIBMPDPP_PUBLIC_API RangeError : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
     using std::runtime_error::operator=;
@@ -40,7 +40,7 @@ public:
     virtual ~RangeError() = default;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

@@ -36,9 +36,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API AdaptationSet : public RepresentationBase {
+class LIBMPDPP_PUBLIC_API AdaptationSet : public RepresentationBase {
 public:
     AdaptationSet();
     AdaptationSet(const AdaptationSet&);
@@ -68,7 +68,7 @@ public:
     AdaptationSet &group(std::optional<unsigned int> &&group) { m_group = std::move(group);return *this;};
     
     // @lang
-    bool haslang() const { return m_lang.has_value(); };
+    bool hasLang() const { return m_lang.has_value(); };
     const std::optional<std::string> &lang() const { return m_lang; };
     AdaptationSet &lang(const std::nullopt_t &) { m_lang.reset(); return *this; };
     AdaptationSet &lang(const std::string &lang) { m_lang = lang; return *this; };
@@ -186,7 +186,7 @@ public:
     AdaptationSet &initializationSetRefs(std::list<unsigned int> initialization_set_refs) { m_initializationSetRefs = initialization_set_refs; return *this;};
     
     // @initializationPrincipal
-    bool hasinitializationPrincipal() const { return m_initializationPrincipal.has_value(); };
+    bool hasInitializationPrincipal() const { return m_initializationPrincipal.has_value(); };
     const std::optional<URI> &initializationPrincipal() const { return m_initializationPrincipal; };
     AdaptationSet &initializationPrincipal(const std::nullopt_t &) { m_initializationPrincipal.reset(); return *this; };
     AdaptationSet &initializationPrincipal(const URI &initialization_principal) { m_initializationPrincipal = initialization_principal; return *this; };
@@ -265,6 +265,7 @@ public:
     AdaptationSet &baseURLRemove(const BaseURL &base_url);
     AdaptationSet &baseURLRemove(const std::list<BaseURL>::const_iterator &);
     AdaptationSet &baseURLRemove(const std::list<BaseURL>::iterator &);
+    std::list<BaseURL> getBaseURLs() const;
 
     // SegmentBase child
     bool hasSegmentBase() const { return m_segmentBase.has_value(); };
@@ -308,9 +309,12 @@ public:
 protected:
     friend class MPD;
     friend class Period;
+    friend class Representation;
     AdaptationSet(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
     AdaptationSet &setPeriod(Period *period) { m_period = period; return *this; };
+    std::string getMediaURL(const SegmentTemplate::Variables &) const;
+    std::string getInitializationURL(const SegmentTemplate::Variables &) const;
 
 private:
     Period *m_period;
@@ -350,7 +354,7 @@ private:
     std::list<Representation>      m_representations;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

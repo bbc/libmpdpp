@@ -7,7 +7,7 @@
 
 #include "libmpd++/MPD.hh"
 
-LIBPARSEMPD_NAMESPACE_USING_ALL;
+LIBMPDPP_NAMESPACE_USING_ALL;
 
 int main(int argc, char *argv[])
 {

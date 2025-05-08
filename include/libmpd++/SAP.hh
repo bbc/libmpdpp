@@ -21,9 +21,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API SAP {
+class LIBMPDPP_PUBLIC_API SAP {
 public:
     using value_type = unsigned int;
 
@@ -57,7 +57,7 @@ private:
     value_type m_value;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

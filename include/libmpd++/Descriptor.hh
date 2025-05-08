@@ -22,12 +22,12 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 class MPD;
 class Period;
 
-class LIBPARSEMPD_PUBLIC_API Descriptor {
+class LIBMPDPP_PUBLIC_API Descriptor {
 public:
     Descriptor() = delete;
     Descriptor(const URI &scheme_id, const std::optional<std::string> &value = std::nullopt, const std::optional<std::string> &id = std::nullopt)
@@ -109,7 +109,7 @@ private:
     std::optional<std::string> m_id;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

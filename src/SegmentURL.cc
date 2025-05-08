@@ -18,7 +18,7 @@
 
 #include "libmpd++/SegmentURL.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 SegmentURL::SegmentURL()
     :m_media()
@@ -120,7 +120,7 @@ void SegmentURL::setXMLElement(xmlpp::Element &elem) const
 #undef OPT_ATTR
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

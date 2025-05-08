@@ -17,14 +17,14 @@
 
 #include "libmpd++/XLink.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 bool XLink::operator==(const XLink &other) const
 {
     return m_actuate == other.m_actuate && m_type == other.m_type && m_show == other.m_show && m_href == other.m_href;
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

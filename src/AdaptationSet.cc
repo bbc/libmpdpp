@@ -22,6 +22,7 @@
 #include "libmpd++/macros.hh"
 #include "libmpd++/ContentComponent.hh"
 #include "libmpd++/exceptions.hh"
+#include "libmpd++/Period.hh"
 #include "libmpd++/Representation.hh"
 #include "libmpd++/XLink.hh"
 
@@ -30,7 +31,7 @@
 
 #include "libmpd++/AdaptationSet.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 AdaptationSet::AdaptationSet()
     :RepresentationBase()
@@ -264,7 +265,33 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
     return RepresentationBase::operator==(to_compare);
 }
 
+std::list<BaseURL> AdaptationSet::getBaseURLs() const
+{
+    if (m_baseURLs.size() == 0 && m_period) return m_period->getBaseURLs();
+
+    std::list<BaseURL> ret;
+    std::list<BaseURL> parent_urls_cache;
+    bool have_parent_urls = false;
+    for (const auto &base_url : m_baseURLs) {
+        if (base_url.url().isAbsoluteURL()) {
+            ret.push_back(base_url);
+        } else {
+            if (m_period) {
+                if (!have_parent_urls) {
+                    parent_urls_cache = m_period->getBaseURLs();
+                    have_parent_urls = true;
+                }
+                ret.push_back(base_url.resolveURL(parent_urls_cache));
+            } else {
+                ret.push_back(base_url);
+            }
+        }
+    }
+    return ret;
+}
+
 /* protected: */
+
 AdaptationSet::AdaptationSet(xmlpp::Node &node)
     :RepresentationBase(node)
     ,m_xlink()
@@ -891,7 +918,39 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+std::string AdaptationSet::getMediaURL(const SegmentTemplate::Variables &vars) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return m_segmentTemplate.value().formatMediaTemplate(vars);
+    }
+    if (m_segmentList.has_value()) {
+        if (vars.number()) {
+            return m_segmentList.value().getMediaURLForSegment(vars.number().value());
+        } else if (vars.time()) {
+            return m_segmentList.value().getMediaURLForSegmentTime(vars.time().value());
+        }
+    }
+    if (m_period) {
+        return m_period->getMediaURL(vars);
+    }
+    return std::string();
+}
+
+std::string AdaptationSet::getInitializationURL(const SegmentTemplate::Variables &vars) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return m_segmentTemplate.value().formatInitializationTemplate(vars);
+    }
+    if (m_segmentList.has_value()) {
+        return m_segmentList.value().getInitializationURL();
+    }
+    if (m_period) {
+        return m_period->getInitializationURL(vars);
+    }
+    return std::string();
+}
+
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

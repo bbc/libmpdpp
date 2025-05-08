@@ -17,7 +17,7 @@
 
 #include "libmpd++/ProgramInformation.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 ProgramInformation::ProgramInformation(xmlpp::Node &elem)
 {
@@ -29,7 +29,7 @@ void ProgramInformation::setXMLElement(xmlpp::Element &elem) const
     // TODO: Use this ProgramInformation to fill in an XML element
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

@@ -19,7 +19,7 @@
 
 #include "libmpd++/FrameRate.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 FrameRate::FrameRate(const std::string &frame_rate_str)
     : m_numerator(0)
@@ -77,7 +77,7 @@ void FrameRate::convertString(const std::string &frame_rate_str) {
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

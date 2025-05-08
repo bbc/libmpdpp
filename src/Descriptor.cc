@@ -15,7 +15,7 @@
 
 #include "libmpd++/Descriptor.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 Descriptor::Descriptor(xmlpp::Node &node)
     :m_schemeIdUri()
@@ -47,7 +47,7 @@ void Descriptor::setXMLElement(xmlpp::Element &elem) const
     if (m_id.has_value()) elem.set_attribute("id", m_id.value());
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

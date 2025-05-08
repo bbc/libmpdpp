@@ -23,12 +23,12 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 class AdaptationSet;
 class Representation;
 
-class LIBPARSEMPD_PUBLIC_API SegmentBase {
+class LIBMPDPP_PUBLIC_API SegmentBase {
 public:
     using duration_type = std::chrono::microseconds;
 
@@ -148,7 +148,7 @@ private:
     std::optional<FailoverContent> m_failoverContent;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

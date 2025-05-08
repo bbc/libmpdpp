@@ -19,7 +19,7 @@
 
 #include "libmpd++/SingleRFC7233Range.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 SingleRFC7233Range::SingleRFC7233Range(const std::string &range_str)
     :m_fromByte(0)
@@ -80,7 +80,7 @@ void SingleRFC7233Range::convertString(const std::string &range_str)
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

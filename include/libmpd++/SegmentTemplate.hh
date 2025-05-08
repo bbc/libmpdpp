@@ -21,12 +21,12 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 class AdaptationSet;
 class Representation;
 
-class LIBPARSEMPD_PUBLIC_API SegmentTemplate : public MultipleSegmentBase {
+class LIBMPDPP_PUBLIC_API SegmentTemplate : public MultipleSegmentBase {
 public:
     class Variables {
     public:
@@ -124,10 +124,10 @@ public:
 
     bool operator==(const SegmentTemplate &) const;
 
-    std::string applyMediaTemplate(const Variables &) const;
-    std::string applyIndexTemplate(const Variables &) const;
-    std::string applyInitializationTemplate(const Variables &) const;
-    std::string applyBitstreamSwitchingTemplate(const Variables &) const;
+    std::string formatMediaTemplate(const Variables &) const;
+    std::string formatIndexTemplate(const Variables &) const;
+    std::string formatInitializationTemplate(const Variables &) const;
+    std::string formatBitstreamSwitchingTemplate(const Variables &) const;
 
     // @media
     bool hasMedia() const { return m_media.has_value(); };
@@ -165,7 +165,7 @@ protected:
     void setXMLElement(xmlpp::Element&) const;
 
 private:
-    std::string applyTemplate(const std::string &fmt, const Variables &vars) const;
+    std::string formatTemplate(const std::string &fmt, const Variables &vars) const;
 
     // SegmentTemplate derived from ISO 23009-1:2022 Clause 5.3.9.4.3
     // Attributes
@@ -175,7 +175,7 @@ private:
     std::optional<std::string> m_bitstreamSwitching;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

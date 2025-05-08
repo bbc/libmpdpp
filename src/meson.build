@@ -90,11 +90,11 @@ project_config.set('PROJECT_VERSION_MICRO', project_version_micro, description: 
 project_config.set_quoted('PROJECT_NAME', project_name, description: 'Project name')
 project_config.set_quoted('PROJECT_VERSION_FLAG', project_version_flag, description: 'Project version instance flag')
 
-libparsempd_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBPARSEMPD_CONFIG_HH_', output_format: 'c', install: false)
+libparsempd_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBMPDPP_CONFIG_HH_', output_format: 'c', install: false)
 
 libparsempd = both_libraries('mpd++', libparsempd_srcs + [libparsempd_config_h],
                dependencies: [libxml_dep, glibmm_dep],
-               cpp_args: ['-DBUILD_LIBPARSEMPD'],
+               cpp_args: ['-DBUILD_LIBMPDPP'],
                install: true,
                include_directories: [libparsempd_inc_dir, libparsempd_private_inc_dir],
                gnu_symbol_visibility: 'hidden',

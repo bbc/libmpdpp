@@ -31,9 +31,9 @@
 #include "UIntVWithID.hh"
 #include "URI.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API MPD {
+class LIBMPDPP_PUBLIC_API MPD {
 public:
     using time_type = std::chrono::system_clock::time_point;
     using duration_type = std::chrono::microseconds;
@@ -190,6 +190,7 @@ public:
     MPD &baseURLRemove(const BaseURL &base_url);
     MPD &baseURLRemove(const std::list<BaseURL>::const_iterator &);
     MPD &baseURLRemove(const std::list<BaseURL>::iterator &);
+    std::list<BaseURL> getBaseURLs() const;
 
     const std::list<URI> &locations() const { return m_locations; };
     std::list<URI>::const_iterator locationsBegin() const { return m_locations.cbegin(); };
@@ -370,9 +371,9 @@ private:
     std::optional<URI> m_mpdURL;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
-LIBPARSEMPD_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(MPD) &mpd);
+LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(MPD) &mpd);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

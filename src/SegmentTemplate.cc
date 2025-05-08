@@ -18,7 +18,7 @@
 
 #include "libmpd++/SegmentTemplate.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 /******** SegmentTemplate::Variables ********/
 
@@ -139,38 +139,38 @@ bool SegmentTemplate::operator==(const SegmentTemplate &other) const
     return MultipleSegmentBase::operator==(other);
 }
 
-std::string SegmentTemplate::applyMediaTemplate(const SegmentTemplate::Variables &vars) const
+std::string SegmentTemplate::formatMediaTemplate(const SegmentTemplate::Variables &vars) const
 {
     std::string ret;
     if (m_media) {
-        ret = applyTemplate(m_media.value(), vars);
+        ret = formatTemplate(m_media.value(), vars);
     }
     return ret;
 }
 
-std::string SegmentTemplate::applyIndexTemplate(const SegmentTemplate::Variables &vars) const
+std::string SegmentTemplate::formatIndexTemplate(const SegmentTemplate::Variables &vars) const
 {
     std::string ret;
     if (m_index) {
-        ret = applyTemplate(m_index.value(), vars);
+        ret = formatTemplate(m_index.value(), vars);
     }
     return ret;
 }
 
-std::string SegmentTemplate::applyInitializationTemplate(const SegmentTemplate::Variables &vars) const
+std::string SegmentTemplate::formatInitializationTemplate(const SegmentTemplate::Variables &vars) const
 {
     std::string ret;
     if (m_initialization) {
-        ret = applyTemplate(m_initialization.value(), vars);
+        ret = formatTemplate(m_initialization.value(), vars);
     }
     return ret;
 }
 
-std::string SegmentTemplate::applyBitstreamSwitchingTemplate(const SegmentTemplate::Variables &vars) const
+std::string SegmentTemplate::formatBitstreamSwitchingTemplate(const SegmentTemplate::Variables &vars) const
 {
     std::string ret;
     if (m_bitstreamSwitching) {
-        ret = applyTemplate(m_bitstreamSwitching.value(), vars);
+        ret = formatTemplate(m_bitstreamSwitching.value(), vars);
     }
     return ret;
 }
@@ -229,7 +229,7 @@ void SegmentTemplate::setXMLElement(xmlpp::Element &elem) const
 
 // private:
 
-std::string SegmentTemplate::applyTemplate(const std::string &fmt, const SegmentTemplate::Variables &vars) const
+std::string SegmentTemplate::formatTemplate(const std::string &fmt, const SegmentTemplate::Variables &vars) const
 {
     std::string ret(fmt);
     for (auto pos = ret.find_first_of('$'); pos != std::string::npos; pos = ret.find_first_of('$', pos+1)) {
@@ -243,7 +243,7 @@ std::string SegmentTemplate::applyTemplate(const std::string &fmt, const Segment
     return ret;
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

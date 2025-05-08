@@ -21,7 +21,18 @@
 
 #include "libmpd++/BaseURL.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
+
+BaseURL::BaseURL()
+    :URI()
+    ,m_serviceLocation()
+    ,m_byteRange()
+    ,m_availabilityTimeOffset()
+    ,m_availabilityTimeComplete()
+    ,m_timeShiftBufferDepth()
+    ,m_rangeAccess(false)
+{
+}
 
 BaseURL::BaseURL(const std::string &url)
     :URI(url)
@@ -119,6 +130,15 @@ bool BaseURL::operator==(const BaseURL &other) const
     return true;
 }
 
+BaseURL BaseURL::resolveURL(const std::list<BaseURL> &base_urls) const
+{
+    BaseURL ret(*this);
+    ret.url(ret.resolveUsingBaseURLs(base_urls));
+    return ret;
+}
+
+// protected:
+
 BaseURL::BaseURL(xmlpp::Node &node)
     :URI(node)
     ,m_serviceLocation()
@@ -188,7 +208,7 @@ void BaseURL::setXMLElement(xmlpp::Element &elem) const
     URI::setXMLElement(elem);
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

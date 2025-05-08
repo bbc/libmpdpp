@@ -18,7 +18,33 @@
 
 #include "libmpd++/SegmentList.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
+
+static const std::string g_empty_string;
+
+const std::string &SegmentList::getMediaURLForSegment(unsigned long segment_number) const
+{
+    if (segment_number >= m_segmentURLs.size()) return g_empty_string;
+    auto it = m_segmentURLs.begin();
+    for (decltype(segment_number) i = 0; i < segment_number; i++) it++;
+    const auto &seg_url = *it;
+    if (seg_url.hasMedia()) return seg_url.media().value().value();
+    return g_empty_string;
+}
+
+const std::string &SegmentList::getMediaURLForSegmentTime(unsigned long time) const
+{
+    // TODO: iterate to the m_segmentURLs to find the one representing @a time.
+    return g_empty_string;
+}
+
+const std::string &SegmentList::getInitializationURL() const
+{
+    if (hasInitialization() && initialization().value().hasSourceURL())
+        return initialization().value().sourceURL().value().value();
+
+    return g_empty_string;
+}
 
 /* protected: */
 SegmentList::SegmentList(xmlpp::Node &node)
@@ -31,7 +57,7 @@ void SegmentList::setXMLElement(xmlpp::Element &elem) const
     MultipleSegmentBase::setXMLElement(elem);
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

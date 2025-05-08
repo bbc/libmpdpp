@@ -16,7 +16,7 @@
 
 #include "libmpd++/macros.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 template <class Rep, class Period>
 std::string format_duration(const std::chrono::duration<Rep,Period> &durn)
@@ -81,7 +81,7 @@ Durn str_to_duration(const std::string &str)
     return ret;
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
     
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */ 

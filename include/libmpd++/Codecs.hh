@@ -17,9 +17,9 @@
 
 #include "macros.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API Codecs {
+class LIBMPDPP_PUBLIC_API Codecs {
 public:
     class Encoding {
     public:
@@ -65,9 +65,9 @@ private:
     std::list<std::string> m_codecs;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
-std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(Codecs::Encoding) &enc);
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs::Encoding) &enc);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

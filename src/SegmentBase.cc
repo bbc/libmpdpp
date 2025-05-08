@@ -23,7 +23,7 @@
 
 #include "libmpd++/SegmentBase.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 SegmentBase::SegmentBase()
     :m_timescale()
@@ -292,7 +292,7 @@ void SegmentBase::setXMLElement(xmlpp::Element &elem) const
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

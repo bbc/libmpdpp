@@ -25,6 +25,7 @@
 #include "libmpd++/Descriptor.hh"
 #include "libmpd++/EventStream.hh"
 #include "libmpd++/Label.hh"
+#include "libmpd++/MPD.hh"
 #include "libmpd++/Preselection.hh"
 #include "libmpd++/SegmentBase.hh"
 #include "libmpd++/SegmentTemplate.hh"
@@ -37,7 +38,7 @@
 
 #include "libmpd++/Period.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 Period::Period()
     :m_mpd()
@@ -215,6 +216,33 @@ bool Period::operator==(const Period &to_compare) const
 
     return true;
 }
+
+std::list<BaseURL> Period::getBaseURLs() const
+{
+    if (m_baseURLs.size() == 0 && m_mpd) return m_mpd->getBaseURLs();
+
+    std::list<BaseURL> ret;
+    std::list<BaseURL> parent_urls_cache;
+    bool have_parent_urls = false;
+    for (const auto &base_url : m_baseURLs) {
+        if (base_url.url().isAbsoluteURL()) {
+            ret.push_back(base_url);
+        } else {
+            if (m_mpd) {
+                if (!have_parent_urls) {
+                    parent_urls_cache = m_mpd->getBaseURLs();
+                    have_parent_urls = true;
+                }
+                ret.push_back(base_url.resolveURL(parent_urls_cache));
+            } else {
+                ret.push_back(base_url);
+            }
+        }
+    }
+    return ret;
+}
+
+// protected:
 
 Period::Period(xmlpp::Node &node)
     :m_mpd()
@@ -474,7 +502,33 @@ void Period::setXMLElement(xmlpp::Element &elem) const
     }
 }
 
-LIBPARSEMPD_NAMESPACE_END
+std::string Period::getMediaURL(const SegmentTemplate::Variables &vars) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return m_segmentTemplate.value().formatMediaTemplate(vars);
+    }
+    if (m_segmentList.has_value()) {
+        if (vars.number()) {
+            return m_segmentList.value().getMediaURLForSegment(vars.number().value());
+        } else if (vars.time()) {
+            return m_segmentList.value().getMediaURLForSegmentTime(vars.time().value());
+        }
+    }
+    return std::string();
+}
+
+std::string Period::getInitializationURL(const SegmentTemplate::Variables &vars) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return m_segmentTemplate.value().formatInitializationTemplate(vars);
+    }
+    if (m_segmentList.has_value()) {
+        return m_segmentList.value().getInitializationURL();
+    }
+    return std::string();
+}
+
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

@@ -19,7 +19,7 @@
 
 #include "libmpd++/Ratio.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 Ratio::Ratio(const std::string &ratio_str)
     : m_numerator(0)
@@ -66,7 +66,7 @@ void Ratio::convertString(const std::string &ratio_str) {
     m_denominator = std::stoul(denominator);
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

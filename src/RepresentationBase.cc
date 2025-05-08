@@ -39,7 +39,7 @@
 
 #include "libmpd++/RepresentationBase.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 RepresentationBase::RepresentationBase()
     :m_profiles()
@@ -547,7 +547,7 @@ void RepresentationBase::setXMLElement(xmlpp::Element &elem) const
 #undef ELEM_ADD_OPT_CHILD_LIST
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

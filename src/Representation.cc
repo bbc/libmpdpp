@@ -36,7 +36,7 @@
 
 #include "libmpd++/Representation.hh"
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 Representation::Representation()
     :RepresentationBase()
@@ -162,6 +162,76 @@ bool Representation::operator==(const Representation &to_compare) const
 
     return RepresentationBase::operator==(to_compare);
 }
+
+URI Representation::getMediaURL(unsigned long segment_number) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return URI(m_segmentTemplate.value().formatMediaTemplate(getTemplateVars(segment_number))).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_segmentList.has_value()) {
+        return URI(m_segmentList.value().getMediaURLForSegment(segment_number)).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_adaptationSet) {
+        return URI(m_adaptationSet->getMediaURL(getTemplateVars(segment_number))).resolveUsingBaseURLs(m_adaptationSet->getBaseURLs());
+    }
+    return URI();
+}
+
+URI Representation::getMediaURL(time_type segment_time) const
+{
+    if (m_segmentTemplate.has_value()) {
+        return URI(m_segmentTemplate.value().formatMediaTemplate(getTemplateVars(segment_time))).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_segmentList.has_value()) {
+        // TODO: convert @a segment_time to a time offset for this presentation in the time base provided
+        return URI(m_segmentList.value().getMediaURLForSegmentTime(0 /*segment_time*/)).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_adaptationSet) {
+        return URI(m_adaptationSet->getMediaURL(getTemplateVars(segment_time))).resolveUsingBaseURLs(m_adaptationSet->getBaseURLs());
+    }
+    return URI();
+}
+
+URI Representation::getInitializationURL() const
+{
+    if (m_segmentTemplate.has_value()) {
+        return URI(m_segmentTemplate.value().formatInitializationTemplate(getTemplateVars())).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_segmentList.has_value()) {
+        return URI(m_segmentList.value().getInitializationURL()).resolveUsingBaseURLs(getBaseURLs());
+    }
+    if (m_adaptationSet) {
+        return URI(m_adaptationSet->getInitializationURL(getTemplateVars())).resolveUsingBaseURLs(m_adaptationSet->getBaseURLs());
+    }
+    return URI();
+}
+
+std::list<BaseURL> Representation::getBaseURLs() const
+{
+    if (m_baseURLs.size() == 0 && m_adaptationSet) return m_adaptationSet->getBaseURLs();
+
+    std::list<BaseURL> ret;
+    std::list<BaseURL> parent_urls_cache;
+    bool have_parent_urls = false;
+    for (const auto &base_url : m_baseURLs) {
+        if (base_url.url().isAbsoluteURL()) {
+            ret.push_back(base_url);
+        } else {
+            if (m_adaptationSet) {
+                if (!have_parent_urls) {
+                    parent_urls_cache = m_adaptationSet->getBaseURLs();
+                    have_parent_urls = true;
+                }
+                ret.push_back(base_url.resolveURL(parent_urls_cache));
+            } else {
+                ret.push_back(base_url);
+            }
+        }
+    }
+    return ret;
+}
+
+// protected:
 
 namespace {
     template<class T>
@@ -355,7 +425,35 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
 
 }
 
-LIBPARSEMPD_NAMESPACE_END
+// private:
+
+SegmentTemplate::Variables Representation::getTemplateVars() const
+{
+    SegmentTemplate::Variables ret(m_id, std::nullopt, m_bandwidth);
+    return ret;
+}
+
+SegmentTemplate::Variables Representation::getTemplateVars(unsigned long segment_number) const
+{
+    SegmentTemplate::Variables ret(getTemplateVars());
+
+    ret.number(segment_number);
+    // TODO: calculate time offset into the presentation using the defined base period that the segment_number represents
+
+    return ret;
+}
+
+SegmentTemplate::Variables Representation::getTemplateVars(const Representation::time_type &time) const
+{
+    SegmentTemplate::Variables ret(getTemplateVars());
+
+    // TODO: convert @a time into a time offest into the presentation using the defined base period.
+    // TODO: calculate segment number from time.
+
+    return ret;
+}
+
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

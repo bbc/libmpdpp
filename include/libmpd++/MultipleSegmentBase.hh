@@ -22,9 +22,9 @@ namespace xmlpp {
     class Node;
 }
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBPARSEMPD_PUBLIC_API MultipleSegmentBase : public SegmentBase {
+class LIBMPDPP_PUBLIC_API MultipleSegmentBase : public SegmentBase {
 public:
     using duration_type = SegmentBase::duration_type;
 
@@ -86,7 +86,7 @@ private:
     std::optional<URL> m_bitstreamSwitching;
 };
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

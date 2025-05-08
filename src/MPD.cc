@@ -31,7 +31,7 @@
 
 static const int g_MPD_formatting_xindex = std::ios_base::xalloc();
 
-LIBPARSEMPD_NAMESPACE_BEGIN
+LIBMPDPP_NAMESPACE_BEGIN
 
 static MPD::time_type str_to_time_point(const std::string &str);
 static std::list<URI> str_to_uri_list(const std::string &str, char sep = ',');
@@ -682,6 +682,30 @@ MPD &MPD::baseURLRemove(const std::list<BaseURL>::iterator &it)
     return *this;
 }
 
+std::list<BaseURL> MPD::getBaseURLs() const
+{
+    std::list<BaseURL> ret;
+    std::list<BaseURL> acquisition_urls;
+    
+    if (m_mpdURL) {
+        acquisition_urls.push_back(BaseURL(m_mpdURL.value()));
+    }
+
+    if (m_baseURLs.size() == 0) {
+        // No BaseURL elements, just use the acquisition URL instead as a plain BaseURL
+        ret = std::move(acquisition_urls);
+    } else {
+        for (const auto &base_url : m_baseURLs) {
+            if (base_url.url().isAbsoluteURL()) {
+                ret.push_back(base_url);
+            } else {
+                ret.push_back(base_url.resolveURL(acquisition_urls));
+            }
+        }
+    }
+    return ret;
+}
+
 MPD &MPD::locationAdd(const URI &location)
 {
     m_locations.push_back(location);
@@ -1262,11 +1286,11 @@ static std::list<URI> str_to_uri_list(const std::string &str, char sep)
     return ret;
 }
 
-LIBPARSEMPD_NAMESPACE_END
+LIBMPDPP_NAMESPACE_END
 
-std::ostream &operator<<(std::ostream &os, const LIBPARSEMPD_NAMESPACE_CLASS(MPD) &mpd)
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(MPD) &mpd)
 {
-    auto &options = LIBPARSEMPD_NAMESPACE_CLASS(get_mpd_formatting)(os);
+    auto &options = LIBMPDPP_NAMESPACE_CLASS(get_mpd_formatting)(os);
     os << mpd.asXML(options.compact());
     return os;
 }
