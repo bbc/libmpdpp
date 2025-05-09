@@ -198,6 +198,44 @@ MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_locatio
     }
 }
 
+MPD::MPD(const std::vector<unsigned char> &mpd_xml, const std::optional<URI> &mpd_location)
+    :m_id()
+    ,m_profiles()
+    ,m_type(MPD::STATIC)
+    ,m_availabilityStartTime()
+    ,m_availabilityEndTime()
+    ,m_publishTime()
+    ,m_mediaPresentationDuration()
+    ,m_minimumUpdatePeriod()
+    ,m_minBufferTime()
+    ,m_timeShiftBufferDepth()
+    ,m_suggestedPresentationDelay()
+    ,m_maxSegmentDuration()
+    ,m_maxSubsegmentDuration()
+    ,m_programInformations()
+    ,m_baseURLs()
+    ,m_locations()
+    ,m_patchLocations()
+    ,m_serviceDescriptions()
+    ,m_initializationSets()
+    ,m_initializationGroups()
+    ,m_initializationPresentations()
+    ,m_contentProtections()
+    ,m_periods()
+    ,m_metrics()
+    ,m_essentialProperties()
+    ,m_supplementaryProperties()
+    ,m_utcTimings()
+    ,m_leapSecondInformation()
+    ,m_mpdURL(mpd_location)
+{
+    xmlpp::DomParser dom_parser;
+    dom_parser.parse_memory(Glib::ustring(reinterpret_cast<const char*>(mpd_xml.data()), mpd_xml.size()));
+    if (dom_parser) {
+        extractMPD(dom_parser.get_document());
+    }
+}
+
 MPD::MPD(const std::string &filename, const std::optional<URI> &mpd_location)
     :m_id()
     ,m_profiles()

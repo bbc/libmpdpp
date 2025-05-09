@@ -47,6 +47,7 @@ public:
     MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&period, PresentationType presentation_type = STATIC);
     MPD(std::istream &input_stream, const std::optional<URI> &mpd_location = std::nullopt);
     MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_location = std::nullopt);
+    MPD(const std::vector<unsigned char> &mpd_xml, const std::optional<URI> &mpd_location = std::nullopt);
     MPD(const std::string &filename, const std::optional<URI> &mpd_location = std::nullopt);
     MPD(const MPD &other);
     MPD(MPD &&other);
