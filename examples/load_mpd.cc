@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
     MPD mpd(ifs, std::string("file://") + abs_path);
     free(abs_path);
 
-    std::cout << "Pretty print MPD:" << std::endl
+    std::cout << "MPD is live?: " << (mpd.isLive()?"true":"false") << std::endl
+              << "Pretty print MPD:" << std::endl
               << mpd << std::endl
               << "Compact form:" << std::endl
               << MPD::compact << mpd << std::endl;
