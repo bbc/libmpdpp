@@ -28,7 +28,7 @@ const std::string &SegmentList::getMediaURLForSegment(unsigned long segment_numb
     auto it = m_segmentURLs.begin();
     for (decltype(segment_number) i = 0; i < segment_number; i++) it++;
     const auto &seg_url = *it;
-    if (seg_url.hasMedia()) return seg_url.media().value().value();
+    if (seg_url.hasMedia()) return seg_url.media().value().str();
     return g_empty_string;
 }
 
@@ -41,7 +41,7 @@ const std::string &SegmentList::getMediaURLForSegmentTime(unsigned long time) co
 const std::string &SegmentList::getInitializationURL() const
 {
     if (hasInitialization() && initialization().value().hasSourceURL())
-        return initialization().value().sourceURL().value().value();
+        return initialization().value().sourceURL().value().str();
 
     return g_empty_string;
 }

@@ -54,6 +54,7 @@ RepresentationBase.cc
 Resync.cc
 RFC6838ContentType.cc
 SAP.cc
+SegmentAvailability.cc
 SegmentBase.cc
 SegmentList.cc
 SegmentTemplate.cc

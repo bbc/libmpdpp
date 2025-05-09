@@ -43,6 +43,7 @@
 #include "Resync.hh"
 #include "RFC6838ContentType.hh"
 #include "SAP.hh"
+#include "SegmentAvailability.hh"
 #include "SegmentBase.hh"
 #include "SegmentList.hh"
 #include "SegmentTemplate.hh"

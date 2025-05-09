@@ -41,6 +41,7 @@ RepresentationBase.hh
 Resync.hh
 RFC6838ContentType.hh
 SAP.hh
+SegmentAvailability.hh
 SegmentBase.hh
 SegmentList.hh
 SegmentTemplate.hh

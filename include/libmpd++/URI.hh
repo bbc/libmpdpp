@@ -44,7 +44,7 @@ public:
     bool operator==(const URI &other) const { return m_uri == other.m_uri; };
 
     operator std::string() const { return m_uri; };
-    const std::string &value() const { return m_uri; };
+    const std::string &str() const { return m_uri; };
 
     URI resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const;
     bool isURL() const;
