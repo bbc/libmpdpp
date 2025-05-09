@@ -163,7 +163,6 @@ SegmentBase::SegmentBase(xmlpp::Node &node)
     node_set = node.find("@timescale");
     if (node_set.size() > 0) {
         xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
-        std::cerr << "Found @timescale=\"" << attr->get_value() << "\"" << std::endl;
         m_timescale = static_cast<unsigned int>(std::stoul(attr->get_value()));
     }
 
