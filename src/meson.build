@@ -29,6 +29,8 @@ ContentComponent.cc
 ContentPopularityRate.cc
 ContentProtection.cc
 conversions.hh
+DecomposedURL.cc
+DecomposedURL.hh
 Descriptor.cc
 EventStream.cc
 ExtendedBandwidth.cc

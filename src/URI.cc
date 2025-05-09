@@ -17,6 +17,8 @@
 #include "libmpd++/macros.hh"
 #include "libmpd++/BaseURL.hh"
 
+#include "DecomposedURL.hh"
+
 #include "libmpd++/URI.hh"
 
 LIBMPDPP_NAMESPACE_BEGIN
@@ -60,11 +62,11 @@ URI URI::resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const
     if (!isURL()) return *this;
     if (isAbsoluteURL()) return *this;
     
-    // find BaseURL to use
-    for (const auto &base_url : base_urls) {
-    }
+    // find BaseURL to use (just use first for now)
+    const auto &base_url = base_urls.front();
+    std::string new_url = std::string(DecomposedURL(DecomposedURL(base_url.url()), m_uri));
 
-    return *this;
+    return URI(new_url);
 }
 
 LIBMPDPP_NAMESPACE_END
