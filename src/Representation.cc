@@ -231,6 +231,12 @@ std::list<BaseURL> Representation::getBaseURLs() const
     return ret;
 }
 
+bool Representation::isSelected() const
+{
+    if (!m_adaptationSet) return false;
+    return m_adaptationSet->selectedRepresentations().contains(this);
+}
+
 // protected:
 
 namespace {

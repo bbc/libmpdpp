@@ -118,6 +118,12 @@ public:
      */
     std::list<BaseURL> getBaseURLs() const;
 
+    /** Is this Representation selected by its AdaptationSet?
+     * 
+     * @return `true` if the Representation is selected in its AdaptationSet.
+     */
+    bool isSelected() const;
+
 protected:
     friend class AdaptationSet;
     Representation(xmlpp::Node&);

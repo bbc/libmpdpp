@@ -1166,6 +1166,16 @@ void MPD::deselectAllRepresentations()
     }
 }
 
+std::unordered_set<const Representation*> MPD::selectedRepresentations() const
+{
+    std::unordered_set<const Representation*> ret;
+    for (auto &period : m_periods) {
+        auto selected_reps = period.selectedRepresentations();
+        ret.insert(selected_reps.begin(), selected_reps.end());
+    }
+    return ret;
+}
+
 template <class T>
 concept has_setMPD = requires(T a)
 {

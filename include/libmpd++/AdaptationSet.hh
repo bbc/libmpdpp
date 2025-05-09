@@ -307,6 +307,7 @@ public:
     AdaptationSet &representationRemove(const std::list<Representation>::const_iterator &);
     AdaptationSet &representationRemove(const std::list<Representation>::iterator &);
 
+    // Representation selection
     void selectAllRepresentations();
     void selectRepresentation(const Representation&, bool deselect_others = false);
     void selectRepresentation(const std::list<Representation>::const_iterator&, bool deselect_others = false);
@@ -316,6 +317,10 @@ public:
     void deselectRepresentation(const Representation&);
     void deselectRepresentation(const std::list<Representation>::const_iterator&);
     void deselectRepresentation(const std::list<Representation>::iterator&);
+
+    const std::unordered_set<const Representation*> &selectedRepresentations() const { return m_selectedRepresentations; };
+
+    // Representation querying
 
 protected:
     friend class MPD;

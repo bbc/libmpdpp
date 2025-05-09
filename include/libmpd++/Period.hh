@@ -15,6 +15,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <unordered_set>
 
 #include "macros.hh"
 #include "AdaptationSet.hh"
@@ -248,6 +249,8 @@ public:
 
     void selectAllRepresentations();
     void deselectAllRepresentations();
+
+    std::unordered_set<const Representation*> selectedRepresentations() const;
 
 protected:
     friend class MPD;

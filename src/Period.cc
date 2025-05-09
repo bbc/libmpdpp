@@ -542,6 +542,16 @@ void Period::deselectAllRepresentations()
     }
 }
 
+std::unordered_set<const Representation*> Period::selectedRepresentations() const
+{
+    std::unordered_set<const Representation*> ret;
+    for (auto &adapt_set : m_adaptationSets) {
+        const auto &selected_reps = adapt_set.selectedRepresentations();
+        ret.insert(selected_reps.begin(), selected_reps.end());
+    }
+    return ret;
+}
+
 LIBMPDPP_NAMESPACE_END
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

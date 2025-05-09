@@ -15,6 +15,7 @@
 #include <list>
 #include <optional>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "macros.hh"
@@ -336,6 +337,8 @@ public:
 
     void selectAllRepresentations();
     void deselectAllRepresentations();
+
+    std::unordered_set<const Representation*> selectedRepresentations() const;
 
 private:
     void extractMPD(void *doc);

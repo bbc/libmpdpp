@@ -774,6 +774,74 @@ AdaptationSet &AdaptationSet::representationRemove(const std::list<Representatio
     return *this;
 }
 
+void AdaptationSet::selectAllRepresentations()
+{
+    for (auto it = m_representations.begin(); it != m_representations.end(); it++) {
+        selectRepresentation(it);
+    }
+}
+
+void AdaptationSet::selectRepresentation(const Representation &rep, bool deselect_others)
+{
+    auto it = std::find(m_representations.begin(), m_representations.end(), rep);
+    selectRepresentation(it, deselect_others);
+}
+
+void AdaptationSet::selectRepresentation(const std::list<Representation>::const_iterator &rep_it, bool deselect_others)
+{
+    if (rep_it == m_representations.end()) {
+        if (deselect_others) deselectAllRepresentations();
+    } else {
+        auto &rep = *rep_it;
+        if (deselect_others) {
+            m_selectedRepresentations = {&rep};
+        } else {
+            m_selectedRepresentations.insert(&rep);
+        }
+    }
+}
+
+void AdaptationSet::selectRepresentation(const std::list<Representation>::iterator &rep_it, bool deselect_others)
+{
+    if (rep_it == m_representations.end()) {
+        if (deselect_others) deselectAllRepresentations();
+    } else {
+        auto &rep = *rep_it;
+        if (deselect_others) {
+            m_selectedRepresentations = {&rep};
+        } else {
+            m_selectedRepresentations.insert(&rep);
+        }
+    }
+}
+
+void AdaptationSet::deselectAllRepresentations()
+{
+    m_selectedRepresentations.clear();
+}
+
+void AdaptationSet::deselectRepresentation(const Representation &rep)
+{
+    auto it = std::find(m_representations.begin(), m_representations.end(), rep);
+    deselectRepresentation(it);
+}
+
+void AdaptationSet::deselectRepresentation(const std::list<Representation>::const_iterator &rep_it)
+{
+    if (rep_it != m_representations.end()) {
+        auto &rep = *rep_it;
+        m_selectedRepresentations.erase(&rep);
+    }
+}
+
+void AdaptationSet::deselectRepresentation(const std::list<Representation>::iterator &rep_it)
+{
+    if (rep_it != m_representations.end()) {
+        auto &rep = *rep_it;
+        m_selectedRepresentations.erase(&rep);
+    }
+}
+
 // protected:
 
 static Glib::ustring get_ns_prefix_for(xmlpp::Element &elem, const Glib::ustring &namespace_uri, const Glib::ustring &namespace_prefix)
@@ -960,74 +1028,6 @@ std::string AdaptationSet::getInitializationURL(const SegmentTemplate::Variables
         return m_period->getInitializationURL(vars);
     }
     return std::string();
-}
-
-void AdaptationSet::selectAllRepresentations()
-{
-    for (auto it = m_representations.begin(); it != m_representations.end(); it++) {
-        selectRepresentation(it);
-    }
-}
-
-void AdaptationSet::selectRepresentation(const Representation &rep, bool deselect_others)
-{
-    auto it = std::find(m_representations.begin(), m_representations.end(), rep);
-    selectRepresentation(it, deselect_others);
-}
-
-void AdaptationSet::selectRepresentation(const std::list<Representation>::const_iterator &rep_it, bool deselect_others)
-{
-    if (rep_it == m_representations.end()) {
-        if (deselect_others) deselectAllRepresentations();
-    } else {
-        auto &rep = *rep_it;
-        if (deselect_others) {
-            m_selectedRepresentations = {&rep};
-        } else {
-            m_selectedRepresentations.insert(&rep);
-        }
-    }
-}
-
-void AdaptationSet::selectRepresentation(const std::list<Representation>::iterator &rep_it, bool deselect_others)
-{
-    if (rep_it == m_representations.end()) {
-        if (deselect_others) deselectAllRepresentations();
-    } else {
-        auto &rep = *rep_it;
-        if (deselect_others) {
-            m_selectedRepresentations = {&rep};
-        } else {
-            m_selectedRepresentations.insert(&rep);
-        }
-    }
-}
-
-void AdaptationSet::deselectAllRepresentations()
-{
-    m_selectedRepresentations.clear();
-}
-
-void AdaptationSet::deselectRepresentation(const Representation &rep)
-{
-    auto it = std::find(m_representations.begin(), m_representations.end(), rep);
-    deselectRepresentation(it);
-}
-
-void AdaptationSet::deselectRepresentation(const std::list<Representation>::const_iterator &rep_it)
-{
-    if (rep_it != m_representations.end()) {
-        auto &rep = *rep_it;
-        m_selectedRepresentations.erase(&rep);
-    }
-}
-
-void AdaptationSet::deselectRepresentation(const std::list<Representation>::iterator &rep_it)
-{
-    if (rep_it != m_representations.end()) {
-        auto &rep = *rep_it;
-        m_selectedRepresentations.erase(&rep);
-    }
 }
 
 LIBMPDPP_NAMESPACE_END
