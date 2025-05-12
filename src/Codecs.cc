@@ -56,7 +56,7 @@ Codecs::Codecs(const std::string &attr_val)
         }
     } else {
         m_codecs = str_to_list(attr_val);
-    }   
+    }
 }
 
 Codecs::Codecs(const Codecs &other)

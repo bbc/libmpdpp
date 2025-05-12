@@ -49,15 +49,15 @@ static std::string _uri_escape_string(const std::string &unescaped, const std::s
     std::string ret;
 
     for (std::string::const_iterator c = unescaped.begin();
-	 c != unescaped.end();
-	 ++c) {
-	if (reserved_chars.find_first_of(*c) != std::string::npos &&
-	    allowed_chars.find_first_of(*c) == std::string::npos) {
+         c != unescaped.end();
+         ++c) {
+        if (reserved_chars.find_first_of(*c) != std::string::npos &&
+            allowed_chars.find_first_of(*c) == std::string::npos) {
             ret += _uri_char_to_pct_encode(*c);
-	}
-	else {
-	    ret += *c;
-	}
+        }
+        else {
+            ret += *c;
+        }
     }
 
     return ret;
@@ -87,10 +87,10 @@ static std::string _uri_escape_query(const std::string &unescaped)
 {
     std::string ret(_uri_escape_string(unescaped, "!$'()*,;:@/? =&"));
     for (std::string::iterator c = ret.begin();
-	 c != ret.end();
-	 ++c) {
-	if (*c == ' ')
-	    *c = '+';
+         c != ret.end();
+         ++c) {
+        if (*c == ' ')
+            *c = '+';
     }
     return ret;
 }
@@ -105,21 +105,21 @@ static std::string _uri_unescape_string(const std::string &escaped)
     std::string ret;
 
     for (std::string::size_type pos = 0; pos < escaped.size(); pos++) {
-	if (escaped[pos] == '%' && escaped.size() - pos >= 3 &&
-	    isxdigit(escaped[pos+1]) && isxdigit(escaped[pos+2])) {
+        if (escaped[pos] == '%' && escaped.size() - pos >= 3 &&
+            isxdigit(escaped[pos+1]) && isxdigit(escaped[pos+2])) {
             unsigned char a=0, b=0;
             a = escaped[pos+1];
-	    if (a >= '0' && a <= '9') {
-		a -= '0';
-	    }
-	    else if (a >= 'A' && a <= 'F') {
-		a -= ('A' - 10);
-	    }
-	    else {
-		a -= ('a' - 10);
-	    }
-	    b = escaped[pos+2];
-	    if (b >= '0' && b <= '9') {
+            if (a >= '0' && a <= '9') {
+                a -= '0';
+            }
+            else if (a >= 'A' && a <= 'F') {
+                a -= ('A' - 10);
+            }
+            else {
+                a -= ('a' - 10);
+            }
+            b = escaped[pos+2];
+            if (b >= '0' && b <= '9') {
                 b -= '0';
             }
             else if (b >= 'A' && b <= 'F') {
@@ -128,12 +128,12 @@ static std::string _uri_unescape_string(const std::string &escaped)
             else {
                 b -= ('a' - 10);
             }
-	    ret += static_cast<char>(a*16+b);
-	    pos += 2;
-	}
-	else {
-	    ret += escaped[pos];
-	}
+            ret += static_cast<char>(a*16+b);
+            pos += 2;
+        }
+        else {
+            ret += escaped[pos];
+        }
     }
 
     return ret;
@@ -147,21 +147,21 @@ static std::list<std::string> _uri_string_to_list(const std::string &path, unsig
         std::string pct_sep;
         if (convert && !unescape) {
             pct_sep = _uri_char_to_pct_encode(sep);
-	}
+        }
 
         std::string::size_type pos1 = 0, pos2;
         do {
-	    pos2 = path.find_first_of(static_cast<char>(sep), pos1);
+            pos2 = path.find_first_of(static_cast<char>(sep), pos1);
             std::string segment(path.substr(pos1, pos2 - pos1));
             if (convert && !unescape) {
                 for (std::string::size_type pos(segment.find(pct_sep));
-		     pos != std::string::npos;
-		     pos = segment.find(pct_sep, pos + 1)) {
+                     pos != std::string::npos;
+                     pos = segment.find(pct_sep, pos + 1)) {
                     segment.replace(pos, 3, 1, static_cast<char>(sep));
-	        }
+                }
             }
             if (unescape) {
-	        segment = _uri_unescape_string(segment);
+                segment = _uri_unescape_string(segment);
             }
             ret.push_back(segment);
             if (pos2 != std::string::npos)
@@ -179,22 +179,22 @@ static std::list<std::string> _uri_remove_dot_segments(const std::list<std::stri
     for (auto seg = original.begin(); seg != original.end(); ++seg) {
         auto next = seg;
         ++next;
-	if (*seg == ".") {
-	    // remove single dot segments
-	}
-	else if (seg->empty() && seg != original.begin() && next != original.end()) {
-	    // remove empty segments that are not the first or last segment
-	}
-	else if (*seg == "..") {
-	    // remove double dot plus previous segment (if it exists)
-	    if (ret.size() > 0 && !ret.back().empty()) {
-		ret.pop_back();
-	    }
-	}
-	else {
-	    // otherwise just copy the segment
-	    ret.push_back(*seg);
-	}
+        if (*seg == ".") {
+            // remove single dot segments
+        }
+        else if (seg->empty() && seg != original.begin() && next != original.end()) {
+            // remove empty segments that are not the first or last segment
+        }
+        else if (*seg == "..") {
+            // remove double dot plus previous segment (if it exists)
+            if (ret.size() > 0 && !ret.back().empty()) {
+                ret.pop_back();
+            }
+        }
+        else {
+            // otherwise just copy the segment
+            ret.push_back(*seg);
+        }
     }
 
     return ret;
@@ -227,12 +227,12 @@ static std::list<std::string> _uri_merge(const std::list<std::string> &base, con
     std::list<std::string> ret(rel);
     // If we don't have a base path or the rel DecomposedURL is absolute...
     if (base.size() == 0) {
-	// ensure rel is absolute
-	if (ret.size() > 0 && !ret.front().empty()) {
-	    ret.insert(ret.begin(), std::string());
-	}
-	// return the relative path
-	return ret;
+        // ensure rel is absolute
+        if (ret.size() > 0 && !ret.front().empty()) {
+            ret.insert(ret.begin(), std::string());
+        }
+        // return the relative path
+        return ret;
     }
 
     ret = base;
@@ -313,22 +313,22 @@ DecomposedURL::DecomposedURL(const std::string &url)
         if (authority.size() > 0 && authority[0] == '[') {
             pos = authority.find_first_of(']', 1);
             if (pos == std::string::npos) {
-		throw ParseError("Unable to parse the host part of the URL.");
-	    }
-	    m_host = _uri_unescape_string(authority.substr(1, pos - 1));
+                throw ParseError("Unable to parse the host part of the URL.");
+            }
+            m_host = _uri_unescape_string(authority.substr(1, pos - 1));
             authority.erase(0, pos + 1);
         } else {
-	    pos = authority.find_first_of(':');
+            pos = authority.find_first_of(':');
             m_host = _uri_unescape_string(authority.substr(0, pos));
             authority.erase(0, pos);
         }
         if (!authority.empty()) {
-	    if (authority[0] != ':' || authority.find_first_not_of("0123456789",1) != std::string::npos) {
-		throw ParseError("Unable to parse the port part of the URL.");
+            if (authority[0] != ':' || authority.find_first_not_of("0123456789",1) != std::string::npos) {
+                throw ParseError("Unable to parse the port part of the URL.");
             }
             char *endptr;
-	    m_port = strtol(authority.c_str()+1, &endptr, 10);
-	    m_portDefault = false;
+            m_port = strtol(authority.c_str()+1, &endptr, 10);
+            m_portDefault = false;
         } else {
             if (m_scheme.compare("http") == 0) {
                 m_port = 80;
@@ -340,19 +340,19 @@ DecomposedURL::DecomposedURL(const std::string &url)
 
     // Get path part
     if (!uri.empty()) {
-	pos = uri.find_first_of("?#");
+        pos = uri.find_first_of("?#");
         m_pathSegments = _uri_string_to_list(uri.substr(0, pos), '/', false, true);
         uri.erase(0, pos);
     }
 
     // Get query std::string
     if (!uri.empty() && uri[0] == '?') {
-	pos = uri.find_first_of('#');
-	if (pos != std::string::npos) {
+        pos = uri.find_first_of('#');
+        if (pos != std::string::npos) {
             m_query = _uri_unescape_string(uri.substr(1, pos - 1));
-	} else {
-	    m_query = _uri_unescape_string(uri.substr(1));
-	}
+        } else {
+            m_query = _uri_unescape_string(uri.substr(1));
+        }
         uri.erase(0, pos);
     }
 
@@ -363,7 +363,7 @@ DecomposedURL::DecomposedURL(const std::string &url)
     }
 
     if (!uri.empty()) {
-	throw ParseError("URL parts left over after parse '" + uri + "'");
+        throw ParseError("URL parts left over after parse '" + uri + "'");
     }
 }
 
@@ -382,8 +382,8 @@ DecomposedURL::DecomposedURL(const DecomposedURL &base, const std::string &url)
 }
 
 DecomposedURL::DecomposedURL(const std::string &scheme, const std::string &userinfo, const std::string &host,
-	 uint16_t port, const std::string &path, const std::string &query,
-	 const std::string &fragment)
+         uint16_t port, const std::string &path, const std::string &query,
+         const std::string &fragment)
     :m_pathSegments()
     ,m_scheme(scheme)
     ,m_userInfo(userinfo)
@@ -397,8 +397,8 @@ DecomposedURL::DecomposedURL(const std::string &scheme, const std::string &useri
 }
 
 DecomposedURL::DecomposedURL(const DecomposedURL& base, const std::string &scheme, const std::string &userinfo,
-	 const std::string &host, uint16_t port, const std::string &path,
-	 const std::string &query, const std::string &fragment)
+         const std::string &host, uint16_t port, const std::string &path,
+         const std::string &query, const std::string &fragment)
     :m_pathSegments(base.m_pathSegments)
     ,m_scheme(base.m_scheme)
     ,m_userInfo(base.m_userInfo)
@@ -458,57 +458,57 @@ bool DecomposedURL::operator==(const DecomposedURL &other) const
 DecomposedURL &DecomposedURL::operator+=(const DecomposedURL &other)
 {
     if (isNull()) {
-	*this = other;
-    	return *this;
+        *this = other;
+            return *this;
     }
 
     if (other.isNull())
-	return *this;
+        return *this;
 
     if (!other.m_scheme.empty() && other.m_scheme != m_scheme) {
-	m_scheme = other.m_scheme;
-	m_userInfo = other.m_userInfo;
+        m_scheme = other.m_scheme;
+        m_userInfo = other.m_userInfo;
         m_host = other.m_host;
         m_port = other.m_port;
         m_portDefault = other.m_portDefault;
         m_pathSegments = _uri_remove_dot_segments(other.m_pathSegments);
         m_query = other.m_query;
     } else {
-	if (!other.m_host.empty()) {
-	    m_userInfo = other.m_userInfo;
-	    m_host = other.m_host;
-	    m_port = other.m_port;
-	    m_portDefault = other.m_portDefault;
-	    m_pathSegments = _uri_remove_dot_segments(other.m_pathSegments);
-	    m_query = other.m_query;
-	}
-	else {
-	    if (other.m_pathSegments.size() == 0) {
-		if (!other.m_query.empty()) {
-		    m_query = other.m_query;
-		}
-	    }
-	    else {
-		if (other.m_pathSegments.size() > 0 &&
-		    other.m_pathSegments.front().empty()) {
-		    m_pathSegments = _uri_remove_dot_segments(other.m_pathSegments);
-		}
-		else {
-		    m_pathSegments = _uri_remove_dot_segments(
-			_uri_merge(m_pathSegments, other.m_pathSegments));
-		}
-		m_query = other.m_query;
-	    }
-	}
+        if (!other.m_host.empty()) {
+            m_userInfo = other.m_userInfo;
+            m_host = other.m_host;
+            m_port = other.m_port;
+            m_portDefault = other.m_portDefault;
+            m_pathSegments = _uri_remove_dot_segments(other.m_pathSegments);
+            m_query = other.m_query;
+        }
+        else {
+            if (other.m_pathSegments.size() == 0) {
+                if (!other.m_query.empty()) {
+                    m_query = other.m_query;
+                }
+            }
+            else {
+                if (other.m_pathSegments.size() > 0 &&
+                    other.m_pathSegments.front().empty()) {
+                    m_pathSegments = _uri_remove_dot_segments(other.m_pathSegments);
+                }
+                else {
+                    m_pathSegments = _uri_remove_dot_segments(
+                        _uri_merge(m_pathSegments, other.m_pathSegments));
+                }
+                m_query = other.m_query;
+            }
+        }
     }
     m_fragment = other.m_fragment;
 
     if ((m_port == 0) && (!m_scheme.empty())) {
         if(m_scheme.compare("http") == 0) {
-	        m_port = 80;
-	    } else if (m_scheme.compare("https") == 0) {
-	        m_port = 443;
-	    }
+                m_port = 80;
+            } else if (m_scheme.compare("https") == 0) {
+                m_port = 443;
+            }
     }
 
     return *this;
@@ -526,34 +526,34 @@ DecomposedURL::operator std::string() const
     std::ostringstream ostr;
 
     if (!m_scheme.empty())
-	ostr << m_scheme << ":";
+        ostr << m_scheme << ":";
 
     if (!m_userInfo.empty() || !m_host.empty() || m_port != 0)
-	ostr << "//";
+        ostr << "//";
 
     if (!m_userInfo.empty())
-	ostr << _uri_escape_userinfo(m_userInfo) << "@";
+        ostr << _uri_escape_userinfo(m_userInfo) << "@";
 
     if (!m_host.empty()) {
-	if (m_host.find_first_of(':') != std::string::npos) {
-	    ostr << "[" << _uri_escape_host_colon(m_host) << "]";
-	}
-	else {
-	    ostr << _uri_escape_host(m_host);
-	}
+        if (m_host.find_first_of(':') != std::string::npos) {
+            ostr << "[" << _uri_escape_host_colon(m_host) << "]";
+        }
+        else {
+            ostr << _uri_escape_host(m_host);
+        }
     }
 
     if ((m_port != 0) && (!m_portDefault))
-	ostr << ":" << m_port;
+        ostr << ":" << m_port;
 
     if (m_pathSegments.size() > 0)
-	ostr << pathString();
+        ostr << pathString();
 
     if (!m_query.empty())
-	ostr << "?" << _uri_escape_query(m_query);
+        ostr << "?" << _uri_escape_query(m_query);
 
     if (!m_fragment.empty())
-	ostr << "#" << _uri_escape_fragment(m_fragment);
+        ostr << "#" << _uri_escape_fragment(m_fragment);
 
     return ostr.str();
 }
@@ -581,10 +581,10 @@ std::string DecomposedURL::path() const
     const char *sep = "";
 
     for (std::list<std::string>::const_iterator seg = m_pathSegments.begin();
-	 seg != m_pathSegments.end();
-	 ++seg) {
-	ret += sep;
-	ret += *seg;
+         seg != m_pathSegments.end();
+         ++seg) {
+        ret += sep;
+        ret += *seg;
         sep = "/";
     }
 
@@ -623,9 +623,9 @@ DecomposedURL &DecomposedURL::appendPath(const std::string &relative_path)
 {
     std::list<std::string> new_segs(_uri_string_to_list(relative_path, '/', false, false));
     if (m_pathSegments.size() > 1 && m_pathSegments.back().empty())
-	m_pathSegments.pop_back();
+        m_pathSegments.pop_back();
     if (new_segs.size() > 0 && new_segs.front().empty())
-	new_segs.erase(new_segs.begin());
+        new_segs.erase(new_segs.begin());
     m_pathSegments.insert(m_pathSegments.end(), new_segs.begin(), new_segs.end());
     return *this;
 }
@@ -633,9 +633,9 @@ DecomposedURL &DecomposedURL::appendPath(const std::string &relative_path)
 DecomposedURL &DecomposedURL::appendPathSegment(const std::string &path_segment)
 {
     if (!path_segment.empty()) {
-	if (m_pathSegments.size() > 1 && m_pathSegments.back().empty())
+        if (m_pathSegments.size() > 1 && m_pathSegments.back().empty())
             m_pathSegments.pop_back();
-	m_pathSegments.push_back(path_segment);
+        m_pathSegments.push_back(path_segment);
     }
     return *this;
 }

@@ -32,9 +32,9 @@
 #include "libmpd++/Period.hh"
 #include "libmpd++/ProgramInformation.hh"
 #include "libmpd++/SegmentAvailability.hh"
-#include "libmpd++/ServiceDescription.hh" 
+#include "libmpd++/ServiceDescription.hh"
 #include "libmpd++/UIntVWithID.hh"
-#include "libmpd++/URI.hh" 
+#include "libmpd++/URI.hh"
 
 #include "constants.hh"
 #include "conversions.hh"

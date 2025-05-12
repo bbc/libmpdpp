@@ -45,7 +45,7 @@ SegmentAvailability::SegmentAvailability(SegmentAvailability &&to_move)
 SegmentAvailability::SegmentAvailability(const time_type &availability_start, const duration_type &segment_length,
                                          const URI &segment_url, const std::optional<time_type> &availability_end)
     :m_availabilityStartTime(availability_start)
-    ,m_availabilityEndTime(availability_end) 
+    ,m_availabilityEndTime(availability_end)
     ,m_segmentDuration(segment_length)
     ,m_segmentURL(segment_url)
 {

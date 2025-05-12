@@ -467,7 +467,7 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
 
     node_set = node.find("@initializationSetRef", ns_map);
     if (node_set.size() > 0) {
-	xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
+        xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
         std::string::size_type start_pos = 0;
         std::string attr_val = attr->get_value();
         for (auto pos = attr_val.find_first_of(','); pos != std::string::npos; start_pos = pos+1, pos = attr_val.find_first_of(',')) {
@@ -475,7 +475,7 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
             if (!val.empty()) {
                 m_initializationSetRefs.push_back(static_cast<unsigned int>(std::stoul(val)));
             }
-        }    
+        }
         auto val = attr_val.substr(start_pos);
         if (!val.empty()) {
             m_initializationSetRefs.push_back(static_cast<unsigned int>(std::stoul(val)));
@@ -873,7 +873,7 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
 
         if(m_group.has_value()) {
             elem.set_attribute("group", std::to_string(m_group.value()));
-        }  
+        }
 
         if(m_lang.has_value()) {
             elem.set_attribute("lang", m_lang.value());

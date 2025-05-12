@@ -61,10 +61,10 @@ void FrameRate::convertString(const std::string &frame_rate_str) {
     if (pos == std::string::npos) {
         if (frame_rate_str.empty()) {
             m_numerator = 1;
-	} else {
+        } else {
             m_numerator = std::stoul(frame_rate_str);
-	}
-	m_denominator = 1;
+        }
+        m_denominator = 1;
     } else {
         std::string numerator_str = frame_rate_str.substr(0, pos);
         std::string denominator_str = frame_rate_str.substr(pos + 1);

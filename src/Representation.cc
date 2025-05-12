@@ -309,7 +309,7 @@ Representation::Representation(xmlpp::Node &node)
 
     node_set = node.find("@associationId");
     if (node_set.size() > 0) {
-	xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
+        xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
         m_associationIds = split_attribute_str<std::string>(attr->get_value());
     }
 
@@ -370,7 +370,7 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
 
     // Attributes
     if(!m_id.empty()) {
-        elem.set_attribute("id", m_id);	    
+        elem.set_attribute("id", m_id);
     }
     if (m_bandwidth != 0) {
         elem.set_attribute("bandwidth", std::to_string(m_bandwidth));
@@ -380,17 +380,17 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
     }
 
     for (const auto &depId : m_dependencyIds) {
-	elem.set_attribute("dependencyId", depId);    
+        elem.set_attribute("dependencyId", depId);
     }
 
     for (const auto &assocId : m_associationIds) {
 
-	elem.set_attribute("associationId", assocId);    
+        elem.set_attribute("associationId", assocId);
     }
 
     for (const auto &assocType : m_associationTypes) {
 
-	elem.set_attribute("associationType", assocType);    
+        elem.set_attribute("associationType", assocType);
     }
 
     for (const auto &streamStructureId : m_mediaStreamStructureIds) {

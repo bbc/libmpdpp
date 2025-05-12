@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     free(abs_path);
 
     std::cout << "MPD is live?: " << (mpd.isLive()?"true":"false") << std::endl
-	      << "Contains " << mpd.selectedRepresentations().size() << " Representations" << std::endl
-	      << std::endl
+              << "Contains " << mpd.selectedRepresentations().size() << " Representations" << std::endl
+              << std::endl
               << "Pretty print MPD:" << std::endl
               << mpd << std::endl
               << "Compact form:" << std::endl

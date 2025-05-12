@@ -15,7 +15,7 @@
 #ifdef HAVE_VISIBILITY
 #define LIBMPDPP_PUBLIC_API __attribute__((visibility("default")))
 #else
-#define LIBMPDPP_PUBLIC_API 
+#define LIBMPDPP_PUBLIC_API
 #endif
 #else
 #define LIBMPDPP_PUBLIC_API
