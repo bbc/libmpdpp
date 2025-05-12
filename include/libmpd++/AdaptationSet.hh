@@ -67,7 +67,7 @@ public:
     AdaptationSet &group(unsigned int group) { m_group = group; return *this;};
     AdaptationSet &group(const std::optional<unsigned int> &group) { m_group = group; return *this;};
     AdaptationSet &group(std::optional<unsigned int> &&group) { m_group = std::move(group);return *this;};
-    
+
     // @lang
     bool hasLang() const { return m_lang.has_value(); };
     const std::optional<std::string> &lang() const { return m_lang; };
@@ -134,7 +134,7 @@ public:
     AdaptationSet &minHeight(unsigned int min_height) { m_minHeight = min_height; return *this;};
     AdaptationSet &minHeight(const std::optional<unsigned int> &min_height) { m_minHeight = min_height; return *this;};
     AdaptationSet &minHeight(std::optional<unsigned int> &&min_height) { m_minHeight = std::move(min_height);return *this;};
-    
+
     // @maxHeight
     bool hasMaxHeight() const { return m_maxHeight.has_value(); };
     const std::optional<unsigned int> &maxHeight() const { return m_maxHeight; };
@@ -185,7 +185,7 @@ public:
     // @initializationSetRefs
     const std::list<unsigned int> &initializationSetRefs() const { return m_initializationSetRefs; };
     AdaptationSet &initializationSetRefs(std::list<unsigned int> initialization_set_refs) { m_initializationSetRefs = initialization_set_refs; return *this;};
-    
+
     // @initializationPrincipal
     bool hasInitializationPrincipal() const { return m_initializationPrincipal.has_value(); };
     const std::optional<URI> &initializationPrincipal() const { return m_initializationPrincipal; };
@@ -357,7 +357,7 @@ private:
     std::optional<bool>                m_bitstreamSwitching;
     std::list<unsigned int>            m_initializationSetRefs;
     std::optional<URI>                 m_initializationPrincipal;
-    
+
     // Period child elements (ISO 23009-1:2022 Table 5)
     std::list<Descriptor>          m_accessibilities;
     std::list<Descriptor>          m_roles;

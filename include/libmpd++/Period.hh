@@ -25,6 +25,7 @@
 #include "EventStream.hh"
 #include "Label.hh"
 #include "Preselection.hh"
+#include "SegmentAvailability.hh"
 #include "SegmentBase.hh"
 #include "SegmentTemplate.hh"
 #include "SegmentList.hh"
@@ -41,6 +42,7 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class LIBMPDPP_PUBLIC_API Period {
 public:
+    using time_type = std::chrono::system_clock::time_point;
     using duration_type = std::chrono::microseconds;
 
     Period();
@@ -251,6 +253,9 @@ public:
     void deselectAllRepresentations();
 
     std::unordered_set<const Representation*> selectedRepresentations() const;
+
+    std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time = std::chrono::system_clock::now()) const;
+    std::list<SegmentAvailability> selectedInitialisationSegments() const;
 
 protected:
     friend class MPD;

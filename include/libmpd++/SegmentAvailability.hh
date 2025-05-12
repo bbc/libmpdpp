@@ -11,6 +11,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <optional>
 
 #include "macros.hh"
 #include "URI.hh"
@@ -29,6 +30,8 @@ public:
     SegmentAvailability();
     SegmentAvailability(const SegmentAvailability &to_copy);
     SegmentAvailability(SegmentAvailability &&to_move);
+    SegmentAvailability(const time_type &availability_start, const duration_type &segment_length, const URI &segment_url,
+                        const std::optional<time_type> &availability_end = std::nullopt);
 
     virtual ~SegmentAvailability() {};
 

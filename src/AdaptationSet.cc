@@ -906,7 +906,7 @@ void AdaptationSet::setXMLElement(xmlpp::Element &elem) const
         if(m_minHeight.has_value()) {
             elem.set_attribute("minHeight", std::to_string(m_minHeight.value()));
         }
-   
+
         if(m_maxHeight.has_value()) {
             elem.set_attribute("maxHeight", std::to_string(m_maxHeight.value()));
         }

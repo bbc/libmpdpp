@@ -119,7 +119,7 @@ Codecs::operator std::string() const
             oss << sep << codec;
         }
     }
-        
+
     return oss.str();
 }
 

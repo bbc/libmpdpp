@@ -61,7 +61,7 @@ URI URI::resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const
 {
     if (!isURL()) return *this;
     if (isAbsoluteURL()) return *this;
-    
+
     // find BaseURL to use (just use first for now)
     const auto &base_url = base_urls.front();
     std::string new_url = std::string(DecomposedURL(DecomposedURL(base_url.url()), m_uri));

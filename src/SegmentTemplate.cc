@@ -51,7 +51,7 @@ std::string SegmentTemplate::Variables::format(const std::string &fmt) const
             varname.erase(pos);
         }
     }
-    
+
     if (varname == "Number") {
         if (m_number) return std::format("{:0{}d}", m_number.value(), width);
         throw std::runtime_error("Number substitution without a Number being set");

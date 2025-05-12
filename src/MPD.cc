@@ -10,6 +10,7 @@
  */
 
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <regex>
@@ -17,12 +18,23 @@
 #include <string>
 
 #include <libxml++/libxml++.h>
+#include <glibmm/ustring.h>
 
 #include "libmpd++/macros.hh"
 #include "libmpd++/exceptions.hh"
 #include "libmpd++/BaseURL.hh"
-#include "libmpd++/URI.hh"
-#include <glibmm/ustring.h>
+#include "libmpd++/ContentProtection.hh"
+#include "libmpd++/Descriptor.hh"
+#include "libmpd++/InitializationSet.hh"
+#include "libmpd++/LeapSecondInformation.hh"
+#include "libmpd++/Metrics.hh"
+#include "libmpd++/PatchLocation.hh"
+#include "libmpd++/Period.hh"
+#include "libmpd++/ProgramInformation.hh"
+#include "libmpd++/SegmentAvailability.hh"
+#include "libmpd++/ServiceDescription.hh" 
+#include "libmpd++/UIntVWithID.hh"
+#include "libmpd++/URI.hh" 
 
 #include "constants.hh"
 #include "conversions.hh"
@@ -31,6 +43,7 @@
 
 static const int g_MPD_formatting_xindex = std::ios_base::xalloc();
 
+using namespace std::literals::chrono_literals;
 LIBMPDPP_NAMESPACE_BEGIN
 
 static MPD::time_type str_to_time_point(const std::string &str);
@@ -85,6 +98,7 @@ MPD::MPD(const duration_type &minimum_buffer_time, const URI &profile, const Per
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL()
+    ,m_cache(new Cache)
 {
 }
 
@@ -118,6 +132,7 @@ MPD::MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL()
+    ,m_cache(new Cache)
 {
     m_periods.push_back(std::move(period));
 }
@@ -152,6 +167,7 @@ MPD::MPD(std::istream &input_stream, const std::optional<URI> &mpd_location)
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL(mpd_location)
+    ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_stream(input_stream);
@@ -190,6 +206,7 @@ MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_locatio
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL(mpd_location)
+    ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_memory(Glib::ustring(mpd_xml.data(), mpd_xml.size()));
@@ -228,6 +245,7 @@ MPD::MPD(const std::vector<unsigned char> &mpd_xml, const std::optional<URI> &mp
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL(mpd_location)
+    ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_memory(Glib::ustring(reinterpret_cast<const char*>(mpd_xml.data()), mpd_xml.size()));
@@ -266,6 +284,7 @@ MPD::MPD(const std::string &filename, const std::optional<URI> &mpd_location)
     ,m_utcTimings()
     ,m_leapSecondInformation()
     ,m_mpdURL(mpd_location)
+    ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
     dom_parser.parse_file(filename);
@@ -304,7 +323,10 @@ MPD::MPD(const MPD &other)
     ,m_utcTimings(other.m_utcTimings)
     ,m_leapSecondInformation(other.m_leapSecondInformation)
     ,m_mpdURL(other.m_mpdURL)
+    ,m_cache(new Cache)
 {
+    m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
+    m_cache->utcTimingOffsetFromSystemClock = other.m_cache->utcTimingOffsetFromSystemClock;
 }
 
 MPD::MPD(MPD &&other)
@@ -337,11 +359,15 @@ MPD::MPD(MPD &&other)
     ,m_utcTimings(std::move(other.m_utcTimings))
     ,m_leapSecondInformation(std::move(other.m_leapSecondInformation))
     ,m_mpdURL(std::move(other.m_mpdURL))
+    ,m_cache(new Cache)
 {
+    m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
+    m_cache->utcTimingOffsetFromSystemClock = std::move(other.m_cache->utcTimingOffsetFromSystemClock);
 }
 
 MPD::~MPD()
 {
+    delete m_cache;
 }
 
 MPD &MPD::operator=(const MPD &other)
@@ -377,6 +403,10 @@ MPD &MPD::operator=(const MPD &other)
     m_supplementaryProperties = other.m_supplementaryProperties;
     m_utcTimings = other.m_utcTimings;
     m_leapSecondInformation = other.m_leapSecondInformation;
+
+    m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
+    m_cache->utcTimingOffsetFromSystemClock = other.m_cache->utcTimingOffsetFromSystemClock;
+
     return *this;
 }
 
@@ -413,12 +443,18 @@ MPD &MPD::operator=(MPD &&other)
     m_supplementaryProperties = std::move(other.m_supplementaryProperties);
     m_utcTimings = std::move(other.m_utcTimings);
     m_leapSecondInformation = std::move(other.m_leapSecondInformation);
+
+    m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
+    m_cache->utcTimingOffsetFromSystemClock = std::move(other.m_cache->utcTimingOffsetFromSystemClock);
+
     return *this;
 }
 
 bool MPD::isLive() const
 {
-    if (m_type != DYNAMIC) return false;
+    if (m_type != DYNAMIC) return false;                      // Live is "dynamic"
+    if (!m_availabilityStartTime.has_value()) return false;   // Live has an availability start time
+    // Live matches one of the live profiles
     static const std::vector<URI> live_profiles = {"urn:mpeg:dash:profile:isoff-live:2011", "urn:dvb:dash:profile:dvb-dash:isoff-ext-live:2014"};
     for (const auto &profile : live_profiles) {
         if (find(m_profiles.begin(), m_profiles.end(), profile) != m_profiles.end()) return true;
@@ -724,7 +760,7 @@ std::list<BaseURL> MPD::getBaseURLs() const
 {
     std::list<BaseURL> ret;
     std::list<BaseURL> acquisition_urls;
-    
+
     if (m_mpdURL) {
         acquisition_urls.push_back(BaseURL(m_mpdURL.value()));
     }
@@ -1146,6 +1182,15 @@ MPD &MPD::utcTimingRemove(const std::list<Descriptor>::iterator &it)
     return *this;
 }
 
+void MPD::synchroniseWithUTCTiming() const
+{
+    if (m_utcTimings.empty()) return;
+
+    // TODO: fetch one or more UTCTiming timestamp and store the (mean) offset from the system clock
+    //       m_cache->haveUtcTimingOffsetFromSystemClock = true;
+    //       m_cache->utcTimingOffsetFromSystemClock = duration to add to system_clock to make UTCTiming result.
+}
+
 const LeapSecondInformation &MPD::leapSecondInformation(const LeapSecondInformation &default_val) const
 {
     if (!m_leapSecondInformation.has_value()) return default_val;
@@ -1175,6 +1220,46 @@ std::unordered_set<const Representation*> MPD::selectedRepresentations() const
     }
     return ret;
 }
+
+std::list<SegmentAvailability> MPD::selectedSegmentAvailability(const time_type &query_time) const
+{
+    std::list<SegmentAvailability> ret;
+    time_type adjusted_time = adjustTimeForUTCTiming(query_time);
+    auto period_it = getPeriodFor(adjusted_time);
+    if (period_it != m_periods.cend() && m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
+        // Select the first period if our query time is before the DASH starts.
+        period_it = m_periods.cbegin();
+    }
+    if (period_it != m_periods.cend()) {
+        ret = period_it->selectedSegmentAvailability(adjusted_time);
+        if (ret.empty()) {
+            // No segments left in the current period, try the next one
+            period_it++;
+            if (period_it != m_periods.cend()) {
+                ret = period_it->selectedSegmentAvailability(adjusted_time);
+            }
+        }
+    }
+
+    return ret;
+}
+
+std::list<SegmentAvailability> MPD::selectedInitialisationSegments(const time_type &query_time) const
+{
+    std::list<SegmentAvailability> ret;
+    time_type adjusted_time = adjustTimeForUTCTiming(query_time);
+    auto period_it = getPeriodFor(adjusted_time);
+    if (period_it != m_periods.cend() && m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
+          // Select the first period if our query time is before the DASH starts.
+          period_it = m_periods.cbegin();
+    }
+    if (period_it != m_periods.cend()) {
+        ret = period_it->selectedInitialisationSegments();
+    }
+    return ret;
+}
+
+// private:
 
 template <class T>
 concept has_setMPD = requires(T a)
@@ -1266,7 +1351,7 @@ void MPD::extractMPD(void *doc)
 
     OPT_ATTR_STRING(id);
     MAND_ATTR_FN(profiles, str_to_uri_list);
-    
+
     node_set = mpd_root->find("@type");
     if (node_set.size() == 1) {
         xmlpp::Attribute *type_attr = dynamic_cast<xmlpp::Attribute*>(node_set.front());
@@ -1308,6 +1393,37 @@ void MPD::extractMPD(void *doc)
     OPT_ELEM_LIST_CLASS(m_supplementaryProperties, SupplementaryProperty, Descriptor);
     OPT_ELEM_LIST_CLASS(m_utcTimings, UTCTiming, Descriptor);
     OPT_ELEM_CLASS(m_leapSecondInformation, LeapSecondInformation, LeapSecondInformation);
+}
+
+MPD::time_type MPD::adjustTimeForUTCTiming(const MPD::time_type &system_time) const
+{
+    if (!m_cache->haveUtcTimingOffsetFromSystemClock) synchroniseWithUTCTiming();
+    return system_time + m_cache->utcTimingOffsetFromSystemClock;
+}
+
+std::list<Period>::const_iterator MPD::getPeriodFor(const MPD::time_type &pres_time) const
+{
+    if (isLive()) {
+        for (auto it = m_periods.cbegin(); it != m_periods.cend(); it++) {
+            auto period_start = m_availabilityStartTime.value() + it->calcStart().value();
+            if (pres_time < period_start) break;
+            if (pres_time >= period_start) {
+                if (!it->hasCalcDuration()) return it;
+                auto period_end = period_start + it->calcDuration().value();
+                if (pres_time < period_end) return it;
+            }
+        }
+    } else {
+        // TODO: find period for wallclock time in VoD (need to know wallclock start time!)
+    }
+
+    return m_periods.cend();
+}
+
+MPD::Cache::Cache()
+    :haveUtcTimingOffsetFromSystemClock(false)
+    ,utcTimingOffsetFromSystemClock(0s)
+{
 }
 
 static MPDFormattingOptions &get_mpd_formatting(std::ios_base &ios)

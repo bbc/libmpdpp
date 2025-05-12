@@ -82,7 +82,7 @@ Durn str_to_duration(const std::string &str)
 }
 
 LIBMPDPP_NAMESPACE_END
-    
+
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */ 
 #endif /* _BBC_PARSE_DASH_MPD_CONVERSIONS_HH_ */

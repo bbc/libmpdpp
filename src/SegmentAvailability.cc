@@ -9,6 +9,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <optional>
 
 #include "libmpd++/macros.hh"
 #include "libmpd++/URI.hh"
@@ -38,6 +39,15 @@ SegmentAvailability::SegmentAvailability(SegmentAvailability &&to_move)
     ,m_availabilityEndTime(std::move(to_move.m_availabilityEndTime))
     ,m_segmentDuration(std::move(to_move.m_segmentDuration))
     ,m_segmentURL(std::move(to_move.m_segmentURL))
+{
+}
+
+SegmentAvailability::SegmentAvailability(const time_type &availability_start, const duration_type &segment_length,
+                                         const URI &segment_url, const std::optional<time_type> &availability_end)
+    :m_availabilityStartTime(availability_start)
+    ,m_availabilityEndTime(availability_end) 
+    ,m_segmentDuration(segment_length)
+    ,m_segmentURL(segment_url)
 {
 }
 

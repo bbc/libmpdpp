@@ -53,7 +53,7 @@ public:
 
     /* create a copy of this BaseURL with the url resolved using the provided base_urls */
     BaseURL resolveURL(const std::list<BaseURL> &base_urls) const;
-    
+
     // @serviceLocation
     bool hasServiceLocation() const { return m_serviceLocation.has_value(); };
     const std::optional<std::string> &serviceLocation() const { return m_serviceLocation; };

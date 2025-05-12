@@ -27,6 +27,7 @@
 #include "libmpd++/Label.hh"
 #include "libmpd++/MPD.hh"
 #include "libmpd++/Preselection.hh"
+#include "libmpd++/SegmentAvailability.hh"
 #include "libmpd++/SegmentBase.hh"
 #include "libmpd++/SegmentTemplate.hh"
 #include "libmpd++/SegmentList.hh"
@@ -38,6 +39,7 @@
 
 #include "libmpd++/Period.hh"
 
+using namespace std::literals::chrono_literals;
 LIBMPDPP_NAMESPACE_BEGIN
 
 Period::Period()
@@ -240,6 +242,60 @@ std::list<BaseURL> Period::getBaseURLs() const
         }
     }
     return ret;
+}
+
+void Period::selectAllRepresentations()
+{
+    for (auto &adapt_set : m_adaptationSets) {
+        adapt_set.selectAllRepresentations();
+    }
+}
+
+void Period::deselectAllRepresentations()
+{
+    for (auto &adapt_set : m_adaptationSets) {
+        adapt_set.deselectAllRepresentations();
+    }
+}
+
+std::unordered_set<const Representation*> Period::selectedRepresentations() const
+{
+    std::unordered_set<const Representation*> ret;
+    for (auto &adapt_set : m_adaptationSets) {
+        const auto &selected_reps = adapt_set.selectedRepresentations();
+        ret.insert(selected_reps.begin(), selected_reps.end());
+    }
+    return ret;
+}
+
+std::list<SegmentAvailability> Period::selectedSegmentAvailability(const time_type &query_time) const
+{
+    // TODO: proper logic to scan all adaptation sets and combine results
+
+    // For now just dummy values
+    std::ostringstream oss;
+    oss << std::chrono::duration_cast<std::chrono::seconds>(query_time.time_since_epoch()).count();
+
+    return std::list({
+        SegmentAvailability(query_time + 1s, 4s, std::string("http://example.com/a/placeholder-") + oss.str() + ".m4s"),
+        SegmentAvailability(query_time + 1s, 4s, std::string("http://example.com/v/placeholder-") + oss.str() + ".m4s"),
+        SegmentAvailability(query_time + 2s, 4s, std::string("http://example.com/s/placeholder-") + oss.str() + ".m4s")
+    });
+}
+
+std::list<SegmentAvailability> Period::selectedInitialisationSegments() const
+{
+    // TODO: proper logic to scan all adaptation sets and combine results
+
+    // For now just dummy values
+    time_type avail_start = std::chrono::system_clock::now();
+    if (m_mpd && m_mpd->hasAvailabilityStartTime()) {
+        avail_start = m_mpd->availabilityStartTime().value();
+    }
+    return std::list({
+        SegmentAvailability(avail_start, 4s, "http://example.com/a/placeholder_init.mp4"),
+        SegmentAvailability(avail_start, 4s, "http://example.com/v/placeholder_init.mp4")
+    });
 }
 
 // protected:
@@ -526,30 +582,6 @@ std::string Period::getInitializationURL(const SegmentTemplate::Variables &vars)
         return m_segmentList.value().getInitializationURL();
     }
     return std::string();
-}
-
-void Period::selectAllRepresentations()
-{
-    for (auto &adapt_set : m_adaptationSets) {
-        adapt_set.selectAllRepresentations();
-    }
-}
-
-void Period::deselectAllRepresentations()
-{
-    for (auto &adapt_set : m_adaptationSets) {
-        adapt_set.deselectAllRepresentations();
-    }
-}
-
-std::unordered_set<const Representation*> Period::selectedRepresentations() const
-{
-    std::unordered_set<const Representation*> ret;
-    for (auto &adapt_set : m_adaptationSets) {
-        const auto &selected_reps = adapt_set.selectedRepresentations();
-        ret.insert(selected_reps.begin(), selected_reps.end());
-    }
-    return ret;
 }
 
 LIBMPDPP_NAMESPACE_END

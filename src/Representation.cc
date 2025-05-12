@@ -151,9 +151,9 @@ bool Representation::operator==(const Representation &to_compare) const
     } while (0)
 
     if (m_id != to_compare.m_id) return false;
-    
+
     if (m_bandwidth != to_compare.m_bandwidth) return false;
-    
+
     COMPARE_OPT_VALUES(m_qualityRanking);
     COMPARE_ANY_ORDER_LISTS(m_dependencyIds);
     COMPARE_ANY_ORDER_LISTS(m_associationIds);
@@ -384,12 +384,12 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
     }
 
     for (const auto &assocId : m_associationIds) {
-        
+
 	elem.set_attribute("associationId", assocId);    
     }
 
     for (const auto &assocType : m_associationTypes) {
-    
+
 	elem.set_attribute("associationType", assocType);    
     }
 
@@ -402,7 +402,7 @@ void Representation::setXMLElement(xmlpp::Element &elem) const
         xmlpp::Element *child = elem.add_child_element("BaseURL");
         base_url.setXMLElement(*child);
     }
-    
+
     for (const auto &ext_bw : m_extendedBandwidths) {
         xmlpp::Element *child = elem.add_child_element("ExtendedBandwidth");
         ext_bw.setXMLElement(*child);

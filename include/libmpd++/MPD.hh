@@ -28,6 +28,7 @@
 #include "PatchLocation.hh"
 #include "Period.hh"
 #include "ProgramInformation.hh"
+#include "SegmentAvailability.hh"
 #include "ServiceDescription.hh"
 #include "UIntVWithID.hh"
 #include "URI.hh"
@@ -327,6 +328,7 @@ public:
     MPD &utcTimingRemove(const Descriptor &prog_info);
     MPD &utcTimingRemove(const std::list<Descriptor>::const_iterator &);
     MPD &utcTimingRemove(const std::list<Descriptor>::iterator &);
+    void synchroniseWithUTCTiming() const;
 
     bool hasLeapSecondInformation() const { return m_leapSecondInformation.has_value(); };
     const LeapSecondInformation &leapSecondInformation(const LeapSecondInformation &default_val) const;
@@ -340,8 +342,14 @@ public:
 
     std::unordered_set<const Representation*> selectedRepresentations() const;
 
+    std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time = std::chrono::system_clock::now()) const;
+    std::list<SegmentAvailability> selectedInitialisationSegments(const time_type &query_time = std::chrono::system_clock::now()) const;
+
 private:
     void extractMPD(void *doc);
+    time_type adjustTimeForUTCTiming(const time_type &system_time) const;
+    std::list<Period>::const_iterator getPeriodFor(const time_type &pres_time) const;
+
     // Derived from ISO 23009-1_2022
     // MPD attributes
     std::optional<std::string> m_id;
@@ -376,6 +384,13 @@ private:
 
     // MPD original location (if known)
     std::optional<URI> m_mpdURL;
+
+    // Cache values (can change even in const object)
+    struct Cache {
+        Cache();
+        bool haveUtcTimingOffsetFromSystemClock;      // Indicate if we've fetched UTCTimings before now
+        duration_type utcTimingOffsetFromSystemClock; // Offset derived from UTCTiming or a default of 0s.
+    } *m_cache;
 };
 
 LIBMPDPP_NAMESPACE_END
