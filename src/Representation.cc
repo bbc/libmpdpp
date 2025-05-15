@@ -9,6 +9,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <cmath>
 #include <list>
 #include <memory>
 #include <optional>
@@ -22,17 +23,20 @@
 #include "libmpd++/ContentProtection.hh"
 #include "libmpd++/Descriptor.hh"
 #include "libmpd++/EventStream.hh"
+#include "libmpd++/ExtendedBandwidth.hh"
 #include "libmpd++/Label.hh"
+#include "libmpd++/MPD.hh"
+#include "libmpd++/Period.hh"
 #include "libmpd++/Preselection.hh"
 #include "libmpd++/SegmentBase.hh"
 #include "libmpd++/SegmentTemplate.hh"
 #include "libmpd++/SegmentList.hh"
-#include "libmpd++/XLink.hh"
-#include "libmpd++/ExtendedBandwidth.hh"
 #include "libmpd++/SubRepresentation.hh"
+#include "libmpd++/XLink.hh"
 
 #include "constants.hh"
 #include "conversions.hh"
+#include "stream_ops.hh"
 
 #include "libmpd++/Representation.hh"
 
@@ -163,6 +167,29 @@ bool Representation::operator==(const Representation &to_compare) const
     return RepresentationBase::operator==(to_compare);
 }
 
+MPD *Representation::getMPD()
+{
+    if (m_adaptationSet) return m_adaptationSet->getMPD();
+    return nullptr;
+}
+
+const MPD *Representation::getMPD() const
+{
+    if (m_adaptationSet) return m_adaptationSet->getMPD();
+    return nullptr;
+}
+
+Period *Representation::getPeriod()
+{
+    if (m_adaptationSet) return m_adaptationSet->getPeriod();
+    return nullptr;
+}
+const Period *Representation::getPeriod() const
+{
+    if (m_adaptationSet) return m_adaptationSet->getPeriod();
+    return nullptr;
+}
+
 URI Representation::getMediaURL(unsigned long segment_number) const
 {
     if (m_segmentTemplate.has_value()) {
@@ -235,6 +262,148 @@ bool Representation::isSelected() const
 {
     if (!m_adaptationSet) return false;
     return m_adaptationSet->selectedRepresentations().contains(this);
+}
+
+SegmentAvailability Representation::segmentAvailability(const time_type &query_time) const
+{
+    SegmentAvailability ret;
+    std::list<BaseURL> base_urls;
+
+    time_type pres_time = query_time;
+    const MPD *mpd = getMPD();
+    if (mpd) {
+        pres_time = mpd->systemTimeToPresentationTime(query_time);
+        const auto &multi_base = getMultiSegmentBase();
+        if (!mpd->isLive() && multi_base.hasDuration()) {
+            // we want the next available, not the current segment for non-live
+            pres_time += std::chrono::duration_cast<time_type::duration>(multi_base.durationAsDurationType());
+        }
+    }
+
+    if (m_segmentTemplate) {
+        base_urls = getBaseURLs();
+        auto vars = getTemplateVars(pres_time);
+        unsigned int ts = 1;
+        if (m_segmentTemplate.value().hasTimescale()) {
+            ts = m_segmentTemplate.value().timescale().value();
+        }
+        if (base_urls.empty()) {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->availabilityStartTime().value() + vars.timeAsDurationType(ts));
+            }
+        } else {
+            const BaseURL &base_url = base_urls.front();
+            if (base_url.hasAvailabilityTimeOffset()) {
+                if (mpd && mpd->hasAvailabilityStartTime()) {
+                    if (std::isnan(base_url.availabilityTimeOffset().value())) {
+                        // All segments available at the MPD@availabilityStartTime
+                        ret.availabilityStartTime(mpd->availabilityStartTime().value());
+                    } else {
+                        // available at MPD@availabilityStartTime - @availabilityTimeOffset + segment_time
+                        ret.availabilityStartTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1>>(base_url.availabilityTimeOffset().value())) + vars.timeAsDurationType(ts));
+                    }
+                }
+            } else if (mpd && mpd->hasAvailabilityStartTime()) {
+                // available at MPD@availabilityStartTime + segment_time
+                ret.availabilityStartTime(mpd->availabilityStartTime().value() + vars.timeAsDurationType(ts));
+            }
+        }
+        if (mpd) {
+            if (mpd->hasAvailabilityEndTime()) {
+                ret.availabilityEndTime(mpd->presentationTimeToSystemTime(mpd->availabilityEndTime().value()));
+            }
+            ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
+        }
+        if (m_segmentTemplate.value().hasDuration()) {
+            ret.segmentDuration(m_segmentTemplate.value().durationAsDurationType());
+            if (mpd && mpd->isLive()) {
+                // Availability is at the end of segments for live
+                ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+            }
+        }
+        ret.segmentURL(URI(m_segmentTemplate.value().formatMediaTemplate(vars)).resolveUsingBaseURLs(base_urls));
+    } else if (m_segmentList.has_value()) {
+        const Period *period = getPeriod();
+        base_urls = getBaseURLs();
+        duration_type pres_offset;
+        if (!period) {
+            // Assume a period start of 0 and availabilityStartTime of 0 - best we can do without any other information
+            pres_offset = std::chrono::duration_cast<duration_type>(pres_time.time_since_epoch());
+        } else {
+            if (base_urls.empty()) {
+                if (mpd && mpd->hasAvailabilityStartTime()) {
+                    ret.availabilityStartTime(mpd->availabilityStartTime().value());
+                }
+            } else {
+                const BaseURL &base_url = base_urls.front();
+                if (base_url.hasAvailabilityTimeOffset() && !std::isnan(base_url.availabilityTimeOffset().value())) {
+                    if (mpd && mpd->hasAvailabilityStartTime()) {
+                        ret.availabilityStartTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1>>(base_url.availabilityTimeOffset().value())));
+                    }
+                } else if (mpd && mpd->hasAvailabilityStartTime()) {
+                    ret.availabilityStartTime(mpd->availabilityStartTime().value());
+                }
+            }
+            if (mpd) {
+                ret.availabilityEndTime(mpd->availabilityEndTime());
+            }
+            pres_offset = std::chrono::duration_cast<duration_type>(pres_time - ret.availabilityStartTime()) - period->calcStart().value();
+        }
+        if (mpd) {
+            // Adjust times back to system wallclock
+            if (ret.hasAvailabilityEndTime()) {
+                ret.availabilityEndTime(mpd->presentationTimeToSystemTime(ret.availabilityEndTime().value()));
+            }
+            ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
+        }
+        ret.segmentDuration(m_segmentList.value().durationAsDurationType());
+        if (mpd && mpd->isLive()) {
+            ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+        }
+        ret.segmentURL(URI(m_segmentList.value().getMediaURLForSegmentTime(pres_offset)).resolveUsingBaseURLs(base_urls));
+    }
+    if (m_adaptationSet) {
+        ret = m_adaptationSet->getMediaAvailability(getTemplateVars(pres_time));
+    }
+
+    return ret;
+}
+
+SegmentAvailability Representation::initialisationSegmentAvailability() const
+{
+    SegmentAvailability ret;
+    std::list<BaseURL> base_urls;
+
+    if (m_segmentTemplate.has_value()) {
+        base_urls = getBaseURLs();
+        ret.segmentURL(URI(m_segmentTemplate.value().formatInitializationTemplate(getTemplateVars())).resolveUsingBaseURLs(base_urls));
+    } else if (m_segmentList.has_value()) {
+        base_urls = getBaseURLs();
+        ret.segmentURL(URI(m_segmentList.value().getInitializationURL()).resolveUsingBaseURLs(base_urls));
+    } else if (m_adaptationSet) {
+        ret = m_adaptationSet->getInitialisationAvailability(getTemplateVars());
+        return ret;
+    }
+
+    if (!base_urls.empty()) {
+        const BaseURL &base_url = base_urls.front();
+        const MPD *mpd = getMPD();
+        if (base_url.hasAvailabilityTimeOffset()) {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->presentationTimeToSystemTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(base_url.availabilityTimeOffset().value()))));
+            }
+        } else {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->presentationTimeToSystemTime(mpd->availabilityStartTime().value()));
+            } else {
+                ret.availabilityStartTime(std::chrono::system_clock::now());
+            }
+        }
+    } else {
+        ret.availabilityStartTime(std::chrono::system_clock::now());
+    }
+
+    return ret;
 }
 
 // protected:
@@ -440,8 +609,7 @@ void Representation::setAdaptationSet(AdaptationSet *adapt_set)
 
 SegmentTemplate::Variables Representation::getTemplateVars() const
 {
-    SegmentTemplate::Variables ret(m_id, std::nullopt, m_bandwidth);
-    return ret;
+    return SegmentTemplate::Variables(m_id, std::nullopt, m_bandwidth);
 }
 
 SegmentTemplate::Variables Representation::getTemplateVars(unsigned long segment_number) const
@@ -449,7 +617,9 @@ SegmentTemplate::Variables Representation::getTemplateVars(unsigned long segment
     SegmentTemplate::Variables ret(getTemplateVars());
 
     ret.number(segment_number);
-    // TODO: calculate time offset into the presentation using the defined base period that the segment_number represents
+
+    auto &multi_seg_base = getMultiSegmentBase();
+    ret.time(multi_seg_base.segmentNumberToTime(segment_number));
 
     return ret;
 }
@@ -458,10 +628,36 @@ SegmentTemplate::Variables Representation::getTemplateVars(const Representation:
 {
     SegmentTemplate::Variables ret(getTemplateVars());
 
-    // TODO: convert @a time into a time offest into the presentation using the defined base period.
-    // TODO: calculate segment number from time.
+    auto &multi_seg_base = getMultiSegmentBase();
+    auto period_start = getPeriodStartTime();
+    unsigned long seg_num = 0;
 
-    return ret;
+    if (time > period_start) {
+        seg_num = multi_seg_base.durationTypeToSegmentNumber(std::chrono::duration_cast<duration_type>(time - period_start));
+    }
+
+    return getTemplateVars(seg_num);
+}
+
+Representation::time_type Representation::getPeriodStartTime() const
+{
+    if (m_adaptationSet) return m_adaptationSet->getPeriodStartTime();
+    return Representation::time_type(); // just return epoch if we can't find the adaptation set
+}
+
+const MultipleSegmentBase &Representation::getMultiSegmentBase() const
+{
+    if (m_segmentTemplate) return m_segmentTemplate.value();
+    if (m_segmentList) return m_segmentTemplate.value();
+    if (m_segmentBase) {
+        static MultipleSegmentBase multi_no_duration;
+        static_cast<SegmentBase&>(multi_no_duration) = m_segmentBase.value(); // copy over SegmentBase values
+        return multi_no_duration;
+    }
+    if (m_adaptationSet) return m_adaptationSet->getMultiSegmentBase();
+
+    static const MultipleSegmentBase empty_multi;
+    return empty_multi;
 }
 
 LIBMPDPP_NAMESPACE_END

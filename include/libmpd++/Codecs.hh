@@ -67,7 +67,7 @@ private:
 
 LIBMPDPP_NAMESPACE_END
 
-std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs::Encoding) &enc);
+LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs::Encoding) &enc);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

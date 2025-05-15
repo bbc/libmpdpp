@@ -30,6 +30,8 @@ class Representation;
 
 class LIBMPDPP_PUBLIC_API SegmentList : public MultipleSegmentBase {
 public:
+    using duration_type = MultipleSegmentBase::duration_type;
+
     SegmentList()
         :MultipleSegmentBase()
         ,m_xLink()
@@ -87,6 +89,7 @@ public:
 
     const std::string &getMediaURLForSegment(unsigned long segment_number) const;
     const std::string &getMediaURLForSegmentTime(unsigned long time) const;
+    const std::string &getMediaURLForSegmentTime(const duration_type &time) const;
     const std::string &getInitializationURL() const;
 
 protected:

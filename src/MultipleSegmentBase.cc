@@ -95,6 +95,51 @@ bool MultipleSegmentBase::operator==(const MultipleSegmentBase &other) const
     return true;
 }
 
+MultipleSegmentBase::duration_type MultipleSegmentBase::durationAsDurationType() const
+{
+    duration_type ret;
+
+    if (m_duration) {
+        double ts = 1.0;
+        if (hasTimescale()) {
+            ts = 1.0 / timescale().value();
+        }
+        ret = std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(m_duration.value() * ts));
+    }
+
+    return ret;
+}
+
+unsigned long MultipleSegmentBase::segmentNumberToTime(unsigned long segment_number) const
+{
+    // time = m_duration * segment_number since m_duration is already in the correct timescale
+    if (m_duration) return m_duration.value() * segment_number;
+    return 0; // no duration then there's only one segment starting at the period start
+}
+
+// Get wallclock duration of a segment from Period start
+MultipleSegmentBase::duration_type MultipleSegmentBase::segmentNumberToDurationType(unsigned long segment_number) const
+{
+    // time = m_duration / m_timescale * segment_number, where m_timescale defaults to 1 if not given.
+    if (m_duration) return durationAsDurationType() * segment_number;
+    return duration_type(0); // no duration then there's only one segment starting at the period start
+}
+
+// Get segment number from offset from Period start in the current timescale
+unsigned long MultipleSegmentBase::timeOffsetToSegmentNumber(unsigned long time_offset) const
+{
+    // segment_number = floor(time_offset / m_duration)
+    if (m_duration) return (time_offset / m_duration.value());
+    return 0; // no duration then there's only one segment
+}
+
+// Get segment number that contains the wallclock duration since Period start
+unsigned long MultipleSegmentBase::durationTypeToSegmentNumber(const MultipleSegmentBase::duration_type &offset) const
+{
+    if (m_duration) return (offset / durationAsDurationType());
+    return 0; // no duration then there's only one segment
+}
+
 // protected
 
 MultipleSegmentBase::MultipleSegmentBase(xmlpp::Node &node)

@@ -327,6 +327,14 @@ MPD::MPD(const MPD &other)
 {
     m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
     m_cache->utcTimingOffsetFromSystemClock = other.m_cache->utcTimingOffsetFromSystemClock;
+    Period *prev = nullptr;
+    for (auto &period : m_periods) {
+        if (prev) {
+            period.setPreviousSibling(prev);
+            prev->setNextSibling(&period);
+        }
+        prev = &period;
+    }
 }
 
 MPD::MPD(MPD &&other)
@@ -363,6 +371,14 @@ MPD::MPD(MPD &&other)
 {
     m_cache->haveUtcTimingOffsetFromSystemClock = other.m_cache->haveUtcTimingOffsetFromSystemClock;
     m_cache->utcTimingOffsetFromSystemClock = std::move(other.m_cache->utcTimingOffsetFromSystemClock);
+    Period *prev = nullptr;
+    for (auto &period : m_periods) {
+        if (prev) {
+            period.setPreviousSibling(prev);
+            prev->setNextSibling(&period);
+        }
+        prev = &period;
+    }
 }
 
 MPD::~MPD()
@@ -395,8 +411,14 @@ MPD &MPD::operator=(const MPD &other)
     m_initializationPresentations = other.m_initializationPresentations;
     m_contentProtections = other.m_contentProtections;
     m_periods = other.m_periods;
+    Period *prev = nullptr;
     for (auto &period : m_periods) {
         period.setMPD(this);
+        if (prev) {
+            period.setPreviousSibling(prev);
+            prev->setNextSibling(&period);
+        }
+        prev = &period;
     }
     m_metrics = other.m_metrics;
     m_essentialProperties = other.m_essentialProperties;
@@ -435,8 +457,14 @@ MPD &MPD::operator=(MPD &&other)
     m_initializationPresentations = std::move(other.m_initializationPresentations);
     m_contentProtections = std::move(other.m_contentProtections);
     m_periods = std::move(other.m_periods);
+    Period *prev = nullptr;
     for (auto &period : m_periods) {
         period.setMPD(this);
+        if (prev) {
+            period.setPreviousSibling(prev);
+            prev->setNextSibling(&period);
+        }
+        prev = &period;
     }
     m_metrics = std::move(other.m_metrics);
     m_essentialProperties = std::move(other.m_essentialProperties);
@@ -1008,35 +1036,76 @@ MPD &MPD::periodAdd(Period &&period)
     if (period.hasStart()) {
         // insert in start time order
         auto start = period.start().value();
-        auto it = std::find_if(m_periods.begin(), m_periods.end(), [start](const Period &p) -> bool { return p.hasCalcStart() && p.calcStart().value() < start; });
-        m_periods.insert(it, std::move(period));
+        auto it = std::find_if(m_periods.begin(), m_periods.end(), [start](const Period &p) -> bool { auto calc_start = p.calcStart(); return calc_start && calc_start.value() < start; });
+        auto next = it;
+        if (it != m_periods.end()) {
+            period.setPreviousSibling(&(*it));
+            next++;
+        }
+        if (next != m_periods.end()) {
+            period.setNextSibling(&(*next));
+        }
+        auto inserted = m_periods.insert(it, std::move(period));
+        if (it != m_periods.end()) {
+            it->setNextSibling(&(*inserted));
+        }
+        if (next != m_periods.end()) {
+            next->setPreviousSibling(&(*inserted));
+        }
     } else {
         // no start so just stick at the end
+        auto it = m_periods.rbegin();
         m_periods.push_back(std::move(period));
+        Period &inserted = m_periods.back();
+        if (it != m_periods.rend()) {
+            it->setNextSibling(&inserted);
+            inserted.setPreviousSibling(&(*it));
+        }
     }
     return *this;
 }
 
 MPD &MPD::periodRemove(const Period &period)
 {
+    decltype(m_periods)::iterator it;
+
     if (period.hasId()) {
         // remove by id only
         auto id = period.id().value();
-        auto it = std::find_if(m_periods.begin(), m_periods.end(), [id](const Period &p) -> bool { return p.hasId() && p.id().value() == id; });
-        if (it != m_periods.end()) {
-            if (m_periods.size() == 1) {
-                throw InvalidMPD("Removing the only Period will make the MPD invalid");
-            }
-            m_periods.erase(it);
-        }
+        it = std::find_if(m_periods.begin(), m_periods.end(), [id](const Period &p) -> bool { return p.hasId() && p.id().value() == id; });
     } else {
         // remove by value comparison
-        auto it = std::find(m_periods.begin(), m_periods.end(), period);
-        if (it != m_periods.end()) {
-            if (m_periods.size() == 1) {
-                throw InvalidMPD("Removing the only Period will make the MPD invalid");
-            }
-            m_periods.erase(it);
+        it = std::find(m_periods.begin(), m_periods.end(), period);
+    }
+    if (it != m_periods.end()) {
+        // We found a match, so remove it and adjust surrounding Period objects
+        if (m_periods.size() == 1) {
+            throw InvalidMPD("Removing the only Period will make the MPD invalid");
+        }
+        it = m_periods.erase(it);
+    }    
+    if (it !=  m_periods.end()) {
+        auto prev = it;
+        // was not the last one so reset surrounding siblings pointers
+        if (it != m_periods.begin()) {
+            // As long as we are not at the begining of the list we can decrement
+            prev--;
+        } else {
+            // Otherwise there is no previous value
+            prev = m_periods.end();
+        }
+        if (prev != m_periods.end()) {
+            it->setPreviousSibling(&(*prev));
+            prev->setNextSibling(&(*it));       
+        } else {
+            // we deleted the begining of the list, so just reset next
+            it->setPreviousSibling(nullptr);
+        }
+    } else {
+        // we erased the end of the list to just reset previous
+        auto prev = m_periods.rbegin();
+        if (prev != m_periods.rend()) {
+            prev->setNextSibling(nullptr);
         }
     }
     return *this;
@@ -1048,7 +1117,31 @@ MPD &MPD::periodRemove(const std::list<Period>::const_iterator &period_it)
         throw InvalidMPD("Removing the only Period will make the MPD invalid");
     }
 
-    m_periods.erase(period_it);
+    auto it = m_periods.erase(period_it);
+    if (it !=  m_periods.end()) {
+        // was not the last one so reset surrounding siblings pointers
+        auto prev = it;
+        if (it != m_periods.begin()) {
+            // As long as we are not at the begining of the list we can decrement
+            prev--;
+        } else {
+            // Otherwise there is no previous value
+            prev = m_periods.end();
+        }
+        if (prev != m_periods.end()) {
+            it->setPreviousSibling(&(*prev));
+            prev->setNextSibling(&(*it));
+        } else {
+            // we deleted the begining of the list, so just reset next
+            it->setPreviousSibling(nullptr);
+        }
+    } else {
+        // we erased the end of the list to just reset previous
+        auto prev = m_periods.rbegin();
+        if (prev != m_periods.rend()) {
+            prev->setNextSibling(nullptr);
+        }
+    }
     return *this;
 }
 
@@ -1058,7 +1151,31 @@ MPD &MPD::periodRemove(const std::list<Period>::iterator &period_it)
         throw InvalidMPD("Removing the only Period will make the MPD invalid");
     }
 
-    m_periods.erase(period_it);
+    auto it = m_periods.erase(period_it);
+    if (it !=  m_periods.end()) {
+        // was not the last one so reset surrounding siblings pointers
+        auto prev = it;
+        if (it != m_periods.begin()) {
+            // As long as we are not at the begining of the list we can decrement
+            prev--;
+        } else {
+            // Otherwise there is no previous value
+            prev = m_periods.end();
+        }
+        if (prev != m_periods.end()) {
+            it->setPreviousSibling(&(*prev));
+            prev->setNextSibling(&(*it));
+        } else {
+            // we deleted the begining of the list, so just reset next
+            it->setPreviousSibling(nullptr);
+        }
+    } else {
+        // we erased the end of the list to just reset previous
+        auto prev = m_periods.rbegin();
+        if (prev != m_periods.rend()) {
+            prev->setNextSibling(nullptr);
+        }
+    }
     return *this;
 }
 
@@ -1224,19 +1341,21 @@ std::unordered_set<const Representation*> MPD::selectedRepresentations() const
 std::list<SegmentAvailability> MPD::selectedSegmentAvailability(const time_type &query_time) const
 {
     std::list<SegmentAvailability> ret;
-    time_type adjusted_time = adjustTimeForUTCTiming(query_time);
-    auto period_it = getPeriodFor(adjusted_time);
-    if (period_it != m_periods.cend() && m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
+    time_type adjusted_time = systemTimeToPresentationTime(query_time);
+    typename decltype(m_periods)::const_iterator period_it;
+    if (m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
         // Select the first period if our query time is before the DASH starts.
         period_it = m_periods.cbegin();
+    } else {
+        period_it = getPeriodFor(adjusted_time);
     }
     if (period_it != m_periods.cend()) {
-        ret = period_it->selectedSegmentAvailability(adjusted_time);
+        ret = period_it->selectedSegmentAvailability(query_time);
         if (ret.empty()) {
             // No segments left in the current period, try the next one
             period_it++;
             if (period_it != m_periods.cend()) {
-                ret = period_it->selectedSegmentAvailability(adjusted_time);
+                ret = period_it->selectedSegmentAvailability(query_time);
             }
         }
     }
@@ -1244,19 +1363,36 @@ std::list<SegmentAvailability> MPD::selectedSegmentAvailability(const time_type 
     return ret;
 }
 
-std::list<SegmentAvailability> MPD::selectedInitialisationSegments(const time_type &query_time) const
+std::list<SegmentAvailability> MPD::selectedInitializationSegments(const time_type &query_time) const
 {
     std::list<SegmentAvailability> ret;
-    time_type adjusted_time = adjustTimeForUTCTiming(query_time);
-    auto period_it = getPeriodFor(adjusted_time);
-    if (period_it != m_periods.cend() && m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
-          // Select the first period if our query time is before the DASH starts.
-          period_it = m_periods.cbegin();
+    time_type adjusted_time = systemTimeToPresentationTime(query_time);
+    typename decltype(m_periods)::const_iterator period_it;
+    if (m_availabilityStartTime.has_value() && adjusted_time < m_availabilityStartTime.value()) {
+        // Select the first period if our query time is before the DASH starts.
+        period_it = m_periods.cbegin();
+    } else {
+        period_it = getPeriodFor(adjusted_time);
     }
+    // If we found a suitable period, query it
     if (period_it != m_periods.cend()) {
-        ret = period_it->selectedInitialisationSegments();
+        ret = period_it->selectedInitializationSegments();
     }
     return ret;
+}
+
+// protected:
+
+MPD::time_type MPD::systemTimeToPresentationTime(const MPD::time_type &system_time) const
+{
+    if (!m_cache->haveUtcTimingOffsetFromSystemClock) synchroniseWithUTCTiming();
+    return system_time + m_cache->utcTimingOffsetFromSystemClock;
+}
+
+MPD::time_type MPD::presentationTimeToSystemTime(const MPD::time_type &pres_time) const
+{
+    if (!m_cache->haveUtcTimingOffsetFromSystemClock) synchroniseWithUTCTiming();
+    return pres_time - m_cache->utcTimingOffsetFromSystemClock;
 }
 
 // private:
@@ -1316,9 +1452,8 @@ void MPD::extractMPD(void *doc)
         node_set = mpd_root->find("mpd:" #element, ns_map); \
         var.clear(); \
         for (auto node : node_set) { \
-             cls obj(*node); \
-             _setMPD(this, obj); \
-             var.push_back(std::move(obj)); \
+             var.push_back(cls(*node)); \
+             _setMPD(this, var.back()); \
         } \
     } while (0)
 #define MAND_ELEM_LIST_CLASS(var, element, cls) do { \
@@ -1326,9 +1461,8 @@ void MPD::extractMPD(void *doc)
         if (node_set.size() == 0) throw ParseError("MPD needs at least one " #element " element"); \
         var.clear(); \
         for (auto node : node_set) { \
-             cls obj(*node); \
-             _setMPD(this, obj); \
-             var.push_back(std::move(obj)); \
+             var.push_back(cls(*node)); \
+             _setMPD(this, var.back()); \
         } \
     } while (0)
 #define OPT_ELEM_CLASS(var, element, cls) do { \
@@ -1393,23 +1527,30 @@ void MPD::extractMPD(void *doc)
     OPT_ELEM_LIST_CLASS(m_supplementaryProperties, SupplementaryProperty, Descriptor);
     OPT_ELEM_LIST_CLASS(m_utcTimings, UTCTiming, Descriptor);
     OPT_ELEM_CLASS(m_leapSecondInformation, LeapSecondInformation, LeapSecondInformation);
-}
 
-MPD::time_type MPD::adjustTimeForUTCTiming(const MPD::time_type &system_time) const
-{
-    if (!m_cache->haveUtcTimingOffsetFromSystemClock) synchroniseWithUTCTiming();
-    return system_time + m_cache->utcTimingOffsetFromSystemClock;
+    Period *prev = nullptr;
+    for (auto &period : m_periods) {
+        period.setMPD(this);
+        if (prev) {
+            period.setPreviousSibling(prev);
+            prev->setNextSibling(&period);
+        }
+        prev = &period;
+    }
 }
 
 std::list<Period>::const_iterator MPD::getPeriodFor(const MPD::time_type &pres_time) const
 {
     if (isLive()) {
         for (auto it = m_periods.cbegin(); it != m_periods.cend(); it++) {
-            auto period_start = m_availabilityStartTime.value() + it->calcStart().value();
+            auto calc_start = it->calcStart();
+            auto period_start = (m_availabilityStartTime?m_availabilityStartTime.value():time_type()) +
+                                (calc_start?calc_start.value():0s);
             if (pres_time < period_start) break;
             if (pres_time >= period_start) {
-                if (!it->hasCalcDuration()) return it;
-                auto period_end = period_start + it->calcDuration().value();
+                auto calc_duration = it->calcDuration();
+                if (!calc_duration) return it;
+                auto period_end = period_start + calc_duration.value();
                 if (pres_time < period_end) return it;
             }
         }

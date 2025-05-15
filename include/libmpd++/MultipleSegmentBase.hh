@@ -44,6 +44,7 @@ public:
     const std::optional<unsigned int> &duration() const { return m_duration; };
     MultipleSegmentBase &duration(const std::nullopt_t&) { m_duration.reset(); return *this; };
     MultipleSegmentBase &duration(unsigned int val) { m_duration = val; return *this; };
+    duration_type durationAsDurationType() const;
 
     // @startNumber
     bool hasStartNumber() const { return m_startNumber.has_value(); };
@@ -70,6 +71,18 @@ public:
     MultipleSegmentBase &bitstreamSwitching(const std::nullopt_t&) { m_bitstreamSwitching.reset(); return *this; };
     MultipleSegmentBase &bitstreamSwitching(const URL &val) { m_bitstreamSwitching = val; return *this; };
     MultipleSegmentBase &bitstreamSwitching(URL &&val) { m_bitstreamSwitching = std::move(val); return *this; };
+
+    // Get time offset of a segment from Period start in the current timescale
+    unsigned long segmentNumberToTime(unsigned long segment_number) const;
+
+    // Get wallclock duration of a segment from Period start
+    duration_type segmentNumberToDurationType(unsigned long segment_number) const;
+
+    // Get segment number from offset from Period start in the current timescale
+    unsigned long timeOffsetToSegmentNumber(unsigned long time_offset) const;
+
+    // Get segment number that contains the wallclock duration since Period start
+    unsigned long durationTypeToSegmentNumber(const duration_type &offset) const;
 
 protected:
     MultipleSegmentBase(xmlpp::Node&);

@@ -68,7 +68,7 @@ private:
 
 LIBMPDPP_NAMESPACE_END
 
-std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(URI) &uri);
+LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(URI) &uri);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

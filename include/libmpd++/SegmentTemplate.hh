@@ -10,6 +10,7 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
+#include <chrono>
 #include <optional>
 #include <string>
 
@@ -30,6 +31,8 @@ class LIBMPDPP_PUBLIC_API SegmentTemplate : public MultipleSegmentBase {
 public:
     class Variables {
     public:
+        using duration_type = std::chrono::microseconds;
+
         Variables(const std::optional<std::string> &rep_id = std::nullopt,
                   const std::optional<unsigned long> &number = std::nullopt,
                   const std::optional<unsigned int> &bandwidth = std::nullopt,
@@ -97,13 +100,16 @@ public:
         std::optional<unsigned long> &time() { return m_time; };
         Variables &time(const std::nullopt_t&) { m_time.reset(); return *this; };
         Variables &time(unsigned long val) { m_time = val; return *this; };
+        duration_type timeAsDurationType(unsigned int timescale) const {
+            return std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(static_cast<double>(m_time?m_time.value():0) / timescale));
+        };
 
         const std::optional<unsigned long> &subNumber() const { return m_subNumber; };
         std::optional<unsigned long> &subNumber() { return m_subNumber; };
         Variables &subNumber(const std::nullopt_t&) { m_subNumber.reset(); return *this; };
         Variables &subNumber(unsigned long val) { m_subNumber = val; return *this; };
 
-        std::string format(const std::string &format) const;
+        std::string format(const std::string &format, const std::optional<unsigned int> &start_number = std::nullopt) const;
 
     private:
         std::optional<std::string> m_representationId;

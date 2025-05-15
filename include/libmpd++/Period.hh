@@ -49,14 +49,13 @@ public:
     Period(const Period &to_copy);
     Period(Period &&to_move);
 
-    virtual ~Period() {};
+    virtual ~Period();
 
     Period &operator=(const Period &to_copy);
     Period &operator=(Period &&to_move);
 
     bool operator==(const Period &to_compare) const;
 
-    Period &setMPD(MPD *mpd) { m_mpd = mpd; return *this; };
     MPD *getMPD() { return m_mpd; };
     const MPD *getMPD() const { return m_mpd; };
 
@@ -72,10 +71,7 @@ public:
     const std::optional<duration_type> &start() const { return m_start; };
     Period &start(const std::nullopt_t &) { m_start.reset(); return *this; };
     Period &start(const duration_type &start) { m_start = start; return *this; };
-    Period &start(const std::optional<duration_type> &start) {
-        m_start = start;
-        return *this;
-    };
+    Period &start(const std::optional<duration_type> &start) { m_start = start; return *this; };
 
     bool hasDuration() const { return m_duration.has_value(); };
     const std::optional<duration_type> &duration() const { return m_duration; };
@@ -85,12 +81,6 @@ public:
 
     bool bitstreamSwitching() const { return m_bitstreamSwitching; };
     Period &bitstreamSwitching(bool bitstream_switching) { m_bitstreamSwitching = bitstream_switching; return *this; };
-
-    bool hasCalcStart() const { return m_calcStart.has_value(); };
-    const std::optional<duration_type> &calcStart() const { return m_calcStart; };
-    bool hasCalcDuration() const { return m_calcDuration.has_value(); };
-    const std::optional<duration_type> &calcDuration() const { return m_calcDuration; };
-    Period &calcPeriod(const std::optional<Period> &before, const std::optional<Period> &after = std::nullopt);
 
     //std::list<BaseURL>             m_baseURLs;
     const std::list<BaseURL> &baseURLs() const { return m_baseURLs; };
@@ -255,7 +245,12 @@ public:
     std::unordered_set<const Representation*> selectedRepresentations() const;
 
     std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time = std::chrono::system_clock::now()) const;
-    std::list<SegmentAvailability> selectedInitialisationSegments() const;
+    std::list<SegmentAvailability> selectedInitializationSegments() const;
+
+    Period &setMPD(MPD *mpd) { m_mpd = mpd; return *this; };
+
+    const std::optional<duration_type> &calcStart() const;
+    const std::optional<duration_type> &calcDuration() const;
 
 protected:
     friend class MPD;
@@ -264,9 +259,20 @@ protected:
     void setXMLElement(xmlpp::Element&) const;
     std::string getMediaURL(const SegmentTemplate::Variables&) const;
     std::string getInitializationURL(const SegmentTemplate::Variables&) const;
+    SegmentAvailability getMediaAvailability(const SegmentTemplate::Variables&) const;
+    SegmentAvailability getInitialisationAvailability(const SegmentTemplate::Variables &vars) const;
+    Period &setPreviousSibling(Period *sibling) { m_previousSibling = sibling; cacheCalcClear(); sibling->cacheCalcClear(); return *this; };
+    Period &setNextSibling(Period *sibling) { m_nextSibling = sibling; cacheCalcClear(); sibling->cacheCalcClear(); return *this; };
+    time_type getPeriodStartTime() const;
+    const MultipleSegmentBase &getMultiSegmentBase() const;
 
 private:
+    void cacheCalcTimes() const;
+    void cacheCalcClear() const;
+
     MPD                           *m_mpd;
+    Period                        *m_previousSibling;
+    Period                        *m_nextSibling;
 
     // Period attributes (ISO 23009-1:2022 Table 4)
     std::optional<XLink>           m_xlink;
@@ -274,10 +280,6 @@ private:
     std::optional<duration_type>   m_start;
     std::optional<duration_type>   m_duration;
     bool                           m_bitstreamSwitching;
-
-    // Derived from attributes and sibling Periods
-    std::optional<duration_type>   m_calcStart;
-    std::optional<duration_type>   m_calcDuration;
 
     // Period child elements (ISO 23009-1:2022 Table 4)
     std::list<BaseURL>             m_baseURLs;
@@ -294,6 +296,17 @@ private:
     std::list<AdaptationSet>       m_emptyAdaptationSets;
     std::list<Label>               m_groupLabels;
     std::list<Preselection>        m_preselections;
+
+    struct Cache {
+        Cache() :calcStart(), calcDuration() {};
+        Cache(const Cache &other) :calcStart(other.calcStart), calcDuration(other.calcDuration) {};
+        Cache(Cache &&other) :calcStart(std::move(other.calcStart)), calcDuration(std::move(other.calcDuration)) {};
+        Cache &operator=(const Cache &other) { calcStart = other.calcStart; calcDuration = other.calcDuration; return *this; };
+        Cache &operator=(Cache &&other) { calcStart = std::move(other.calcStart); calcDuration = std::move(other.calcDuration); return *this; };
+        ~Cache() {};
+        std::optional<Period::duration_type> calcStart;
+        std::optional<Period::duration_type> calcDuration;
+    } *m_cache;
 };
 
 LIBMPDPP_NAMESPACE_END

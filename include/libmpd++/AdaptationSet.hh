@@ -11,9 +11,10 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
-#include <string>
+#include <chrono>
 #include <list>
 #include <optional>
+#include <string>
 #include <unordered_set>
 
 #include "macros.hh"
@@ -26,6 +27,7 @@
 #include "Ratio.hh"
 #include "FrameRate.hh"
 #include "SAP.hh"
+#include "SegmentAvailability.hh"
 #include "SegmentBase.hh"
 #include "SegmentList.hh"
 #include "SegmentTemplate.hh"
@@ -41,6 +43,9 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class LIBMPDPP_PUBLIC_API AdaptationSet : public RepresentationBase {
 public:
+    using time_type = std::chrono::system_clock::time_point;
+    using duration_type = std::chrono::microseconds;
+
     AdaptationSet();
     AdaptationSet(const AdaptationSet&);
     AdaptationSet(AdaptationSet&&);
@@ -51,6 +56,12 @@ public:
     AdaptationSet &operator=(AdaptationSet&&);
 
     bool operator==(const AdaptationSet &) const;
+
+    MPD *getMPD();
+    const MPD *getMPD() const;
+
+    Period *getPeriod() { return m_period; };
+    const Period *getPeriod() const { return m_period; };
 
     // @id
     bool hasId() const { return m_id.has_value(); };
@@ -321,6 +332,8 @@ public:
     const std::unordered_set<const Representation*> &selectedRepresentations() const { return m_selectedRepresentations; };
 
     // Representation querying
+    std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time) const;
+    std::list<SegmentAvailability> selectedInitializationSegments() const;
 
 protected:
     friend class MPD;
@@ -331,6 +344,10 @@ protected:
     AdaptationSet &setPeriod(Period *period) { m_period = period; return *this; };
     std::string getMediaURL(const SegmentTemplate::Variables &) const;
     std::string getInitializationURL(const SegmentTemplate::Variables &) const;
+    SegmentAvailability getMediaAvailability(const SegmentTemplate::Variables &) const;
+    SegmentAvailability getInitialisationAvailability(const SegmentTemplate::Variables &) const;
+    time_type getPeriodStartTime() const;
+    const MultipleSegmentBase &getMultiSegmentBase() const;
 
 private:
     Period *m_period;

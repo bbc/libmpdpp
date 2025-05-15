@@ -11,6 +11,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <iostream>
 #include <optional>
 
 #include "macros.hh"
@@ -56,6 +57,8 @@ public:
     SegmentAvailability &availabilityEndTime(const std::nullopt_t&) { m_availabilityEndTime.reset(); return *this; };
     SegmentAvailability &availabilityEndTime(const time_type &val) { m_availabilityEndTime = val; return *this; };
     SegmentAvailability &availabilityEndTime(time_type &&val) { m_availabilityEndTime = std::move(val); return *this; };
+    SegmentAvailability &availabilityEndTime(const std::optional<time_type> &val) { m_availabilityEndTime = val; return *this; };
+    SegmentAvailability &availabilityEndTime(std::optional<time_type> &&val) { m_availabilityEndTime = std::move(val); return *this; };
 
     const duration_type &segmentDuration() const { return m_segmentDuration; };
     SegmentAvailability &segmentDuration(const duration_type &val) { m_segmentDuration = val; return *this; };
@@ -68,6 +71,8 @@ public:
     // Convenience
     bool isAvailable() const;
 
+    std::size_t hash() const noexcept;
+
 private:
     // SegmentAvailability for query results
     time_type m_availabilityStartTime;
@@ -77,6 +82,17 @@ private:
 };
 
 LIBMPDPP_NAMESPACE_END
+
+namespace std {
+    template<>
+    struct hash<LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability)> {
+        std::size_t operator()(const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s) const noexcept {
+            return s.hash();
+        };
+    };
+}
+
+LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

@@ -38,6 +38,19 @@ const std::string &SegmentList::getMediaURLForSegmentTime(unsigned long time) co
     return g_empty_string;
 }
 
+const std::string &SegmentList::getMediaURLForSegmentTime(const duration_type &time) const
+{
+    double ts = 1.0;
+    if (hasTimescale()) {
+        ts = timescale().value();
+    }
+
+    auto time_in_sec = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1> > >(time);
+    unsigned long t = static_cast<unsigned long>(time_in_sec.count() * ts);
+
+    return getMediaURLForSegmentTime(t);
+}
+
 const std::string &SegmentList::getInitializationURL() const
 {
     if (hasInitialization() && initialization().value().hasSourceURL())

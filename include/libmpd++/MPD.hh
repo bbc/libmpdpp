@@ -343,11 +343,17 @@ public:
     std::unordered_set<const Representation*> selectedRepresentations() const;
 
     std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time = std::chrono::system_clock::now()) const;
-    std::list<SegmentAvailability> selectedInitialisationSegments(const time_type &query_time = std::chrono::system_clock::now()) const;
+    std::list<SegmentAvailability> selectedInitializationSegments(const time_type &query_time = std::chrono::system_clock::now()) const;
+
+protected:
+    friend class Period;
+    friend class AdaptationSet;
+    friend class Representation;
+    time_type systemTimeToPresentationTime(const time_type &system_time) const; // Returns presentation time
+    time_type presentationTimeToSystemTime(const time_type &pres_time) const; // Returns system wallclock time
 
 private:
     void extractMPD(void *doc);
-    time_type adjustTimeForUTCTiming(const time_type &system_time) const;
     std::list<Period>::const_iterator getPeriodFor(const time_type &pres_time) const;
 
     // Derived from ISO 23009-1_2022

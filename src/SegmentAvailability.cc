@@ -110,7 +110,30 @@ bool SegmentAvailability::isAvailable() const
     return true;
 }
 
+std::size_t SegmentAvailability::hash() const noexcept
+{
+    auto h1 = std::hash<time_type::duration::rep>{}(m_availabilityStartTime.time_since_epoch().count());
+    auto h2 = std::hash<duration_type::rep>{}(m_segmentDuration.count());
+    auto h3 = std::hash<std::string>{}(m_segmentURL.str());
+    std::size_t h4 = 0;
+    if (m_availabilityEndTime) {
+        h4 = std::hash<time_type::duration::rep>{}(m_availabilityEndTime.value().time_since_epoch().count());
+    }
+
+    return h1 ^ (h2 << 1) ^ (h3 << 2) ^ (h4 << 3);
+}
+
 LIBMPDPP_NAMESPACE_END
+
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s)
+{
+    os << s.segmentURL().str() << " (avail. " << s.availabilityStartTime();
+    if (s.hasAvailabilityEndTime()) {
+        os << " - " << s.availabilityEndTime().value();
+    }
+    os << ", duration " << s.segmentDuration() << ")";
+    return os;
+}
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

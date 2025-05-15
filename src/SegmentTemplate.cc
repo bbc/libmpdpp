@@ -22,7 +22,7 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 /******** SegmentTemplate::Variables ********/
 
-std::string SegmentTemplate::Variables::format(const std::string &fmt) const
+std::string SegmentTemplate::Variables::format(const std::string &fmt, const std::optional<unsigned int> &start_number) const
 {
     // If string is not even big enough for formatting...
     if (fmt.size() < 2) throw std::runtime_error("bad format for a template substitution");
@@ -31,9 +31,9 @@ std::string SegmentTemplate::Variables::format(const std::string &fmt) const
     if (fmt == "$$") return "$";
 
     // handle non-formatted fields
-    if (fmt == "$RepresentationId$") {
+    if (fmt == "$RepresentationID$") {
         if (m_representationId) return m_representationId.value();
-        throw std::runtime_error("RepresentationId substitution without a RepresentationId being set");
+        throw std::runtime_error("RepresentationID substitution without a RepresentationID being set");
     }
 
     // If variable is malformatted, ignore
@@ -53,7 +53,9 @@ std::string SegmentTemplate::Variables::format(const std::string &fmt) const
     }
 
     if (varname == "Number") {
-        if (m_number) return std::format("{:0{}d}", m_number.value(), width);
+        if (m_number) {
+            return std::format("{:0{}d}", m_number.value() + (start_number?start_number.value():1), width);
+        }
         throw std::runtime_error("Number substitution without a Number being set");
     }
     if (varname == "Bandwidth") {
@@ -232,11 +234,12 @@ void SegmentTemplate::setXMLElement(xmlpp::Element &elem) const
 std::string SegmentTemplate::formatTemplate(const std::string &fmt, const SegmentTemplate::Variables &vars) const
 {
     std::string ret(fmt);
+    const auto &start_number = startNumber();
     for (auto pos = ret.find_first_of('$'); pos != std::string::npos; pos = ret.find_first_of('$', pos+1)) {
         auto epos = ret.find_first_of('$', pos+1);
         if (epos == std::string::npos) break;
         try {
-            ret.replace(pos, epos-pos+1, vars.format(ret.substr(pos, epos-pos+1)));
+            ret.replace(pos, epos-pos+1, vars.format(ret.substr(pos, epos-pos+1), start_number));
         } catch (std::runtime_error &ex) {
         }
     }

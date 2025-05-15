@@ -9,7 +9,7 @@
 # library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
 #
 
-libparsempd_public_hdrs = files('''
+libmpdpp_public_hdrs = files('''
 libmpd++.hh
 AdaptationSet.hh
 BaseURL.hh
@@ -59,4 +59,4 @@ URL.hh
 XLink.hh
 '''.split())
 
-install_headers(libparsempd_public_hdrs, subdir: 'libmpd++')
+install_headers(libmpdpp_public_hdrs, subdir: 'libmpd++')

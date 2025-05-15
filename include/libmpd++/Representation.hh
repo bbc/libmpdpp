@@ -25,6 +25,7 @@
 #include "Label.hh"
 #include "Preselection.hh"
 #include "RepresentationBase.hh"
+#include "SegmentAvailability.hh"
 #include "SegmentBase.hh"
 #include "SegmentTemplate.hh"
 #include "SegmentList.hh"
@@ -43,6 +44,7 @@ LIBMPDPP_NAMESPACE_BEGIN
 class LIBMPDPP_PUBLIC_API Representation : public RepresentationBase {
 public:
     using time_type = std::chrono::system_clock::time_point;
+    using duration_type = std::chrono::microseconds;
 
     Representation();
     Representation(const Representation &to_copy);
@@ -57,6 +59,9 @@ public:
 
     MPD *getMPD();
     const MPD *getMPD() const;
+
+    Period *getPeriod();
+    const Period *getPeriod() const;
 
     const std::string &id() const { return m_id; };
     Representation &id(const std::string &id) { m_id = id; return *this; };
@@ -124,6 +129,28 @@ public:
      */
     bool isSelected() const;
 
+    /** Get the full segment availability information
+     *
+     * This returns the full segment availability information for the first segment on or after the @a query_time provided.
+     *
+     * If no segment is available then the SegmentAvailability object returned will have an empty URL.
+     *
+     * @param query_time The system wallclock time we are querying for.
+     *
+     * @return The SegmentAvailability for the next available segment or an empty SegmentAvailability if no segment is available.
+     */
+    SegmentAvailability segmentAvailability(const time_type &query_time) const;
+
+    /** Get the segment availability information of the initialisation segment
+     *
+     * This returns the full segment availability information for the initialisation segment. If no initialization segment is
+     * available then the SegmentAvailability object returned will have an empty URL.
+     *
+     * @return The SegmentAvailability for the initialisation segment or an empty SegmentAvailability if no initialisation segment
+     *         is available.
+     */
+    SegmentAvailability initialisationSegmentAvailability() const;
+
 protected:
     friend class AdaptationSet;
     Representation(xmlpp::Node&);
@@ -133,7 +160,9 @@ protected:
 private:
     SegmentTemplate::Variables getTemplateVars() const;
     SegmentTemplate::Variables getTemplateVars(unsigned long segment_number) const;
-    SegmentTemplate::Variables getTemplateVars(const Representation::time_type &time) const;
+    SegmentTemplate::Variables getTemplateVars(const time_type &time) const;
+    time_type getPeriodStartTime() const;
+    const MultipleSegmentBase &getMultiSegmentBase() const;
 
     AdaptationSet                 *m_adaptationSet;
 

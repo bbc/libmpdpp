@@ -9,5 +9,5 @@
 # library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
 #
 
-libparsempd_inc_dir = include_directories('.')
+libmpdpp_inc_dir = include_directories('.')
 subdir('libmpd++')

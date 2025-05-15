@@ -134,6 +134,12 @@ private:
 
 LIBMPDPP_NAMESPACE_END
 
+inline std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(DecomposedURL) &url)
+{
+    os << std::string(url);
+    return os;
+}
+
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 

@@ -19,8 +19,8 @@ endif
 libxml_dep = dependency('libxml++-3.0', required: true)
 glibmm_dep = dependency('glibmm-2.4', required: true)
 
-libparsempd_private_inc_dir = include_directories('.')
-libparsempd_srcs = files('''
+libmpdpp_private_inc_dir = include_directories('.')
+libmpdpp_srcs = files('''
 AdaptationSet.cc
 BaseURL.cc
 Codecs.cc
@@ -62,6 +62,7 @@ SegmentTimeline.cc
 SegmentURL.cc
 ServiceDescription.cc
 SingleRFC7233Range.cc
+stream_ops.hh
 SubRepresentation.cc
 Subset.cc
 Switching.cc
@@ -93,16 +94,16 @@ project_config.set('PROJECT_VERSION_MICRO', project_version_micro, description: 
 project_config.set_quoted('PROJECT_NAME', project_name, description: 'Project name')
 project_config.set_quoted('PROJECT_VERSION_FLAG', project_version_flag, description: 'Project version instance flag')
 
-libparsempd_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBMPDPP_CONFIG_HH_', output_format: 'c', install: false)
+libmpdpp_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBMPDPP_CONFIG_HH_', output_format: 'c', install: false)
 
-libparsempd = both_libraries('mpd++', libparsempd_srcs + [libparsempd_config_h],
+libmpdpp = both_libraries('mpd++', libmpdpp_srcs + [libmpdpp_config_h],
                dependencies: [libxml_dep, glibmm_dep],
                cpp_args: ['-DBUILD_LIBMPDPP'],
                install: true,
-               include_directories: [libparsempd_inc_dir, libparsempd_private_inc_dir],
+               include_directories: [libmpdpp_inc_dir, libmpdpp_private_inc_dir],
                gnu_symbol_visibility: 'hidden',
 )
 
-pkg.generate(libparsempd)
+pkg.generate(libmpdpp)
 
-libparsempd_dep = declare_dependency(dependencies: [libxml_dep, glibmm_dep], link_with: [libparsempd], include_directories: [libparsempd_inc_dir])
+libmpdpp_dep = declare_dependency(dependencies: [libxml_dep, glibmm_dep], link_with: [libmpdpp], include_directories: [libmpdpp_inc_dir])

@@ -9,7 +9,7 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
-
+#include <cmath>
 #include <list>
 #include <memory>
 #include <optional>
@@ -22,12 +22,15 @@
 #include "libmpd++/macros.hh"
 #include "libmpd++/ContentComponent.hh"
 #include "libmpd++/exceptions.hh"
+#include "libmpd++/MPD.hh"
 #include "libmpd++/Period.hh"
 #include "libmpd++/Representation.hh"
+#include "libmpd++/SegmentAvailability.hh"
 #include "libmpd++/XLink.hh"
 
 #include "constants.hh"
 #include "conversions.hh"
+#include "stream_ops.hh"
 
 #include "libmpd++/AdaptationSet.hh"
 
@@ -35,6 +38,8 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 AdaptationSet::AdaptationSet()
     :RepresentationBase()
+    ,m_period(nullptr)
+    ,m_selectedRepresentations()
     ,m_xlink()
     ,m_id()
     ,m_group()
@@ -70,6 +75,8 @@ AdaptationSet::AdaptationSet()
 
 AdaptationSet::AdaptationSet(const AdaptationSet &other)
     :RepresentationBase(other)
+    ,m_period(other.m_period)
+    ,m_selectedRepresentations(other.m_selectedRepresentations)
     ,m_xlink(other.m_xlink)
     ,m_id(other.m_id)
     ,m_group(other.m_group)
@@ -99,12 +106,24 @@ AdaptationSet::AdaptationSet(const AdaptationSet &other)
     ,m_segmentBase(other.m_segmentBase)
     ,m_segmentList(other.m_segmentList)
     ,m_segmentTemplate(other.m_segmentTemplate)
-    ,m_representations(other.m_representations)
+    ,m_representations()
 {
+    for (auto &rep : other.m_representations) {
+        auto it = m_selectedRepresentations.find(&rep);
+        m_representations.push_back(rep);
+        auto &new_rep = m_representations.back();
+        new_rep.setAdaptationSet(this);
+        if (it != m_selectedRepresentations.end()) {
+            m_selectedRepresentations.erase(it);
+            m_selectedRepresentations.insert(&new_rep);
+        }
+    }
 }
 
 AdaptationSet::AdaptationSet(AdaptationSet &&other)
     :RepresentationBase(std::move(other))
+    ,m_period(other.m_period)
+    ,m_selectedRepresentations(std::move(other.m_selectedRepresentations))
     ,m_xlink(std::move(other.m_xlink))
     ,m_id(std::move(other.m_id))
     ,m_group(std::move(other.m_group))
@@ -134,13 +153,25 @@ AdaptationSet::AdaptationSet(AdaptationSet &&other)
     ,m_segmentBase(std::move(other.m_segmentBase))
     ,m_segmentList(std::move(other.m_segmentList))
     ,m_segmentTemplate(std::move(other.m_segmentTemplate))
-    ,m_representations(std::move(other.m_representations))
+    ,m_representations()
 {
+    for (auto &rep : other.m_representations) {
+        auto it = m_selectedRepresentations.find(&rep);
+        m_representations.push_back(std::move(rep));
+        auto &new_rep = m_representations.back();
+        new_rep.setAdaptationSet(this);
+        if (it != m_selectedRepresentations.end()) {
+            m_selectedRepresentations.erase(it);
+            m_selectedRepresentations.insert(&new_rep);
+        }
+    }
 }
 
 AdaptationSet &AdaptationSet::operator=(const AdaptationSet &other)
 {
     RepresentationBase::operator=(other);
+    m_period = other.m_period;
+    m_selectedRepresentations = other.m_selectedRepresentations;
     m_xlink = other.m_xlink;
     m_id = other.m_id;
     m_group = other.m_group;
@@ -170,7 +201,17 @@ AdaptationSet &AdaptationSet::operator=(const AdaptationSet &other)
     m_segmentBase = other.m_segmentBase;
     m_segmentList = other.m_segmentList;
     m_segmentTemplate = other.m_segmentTemplate;
-    m_representations = other.m_representations;
+    m_representations.clear();
+    for (auto &rep : other.m_representations) {
+        auto it = m_selectedRepresentations.find(&rep);
+        m_representations.push_back(rep);
+        auto &new_rep = m_representations.back();
+        new_rep.setAdaptationSet(this);
+        if (it != m_selectedRepresentations.end()) {
+            m_selectedRepresentations.erase(it);
+            m_selectedRepresentations.insert(&new_rep);
+        }
+    }
 
     return *this;
 }
@@ -178,6 +219,8 @@ AdaptationSet &AdaptationSet::operator=(const AdaptationSet &other)
 AdaptationSet &AdaptationSet::operator=(AdaptationSet &&other)
 {
     RepresentationBase::operator=(std::move(other));
+    m_period = other.m_period;
+    m_selectedRepresentations = std::move(other.m_selectedRepresentations);
     m_xlink = std::move(other.m_xlink);
     m_id = std::move(other.m_id);
     m_group = std::move(other.m_group);
@@ -207,7 +250,18 @@ AdaptationSet &AdaptationSet::operator=(AdaptationSet &&other)
     m_segmentBase = std::move(other.m_segmentBase);
     m_segmentList = std::move(other.m_segmentList);
     m_segmentTemplate = std::move(other.m_segmentTemplate);
-    m_representations = std::move(other.m_representations);
+    m_representations.clear();
+
+    for (auto &rep : other.m_representations) {
+        auto it = m_selectedRepresentations.find(&rep);
+        m_representations.push_back(std::move(rep));
+        auto &new_rep = m_representations.back();
+        new_rep.setAdaptationSet(this);
+        if (it != m_selectedRepresentations.end()) {
+            m_selectedRepresentations.erase(it);
+            m_selectedRepresentations.insert(&new_rep);
+        }
+    }
 
     return *this;
 }
@@ -265,6 +319,18 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
     return RepresentationBase::operator==(to_compare);
 }
 
+MPD *AdaptationSet::getMPD()
+{
+    if (m_period) return m_period->getMPD();
+    return nullptr;
+}
+
+const MPD *AdaptationSet::getMPD() const
+{
+    if (m_period) return m_period->getMPD();
+    return nullptr;
+}
+
 std::list<BaseURL> AdaptationSet::getBaseURLs() const
 {
     if (m_baseURLs.size() == 0 && m_period) return m_period->getBaseURLs();
@@ -294,6 +360,8 @@ std::list<BaseURL> AdaptationSet::getBaseURLs() const
 
 AdaptationSet::AdaptationSet(xmlpp::Node &node)
     :RepresentationBase(node)
+    ,m_period(nullptr)
+    ,m_selectedRepresentations()
     ,m_xlink()
     ,m_id()
     ,m_group()
@@ -549,6 +617,7 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
     if (node_set.size() > 0) {
         for (auto node : node_set) {
             m_representations.push_back(Representation(*node));
+            m_representations.back().setAdaptationSet(this);
         }
     }
 
@@ -842,6 +911,26 @@ void AdaptationSet::deselectRepresentation(const std::list<Representation>::iter
     }
 }
 
+std::list<SegmentAvailability> AdaptationSet::selectedSegmentAvailability(const AdaptationSet::time_type &query_time) const
+{
+    std::list<SegmentAvailability> ret;
+
+    for (auto rep_ptr : m_selectedRepresentations) {
+        ret.push_back(rep_ptr->segmentAvailability(query_time));
+    }
+
+    return ret;
+}
+
+std::list<SegmentAvailability> AdaptationSet::selectedInitializationSegments() const
+{
+    std::unordered_set<SegmentAvailability> ret;
+    for (auto rep_ptr : m_selectedRepresentations) {
+        ret.insert(rep_ptr->initialisationSegmentAvailability());
+    }
+    return std::list<SegmentAvailability>(ret.begin(), ret.end());
+}
+
 // protected:
 
 static Glib::ustring get_ns_prefix_for(xmlpp::Element &elem, const Glib::ustring &namespace_uri, const Glib::ustring &namespace_prefix)
@@ -1028,6 +1117,149 @@ std::string AdaptationSet::getInitializationURL(const SegmentTemplate::Variables
         return m_period->getInitializationURL(vars);
     }
     return std::string();
+}
+
+SegmentAvailability AdaptationSet::getMediaAvailability(const SegmentTemplate::Variables &vars) const
+{
+    SegmentAvailability ret;
+    std::list<BaseURL> base_urls;
+    const MPD *mpd = getMPD();
+
+    if (m_segmentTemplate.has_value()) {
+        base_urls = getBaseURLs();
+        unsigned int ts = 1;
+        if (m_segmentTemplate.value().hasTimescale()) {
+            ts = m_segmentTemplate.value().timescale().value();
+        }
+        if (base_urls.empty()) {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->availabilityStartTime().value() + vars.timeAsDurationType(ts));
+            }
+        } else {
+            const BaseURL &base_url = base_urls.front();
+            if (base_url.hasAvailabilityTimeOffset()) {
+                if (mpd && mpd->hasAvailabilityStartTime()) {
+                    if (std::isnan(base_url.availabilityTimeOffset().value())) {
+                        // All segments available at the MPD@availabilityStartTime
+                        ret.availabilityStartTime(mpd->availabilityStartTime().value());
+                    } else {
+                        // available at MPD@availabilityStartTime - @availabilityTimeOffset + segment_time
+                        ret.availabilityStartTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1>>(base_url.availabilityTimeOffset().value())) + vars.timeAsDurationType(ts));
+                    }
+                }
+            } else if (mpd && mpd->hasAvailabilityStartTime()) {
+                // available at MPD@availabilityStartTime + segment_time
+                ret.availabilityStartTime(mpd->availabilityStartTime().value() + vars.timeAsDurationType(ts));
+            }
+        }
+        if (mpd) {
+            if (mpd->hasAvailabilityEndTime()) {
+                ret.availabilityEndTime(mpd->presentationTimeToSystemTime(mpd->availabilityEndTime().value()));
+            }
+            ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
+        }
+        if (m_segmentTemplate.value().hasDuration()) {
+            ret.segmentDuration(m_segmentTemplate.value().durationAsDurationType());
+            if (mpd && mpd->isLive()) {
+                ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+            }
+        }
+        ret.segmentURL(m_segmentTemplate.value().formatMediaTemplate(vars));
+    } else if (m_segmentList.has_value()) {
+        base_urls = getBaseURLs();
+        if (base_urls.empty()) {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->availabilityStartTime().value());
+            }
+        } else {
+            const BaseURL &base_url = base_urls.front();
+            if (base_url.hasAvailabilityTimeOffset() && !std::isnan(base_url.availabilityTimeOffset().value())) {
+                if (mpd && mpd->hasAvailabilityStartTime()) {
+                    ret.availabilityStartTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1>>(base_url.availabilityTimeOffset().value())));
+                }
+            } else if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->availabilityStartTime().value());
+            }
+        }
+        ret.segmentDuration(m_segmentList.value().durationAsDurationType());
+        if (mpd) {
+            if (mpd->hasAvailabilityEndTime()) {
+                ret.availabilityEndTime(mpd->presentationTimeToSystemTime(mpd->availabilityEndTime().value()));
+            }
+            ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
+            if (mpd->isLive()) {
+                ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+            }
+        }
+
+        if (vars.number()) {
+            ret.segmentURL(m_segmentList.value().getMediaURLForSegment(vars.number().value()));
+        } else if (vars.time()) {
+            ret.segmentURL(m_segmentList.value().getMediaURLForSegmentTime(vars.time().value()));
+        }
+    } else if (m_period) {
+        ret = m_period->getMediaAvailability(vars);
+    }
+
+    return ret;
+}
+
+SegmentAvailability AdaptationSet::getInitialisationAvailability(const SegmentTemplate::Variables &vars) const
+{
+    SegmentAvailability ret;
+    std::list<BaseURL> base_urls;
+
+    if (m_segmentTemplate.has_value()) {
+        base_urls = getBaseURLs();
+        ret.segmentURL(URI(m_segmentTemplate.value().formatInitializationTemplate(vars)).resolveUsingBaseURLs(base_urls));
+    } else if (m_segmentList.has_value()) {
+        base_urls = getBaseURLs();
+        ret.segmentURL(URI(m_segmentList.value().getInitializationURL()).resolveUsingBaseURLs(base_urls));
+    } else if (m_period) {
+        ret = m_period->getInitialisationAvailability(vars);
+        return ret;
+    }
+
+    if (!base_urls.empty()) {
+        const BaseURL &base_url = base_urls.front();
+        const MPD *mpd = getMPD();
+        if (base_url.hasAvailabilityTimeOffset()) {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->presentationTimeToSystemTime(mpd->availabilityStartTime().value() - std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(base_url.availabilityTimeOffset().value()))));
+            }
+        } else {
+            if (mpd && mpd->hasAvailabilityStartTime()) {
+                ret.availabilityStartTime(mpd->presentationTimeToSystemTime(mpd->availabilityStartTime().value()));
+            } else {
+                ret.availabilityStartTime(std::chrono::system_clock::now());
+            }
+        }
+    } else {
+        ret.availabilityStartTime(std::chrono::system_clock::now());
+    }
+
+    return ret;
+}
+
+AdaptationSet::time_type AdaptationSet::getPeriodStartTime() const
+{
+    if (m_period) return m_period->getPeriodStartTime();
+    return AdaptationSet::time_type(); // just return epoch if we can't find the period
+}
+  
+const MultipleSegmentBase &AdaptationSet::getMultiSegmentBase() const
+{
+    if (m_segmentTemplate) return m_segmentTemplate.value();
+    if (m_segmentList) return m_segmentTemplate.value();
+    if (m_segmentBase) {
+        static MultipleSegmentBase multi_no_duration;
+        static_cast<SegmentBase&>(multi_no_duration) = m_segmentBase.value(); // copy over SegmentBase values
+        return multi_no_duration;
+    }
+    if (m_period) return m_period->getMultiSegmentBase();
+
+    static const MultipleSegmentBase empty_multi;
+    return empty_multi;
 }
 
 LIBMPDPP_NAMESPACE_END
