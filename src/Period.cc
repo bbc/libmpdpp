@@ -686,6 +686,8 @@ const std::optional<Period::duration_type> &Period::calcDuration() const
 
 Period::Period(xmlpp::Node &node)
     :m_mpd(nullptr)
+    ,m_previousSibling(nullptr)
+    ,m_nextSibling(nullptr)
     ,m_xlink()
     ,m_id()
     ,m_start()
