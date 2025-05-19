@@ -16,7 +16,16 @@ if cpp.has_function_attribute('visibility:default')
     add_project_arguments('-DHAVE_VISIBILITY=1', language: ['cpp'])
 endif
 
-libxml_dep = dependency('libxml++-3.0', required: true)
+libxml_dep = dependency('libxml++-3.0', required: false)
+if not libxml_dep.found()
+    libxml_dep = dependency('libxml++-4.0', required: false)
+    if not libxml_dep.found()
+        libxml_dep = dependency('libxml++-5.0', required: false)
+        if not libxml_dep.found()
+            error('This build requires libxml++ verions 3.0, 4.0 or 5.0')
+        endif
+    endif
+endif
 glibmm_dep = dependency('glibmm-2.4', required: true)
 
 libmpdpp_private_inc_dir = include_directories('.')
