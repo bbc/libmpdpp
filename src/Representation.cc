@@ -349,20 +349,18 @@ SegmentAvailability Representation::segmentAvailability(const time_type &query_t
             }
             pres_offset = std::chrono::duration_cast<duration_type>(pres_time - ret.availabilityStartTime()) - period->calcStart().value();
         }
+        ret.segmentDuration(m_segmentList.value().durationAsDurationType());
         if (mpd) {
-            // Adjust times back to system wallclock
             if (ret.hasAvailabilityEndTime()) {
                 ret.availabilityEndTime(mpd->presentationTimeToSystemTime(ret.availabilityEndTime().value()));
             }
             ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
-        }
-        ret.segmentDuration(m_segmentList.value().durationAsDurationType());
-        if (mpd && mpd->isLive()) {
-            ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+            if (mpd->isLive()) {
+                ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
+            }
         }
         ret.segmentURL(URI(m_segmentList.value().getMediaURLForSegmentTime(pres_offset)).resolveUsingBaseURLs(base_urls));
-    }
-    if (m_adaptationSet) {
+    } else if (m_adaptationSet) {
         ret = m_adaptationSet->getMediaAvailability(getTemplateVars(pres_time));
     }
 

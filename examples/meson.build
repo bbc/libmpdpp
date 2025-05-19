@@ -17,6 +17,12 @@ load_mpd_srcs = files('''
 load_mpd.cc
 '''.split())
 
+next_segments_srcs = files('''
+next_segments.cc
+'''.split())
+
 dump_mpd_exe = executable('dump_mpd', dump_mpd_srcs, dependencies: [libmpdpp_dep], install: true, install_dir: get_option('datadir') / meson.project_name() + '-' + meson.project_version() / 'bin')
 
 load_mpd_exe = executable('load_mpd', load_mpd_srcs, dependencies: [libmpdpp_dep], install: true, install_dir: get_option('datadir') / meson.project_name() + '-' + meson.project_version() / 'bin')
+
+next_segments_exe = executable('next_segments', next_segments_srcs, dependencies: [libmpdpp_dep], install: true, install_dir: get_option('datadir') / meson.project_name() + '-' + meson.project_version() / 'bin')
