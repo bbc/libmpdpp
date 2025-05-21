@@ -264,6 +264,7 @@ protected:
     Period &setPreviousSibling(Period *sibling) { m_previousSibling = sibling; cacheCalcClear(); sibling->cacheCalcClear(); return *this; };
     Period &setNextSibling(Period *sibling) { m_nextSibling = sibling; cacheCalcClear(); sibling->cacheCalcClear(); return *this; };
     time_type getPeriodStartTime() const;
+    std::optional<duration_type> getPeriodDuration() const;
     const MultipleSegmentBase &getMultiSegmentBase() const;
 
 private:

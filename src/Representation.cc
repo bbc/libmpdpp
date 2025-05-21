@@ -628,10 +628,14 @@ SegmentTemplate::Variables Representation::getTemplateVars(const Representation:
 
     auto &multi_seg_base = getMultiSegmentBase();
     auto period_start = getPeriodStartTime();
+    auto period_duration = getPeriodDuration();
     unsigned long seg_num = 0;
 
     if (time > period_start) {
-        seg_num = multi_seg_base.durationTypeToSegmentNumber(std::chrono::duration_cast<duration_type>(time - period_start));
+        duration_type offset_into_period = std::chrono::duration_cast<duration_type>(time - period_start);
+        if (!period_duration || offset_into_period < period_duration.value()) {
+            seg_num = multi_seg_base.durationTypeToSegmentNumber(offset_into_period);
+        }
     }
 
     return getTemplateVars(seg_num);
@@ -641,6 +645,12 @@ Representation::time_type Representation::getPeriodStartTime() const
 {
     if (m_adaptationSet) return m_adaptationSet->getPeriodStartTime();
     return Representation::time_type(); // just return epoch if we can't find the adaptation set
+}
+
+std::optional<Representation::duration_type> Representation::getPeriodDuration() const
+{
+    if (m_adaptationSet) return m_adaptationSet->getPeriodDuration();
+    return std::optional<Representation::duration_type>(); // just return epoch if we can't find the adaptation set
 }
 
 const MultipleSegmentBase &Representation::getMultiSegmentBase() const

@@ -1246,7 +1246,13 @@ AdaptationSet::time_type AdaptationSet::getPeriodStartTime() const
     if (m_period) return m_period->getPeriodStartTime();
     return AdaptationSet::time_type(); // just return epoch if we can't find the period
 }
-  
+
+std::optional<AdaptationSet::duration_type> AdaptationSet::getPeriodDuration() const
+{   
+    if (m_period) return m_period->getPeriodDuration();
+    return std::optional<AdaptationSet::duration_type>(); // just return epoch if we can't find the period
+}
+ 
 const MultipleSegmentBase &AdaptationSet::getMultiSegmentBase() const
 {
     if (m_segmentTemplate) return m_segmentTemplate.value();

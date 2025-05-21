@@ -1101,6 +1101,14 @@ Period::time_type Period::getPeriodStartTime() const
     return mpd->availabilityStartTime().value();
 }
 
+std::optional<Period::duration_type> Period::getPeriodDuration() const
+{
+    // Try to cache calculated duration if we don't have one
+    if (!m_cache->calcDuration) cacheCalcTimes();
+
+    return m_cache->calcDuration;
+}
+
 const MultipleSegmentBase &Period::getMultiSegmentBase() const
 {
     if (m_segmentTemplate) return m_segmentTemplate.value();

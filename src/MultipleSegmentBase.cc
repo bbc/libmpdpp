@@ -136,6 +136,7 @@ unsigned long MultipleSegmentBase::timeOffsetToSegmentNumber(unsigned long time_
 // Get segment number that contains the wallclock duration since Period start
 unsigned long MultipleSegmentBase::durationTypeToSegmentNumber(const MultipleSegmentBase::duration_type &offset) const
 {
+    if (offset.count() < 0) return 0;
     if (m_duration) return (offset / durationAsDurationType());
     return 0; // no duration then there's only one segment
 }

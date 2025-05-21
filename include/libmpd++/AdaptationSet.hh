@@ -347,6 +347,7 @@ protected:
     SegmentAvailability getMediaAvailability(const SegmentTemplate::Variables &) const;
     SegmentAvailability getInitialisationAvailability(const SegmentTemplate::Variables &) const;
     time_type getPeriodStartTime() const;
+    std::optional<duration_type> getPeriodDuration() const;
     const MultipleSegmentBase &getMultiSegmentBase() const;
 
 private:
