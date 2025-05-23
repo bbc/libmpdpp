@@ -52,7 +52,7 @@ std::string format_duration(const std::chrono::duration<Rep,Period> &durn)
 template<class Durn>
 Durn str_to_duration(const std::string &str)
 {
-    Durn ret;
+    Durn ret = Durn();
     static const std::regex durn_parse_regex("^P(?!$)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)W)?(?:(\\d+)D)?(?:T(?=\\d+(?:[HM]|(?:\\.\\d+)?S))(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(\\.\\d+)?)S)?)?$");
     std::smatch matches;
     if (std::regex_match(str, matches, durn_parse_regex)) {
