@@ -73,27 +73,27 @@ SegmentAvailability &SegmentAvailability::operator=(SegmentAvailability &&to_mov
 
 int SegmentAvailability::compare(const SegmentAvailability &to_compare) const
 {
-    if (m_availabilityStartTime < to_compare.m_availabilityStartTime) return -1;
-    if (m_availabilityStartTime > to_compare.m_availabilityStartTime) return 1;
+    if (m_availabilityStartTime < to_compare.m_availabilityStartTime) return 1;
+    if (m_availabilityStartTime > to_compare.m_availabilityStartTime) return -1;
 
     if (m_availabilityEndTime) {
         if (to_compare.m_availabilityEndTime) {
-            if (m_availabilityEndTime < to_compare.m_availabilityEndTime) return -1;
-            if (m_availabilityEndTime > to_compare.m_availabilityEndTime) return 1;
+            if (m_availabilityEndTime < to_compare.m_availabilityEndTime) return 1;
+            if (m_availabilityEndTime > to_compare.m_availabilityEndTime) return -1;
         } else {
-            return 1;
+            return -1;
         }
     } else {
         if (to_compare.m_availabilityEndTime) {
-            return -1;
+            return 1;
         }
     }
 
-    if (m_segmentDuration < to_compare.m_segmentDuration) return -1;
-    if (m_segmentDuration >  to_compare.m_segmentDuration) return 1;
+    if (m_segmentDuration < to_compare.m_segmentDuration) return 1;
+    if (m_segmentDuration >  to_compare.m_segmentDuration) return -1;
 
-    if (m_segmentURL.str() < to_compare.m_segmentURL.str()) return -1;
-    if (m_segmentURL.str() > to_compare.m_segmentURL.str()) return 1;
+    if (m_segmentURL.str() < to_compare.m_segmentURL.str()) return 1;
+    if (m_segmentURL.str() > to_compare.m_segmentURL.str()) return -1;
 
     return 0;
 }
