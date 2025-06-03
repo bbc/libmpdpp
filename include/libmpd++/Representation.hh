@@ -34,10 +34,15 @@
 #include "Subset.hh"
 #include "XLink.hh"
 
+/**@cond
+ */
+// Forward declarations for types only used by pointer or reference
 namespace xmlpp {
     class Element;
     class Node;
 }
+/**@endcond
+ */
 
 LIBMPDPP_NAMESPACE_BEGIN
 
@@ -101,7 +106,7 @@ public:
      *
      * Get the media URL for a given @a segment_number.
      *
-     * @param segment_number The segment number to fetch the URL for.
+     * @param segment_time The segment time to fetch the URL for.
      *
      * @return The media segment URL or an empty URL if the segment is unknown.
      */

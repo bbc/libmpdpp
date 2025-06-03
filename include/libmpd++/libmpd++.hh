@@ -69,4 +69,10 @@
 #include "URL.hh"
 #include "XLink.hh"
 
+/** @namespace com::bbc::libmpdpp
+ * The libmpd++ namespace
+ *
+ * This namespace contains all main classes that are part of libmpd++.
+ */
+
 #endif /* _BBC_PARSE_DASH_MPD_LIBMPDPP_HH_ */

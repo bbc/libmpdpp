@@ -34,19 +34,26 @@
 #include "URI.hh"
 #include "XLink.hh"
 
+/**@cond
+ */
+// Forward declarations for types only used by pointer or reference
 namespace xmlpp {
     class Element;
     class Node;
 }
+/**@endcond
+ */
 
 LIBMPDPP_NAMESPACE_BEGIN
 
 /**
- * AdaptationSet class
- *
+ * @brief AdaptationSet class
  * @headerfile libmpd++/AdaptationSet.hh <libmpd++/AdaptationSet.hh>
  *
  * This is the container for AdaptationSet representations from an MPD.
+ *
+ * The AdaptationSet also allows the application to mark child Representations as "selected". The selected set of Representations
+ * can then be queried to find out the availability of the next media segments or initialization segments.
  */
 class LIBMPDPP_PUBLIC_API AdaptationSet : public RepresentationBase {
 public:
@@ -419,69 +426,435 @@ public:
     AdaptationSet &par(std::optional<Ratio> &&par) { m_par = std::move(par); return *this;};
 
     // @minBandwidth;
+
+    /**
+     * Check if the @@minBandwidth attribute is set
+     *
+     * @return `true` if the @@minBandwidth attribute has a value, otherwise `false`.
+     */
     bool hasMinBandwidth() const { return m_minBandwidth.has_value(); };
+
+    /**
+     * Get the optional @@minBandwidth attribute value
+     *
+     * @return The optional minimum bandwidth.
+     */
     const std::optional<unsigned int> &minBandwidth() const { return m_minBandwidth; };
+
+    /**
+     * Unset the @@minBandwidth attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minBandwidth(const std::nullopt_t &) { m_minBandwidth.reset(); return *this;};
+
+    /**
+     * Set the @@minBandwidth attribute value
+     *
+     * @param min_bandwidth The minimum bandwidth value to set for the @@minBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minBandwidth(unsigned int min_bandwidth) { m_minBandwidth = min_bandwidth; return *this;};
+
+    /**
+     * Set the @@minBandwidth attribute value (optional value copy)
+     *
+     * Copy the optional @a min_bandwidth into the value of the @@minBandwidth attribute.
+     *
+     * @param min_bandwidth The optional minimum bandwidth to copy into the @@minBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minBandwidth(const std::optional<unsigned int> &min_bandwidth) { m_minBandwidth = min_bandwidth; return *this;};
+
+    /**
+     * Set the @@minBandwidth attribute value (optional value move)
+     *
+     * Move the optional @a min_bandwidth into the @@minBandwidth attribute.
+     *
+     * @param min_bandwidth The optional minimum bandwidth to move into the @@minBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minBandwidth(std::optional<unsigned int> &&min_bandwidth) { m_minBandwidth = std::move(min_bandwidth);return *this;};
 
     // @maxBandwidth
+
+    /**
+     * Check if the @@maxBandwidth attribute is set
+     *
+     * @return `true` if the @@maxBandwidth attribute has a value, otherwise `false`.
+     */
     bool hasMaxBandwidth() const { return m_maxBandwidth.has_value(); };
+
+    /**
+     * Get the optional @@maxBandwidth attribute value
+     *
+     * @return The optional maximum bandwidth.
+     */
     const std::optional<unsigned int> &maxBandwidth() const { return m_maxBandwidth; };
+
+    /**
+     * Unset the @@maxBandwidth attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxBandwidth(const std::nullopt_t &) { m_maxBandwidth.reset(); return *this;};
+
+    /**
+     * Set the @@maxBandwidth attribute value
+     *
+     * @param max_bandwidth The maximum bandwidth value to set for the @@maxBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxBandwidth(unsigned int max_bandwidth) { m_maxBandwidth = max_bandwidth; return *this;};
+
+    /**
+     * Set the @@maxBandwidth attribute value (optional value copy)
+     *
+     * Copy the optional @a max_bandwidth into the value of the @@maxBandwidth attribute.
+     *
+     * @param max_bandwidth The optional maximum bandwidth to copy into the @@maxBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxBandwidth(const std::optional<unsigned int> &max_bandwidth) { m_maxBandwidth = max_bandwidth; return *this;};
+
+    /**
+     * Set the @@maxBandwidth attribute value (optional value move)
+     *
+     * Move the optional @a max_bandwidth into the @@maxBandwidth attribute.
+     *
+     * @param max_bandwidth The optional maximum bandwidth to move into the @@maxBandwidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxBandwidth(std::optional<unsigned int> &&max_bandwidth) { m_maxBandwidth = std::move(max_bandwidth);return *this;};
 
     // @minWidth
+
+    /**
+     * Check if the @@minWidth attribute is set
+     *
+     * @return `true` if the @@minWidth attribute has a value, otherwise `false`.
+     */
     bool hasMinWidth() const { return m_minWidth.has_value(); };
+
+    /**
+     * Get the optional @@minWidth attribute value
+     *
+     * @return The optional minimum video width.
+     */
     const std::optional<unsigned int> &minWidth() const { return m_minWidth; };
+
+    /**
+     * Unset the @@minWidth attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minWidth(const std::nullopt_t &) { m_minWidth.reset(); return *this;};
+
+    /**
+     * Set the @@minWidth attribute value
+     *
+     * @param min_width The minimum video width value to set for the @@minWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minWidth(unsigned int min_width) { m_minWidth = min_width; return *this;};
+
+    /**
+     * Set the @@minWidth attribute value (optional value copy)
+     *
+     * Copy the optional @a min_width into the value of the @@minWidth attribute.
+     *
+     * @param min_width The optional minimum video width to copy into the @@minWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minWidth(const std::optional<unsigned int> &min_width) { m_minWidth = min_width; return *this;};
+
+    /**
+     * Set the @@minWidth attribute value (optional value move)
+     *
+     * Move the optional @a min_width into the @@minWidth attribute.
+     *
+     * @param min_width The optional minimum video width to move into the @@minWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minWidth(std::optional<unsigned int> &&min_width) { m_minWidth = std::move(min_width);return *this;};
 
     // @maxWidth
+
+    /**
+     * Check if the @@maxWidth attribute is set
+     *
+     * @return `true` if the @@maxWidth attribute has a value, otherwise `false`.
+     */
     bool hasMaxWidth() const { return m_maxWidth.has_value(); };
+
+    /**
+     * Get the optional @@maxWidth attribute value
+     *
+     * @return The optional maximum video width.
+     */
     const std::optional<unsigned int> &maxWidth() const { return m_maxWidth; };
+
+    /**
+     * Unset the @@maxWidth attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxWidth(const std::nullopt_t &) { m_maxWidth.reset(); return *this;};
+
+    /**
+     * Set the @@maxWidth attribute value
+     *
+     * @param max_width The maximum video width value to set for the @@maxWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxWidth(unsigned int max_width) { m_maxWidth = max_width; return *this;};
+
+    /**
+     * Set the @@maxWidth attribute value (optional value copy)
+     *
+     * Copy the optional @a max_width into the value of the @@maxWidth attribute.
+     *
+     * @param max_width The optional maximum video width to copy into the @@maxWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxWidth(const std::optional<unsigned int> &max_width) { m_maxWidth = max_width; return *this;};
+
+    /**
+     * Set the @@maxWidth attribute value (optional value move)
+     *
+     * Move the optional @a max_width into the @@maxWidth attribute.
+     *
+     * @param max_width The optional maximum video width to move into the @@maxWidth attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxWidth(std::optional<unsigned int> &&max_width) { m_maxWidth = std::move(max_width);return *this;};
 
     // @minHeight
+
+    /**
+     * Check if the @@minHeight attribute is set
+     *
+     * @return `true` if the @@minHeight attribute has a value, otherwise `false`.
+     */
     bool hasMinHeight() const { return m_minHeight.has_value(); };
+
+    /**
+     * Get the optional @@minHeight attribute value
+     *
+     * @return The optional minimum video height.
+     */
     const std::optional<unsigned int> &minHeight() const { return m_minHeight; };
+
+    /**
+     * Unset the @@minHeight attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minHeight(const std::nullopt_t &) { m_minHeight.reset(); return *this;};
+
+    /**
+     * Set the @@minHeight attribute value
+     *
+     * @param min_height The minimum video height value to set for the @@minHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minHeight(unsigned int min_height) { m_minHeight = min_height; return *this;};
+
+    /**
+     * Set the @@minHeight attribute value (optional value copy)
+     *
+     * Copy the optional @a min_height into the value of the @@minHeight attribute.
+     *
+     * @param min_height The optional minimum video height to copy into the @@minHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minHeight(const std::optional<unsigned int> &min_height) { m_minHeight = min_height; return *this;};
+
+    /**
+     * Set the @@minHeight attribute value (optional value move)
+     *
+     * Move the optional @a min_height into the @@minHeight attribute.
+     *
+     * @param min_height The optional minimum video height to move into the @@minHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minHeight(std::optional<unsigned int> &&min_height) { m_minHeight = std::move(min_height);return *this;};
 
     // @maxHeight
+
+    /**
+     * Check if the @@maxHeight attribute is set
+     *
+     * @return `true` if the @@maxHeight attribute has a value, otherwise `false`.
+     */
     bool hasMaxHeight() const { return m_maxHeight.has_value(); };
+
+    /**
+     * Get the optional @@maxHeight attribute value
+     *
+     * @return The optional maximum video height.
+     */
     const std::optional<unsigned int> &maxHeight() const { return m_maxHeight; };
+
+    /**
+     * Unset the @@maxHeight attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxHeight(const std::nullopt_t &) { m_maxHeight.reset(); return *this;};
+
+    /**
+     * Set the @@maxHeight attribute value
+     *
+     * @param max_height The maximum video height value to set for the @@maxHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxHeight(unsigned int max_height) { m_maxHeight = max_height; return *this;};
+
+    /**
+     * Set the @@maxHeight attribute value (optional value copy)
+     *
+     * Copy the optional @a max_height into the value of the @@maxHeight attribute.
+     *
+     * @param max_height The optional maximum video height to copy into the @@maxHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxHeight(const std::optional<unsigned int> &max_height) { m_maxHeight = max_height; return *this;};
+
+    /**
+     * Set the @@maxHeight attribute value (optional value move)
+     *
+     * Move the optional @a max_height into the @@maxHeight attribute.
+     *
+     * @param max_height The optional maximum video height to move into the @@maxHeight attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxHeight(std::optional<unsigned int> &&max_height) { m_maxHeight = std::move(max_height);return *this;};
 
     // @minFrameRate
+
+    /**
+     * Check if the @@minFrameRate attribute is set
+     *
+     * @return `true` if the @@minFrameRate attribute has a value, otherwise `false`.
+     */
     bool hasMinFrameRate() const { return m_minFrameRate.has_value(); };
+
+    /**
+     * Get the optional @@minFrameRate attribute value
+     *
+     * @return The optional minimum video frame rate.
+     */
     const std::optional<FrameRate> &minFrameRate() const {return m_minFrameRate;};
+
+    /**
+     * Unset the @@minFrameRate attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minFrameRate(const std::nullopt_t &) { m_minFrameRate.reset(); return *this; };
+
+    /**
+     * Set the @@minFrameRate attribute value (copy)
+     *
+     * Copy the @a min_frame_rate value into the @@minFrameRate attribute.
+     *
+     * @param min_frame_rate The minimum video frame rate to copy into the @@minFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minFrameRate(const FrameRate &min_frame_rate) {m_minFrameRate = min_frame_rate; return *this;};
+
+    /**
+     * Set the @@minFrameRate attribute value (move)
+     *
+     * Move the @a min_frame_rate value into the @@minFrameRate attribute.
+     *
+     * @param min_frame_rate The minimum video frame rate to move into the @@minFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minFrameRate(FrameRate &&min_frame_rate) {m_minFrameRate = std::move(min_frame_rate); return *this;};
+
+    /**
+     * Set the @@minFrameRate attribute value (optional value copy)
+     *
+     * Copy the optional @a min_frame_rate into the value of the @@minFrameRate attribute.
+     *
+     * @param min_frame_rate The optional minimum video frame rate to copy into the @@minFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minFrameRate(const std::optional<FrameRate> &min_frame_rate) { m_minFrameRate = min_frame_rate; return *this;};
+
+    /**
+     * Set the @@minFrameRate attribute value (optional value move)
+     *
+     * Move the optional @a min_frame_rate into the @@minFrameRate attribute.
+     *
+     * @param min_frame_rate The optional minimum video frame rate to move into the @@minFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &minFrameRate(std::optional<FrameRate> &&min_frame_rate) { m_minFrameRate = std::move(min_frame_rate); return *this;};
 
     // @maxFrameRate
+
+    /**
+     * Check if the @@maxFrameRate attribute is set
+     *
+     * @return `true` if the @@maxFrameRate attribute has a value, otherwise `false`.
+     */
     bool hasMaxFrameRate() const { return m_maxFrameRate.has_value(); };
+
+    /**
+     * Get the optional @@maxFrameRate attribute value
+     *
+     * @return The optional maximum video frame rate.
+     */
     const std::optional<FrameRate> &maxFrameRate() const {return m_maxFrameRate;};
+
+    /**
+     * Unset the @@maxFrameRate attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxFrameRate(const std::nullopt_t &) { m_maxFrameRate.reset(); return *this; };
+
+    /**
+     * Set the @@maxFrameRate attribute value (copy)
+     *
+     * Copy the @a max_frame_rate value into the @@maxFrameRate attribute.
+     *
+     * @param max_frame_rate The maximum video frame rate to copy into the @@maxFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxFrameRate(const FrameRate &max_frame_rate) {m_maxFrameRate = max_frame_rate; return *this;};
+
+    /**
+     * Set the @@maxFrameRate attribute value (move)
+     *
+     * Move the @a max_frame_rate value into the @@maxFrameRate attribute.
+     *
+     * @param max_frame_rate The maximum video frame rate to move into the @@maxFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxFrameRate(FrameRate &&max_frame_rate) {m_maxFrameRate = std::move(max_frame_rate); return *this;};
+
+    /**
+     * Set the @@maxFrameRate attribute value (optional value copy)
+     *
+     * Copy the optional @a max_frame_rate into the value of the @@maxFrameRate attribute.
+     *
+     * @param max_frame_rate The optional maximum video frame rate to copy into the @@maxFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxFrameRate(const std::optional<FrameRate> &max_frame_rate) { m_maxFrameRate = max_frame_rate; return *this;};
+
+    /**
+     * Set the @@maxFrameRate attribute value (optional value move)
+     *
+     * Move the optional @a max_frame_rate into the @@maxFrameRate attribute.
+     *
+     * @param max_frame_rate The optional maximum video frame rate to move into the @@maxFrameRate attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &maxFrameRate(std::optional<FrameRate> &&max_frame_rate) { m_maxFrameRate = std::move(max_frame_rate); return *this;};
 
     // @segmentAlignment (deprecated)
@@ -558,137 +931,921 @@ public:
     AdaptationSet &subsegmentStartsWithSAP(SAP &&subsegment_starts_with_sap) {m_subsegmentStartsWithSAP = std::move(subsegment_starts_with_sap); return *this;};
 
     // @bitstreamSwitching
+
+    /** Check if the @@bitstreamSwitching attribute is set
+     *
+     * @return `true` if the @@bitstreamSwitching attribute has a value, otherwise `false`.
+     */
     bool hasBitstreamSwitching() const { return m_bitstreamSwitching.has_value(); };
+
+    /** Get the optional @@bitstreamSwitching attribute value
+     *
+     * @return The optional bitstream switching flag.
+     */
     const std::optional<bool> &bitstreamSwitching() const { return m_bitstreamSwitching; };
+
+    /** Unset the @@bitstreamSwitching attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &bitstreamSwitching(const std::nullopt_t&) { m_bitstreamSwitching.reset(); return *this; };
+
+    /** Set the @@bitstreamSwitching attribute value
+     *
+     * @param bitstream_switching The bitstream switching flag value to set in the @@bitstreamSwitching attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &bitstreamSwitching(bool bitstream_switching) { m_bitstreamSwitching = bitstream_switching; return *this; };
+
+    /** Set the @@bitstreamSwitching attribute value (optional value copy)
+     *
+     * Copy the optional @a bitstream_switching into the value of the @@bitstreamSwitching attribute.
+     *
+     * @param bitstream_switching The optional bitstream switching flag to copy into the @@bitstreamSwitching attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &bitstreamSwitching(const std::optional<bool> &bitstream_switching) { m_bitstreamSwitching = bitstream_switching; return *this; };
+
+    /** Set the @@bitstreamSwitching attribute value (optional value move)
+     *
+     * Move the optional @a bitstream_switching into the @@bitstreamSwitching attribute.
+     *
+     * @param bitstream_switching The optional bitstream switching flag to move into the @@bitstreamSwitching attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &bitstreamSwitching(std::optional<bool> &&bitstream_switching) { m_bitstreamSwitching = std::move(bitstream_switching); return *this; };
 
     // @initializationSetRefs
+
+    /**
+     * Get the list of Initialization Set references from the @@initializationSetRefs attribute value
+     *
+     * @return The list of Initialization Set references.
+     */
     const std::list<unsigned int> &initializationSetRefs() const { return m_initializationSetRefs; };
-    AdaptationSet &initializationSetRefs(std::list<unsigned int> initialization_set_refs) { m_initializationSetRefs = initialization_set_refs; return *this;};
+
+    /**@{*/
+    /**
+     * Get an iterator pointing to the start of the Initialization Set references list
+     *
+     * @return An iterator pointing to the start of the Initialization Set references list.
+     */
+    std::list<unsigned int>::const_iterator initializationSetRefsBegin() const { return m_initializationSetRefs.cbegin(); };
+    std::list<unsigned int>::iterator initializationSetRefsBegin() { return m_initializationSetRefs.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get an iterator pointing to the end of the Initialization Set references list
+     *
+     * @return An iterator pointing to the start of the Initialization Set references list.
+     */
+    std::list<unsigned int>::const_iterator initializationSetRefsEnd() const { return m_initializationSetRefs.cend(); };
+    std::list<unsigned int>::iterator initializationSetRefsEnd() { return m_initializationSetRefs.end(); };
+    /**@}*/
+
+    /** Get the Initialization Set reference at the given list index
+     * 
+     * @param idx The list index of the Initialization Set reference to retrieve.
+     * @return The Initialization Set reference at the list index @a idx.
+     * @throw std::out_of_range if @a idx is after the end of the Initialization Set reference list.
+     */
+    unsigned int initializationSetRef(std::list<unsigned int>::size_type idx) const {
+        if (idx >= m_initializationSetRefs.size())
+            throw std::out_of_range("AdaptationSet Initialization Set Reference does not exist");
+        auto it = m_initializationSetRefs.cbegin();
+        while (idx > 0 && it != m_initializationSetRefs.cend()) {it++; idx--;}
+        return *it;
+    };
+
+    /**
+     * Check if the Initialization Set reference list contains a given reference value
+     *
+     * @param ref The reference value to check.
+     * @return `true` if the Initialization Set reference list contains the value of @a ref, otherwise `false`.
+     */
+    bool initializationSetRefsContains(unsigned int ref) const { return std::find(m_initializationSetRefs.cbegin(), m_initializationSetRefs.cend(), ref) != m_initializationSetRefs.cend(); };
+
+    /**
+     * Add an Initialization Set reference to the list of Initialization Set references
+     *
+     * @param ref The Initialization Set reference value to add.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &initializationSetRefAdd(unsigned int ref) { m_initializationSetRefs.push_back(ref); return *this; };
+
+    /**
+     * Remove an Initialization Set reference from the list of Initialization Set references (by value)
+     *
+     * @param ref The Initialization Set reference value to remove from the list of Initialization Set references.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &initializationSetRefRemove(unsigned int ref) { auto it = std::find(m_initializationSetRefs.cbegin(), m_initializationSetRefs.cend(), ref); if (it != m_initializationSetRefs.cend()) m_initializationSetRefs.erase(it); return *this; };
+
+    /**@{*/
+    /**
+     * Remove an Initialization Set reference from the list of Initialization Set references (by iterator)
+     *
+     * @param it An iterator pointing to an entry in the list of Initialization Set references.
+     * @return This AdaptationSet.
+     *
+     * @see initializationSetRefsBegin()
+     * @see initializationSetRefsEnd()
+     */
+    AdaptationSet &initializationSetRefRemove(const std::list<unsigned int>::const_iterator &it) { m_initializationSetRefs.erase(it); return *this; };
+    AdaptationSet &initializationSetRefRemove(const std::list<unsigned int>::iterator &it) { m_initializationSetRefs.erase(it); return *this; };
+    /**@}*/
+
+    /**
+     * Set the list of Initialization Set references (copy)
+     *
+     * Set the list of Initialization Set references to a copy of the list in @a initialization_set_refs. This replaces the current
+     * list.
+     *
+     * @param initialization_set_refs A list of Initialization Set references to copy into this list of Initialization Set
+     *                                references.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &initializationSetRefs(const std::list<unsigned int> &initialization_set_refs) { m_initializationSetRefs = initialization_set_refs; return *this;};
+
+    /**
+     * Set the list of Initialization Set references (move)
+     *
+     * Replace the list of Initialization Set references with the list from @a initialization_set_refs.
+     *
+     * @param initialization_set_refs A list of Initialization Set references to move into this list of Initialization Set
+     *                                references.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &initializationSetRefs(std::list<unsigned int> &&initialization_set_refs) { m_initializationSetRefs = std::move(initialization_set_refs); return *this;};
 
     // @initializationPrincipal
+
+    /**
+     * Check if the @@initializationPrincipal attribute is set
+     *
+     * @return `true` if the @@initializationPrincipal attribute has a value, otherwise `false`.
+     */
     bool hasInitializationPrincipal() const { return m_initializationPrincipal.has_value(); };
+
+    /**
+     * Get the optional @@initializationPrincipal attribute value
+     *
+     * @return The optional Initialization Principle URL.
+     */
     const std::optional<URI> &initializationPrincipal() const { return m_initializationPrincipal; };
+
+    /**
+     * Unset the @@initializationPrincipal attribute value
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &initializationPrincipal(const std::nullopt_t &) { m_initializationPrincipal.reset(); return *this; };
+
+    /**
+     * Set the @@initializationPrincipal attribute value (copy)
+     *
+     * @param initialization_principal The Initialization Principle URL to set for the @@initializationPrincipal attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &initializationPrincipal(const URI &initialization_principal) { m_initializationPrincipal = initialization_principal; return *this; };
+
+    /**
+     * Set the @@initializationPrincipal attribute value (move)
+     *
+     * @param initialization_principal The Initialization Principle URL to move into the @@initializationPrincipal attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &initializationPrincipal(URI &&initialization_principal) { m_initializationPrincipal = std::move(initialization_principal); return *this; };
+
+    /**
+     * Set the @@initializationPrincipal attribute value (optional value copy)
+     *
+     * Copy the optional @a initialization_principal into the value of the @@initializationPrincipal attribute.
+     *
+     * @param initialization_principal The optional Initialization Principle URL to copy into the @@initializationPrincipal
+     *                                 attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &initializationPrincipal(const std::optional<URI> &initialization_principal) { m_initializationPrincipal = initialization_principal; return *this; };
+
+    /**
+     * Set the @@initializationPrincipal attribute value (optional value move)
+     *
+     * Move the optional @a initialization_principal into the value of the @@initializationPrincipal attribute.
+     *
+     * @param initialization_principal The optional Initialization Principle URL to move into the @@initializationPrincipal
+     *                                 attribute.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &initializationPrincipal(std::optional<URI> &&initialization_principal) { m_lang = std::move(initialization_principal); return *this; };
 
     // Accessibility children
-    const std::list<Descriptor> &accessibility() const { return m_accessibilities; };
-    std::list<Descriptor>::const_iterator accessibilityBegin() const { return m_accessibilities.cbegin(); };
-    std::list<Descriptor>::const_iterator accessibilityEnd() const { return m_accessibilities.cend(); };
-    std::list<Descriptor>::iterator accessibilityBegin() { return m_accessibilities.begin(); };
-    std::list<Descriptor>::iterator accessibilityEnd() { return m_accessibilities.end(); };
-    AdaptationSet &accessibilityAdd(const Descriptor &accessibility);
-    AdaptationSet &accessibilityAdd(Descriptor &&accessibility);
-    AdaptationSet &accessibilityRemove(const Descriptor &accessibility);
-    AdaptationSet &accessibilityRemove(const std::list<Descriptor>::const_iterator &);
-    AdaptationSet &accessibilityRemove(const std::list<Descriptor>::iterator &);
+
+    /** Get the list of %Accessibility child elements
+     *
+     * @return The list of %Accessibility child Descriptor elements
+     */
+    const std::list<Descriptor> &accessibilities() const { return m_accessibilities; };
+    /**@{*/
+    /**
+     * Get the start of %Accessibility elements list iterator
+     *
+     * @return An iterator pointing to the start of the %Accessibility elements list.
+     */
+    std::list<Descriptor>::const_iterator accessibilitiesBegin() const { return m_accessibilities.cbegin(); };
+    std::list<Descriptor>::iterator accessibilitiesBegin() { return m_accessibilities.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %Accessibility elements list iterator
+     *
+     * @return An iterator pointing to the end of the %Accessibility elements list.
+     */
+    std::list<Descriptor>::const_iterator accessibilitiesEnd() const { return m_accessibilities.cend(); };
+    std::list<Descriptor>::iterator accessibilitiesEnd() { return m_accessibilities.end(); };
+    /**@}*/
+
+    /** Get an %Accessibility element
+     * 
+     * Gets the %Accessibility Descriptor element at index @a idx in the %Accessibility elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %Accessibility Descriptor at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const Descriptor &accessibility(std::list<Descriptor>::size_type idx) const;
+
+    /** Check if an %Accessibility Descriptor is in the list
+     * 
+     * @param descriptor The %Accessibility Descriptor to look for.
+     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     */
+    bool accessibilitiesContains(const Descriptor &descriptor) const;
+
+    /**@{*/
+    /** Add a Descriptor to the %Accessibility elements
+     *
+     * @param accessibility The %Accessibility Descriptor to add to the list of %Accessibility elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &accessibilitiesAdd(const Descriptor &accessibility);
+    AdaptationSet &accessibilitiesAdd(Descriptor &&accessibility);
+    /**@}*/
+
+    /** Remove an %Accessibility Descriptor from the %Accessibility elements
+     *
+     * If the Descriptor @a accessibility exists in the %Accessibility elements, remove it from the list.
+     *
+     * @param accessibility The %Accessibility Descriptor to remove from the list of %Accessibility elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &accessibilitiesRemove(const Descriptor &accessibility);
+
+    /**@{*/
+    /** Remove an %Accessibility Descriptor from the %Accessibility elements
+     *
+     * Removes the %Accessibility Descriptor, referenced by the iterator @a it, from the list of %Accessibility elements.
+     *
+     * @param it An iterator referencing an entry in the %Accessibility elements list.
+     * @return This AdaptationSet.
+     * @see accessibilitiesBegin()
+     * @see accessibilitiesEnd()
+     */
+    AdaptationSet &accessibilitiesRemove(const std::list<Descriptor>::const_iterator &it);
+    AdaptationSet &accessibilitiesRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
 
     // Role children
+
+    /** Get the list of %Role child elements
+     *
+     * @return The list of %Role child Descriptor elements
+     */
     const std::list<Descriptor> &roles() const { return m_roles; };
+
+    /**@{*/
+    /**
+     * Get the start of %Role elements list iterator
+     *
+     * @return An iterator pointing to the start of the %Role elements list.
+     */
     std::list<Descriptor>::const_iterator rolesBegin() const { return m_roles.cbegin(); };
-    std::list<Descriptor>::const_iterator rolesEnd() const { return m_roles.cend(); };
     std::list<Descriptor>::iterator rolesBegin() { return m_roles.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %Role elements list iterator
+     *
+     * @return An iterator pointing to the end of the %Role elements list.
+     */
+    std::list<Descriptor>::const_iterator rolesEnd() const { return m_roles.cend(); };
     std::list<Descriptor>::iterator rolesEnd() { return m_roles.end(); };
-    AdaptationSet &roleAdd(const Descriptor &role);
-    AdaptationSet &roleAdd(Descriptor &&role);
-    AdaptationSet &roleRemove(const Descriptor &role);
-    AdaptationSet &roleRemove(const std::list<Descriptor>::const_iterator &);
-    AdaptationSet &roleRemove(const std::list<Descriptor>::iterator &);
+    /**@}*/
+
+    /** Get an %Role element
+     * 
+     * Gets the %Role Descriptor element at index @a idx in the %Role elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %Role Descriptor at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const Descriptor &role(std::list<Descriptor>::size_type idx) const;
+
+    /** Check if a %Role Descriptor is in the list
+     * 
+     * @param descriptor The %Role Descriptor to look for.
+     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     */
+    bool rolesContains(const Descriptor &descriptor) const;
+
+    /**@{*/
+    /** Add a Descriptor to the %Role elements
+     *
+     * @param role The %Role Descriptor to add to the list of %Role elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &rolesAdd(const Descriptor &role);
+    AdaptationSet &rolesAdd(Descriptor &&role);
+    /**@}*/
+
+    /** Remove a %Role Descriptor from the %Role elements
+     *
+     * If the Descriptor @a role exists in the %Role elements, remove it from the list.
+     *
+     * @param role The %Role Descriptor to remove from the list of %Role elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &rolesRemove(const Descriptor &role);
+
+    /**@{*/
+    /** Remove a %Role Descriptor from the %Role elements
+     *
+     * Removes the %Role Descriptor, referenced by the iterator @a it, from the list of %Role elements.
+     *
+     * @param it An iterator referencing an entry in the %Role elements list.
+     * @return This AdaptationSet.
+     * @see rolesBegin()
+     * @see rolesEnd()
+     */
+    AdaptationSet &rolesRemove(const std::list<Descriptor>::const_iterator &it);
+    AdaptationSet &rolesRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
 
     // Rating children
+
+    /** Get the list of %Rating child elements
+     *
+     * @return The list of %Rating child Descriptor elements
+     */
     const std::list<Descriptor> &ratings() const { return m_ratings; };
+
+    /**@{*/
+    /**
+     * Get the start of %Rating elements list iterator
+     *
+     * @return An iterator pointing to the start of the %Rating elements list.
+     */
     std::list<Descriptor>::const_iterator ratingsBegin() const { return m_ratings.cbegin(); };
-    std::list<Descriptor>::const_iterator ratingsEnd() const { return m_ratings.cend(); };
     std::list<Descriptor>::iterator ratingsBegin() { return m_ratings.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %Rating elements list iterator
+     *
+     * @return An iterator pointing to the end of the %Rating elements list.
+     */
+    std::list<Descriptor>::const_iterator ratingsEnd() const { return m_ratings.cend(); };
     std::list<Descriptor>::iterator ratingsEnd() { return m_ratings.end(); };
-    AdaptationSet &ratingAdd(const Descriptor &rating);
-    AdaptationSet &ratingAdd(Descriptor &&rating);
-    AdaptationSet &ratingRemove(const Descriptor &rating);
-    AdaptationSet &ratingRemove(const std::list<Descriptor>::const_iterator &);
-    AdaptationSet &ratingRemove(const std::list<Descriptor>::iterator &);
+    /**@}*/
+
+    /** Get an %Rating element
+     * 
+     * Gets the %Rating Descriptor element at index @a idx in the %Rating elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %Rating Descriptor at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const Descriptor &rating(std::list<Descriptor>::size_type idx) const;
+
+    /** Check if a %Rating Descriptor is in the list
+     * 
+     * @param descriptor The %Rating Descriptor to look for.
+     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     */
+    bool ratingsContains(const Descriptor &descriptor) const;
+
+    /**@{*/
+    /** Add a Descriptor to the %Rating elements
+     *
+     * @param rating The %Rating Descriptor to add to the list of %Rating elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &ratingsAdd(const Descriptor &rating);
+    AdaptationSet &ratingsAdd(Descriptor &&rating);
+    /**@}*/
+
+    /** Remove a %Rating Descriptor from the %Rating elements
+     *
+     * If the Descriptor @a rating exists in the %Rating elements, remove it from the list.
+     *
+     * @param rating The %Rating Descriptor to remove from the list of %Rating elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &ratingsRemove(const Descriptor &rating);
+
+    /**@{*/
+    /** Remove a %Rating Descriptor from the %Rating elements
+     *
+     * Removes the %Rating Descriptor, referenced by the iterator @a it, from the list of %Rating elements.
+     *
+     * @param it An iterator referencing an entry in the %Rating elements list.
+     * @return This AdaptationSet.
+     * @see ratingsBegin()
+     * @see ratingsEnd()
+     */
+    AdaptationSet &ratingsRemove(const std::list<Descriptor>::const_iterator &it);
+    AdaptationSet &ratingsRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
 
     // Viewpoint children
+
+    /** Get the list of %Viewpoint child elements
+     *
+     * @return The list of %Viewpoint child Descriptor elements
+     */
     const std::list<Descriptor> &viewpoints() const { return m_viewpoints; };
+
+    /**@{*/
+    /**
+     * Get the start of %Viewpoint elements list iterator
+     *
+     * @return An iterator pointing to the start of the %Viewpoint elements list.
+     */
     std::list<Descriptor>::const_iterator viewpointsBegin() const { return m_viewpoints.cbegin(); };
-    std::list<Descriptor>::const_iterator viewpointsEnd() const { return m_viewpoints.cend(); };
     std::list<Descriptor>::iterator viewpointsBegin() { return m_viewpoints.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %Viewpoint elements list iterator
+     *
+     * @return An iterator pointing to the end of the %Viewpoint elements list.
+     */
+    std::list<Descriptor>::const_iterator viewpointsEnd() const { return m_viewpoints.cend(); };
     std::list<Descriptor>::iterator viewpointsEnd() { return m_viewpoints.end(); };
-    AdaptationSet &viewpointAdd(const Descriptor &viewpoint);
-    AdaptationSet &viewpointAdd(Descriptor &&viewpoint);
-    AdaptationSet &viewpointRemove(const Descriptor &viewpoint);
-    AdaptationSet &viewpointRemove(const std::list<Descriptor>::const_iterator &);
-    AdaptationSet &viewpointRemove(const std::list<Descriptor>::iterator &);
+    /**@}*/
+
+    /** Get an %Viewpoint element
+     * 
+     * Gets the %Viewpoint Descriptor element at index @a idx in the %Viewpoint elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %Viewpoint Descriptor at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const Descriptor &viewpoint(std::list<Descriptor>::size_type idx) const;
+
+    /** Check if a %Viewpoint Descriptor is in the list
+     * 
+     * @param descriptor The %Viewpoint Descriptor to look for.
+     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     */
+    bool viewpointsContains(const Descriptor &descriptor) const;
+
+    /**@{*/
+    /** Add a Descriptor to the %Viewpoint elements
+     *
+     * @param viewpoint The %Viewpoint Descriptor to add to the list of %Viewpoint elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &viewpointsAdd(const Descriptor &viewpoint);
+    AdaptationSet &viewpointsAdd(Descriptor &&viewpoint);
+    /**@}*/
+
+    /** Remove a %Viewpoint Descriptor from the %Viewpoint elements
+     *
+     * If the Descriptor @a viewpoint exists in the %Viewpoint elements, remove it from the list.
+     *
+     * @param viewpoint The %Viewpoint Descriptor to remove from the list of %Viewpoint elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &viewpointsRemove(const Descriptor &viewpoint);
+
+    /**@{*/
+    /** Remove a %Viewpoint Descriptor from the %Viewpoint elements
+     *
+     * Removes the %Viewpoint Descriptor, referenced by the iterator @a it, from the list of %Viewpoint elements.
+     *
+     * @param it An iterator referencing an entry in the %Viewpoint elements list.
+     * @return This AdaptationSet.
+     * @see viewpointsBegin()
+     * @see viewpointsEnd()
+     */
+    AdaptationSet &viewpointsRemove(const std::list<Descriptor>::const_iterator &it);
+    AdaptationSet &viewpointsRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
 
     // ContentComponent children
+
+    /** Get the list of %ContentComponent child elements
+     *
+     * @return The list of %ContentComponent child elements
+     */
     const std::list<ContentComponent> &contentComponents() const { return m_contentComponents; };
+
+    /**@{*/
+    /**
+     * Get the start of %ContentComponent elements list iterator
+     *
+     * @return An iterator pointing to the start of the %ContentComponent elements list.
+     */
     std::list<ContentComponent>::const_iterator contentComponentsBegin() const { return m_contentComponents.cbegin(); };
-    std::list<ContentComponent>::const_iterator contentComponentsEnd() const { return m_contentComponents.cend(); };
     std::list<ContentComponent>::iterator contentComponentsBegin() { return m_contentComponents.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %ContentComponent elements list iterator
+     *
+     * @return An iterator pointing to the end of the %ContentComponent elements list.
+     */
+    std::list<ContentComponent>::const_iterator contentComponentsEnd() const { return m_contentComponents.cend(); };
     std::list<ContentComponent>::iterator contentComponentsEnd() { return m_contentComponents.end(); };
-    AdaptationSet &contentComponentAdd(const ContentComponent &content_component);
-    AdaptationSet &contentComponentAdd(ContentComponent &&content_component);
-    AdaptationSet &ContentComponentRemove(const ContentComponent &content_component);
-    AdaptationSet &ContentComponentRemove(const std::list<ContentComponent>::const_iterator &);
-    AdaptationSet &ContentComponentRemove(const std::list<ContentComponent>::iterator &);
+    /**@}*/
+
+    /** Get an %ContentComponent element
+     * 
+     * Gets the %ContentComponent element at index @a idx in the %ContentComponent elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %ContentComponent at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const ContentComponent &contentComponent(std::list<ContentComponent>::size_type idx) const;
+
+    /** Check if a %ContentComponent is in the list
+     * 
+     * @param content_component The %ContentComponent to look for.
+     * @return `true` if a ContentComponent with the same value as @a content_component is found, otherwise `false`.
+     */
+    bool contentComponentsContains(const ContentComponent &content_component) const;
+
+    /**@{*/
+    /** Add a ContentComponent to the %ContentComponent elements
+     *
+     * @param content_component The %ContentComponent to add to the list of %ContentComponent elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &contentComponentsAdd(const ContentComponent &content_component);
+    AdaptationSet &contentComponentsAdd(ContentComponent &&content_component);
+    /**@}*/
+
+    /** Remove a %ContentComponent from the %ContentComponent elements
+     *
+     * If the ContentComponent @a content_component exists in the %ContentComponent elements, remove it from the list.
+     *
+     * @param content_component The %ContentComponent to remove from the list of %ContentComponent elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &contentComponentsRemove(const ContentComponent &content_component);
+
+    /**@{*/
+    /** Remove a %ContentComponent from the %ContentComponent elements
+     *
+     * Removes the %ContentComponent, referenced by the iterator @a it, from the list of %ContentComponent elements.
+     *
+     * @param it An iterator referencing an entry in the %ContentComponent elements list.
+     * @return This AdaptationSet.
+     * @see contentComponentsBegin()
+     * @see contentComponentsEnd()
+     */
+    AdaptationSet &contentComponentsRemove(const std::list<ContentComponent>::const_iterator &it);
+    AdaptationSet &contentComponentsRemove(const std::list<ContentComponent>::iterator &it);
+    /**@}*/
 
     // BaseURL children
+
+    /** Get the list of %BaseURL child elements
+     *
+     * @return The list of %BaseURL child elements
+     */
     const std::list<BaseURL> &baseURLs() const { return m_baseURLs; };
+
+    /**@{*/
+    /**
+     * Get the start of %BaseURL elements list iterator
+     *
+     * @return An iterator pointing to the start of the %BaseURL elements list.
+     */
     std::list<BaseURL>::const_iterator baseURLsBegin() const { return m_baseURLs.cbegin(); };
-    std::list<BaseURL>::const_iterator baseURLsEnd() const { return m_baseURLs.cend(); };
     std::list<BaseURL>::iterator baseURLsBegin() { return m_baseURLs.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %BaseURL elements list iterator
+     *
+     * @return An iterator pointing to the end of the %BaseURL elements list.
+     */
+    std::list<BaseURL>::const_iterator baseURLsEnd() const { return m_baseURLs.cend(); };
     std::list<BaseURL>::iterator baseURLsEnd() { return m_baseURLs.end(); };
-    AdaptationSet &baseURLAdd(const BaseURL &base_url);
-    AdaptationSet &baseURLAdd(BaseURL &&base_url);
-    AdaptationSet &baseURLRemove(const BaseURL &base_url);
-    AdaptationSet &baseURLRemove(const std::list<BaseURL>::const_iterator &);
-    AdaptationSet &baseURLRemove(const std::list<BaseURL>::iterator &);
+    /**@}*/
+
+    /** Get an %BaseURL element
+     * 
+     * Gets the %BaseURL element at index @a idx in the %BaseURL elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %BaseURL at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const BaseURL &baseURL(std::list<BaseURL>::size_type idx) const;
+
+    /** Check if a %BaseURL is in the list
+     * 
+     * @param base_url The %BaseURL to look for.
+     * @return `true` if a BaseURL with the same value as @a base_url is found, otherwise `false`.
+     */
+    bool baseURLsContains(const BaseURL &base_url) const;
+
+    /**@{*/
+    /** Add a BaseURL to the %BaseURL elements
+     *
+     * @param base_url The %BaseURL to add to the list of %BaseURL elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &baseURLsAdd(const BaseURL &base_url);
+    AdaptationSet &baseURLsAdd(BaseURL &&base_url);
+    /**@}*/
+
+    /** Remove a %BaseURL from the %BaseURL elements
+     *
+     * If the BaseURL @a base_url exists in the %BaseURL elements, remove it from the list.
+     *
+     * @param base_url The %BaseURL to remove from the list of %BaseURL elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &baseURLsRemove(const BaseURL &base_url);
+
+    /**@{*/
+    /** Remove a %BaseURL from the %BaseURL elements
+     *
+     * Removes the %BaseURL, referenced by the iterator @a it, from the list of %BaseURL elements.
+     *
+     * @param it An iterator referencing an entry in the %BaseURL elements list.
+     * @return This AdaptationSet.
+     * @see baseURLsBegin()
+     * @see baseURLsEnd()
+     */
+    AdaptationSet &baseURLsRemove(const std::list<BaseURL>::const_iterator &it);
+    AdaptationSet &baseURLsRemove(const std::list<BaseURL>::iterator &it);
+    /**@}*/
+
+    /** Get the list of BaseURL entries that apply for this AdaptationSet
+     *
+     * @return A list of BaseURL entries from this AdaptationSet merged with entries from the Period and MPD.
+     */ 
     std::list<BaseURL> getBaseURLs() const;
 
     // SegmentBase child
+
+    /** Check if a %SegmentBase element is present
+     *
+     * @return `true` if a SegmentBase has been set, otherwise `false`.
+     */
     bool hasSegmentBase() const { return m_segmentBase.has_value(); };
+
+    /** Get the optional SegmentBase
+     * 
+     * @return The optional SegmentBase for this AdaptationSet.
+     */
     const std::optional<SegmentBase> &segmentBase() const { return m_segmentBase; };
+
+    /** Unset the optional SegmentBase
+     *
+     * Removes the %SegmentBase element from this AdaptationSet.
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentBase(const std::nullopt_t &) { m_segmentBase.reset(); return *this; };
+
+    /** Set the SegmentBase
+     *
+     * Copy the SegmentBase from @a seg_base as the SegmentBase for this AdaptationSet.
+     *
+     * @param seg_base The SegmentBase to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentBase(const SegmentBase &seg_base) { m_segmentBase = seg_base; return *this; };
+
+    /** Set the SegmentBase
+     *
+     * Move the value of SegmentBase @a seg_base as the SegmentBase for this AdaptationSet.
+     *
+     * @param seg_base The SegmentBase to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentBase(SegmentBase &&seg_base) { m_segmentBase = std::move(seg_base); return *this; };
+
+    /**@{*/
+    /** Set the SegmentBase
+     *
+     * Set the SegmentBase of this AdaptationSet to @a seg_base.
+     *
+     * @param seg_base The SegmentBase to set in this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentBase(const std::optional<SegmentBase> &seg_base) { m_segmentBase = seg_base; return *this; };
     AdaptationSet &segmentBase(std::optional<SegmentBase> &&seg_base) { m_segmentBase = std::move(seg_base); return *this; };
+    /**@}*/
 
     // SegmentList child
+
+    /** Check if a %SegmentList element is present
+     *
+     * @return `true` if a SegmentList has been set, otherwise `false`.
+     */
     bool hasSegmentList() const { return m_segmentList.has_value(); };
+
+    /** Get the optional SegmentList
+     * 
+     * @return The optional SegmentList for this AdaptationSet.
+     */
     const std::optional<SegmentList> &segmentList() const { return m_segmentList; };
+
+    /** Unset the optional SegmentList
+     *
+     * Removes the %SegmentList element from this AdaptationSet.
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentList(const std::nullopt_t &) { m_segmentList.reset(); return *this; };
+
+    /** Set the SegmentList
+     *
+     * Copy the SegmentList from @a seg_list as the SegmentList for this AdaptationSet.
+     *
+     * @param seg_list The SegmentList to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentList(const SegmentList &seg_list) { m_segmentList = seg_list; return *this; };
+
+    /** Set the SegmentList
+     *
+     * Move the value of SegmentList @a seg_list as the SegmentList for this AdaptationSet.
+     *
+     * @param seg_list The SegmentList to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentList(SegmentList &&seg_list) { m_segmentList = std::move(seg_list); return *this; };
+
+    /**@{*/
+    /** Set the SegmentList
+     *
+     * Set the SegmentList of this AdaptationSet to @a seg_list.
+     *
+     * @param seg_list The SegmentList to set in this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentList(const std::optional<SegmentList> &seg_list) { m_segmentList = seg_list; return *this; };
     AdaptationSet &segmentList(std::optional<SegmentList> &&seg_list) { m_segmentList = std::move(seg_list); return *this; };
+    /**@}*/
 
     // SegmentTemplate child
+
+    /** Check if a %SegmentTemplate element is present
+     *
+     * @return `true` if a SegmentTemplate has been set, otherwise `false`.
+     */
     bool hasSegmentTemplate() const { return m_segmentTemplate.has_value(); };
+
+    /** Get the optional SegmentTemplate
+     * 
+     * @return The optional SegmentTemplate for this AdaptationSet.
+     */
     const std::optional<SegmentTemplate> &segmentTemplate() const { return m_segmentTemplate; };
+
+    /** Unset the optional SegmentTemplate
+     *
+     * Removes the %SegmentTemplate element from this AdaptationSet.
+     *
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentTemplate(const std::nullopt_t &) { m_segmentTemplate.reset(); return *this; };
+
+    /** Set the SegmentTemplate
+     *
+     * Copy the SegmentTemplate from @a seg_template as the SegmentTemplate for this AdaptationSet.
+     *
+     * @param seg_template The SegmentTemplate to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentTemplate(const SegmentTemplate &seg_template) {m_segmentTemplate = seg_template; return *this; };
+
+    /** Set the SegmentTemplate
+     *
+     * Move the value of SegmentTemplate @a seg_template as the SegmentTemplate for this AdaptationSet.
+     *
+     * @param seg_template The SegmentTemplate to set on this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentTemplate(SegmentTemplate &&seg_template) {m_segmentTemplate = std::move(seg_template); return *this; };
+
+    /**@{*/
+    /** Set the SegmentTemplate
+     *
+     * Set the SegmentTemplate of this AdaptationSet to @a seg_template.
+     *
+     * @param seg_template The SegmentTemplate to set in this AdaptationSet.
+     * @return This AdaptationSet.
+     */
     AdaptationSet &segmentTemplate(const std::optional<SegmentTemplate> &seg_template) {m_segmentTemplate = seg_template; return *this; };
     AdaptationSet &segmentTemplate(std::optional<SegmentTemplate> &&seg_template) {m_segmentTemplate = std::move(seg_template); return *this; };
+    /**@}*/
 
     // Representation children
+
+    /** Get the list of %Representation child elements
+     *
+     * @return The list of %Representation child elements
+     */
     const std::list<Representation> &representations() const { return m_representations; };
+
+    /**@{*/
+    /**
+     * Get the start of %Representation elements list iterator
+     *
+     * @return An iterator pointing to the start of the %Representation elements list.
+     */
     std::list<Representation>::const_iterator representationsBegin() const { return m_representations.cbegin(); };
-    std::list<Representation>::const_iterator representationsEnd() const { return m_representations.cend(); };
     std::list<Representation>::iterator representationsBegin() { return m_representations.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /**
+     * Get the end of %Representation elements list iterator
+     *
+     * @return An iterator pointing to the end of the %Representation elements list.
+     */
+    std::list<Representation>::const_iterator representationsEnd() const { return m_representations.cend(); };
     std::list<Representation>::iterator representationsEnd() { return m_representations.end(); };
-    AdaptationSet &representationAdd(const Representation &representation);
-    AdaptationSet &representationAdd(Representation &&representation);
-    AdaptationSet &representationRemove(const Representation &representation);
-    AdaptationSet &representationRemove(const std::list<Representation>::const_iterator &);
-    AdaptationSet &representationRemove(const std::list<Representation>::iterator &);
+    /**@}*/
+
+    /** Get an %Representation element
+     * 
+     * Gets the %Representation element at index @a idx in the %Representation elements list.
+     *
+     * @param idx The index of the element to fetch.
+     * @return The %Representation at index @a idx.
+     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     */
+    const Representation &representation(std::list<Representation>::size_type idx) const;
+
+    /** Check if a %Representation is in the list
+     * 
+     * @param representation The %Representation to look for.
+     * @return `true` if a Representation with the same value as @a representation is found, otherwise `false`.
+     */
+    bool representationsContains(const Representation &representation) const;
+
+    /**@{*/
+    /** Add a Representation to the %Representation elements
+     *
+     * @param representation The %Representation to add to the list of %Representation elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &representationsAdd(const Representation &representation);
+    AdaptationSet &representationsAdd(Representation &&representation);
+    /**@}*/
+
+    /** Remove a %Representation from the %Representation elements
+     *
+     * If the Representation @a representation exists in the %Representation elements, remove it from the list.
+     *
+     * @param representation The %Representation to remove from the list of %Representation elements.
+     * @return This AdaptationSet.
+     */
+    AdaptationSet &representationsRemove(const Representation &representation);
+
+    /**@{*/
+    /** Remove a %Representation from the %Representation elements
+     *
+     * Removes the %Representation, referenced by the iterator @a it, from the list of %Representation elements.
+     *
+     * @param it An iterator referencing an entry in the %Representation elements list.
+     * @return This AdaptationSet.
+     * @see representationsBegin()
+     * @see representationsEnd()
+     */
+    AdaptationSet &representationsRemove(const std::list<Representation>::const_iterator &it);
+    AdaptationSet &representationsRemove(const std::list<Representation>::iterator &it);
+    /**@}*/
 
     // Representation selection
 
@@ -815,6 +1972,7 @@ public:
      */
     std::list<SegmentAvailability> selectedInitializationSegments() const;
 
+///@cond PROTECTED
 protected:
     friend class MPD;
     friend class Period;
@@ -823,10 +1981,9 @@ protected:
     /**
      * XML constructor (internal use only)
      *
-     * Create a new AdaptationSet from an XML \AdaptationSet element.
+     * Create a new AdaptationSet from an XML %AdaptationSet element.
      *
-     * @param node The libxml++ Node for the \AdaptationSet element to ingest.
-     * @return A new AdaptationSet
+     * @param node The libxml++ Node for the %AdaptationSet element to ingest.
      */
     AdaptationSet(xmlpp::Node &node);
 
@@ -837,7 +1994,7 @@ protected:
      *
      * @param element The libxml++ Element to populate.
      */
-    void setXMLElement(xmlpp::Element&) const;
+    void setXMLElement(xmlpp::Element &element) const;
 
     /**
      * Set the parent Period object
@@ -914,6 +2071,8 @@ protected:
      * @return The MultipleSegmentBase object found.
      */
     const MultipleSegmentBase &getMultiSegmentBase() const;
+
+///@endcond PROTECTED
 
 private:
     Period *m_period;                                              ///< The Period object this adaptation set is a child of

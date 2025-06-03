@@ -14,10 +14,15 @@
 
 #include "macros.hh"
 
+/**@cond
+ */
+// Forward declarations for types only used by pointer or reference
 namespace xmlpp {
     class Element;
     class Node;
 }
+/**@endcond
+ */
 
 LIBMPDPP_NAMESPACE_BEGIN
 

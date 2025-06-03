@@ -32,31 +32,86 @@
 #include "Switching.hh"
 #include "URI.hh"
 
+/**@cond
+ */
+// Forward declarations for types only used by pointer or reference
 namespace xmlpp {
     class Element;
     class Node;
 }
+/**@endcond
+ */
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** @brief RepresentationBase class
+ *
+ * This is a container for the common attributes and elements for AdaptationSet and Representation as described in ISO 23009-1:2022.
+ */
 class LIBMPDPP_PUBLIC_API RepresentationBase {
 public:
+    /** Enumeration for implemented VideoScan values
+     */
     enum VideoScan {
-        VIDEO_SCAN_PROGRESSIVE,
-        VIDEO_SCAN_INTERLACED,
-        VIDEO_SCAN_UNKNOWN
+        VIDEO_SCAN_PROGRESSIVE, ///< Video scan value is "progressive"
+        VIDEO_SCAN_INTERLACED,  ///< Video scan value is "interlaced"
+        VIDEO_SCAN_UNKNOWN      ///< Video scan value is unknown (i.e. not one of the other values)
     };
 
+    /** Default constructor
+     *
+     * Creates an empty RepresentationBase.
+     */
     RepresentationBase();
+
+    /** Copy constructor
+     * 
+     * Creates a new RepresentationBase which is a copy of @a to_copy.
+     *
+     * @param to_copy The RepresentationBase to copy.
+     */
     RepresentationBase(const RepresentationBase &to_copy);
+
+    /** Move constructor
+     *
+     * Creates a new RepresentationBase which is a transfer of the resources and values from @a to_move.
+     *
+     * @param to_move The RepresentationBase to move into this new RepresentationBase.
+     */
     RepresentationBase(RepresentationBase &&to_move);
 
+    /** Destructor
+     */
     virtual ~RepresentationBase() {};
 
+    /** Copy operator
+     *
+     * Replace the current RepresentationBase with a copy of the values from @a to_copy.
+     *
+     * @param to_copy The RepresentationBase to copy.
+     * @return This RepresentationBase.
+     */
     RepresentationBase &operator=(const RepresentationBase &to_copy);
+
+    /** Move operator
+     * 
+     * Replace the current RepresentationBase with the resources and values from @a to_move.
+     *
+     * @param to_move The RepresentationBase to move into this new RepresentationBase.
+     * @return This RepresentationBase.
+     */
     RepresentationBase &operator=(RepresentationBase &&to_move);
 
+    /** Equality operator
+     *
+     * Check if @a to_compare has an equal value to this RepresentationBase.
+     *
+     * @param to_compare The other RepresentationBase to compare to this.
+     * @return `true` if this RepresentationBase has the same values as @a to_compare.
+     */
     bool operator==(const RepresentationBase &to_compare) const;
+
+    // TODO: provide accessors for the attribute and child element values
 
     // @profiles
     // @width
@@ -91,9 +146,12 @@ public:
     // ContentPopularityRate children
     // Resync children
 
+///@cond PROTECTED
 protected:
     RepresentationBase(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+
+///@endcond PROTECTED
 
 private:
     // RepresentationBase attributes (ISO 23009-1:2022 Clause 5.3.7.3)

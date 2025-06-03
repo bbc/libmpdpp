@@ -84,14 +84,35 @@ private:
 LIBMPDPP_NAMESPACE_END
 
 namespace std {
+    /**
+     * std::hash specialism for libmpd++ @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" objects
+     *
+     * This provides a specialised std::hash template for libmpd++
+     * @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" objects to allow then to be used in sets and as map keys.
+     */
     template<>
     struct hash<LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability)> {
+        /**
+         * Get the hash value for a libmpd++ @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" object
+         *
+         * @param s The @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" to create a hash for.
+         * @return The hash value of @a s.
+         */
         std::size_t operator()(const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s) const noexcept {
             return s.hash();
         };
     };
 }
 
+/**
+ * Output streaming operator for @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" objects
+ *
+ * This will stream a textual representation of a @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" object.
+ *
+ * @param os The output stream to add the textual repesentation to.
+ * @param s The @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" object to output.
+ * @return @a os
+ */
 LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

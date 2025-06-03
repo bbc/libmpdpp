@@ -623,207 +623,312 @@ AdaptationSet::AdaptationSet(xmlpp::Node &node)
 
 }
 
-AdaptationSet &AdaptationSet::accessibilityAdd(const Descriptor &accessibility)
+const Descriptor &AdaptationSet::accessibility(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_accessibilities.size()) {
+        throw std::out_of_range("AdaptationSet Accessibility does not exist");
+    }
+    auto it = m_accessibilities.cbegin();
+    while (idx > 0 && it != m_accessibilities.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::accessibilitiesContains(const Descriptor &descriptor) const
+{
+    return std::find(m_accessibilities.cbegin(), m_accessibilities.cend(), descriptor) != m_accessibilities.cend();
+}
+
+AdaptationSet &AdaptationSet::accessibilitiesAdd(const Descriptor &accessibility)
 {
     m_accessibilities.push_back(accessibility);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityAdd(Descriptor &&accessibility)
+AdaptationSet &AdaptationSet::accessibilitiesAdd(Descriptor &&accessibility)
 {
     m_accessibilities.push_back(std::move(accessibility));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const Descriptor &accessibility)
+AdaptationSet &AdaptationSet::accessibilitiesRemove(const Descriptor &accessibility)
 {
     m_accessibilities.remove(accessibility);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Descriptor>::const_iterator &it)
+AdaptationSet &AdaptationSet::accessibilitiesRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_accessibilities.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::accessibilityRemove(const std::list<Descriptor>::iterator &it)
+AdaptationSet &AdaptationSet::accessibilitiesRemove(const std::list<Descriptor>::iterator &it)
 {
     m_accessibilities.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleAdd(const Descriptor &role)
+const Descriptor &AdaptationSet::role(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_roles.size()) {
+        throw std::out_of_range("AdaptationSet Role does not exist");
+    }
+    auto it = m_roles.cbegin();
+    while (idx > 0 && it != m_roles.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::rolesContains(const Descriptor &descriptor) const
+{
+    return std::find(m_roles.cbegin(), m_roles.cend(), descriptor) != m_roles.cend();
+}
+
+AdaptationSet &AdaptationSet::rolesAdd(const Descriptor &role)
 {
     m_roles.push_back(role);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleAdd(Descriptor &&role)
+AdaptationSet &AdaptationSet::rolesAdd(Descriptor &&role)
 {
     m_roles.push_back(std::move(role));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const Descriptor &role)
+AdaptationSet &AdaptationSet::rolesRemove(const Descriptor &role)
 {
     m_roles.remove(role);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const std::list<Descriptor>::const_iterator &it)
+AdaptationSet &AdaptationSet::rolesRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_roles.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::roleRemove(const std::list<Descriptor>::iterator &it)
+AdaptationSet &AdaptationSet::rolesRemove(const std::list<Descriptor>::iterator &it)
 {
     m_roles.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingAdd(const Descriptor &rating)
+const Descriptor &AdaptationSet::rating(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_ratings.size()) {
+        throw std::out_of_range("AdaptationSet Rating does not exist");
+    }
+    auto it = m_ratings.cbegin();
+    while (idx > 0 && it != m_ratings.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::ratingsContains(const Descriptor &descriptor) const
+{
+    return std::find(m_ratings.cbegin(), m_ratings.cend(), descriptor) != m_ratings.cend();
+}
+
+AdaptationSet &AdaptationSet::ratingsAdd(const Descriptor &rating)
 {
     m_ratings.push_back(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingAdd(Descriptor &&rating)
+AdaptationSet &AdaptationSet::ratingsAdd(Descriptor &&rating)
 {
     m_ratings.push_back(std::move(rating));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const Descriptor &rating)
+AdaptationSet &AdaptationSet::ratingsRemove(const Descriptor &rating)
 {
     m_ratings.remove(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const std::list<Descriptor>::const_iterator &it)
+AdaptationSet &AdaptationSet::ratingsRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_ratings.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ratingRemove(const std::list<Descriptor>::iterator &it)
+AdaptationSet &AdaptationSet::ratingsRemove(const std::list<Descriptor>::iterator &it)
 {
     m_ratings.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointAdd(const Descriptor &rating)
+const Descriptor &AdaptationSet::viewpoint(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_viewpoints.size()) {
+        throw std::out_of_range("AdaptationSet Role does not exist");
+    }
+    auto it = m_viewpoints.cbegin();
+    while (idx > 0 && it != m_viewpoints.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::viewpointsContains(const Descriptor &descriptor) const
+{
+    return std::find(m_viewpoints.cbegin(), m_viewpoints.cend(), descriptor) != m_viewpoints.cend();
+}
+
+AdaptationSet &AdaptationSet::viewpointsAdd(const Descriptor &rating)
 {
     m_viewpoints.push_back(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointAdd(Descriptor &&rating)
+AdaptationSet &AdaptationSet::viewpointsAdd(Descriptor &&rating)
 {
     m_viewpoints.push_back(std::move(rating));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const Descriptor &rating)
+AdaptationSet &AdaptationSet::viewpointsRemove(const Descriptor &rating)
 {
     m_viewpoints.remove(rating);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Descriptor>::const_iterator &it)
+AdaptationSet &AdaptationSet::viewpointsRemove(const std::list<Descriptor>::const_iterator &it)
 {
     m_viewpoints.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::viewpointRemove(const std::list<Descriptor>::iterator &it)
+AdaptationSet &AdaptationSet::viewpointsRemove(const std::list<Descriptor>::iterator &it)
 {
     m_viewpoints.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::contentComponentAdd(const ContentComponent &content_component)
+const ContentComponent &AdaptationSet::contentComponent(std::list<ContentComponent>::size_type idx) const
+{
+    if (idx >= m_contentComponents.size()) {
+        throw std::out_of_range("AdaptationSet ContentComponent does not exist");
+    }
+    auto it = m_contentComponents.cbegin();
+    while (idx > 0 && it != m_contentComponents.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::contentComponentsContains(const ContentComponent &content_component) const
+{
+    return std::find(m_contentComponents.cbegin(), m_contentComponents.cend(), content_component) != m_contentComponents.cend();
+}
+
+AdaptationSet &AdaptationSet::contentComponentsAdd(const ContentComponent &content_component)
 {
     m_contentComponents.push_back(content_component);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::contentComponentAdd(ContentComponent &&content_component)
+AdaptationSet &AdaptationSet::contentComponentsAdd(ContentComponent &&content_component)
 {
     m_contentComponents.push_back(std::move(content_component));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ContentComponentRemove(const ContentComponent &content_component)
+AdaptationSet &AdaptationSet::contentComponentsRemove(const ContentComponent &content_component)
 {
     m_contentComponents.remove(content_component);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ContentComponentRemove(const std::list<ContentComponent>::const_iterator &it)
+AdaptationSet &AdaptationSet::contentComponentsRemove(const std::list<ContentComponent>::const_iterator &it)
 {
     m_contentComponents.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::ContentComponentRemove(const std::list<ContentComponent>::iterator &it)
+AdaptationSet &AdaptationSet::contentComponentsRemove(const std::list<ContentComponent>::iterator &it)
 {
     m_contentComponents.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::baseURLAdd(const BaseURL &base_url)
+const BaseURL &AdaptationSet::baseURL(std::list<BaseURL>::size_type idx) const
+{
+    if (idx >= m_baseURLs.size()) {
+        throw std::out_of_range("AdaptationSet BaseURL does not exist");
+    }
+    auto it = m_baseURLs.cbegin();
+    while (idx > 0 && it != m_baseURLs.cend()) { it++; idx--; }
+    return *it;
+}
+
+bool AdaptationSet::baseURLsContains(const BaseURL &base_url) const
+{
+    return std::find(m_baseURLs.cbegin(), m_baseURLs.cend(), base_url) != m_baseURLs.cend();
+}
+
+AdaptationSet &AdaptationSet::baseURLsAdd(const BaseURL &base_url)
 {
     m_baseURLs.push_back(base_url);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::baseURLAdd(BaseURL &&base_url)
+AdaptationSet &AdaptationSet::baseURLsAdd(BaseURL &&base_url)
 {
     m_baseURLs.push_back(std::move(base_url));
     return *this;
 }
 
-AdaptationSet &AdaptationSet::baseURLRemove(const BaseURL &base_url)
+AdaptationSet &AdaptationSet::baseURLsRemove(const BaseURL &base_url)
 {
     m_baseURLs.remove(base_url);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::baseURLRemove(const std::list<BaseURL>::const_iterator &it)
+AdaptationSet &AdaptationSet::baseURLsRemove(const std::list<BaseURL>::const_iterator &it)
 {
     m_baseURLs.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::baseURLRemove(const std::list<BaseURL>::iterator &it)
+AdaptationSet &AdaptationSet::baseURLsRemove(const std::list<BaseURL>::iterator &it)
 {
     m_baseURLs.erase(it);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::representationAdd(const Representation &representation)
+const Representation &AdaptationSet::representation(std::list<Representation>::size_type idx) const
+{
+    if (idx >= m_representations.size()) {
+        throw std::out_of_range("AdaptationSet Representation does not exist");
+    }
+    auto it = m_representations.cbegin();
+    while (idx > 0 && it != m_representations.cend()) { it++; idx--; } 
+    return *it;
+}
+
+bool AdaptationSet::representationsContains(const Representation &representation) const
+{
+    return std::find(m_representations.cbegin(), m_representations.cend(), representation) != m_representations.cend();
+}
+
+AdaptationSet &AdaptationSet::representationsAdd(const Representation &representation)
 {
     m_representations.push_back(representation);
     m_representations.back().setAdaptationSet(this);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::representationAdd(Representation &&representation)
+AdaptationSet &AdaptationSet::representationsAdd(Representation &&representation)
 {
     m_representations.push_back(std::move(representation));
     m_representations.back().setAdaptationSet(this);
     return *this;
 }
 
-AdaptationSet &AdaptationSet::representationRemove(const Representation &representation)
+AdaptationSet &AdaptationSet::representationsRemove(const Representation &representation)
 {
     auto it = std::find(m_representations.begin(), m_representations.end(), representation);
-    return representationRemove(it);
+    return representationsRemove(it);
 }
 
-AdaptationSet &AdaptationSet::representationRemove(const std::list<Representation>::const_iterator &it)
+AdaptationSet &AdaptationSet::representationsRemove(const std::list<Representation>::const_iterator &it)
 {
     if (it != m_representations.end()) {
         auto &rep = *it;
@@ -833,7 +938,7 @@ AdaptationSet &AdaptationSet::representationRemove(const std::list<Representatio
     return *this;
 }
 
-AdaptationSet &AdaptationSet::representationRemove(const std::list<Representation>::iterator &it)
+AdaptationSet &AdaptationSet::representationsRemove(const std::list<Representation>::iterator &it)
 {
     if (it != m_representations.end()) {
         auto &rep = *it;
