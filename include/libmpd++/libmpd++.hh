@@ -11,6 +11,15 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 
+/** @mainpage libmpd++ - DASH MPD parsing and manipulation library in C++
+ *
+ * @section intro Introduction
+ *
+ * This library provides a model of the %MPD file structure as documented in ISO 23009-1:2022. The model hierarchy starts with the
+ * \ref com::bbc::libmpdpp::MPD "MPD" class, which can also parse and output the \ref com::bbc::libmpdpp::MPD "MPD" as %MPD XML
+ * using the libxml++ library.
+ */
+
 #include "macros.hh"
 
 #include "AdaptationSet.hh"
