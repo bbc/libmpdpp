@@ -47,7 +47,7 @@ RepresentationBase::RepresentationBase()
     ,m_height()
     ,m_sar()
     ,m_frameRate()
-    ,m_audioSamplingRate()
+    ,m_audioSamplingRates()
     ,m_mimeType()
     ,m_segmentProfiles()
     ,m_codecs()
@@ -82,7 +82,7 @@ RepresentationBase::RepresentationBase(const RepresentationBase &to_copy)
     ,m_height(to_copy.m_height)
     ,m_sar(to_copy.m_sar)
     ,m_frameRate(to_copy.m_frameRate)
-    ,m_audioSamplingRate(to_copy.m_audioSamplingRate)
+    ,m_audioSamplingRates(to_copy.m_audioSamplingRates)
     ,m_mimeType(to_copy.m_mimeType)
     ,m_segmentProfiles(to_copy.m_segmentProfiles)
     ,m_codecs(to_copy.m_codecs)
@@ -117,7 +117,7 @@ RepresentationBase::RepresentationBase(RepresentationBase &&to_move)
     ,m_height(std::move(to_move.m_height))
     ,m_sar(std::move(to_move.m_sar))
     ,m_frameRate(std::move(to_move.m_frameRate))
-    ,m_audioSamplingRate(std::move(to_move.m_audioSamplingRate))
+    ,m_audioSamplingRates(std::move(to_move.m_audioSamplingRates))
     ,m_mimeType(std::move(to_move.m_mimeType))
     ,m_segmentProfiles(std::move(to_move.m_segmentProfiles))
     ,m_codecs(std::move(to_move.m_codecs))
@@ -153,7 +153,7 @@ RepresentationBase &RepresentationBase::operator=(const RepresentationBase &to_c
     m_height = to_copy.m_height;
     m_sar = to_copy.m_sar;
     m_frameRate = to_copy.m_frameRate;
-    m_audioSamplingRate = to_copy.m_audioSamplingRate;
+    m_audioSamplingRates = to_copy.m_audioSamplingRates;
     m_mimeType = to_copy.m_mimeType;
     m_segmentProfiles = to_copy.m_segmentProfiles;
     m_codecs = to_copy.m_codecs;
@@ -190,7 +190,7 @@ RepresentationBase &RepresentationBase::operator=(RepresentationBase &&to_move)
     m_height = std::move(to_move.m_height);
     m_sar = std::move(to_move.m_sar);
     m_frameRate = std::move(to_move.m_frameRate);
-    m_audioSamplingRate = std::move(to_move.m_audioSamplingRate);
+    m_audioSamplingRates = std::move(to_move.m_audioSamplingRates);
     m_mimeType = std::move(to_move.m_mimeType);
     m_segmentProfiles = std::move(to_move.m_segmentProfiles);
     m_codecs = std::move(to_move.m_codecs);
@@ -243,7 +243,7 @@ bool RepresentationBase::operator==(const RepresentationBase &to_compare) const
     COMPARE_OPT_VALUES(m_height);
     COMPARE_OPT_VALUES(m_sar);
     COMPARE_OPT_VALUES(m_frameRate);
-    COMPARE_ANY_ORDER_LISTS(m_audioSamplingRate);
+    COMPARE_ANY_ORDER_LISTS(m_audioSamplingRates);
     COMPARE_OPT_VALUES(m_mimeType);
     COMPARE_ANY_ORDER_LISTS(m_segmentProfiles);
     COMPARE_OPT_VALUES(m_codecs);
@@ -352,6 +352,223 @@ namespace {
     }
 }
 
+const URI &RepresentationBase::profile(std::list<URI>::size_type idx) const
+{
+    if (idx >= m_profiles.size())
+        throw std::out_of_range("profile in RepresentationBase does not exist");
+    
+    auto it = m_profiles.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::profilesRemove(const URI &val)
+{
+    return profilesRemove(std::find(m_profiles.begin(), m_profiles.end(), val));
+}
+
+RepresentationBase &RepresentationBase::profilesRemove(const std::list<URI>::const_iterator &it)
+{
+    if (it != m_profiles.end()) {
+        m_profiles.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::profilesRemove(const std::list<URI>::iterator &it)
+{
+    if (it != m_profiles.end()) {
+        m_profiles.erase(it);
+    }
+    return *this;
+}
+
+unsigned int RepresentationBase::audioSamplingRate(std::list<unsigned int>::size_type idx) const
+{
+    if (idx >= m_audioSamplingRates.size())
+        throw std::out_of_range("@audioSamplingRates entry in RepresentationBase does not exist");
+
+    auto it = m_audioSamplingRates.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::audioSamplingRatesRemove(unsigned int val)
+{
+    return audioSamplingRatesRemove(std::find(m_audioSamplingRates.begin(), m_audioSamplingRates.end(), val));
+}
+
+RepresentationBase &RepresentationBase::audioSamplingRatesRemove(const std::list<unsigned int>::const_iterator &it)
+{
+    if (it != m_audioSamplingRates.end()) {
+        m_audioSamplingRates.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::audioSamplingRatesRemove(const std::list<unsigned int>::iterator &it)
+{
+    if (it != m_audioSamplingRates.end()) {
+        m_audioSamplingRates.erase(it);
+    }
+    return *this;
+}
+
+const std::string &RepresentationBase::segmentProfile(std::list<std::string>::size_type idx) const
+{
+    if (idx >= m_segmentProfiles.size())
+        throw std::out_of_range("@segmentProfiles entry in RepresentationBase does not exist");
+
+    auto it = m_segmentProfiles.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::segmentProfilesRemove(const std::string &val)
+{
+    return segmentProfilesRemove(std::find(m_segmentProfiles.begin(), m_segmentProfiles.end(), val));
+}
+
+RepresentationBase &RepresentationBase::segmentProfilesRemove(const std::list<std::string>::const_iterator &it)
+{
+    if (it != m_segmentProfiles.end()) {
+        m_segmentProfiles.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::segmentProfilesRemove(const std::list<std::string>::iterator &it)
+{
+    if (it != m_segmentProfiles.end()) {
+        m_segmentProfiles.erase(it);
+    }
+    return *this;
+}
+
+const std::string &RepresentationBase::containerProfile(std::list<std::string>::size_type idx) const
+{
+    if (idx >= m_containerProfiles.size())
+        throw std::out_of_range("@containerProfiles entry in RepresentationBase does not exist");
+
+    auto it = m_containerProfiles.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::containerProfilesRemove(const std::string &val)
+{
+    return containerProfilesRemove(std::find(m_containerProfiles.begin(), m_containerProfiles.end(), val));
+}
+
+RepresentationBase &RepresentationBase::containerProfilesRemove(const std::list<std::string>::const_iterator &it)
+{
+    if (it != m_containerProfiles.end()) {
+        m_containerProfiles.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::containerProfilesRemove(const std::list<std::string>::iterator &it)
+{
+    if (it != m_containerProfiles.end()) {
+        m_containerProfiles.erase(it);
+    }
+    return *this;
+}
+
+const Descriptor &RepresentationBase::framePacking(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_framePackings.size())
+        throw std::out_of_range("FramePacking entry in RepresentationBase does not exist");
+
+    auto it = m_framePackings.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::framePackingsRemove(const Descriptor &val)
+{
+    return framePackingsRemove(std::find(m_framePackings.begin(), m_framePackings.end(), val));
+}
+
+RepresentationBase &RepresentationBase::framePackingsRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    if (it != m_framePackings.end()) {
+        m_framePackings.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::framePackingsRemove(const std::list<Descriptor>::iterator &it)
+{
+    if (it != m_framePackings.end()) {
+        m_framePackings.erase(it);
+    }
+    return *this;
+}
+
+const Descriptor &RepresentationBase::audioChannelConfiguration(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_audioChannelConfigurations.size())
+        throw std::out_of_range("AudioChannelConfiguration entry in RepresentationBase does not exist");
+
+    auto it = m_audioChannelConfigurations.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::audioChannelConfigurationsRemove(const Descriptor &val)
+{
+    return audioChannelConfigurationsRemove(std::find(m_audioChannelConfigurations.begin(), m_audioChannelConfigurations.end(), val));
+}
+
+RepresentationBase &RepresentationBase::audioChannelConfigurationsRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    if (it != m_audioChannelConfigurations.end()) {
+        m_audioChannelConfigurations.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::audioChannelConfigurationsRemove(const std::list<Descriptor>::iterator &it)
+{
+    if (it != m_audioChannelConfigurations.end()) {
+        m_audioChannelConfigurations.erase(it);
+    }
+    return *this;
+}
+
+const Descriptor &RepresentationBase::contentProtection(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_contentProtections.size())
+        throw std::out_of_range("ContentProtection entry in RepresentationBase does not exist");
+
+    auto it = m_contentProtections.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const Descriptor &val)
+{
+    return contentProtectionsRemove(std::find(m_contentProtections.begin(), m_contentProtections.end(), val));
+}
+
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    if (it != m_contentProtections.end()) {
+        m_contentProtections.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<Descriptor>::iterator &it)
+{
+    if (it != m_contentProtections.end()) {
+        m_contentProtections.erase(it);
+    }
+    return *this;
+}
+
 // protected:
 RepresentationBase::RepresentationBase(xmlpp::Node &node)
     :m_profiles()
@@ -359,7 +576,7 @@ RepresentationBase::RepresentationBase(xmlpp::Node &node)
     ,m_height()
     ,m_sar()
     ,m_frameRate()
-    ,m_audioSamplingRate()
+    ,m_audioSamplingRates()
     ,m_mimeType()
     ,m_segmentProfiles()
     ,m_codecs()
@@ -391,11 +608,11 @@ RepresentationBase::RepresentationBase(xmlpp::Node &node)
     };
     xmlpp::Node::NodeSet node_set;
 
-#define NODE_ATTR_LIST_CLASS(name, cls) do { \
+#define NODE_ATTR_LIST_CLASS(name, var, cls) do { \
         node_set = node.find("@" #name); \
         if (node_set.size() > 0) { \
             xmlpp::Attribute *attr = dynamic_cast<xmlpp::Attribute*>(node_set.front()); \
-            m_ ## name = str_to_list<cls>(attr->get_value()); \
+            var = str_to_list<cls>(attr->get_value()); \
         } \
     } while (0)
 #define NODE_ATTR_OPT_FN(name, fn) do { \
@@ -415,16 +632,16 @@ RepresentationBase::RepresentationBase(xmlpp::Node &node)
         } \
     } while (0)
 
-    NODE_ATTR_LIST_CLASS(profiles, URI);
+    NODE_ATTR_LIST_CLASS(profiles, m_profiles, URI);
     NODE_ATTR_OPT_FN(width, str_to_ui);
     NODE_ATTR_OPT_FN(height, str_to_ui);
     NODE_ATTR_OPT_FN(sar, Ratio);
     NODE_ATTR_OPT_FN(frameRate, FrameRate);
-    NODE_ATTR_LIST_CLASS(audioSamplingRate, unsigned int);
+    NODE_ATTR_LIST_CLASS(audioSamplingRate, m_audioSamplingRates, unsigned int);
     NODE_ATTR_OPT_FN(mimeType, std::string);
-    NODE_ATTR_LIST_CLASS(segmentProfiles, std::string);
+    NODE_ATTR_LIST_CLASS(segmentProfiles, m_segmentProfiles, std::string);
     NODE_ATTR_OPT_FN(codecs, Codecs);
-    NODE_ATTR_LIST_CLASS(containerProfiles, std::string);
+    NODE_ATTR_LIST_CLASS(containerProfiles, m_containerProfiles, std::string);
     NODE_ATTR_OPT_FN(maximumSAPPeriod, std::stod);
     NODE_ATTR_OPT_FN(startWithSAP, SAP);
     NODE_ATTR_OPT_FN(maxPlayoutRate, std::stod);
@@ -479,29 +696,29 @@ void RepresentationBase::setXMLElement(xmlpp::Element &elem) const
             elem.set_attribute(#name, fmt(m_ ##name.value())); \
         } \
     } while(0)
-#define ELEM_ADD_OPT_ATTR_LIST_FN(name, fn) do { \
-        if (m_ ## name.size() > 0) { \
+#define ELEM_ADD_OPT_ATTR_LIST_FN(name, var, fn) do { \
+        if (var.size() > 0) { \
             std::ostringstream attr_val; \
             const char *sep = ""; \
-            for (const auto &val : m_ ## name) { \
+            for (const auto &val : var) { \
                 attr_val << sep << fn(val); \
                 sep = ","; \
             } \
             elem.set_attribute(#name, attr_val.str()); \
         } \
     } while(0)
-#define ELEM_ADD_OPT_ATTR_LIST(name) ELEM_ADD_OPT_ATTR_LIST_FN(name, std::string)
+#define ELEM_ADD_OPT_ATTR_LIST(name, var) ELEM_ADD_OPT_ATTR_LIST_FN(name, var, std::string)
 
-    ELEM_ADD_OPT_ATTR_LIST(profiles);
+    ELEM_ADD_OPT_ATTR_LIST(profiles, m_profiles);
     ELEM_ADD_OPT_ATTR_FMT(width, std::to_string);
     ELEM_ADD_OPT_ATTR_FMT(height, std::to_string);
     ELEM_ADD_OPT_ATTR_FMT(sar, std::string);
     ELEM_ADD_OPT_ATTR_FMT(frameRate, std::string);
-    ELEM_ADD_OPT_ATTR_LIST_FN(audioSamplingRate, std::to_string);
+    ELEM_ADD_OPT_ATTR_LIST_FN(audioSamplingRate, m_audioSamplingRates, std::to_string);
     ELEM_ADD_OPT_ATTR_FMT(mimeType, std::string);
-    ELEM_ADD_OPT_ATTR_LIST(segmentProfiles);
+    ELEM_ADD_OPT_ATTR_LIST(segmentProfiles, m_segmentProfiles);
     ELEM_ADD_OPT_ATTR_FMT(codecs, std::string);
-    ELEM_ADD_OPT_ATTR_LIST(containerProfiles);
+    ELEM_ADD_OPT_ATTR_LIST(containerProfiles, m_containerProfiles);
     ELEM_ADD_OPT_ATTR_FMT(maximumSAPPeriod, std::to_string);
     ELEM_ADD_OPT_ATTR_FMT(startWithSAP, std::string);
     ELEM_ADD_OPT_ATTR_FMT(maxPlayoutRate, std::to_string);
