@@ -961,15 +961,19 @@ public:
      *
      * @return The content protections list.
      */
-    const std::list<Descriptor> &contentProtections() const { return m_contentProtections; };
+    const std::list<ContentProtection> &contentProtections() const { return m_contentProtections; };
 
     /**@{*/
     /** Set the content protections list
-     * @param packings The list of content protections to set as the content protections list.
+     * @param protections The list of content protections to set as the content protections list.
      * @return This RepresentationBase.
      */
-    RepresentationBase &contentProtections(const std::list<Descriptor> &packings) { m_contentProtections = packings; return *this; };
-    RepresentationBase &contentProtections(std::list<Descriptor> &&packings) { m_contentProtections = std::move(packings); return *this; };
+    RepresentationBase &contentProtections(const std::list<ContentProtection> &protections) {
+        m_contentProtections = protections; return *this;
+    };
+    RepresentationBase &contentProtections(std::list<ContentProtection> &&protections) {
+        m_contentProtections = std::move(protections); return *this;
+    };
     /**@}*/
 
     /**@{*/
@@ -977,8 +981,8 @@ public:
      *
      * @return An iterator referencing the start of the content protections list.
      */
-    std::list<Descriptor>::const_iterator contentProtectionsBegin() const { return m_contentProtections.cbegin(); };
-    std::list<Descriptor>::iterator contentProtectionsBegin() { return m_contentProtections.begin(); };
+    std::list<ContentProtection>::const_iterator contentProtectionsBegin() const { return m_contentProtections.cbegin(); };
+    std::list<ContentProtection>::iterator contentProtectionsBegin() { return m_contentProtections.begin(); };
     /**@}*/
 
     /**@{*/
@@ -986,41 +990,41 @@ public:
      *
      * @return An iterator referencing the end of the content protections list.
      */
-    std::list<Descriptor>::const_iterator contentProtectionsEnd() const { return m_contentProtections.cend(); };
-    std::list<Descriptor>::iterator contentProtectionsEnd() { return m_contentProtections.end(); };
+    std::list<ContentProtection>::const_iterator contentProtectionsEnd() const { return m_contentProtections.cend(); };
+    std::list<ContentProtection>::iterator contentProtectionsEnd() { return m_contentProtections.end(); };
     /**@}*/
 
     /** Get the container profile string at an index in the list
      * 
-     * This will return the content protection descriptor at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the content protection at the index given in @a idx (starting at 0). If @a idx falls
      * outside the content protections list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of content protections.
-     * @return The content protection descriptor at list index @a idx.
+     * @return The content protection at list index @a idx.
      * @throw std::out_of_range If @a idx lies outside of the content protections list.
      */
-    const Descriptor &contentProtection(std::list<Descriptor>::size_type idx) const;
+    const ContentProtection &contentProtection(std::list<ContentProtection>::size_type idx) const;
 
     /**@{*/
     /** Add an entry to the content protections list
      * 
-     * @param val The content protection descriptor to add to the content protections list.
+     * @param val The content protection to add to the content protections list.
      * @return This RepresentationBase.
      */
-    RepresentationBase &contentProtectionsAdd(const Descriptor &val) {
+    RepresentationBase &contentProtectionsAdd(const ContentProtection &val) {
         m_contentProtections.push_back(val); return *this;
     };
-    RepresentationBase &contentProtectionsAdd(Descriptor &&val) {
+    RepresentationBase &contentProtectionsAdd(ContentProtection &&val) {
         m_contentProtections.push_back(std::move(val)); return *this;
     };
     /**@}*/
 
     /** Remove an entry to the content protections list by value
      *
-     * @param val The content protection descriptor to remove from the content protections list.
+     * @param val The content protection to remove from the content protections list.
      * @return This RepresentationBase.
      */
-    RepresentationBase &contentProtectionsRemove(const Descriptor &val);
+    RepresentationBase &contentProtectionsRemove(const ContentProtection &val);
 
     /**@{*/
     /** Remove an entry to the content protections list by iterator
@@ -1028,8 +1032,8 @@ public:
      * @param it An iterator referencing an entry from the content protections list.
      * @return This RepresentationBase.
      */
-    RepresentationBase &contentProtectionsRemove(const std::list<Descriptor>::const_iterator &it);
-    RepresentationBase &contentProtectionsRemove(const std::list<Descriptor>::iterator &it);
+    RepresentationBase &contentProtectionsRemove(const std::list<ContentProtection>::const_iterator &it);
+    RepresentationBase &contentProtectionsRemove(const std::list<ContentProtection>::iterator &it);
     /**@}*/
 
     // OutputProtection child
@@ -1105,7 +1109,7 @@ private:
     // RepresentationBase child elements (ISO 23009-1:2022 Clause 5.3.7.3)
     std::list<Descriptor>            m_framePackings;
     std::list<Descriptor>            m_audioChannelConfigurations;
-    std::list<Descriptor>            m_contentProtections;
+    std::list<ContentProtection>     m_contentProtections;
     std::optional<Descriptor>        m_outputProtection;
     std::list<Descriptor>            m_essentialProperties;
     std::list<Descriptor>            m_supplementalProperties;

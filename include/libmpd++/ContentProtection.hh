@@ -34,6 +34,7 @@ public:
 protected:
     friend class MPD;
     friend class Period;
+    friend class RepresentationBase;
     ContentProtection(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 };

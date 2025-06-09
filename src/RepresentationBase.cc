@@ -538,7 +538,7 @@ RepresentationBase &RepresentationBase::audioChannelConfigurationsRemove(const s
     return *this;
 }
 
-const Descriptor &RepresentationBase::contentProtection(std::list<Descriptor>::size_type idx) const
+const ContentProtection &RepresentationBase::contentProtection(std::list<ContentProtection>::size_type idx) const
 {
     if (idx >= m_contentProtections.size())
         throw std::out_of_range("ContentProtection entry in RepresentationBase does not exist");
@@ -548,12 +548,12 @@ const Descriptor &RepresentationBase::contentProtection(std::list<Descriptor>::s
     return *it;
 }
 
-RepresentationBase &RepresentationBase::contentProtectionsRemove(const Descriptor &val)
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const ContentProtection &val)
 {
     return contentProtectionsRemove(std::find(m_contentProtections.begin(), m_contentProtections.end(), val));
 }
 
-RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<Descriptor>::const_iterator &it)
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<ContentProtection>::const_iterator &it)
 {
     if (it != m_contentProtections.end()) {
         m_contentProtections.erase(it);
@@ -561,7 +561,7 @@ RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list
     return *this;
 }
 
-RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<Descriptor>::iterator &it)
+RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list<ContentProtection>::iterator &it)
 {
     if (it != m_contentProtections.end()) {
         m_contentProtections.erase(it);
@@ -672,7 +672,7 @@ RepresentationBase::RepresentationBase(xmlpp::Node &node)
 
     NODE_CHILD_OPT_LIST(FramePacking, m_framePackings, Descriptor);
     NODE_CHILD_OPT_LIST(AudioChannelConfiguration, m_audioChannelConfigurations, Descriptor);
-    NODE_CHILD_OPT_LIST(ContentProtection, m_contentProtections, Descriptor);
+    NODE_CHILD_OPT_LIST(ContentProtection, m_contentProtections, ContentProtection);
     NODE_CHILD_OPT(OutputProtection, m_outputProtection, Descriptor);
     NODE_CHILD_OPT_LIST(EssentialProperty, m_essentialProperties, Descriptor);
     NODE_CHILD_OPT_LIST(SupplementalProperty, m_supplementalProperties, Descriptor);
