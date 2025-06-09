@@ -10,9 +10,7 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
-#include <optional>
 #include <string>
-#include <sstream>
 
 #include "macros.hh"
 
@@ -39,9 +37,9 @@ public:
 
     FrameRate(const std::string &frame_rate_str);
 
-    FrameRate(size_type numerator, const std::optional<size_type>& denominator = std::nullopt)
-        : m_numerator(numerator),
-          m_denominator(denominator.has_value() ? denominator.value() : 1)
+    FrameRate(size_type numerator, size_type denominator = 1)
+        : m_numerator(numerator)
+        , m_denominator(denominator)
     {}
 
     virtual ~FrameRate() {};
