@@ -30,17 +30,45 @@ class Period;
 
 class LIBMPDPP_PUBLIC_API EventStream {
 public:
-    EventStream() {};
 
+    /** Default constructor
+     * 
+     * Create an empty EventStream element.
+     */
+    EventStream() {};
+    
+    /** Destructor
+     */
     virtual ~EventStream() {};
 
-    bool operator==(const EventStream&) const { return true; };
+    /** Comparison operator
+     *
+     * @param other The other EventStream to comnpare to this one.
+     * @return `true` if the value of @a other is the same as the value of this EventStream, otherwise `false`.
+     */
+    bool operator==(const EventStream &other) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class RepresentationBase;
-    EventStream(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
+
+    /** Constructor from libxml++ Node
+     *
+     * Extract a new EventStream from the %EventStream element node passed in @a node.
+     *
+     * @param node The libxml++ Node to read the EventStream element attributes and value from.
+     */
+    EventStream(xmlpp::Node &node);
+
+     /** Set a libxml++ Node from this EventStream
+     *
+     * Set the attributes and value for a %EventStream element from this EventStream.
+     *
+     * @param element The Element to fill in the attributes and value for.
+     */
+    void setXMLElement(xmlpp::Element &element) const;
+///@endcond PROTECTED
 
 private:
 };

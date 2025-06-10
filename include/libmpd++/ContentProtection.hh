@@ -29,14 +29,48 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class LIBMPDPP_PUBLIC_API ContentProtection {
 public:
+
+      /** Default constructor
+     *
+     * Creates an empty ContentProtection.
+     */
     ContentProtection() {};
+
+    /** Equality operator
+     *
+     * @brief Compares this ContentProtection with another for equality.
+     * This operator overload allows checking if two ContentProtection instances are equal.
+     * Currently, the implementation always returns true, meaning all instances are considered equal,
+     * regardless of their internal state.
+     * @param other A constant reference to the ContentProtection instance to compare against.
+     * @return `true` if the ContentProtection are considered equal, false otherwise.
+     */
     bool operator==(const ContentProtection &other) const { return true; };
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     friend class Period;
     friend class RepresentationBase;
-    ContentProtection(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
+
+     /**
+     * XML constructor (internal use only)
+     *
+     * Create a new ContentProtection from an XML %ContentProtection element.
+     *
+     * @param node The libxml++ Node for the %ContentProtection element.
+     */
+    ContentProtection(xmlpp::Node &node);
+
+    /**
+     * Set a libxml++ Element attributes and children for XML output
+     *
+     * This will set all relevant attributes and child elements from the settings of this ContentProtection.
+     *
+     * @param element The libxml++ Element to populate.
+     */
+    void setXMLElement(xmlpp::Element &element) const;
+///@endcond PROTECTED
 };
 
 LIBMPDPP_NAMESPACE_END

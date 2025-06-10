@@ -31,7 +31,7 @@ class AdaptationSet;
 /**
  * @brief ContentComponent class
  * @headerfile libmpd++/ContentComponent.hh <libmpd++/ContentComponent.hh>
- *
+ * Note: This class is not complete.
  * This is a container to hold the properties of a media content component described by ContentComponent element as defined in ISO 23009-1:2022.
  *
  */

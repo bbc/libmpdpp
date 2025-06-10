@@ -30,16 +30,43 @@ class Representation;
 
 class LIBMPDPP_PUBLIC_API ExtendedBandwidth {
 public:
+    /** Default constructor
+     * 
+     * Create an empty ExtendedBandwidth element.
+     */
     ExtendedBandwidth() {};
-
+    
+    /** Destructor
+     */
     virtual ~ExtendedBandwidth() {};
 
-    bool operator==(const ExtendedBandwidth&) const { return true; };
+    /** Comparison operator
+     *
+     * @param other The other ExtendedBandwidth to compare to this one.
+     * @return `true` if the value of @a other is the same as the value of this ExtendedBandwidth, otherwise `false`.
+     */
+    bool operator==(const ExtendedBandwidth &other) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class Representation;
-    ExtendedBandwidth(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
+
+    /** Constructor from libxml++ Node
+     *
+     * Extract a new ExtendedBandwidth from the %ExtendedBandwidth element node passed in @a node.
+     *
+     * @param node The libxml++ Node to read the ExtendedBandwidth element attributes and value from.
+     */
+    ExtendedBandwidth(xmlpp::Node &node);
+
+    /** Set a libxml++ Node from this ExtendedBandwidth
+     *
+     * Set the attributes and value for a %ExtendedBandwidth element from this ExtendedBandwidth.
+     *
+     * @param element The Element to fill in the attributes and value for.
+     */
+    void setXMLElement(xmlpp::Element &element) const;
+///@endcond PROTECTED
 
 private:
 };
