@@ -840,7 +840,7 @@ public:
     std::list<Descriptor>::iterator framePackingsEnd() { return m_framePackings.end(); };
     /**@}*/
 
-    /** Get the container profile string at an index in the list
+    /** Get the frame packing descriptor at an index in the list
      * 
      * This will return the frame packing descriptor at the index given in @a idx (starting at 0). If @a idx fall outside the
      * frame packings list then a std::out_of_range exception will be thrown.
@@ -913,7 +913,7 @@ public:
     std::list<Descriptor>::iterator audioChannelConfigurationsEnd() { return m_audioChannelConfigurations.end(); };
     /**@}*/
 
-    /** Get the container profile string at an index in the list
+    /** Get the audio channel configuration descriptor at an index in the list
      * 
      * This will return the audio channel configuration descriptor at the index given in @a idx (starting at 0). If @a idx falls
      * outside the audio channel configurations list then a std::out_of_range exception will be thrown.
@@ -994,7 +994,7 @@ public:
     std::list<ContentProtection>::iterator contentProtectionsEnd() { return m_contentProtections.end(); };
     /**@}*/
 
-    /** Get the container profile string at an index in the list
+    /** Get the content protection at an index in the list
      * 
      * This will return the content protection at the index given in @a idx (starting at 0). If @a idx falls
      * outside the content protections list then a std::out_of_range exception will be thrown.
@@ -1069,20 +1069,824 @@ public:
     /**@}*/
 
     // EssentialProperty children
+
+    /** Get the essential properties list
+     *
+     * @return The essential properties list.
+     */
+    const std::list<Descriptor> &essentialProperties() const { return m_essentialProperties; };
+
+    /**@{*/
+    /** Set the essential properties list
+     * @param properties The list of essential properties to set as the essential properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &essentialProperties(const std::list<Descriptor> &properties) {
+        m_essentialProperties = properties; return *this;
+    };
+    RepresentationBase &essentialProperties(std::list<Descriptor> &&properties) {
+        m_essentialProperties = std::move(properties); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the essential properties list
+     *
+     * @return An iterator referencing the start of the essential properties list.
+     */
+    std::list<Descriptor>::const_iterator essentialPropertiesBegin() const { return m_essentialProperties.cbegin(); };
+    std::list<Descriptor>::iterator essentialPropertiesBegin() { return m_essentialProperties.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the essential properties list
+     *
+     * @return An iterator referencing the end of the essential properties list.
+     */
+    std::list<Descriptor>::const_iterator essentialPropertiesEnd() const { return m_essentialProperties.cend(); };
+    std::list<Descriptor>::iterator essentialPropertiesEnd() { return m_essentialProperties.end(); };
+    /**@}*/
+
+    /** Get the essential property descriptor at an index in the list
+     * 
+     * This will return the essential property descriptor at the index given in @a idx (starting at 0). If @a idx fall outside the
+     * essential properties list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of essential properties.
+     * @return The essential property descriptor at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the essential properties list.
+     */
+    const Descriptor &essentialProperty(std::list<Descriptor>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the essential properties list
+     * 
+     * @param val The essential property descriptor to add to the essential properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &essentialPropertiesAdd(const Descriptor &val) { m_essentialProperties.push_back(val); return *this; };
+    RepresentationBase &essentialPropertiesAdd(Descriptor &&val) { m_essentialProperties.push_back(std::move(val)); return *this; };
+    /**@}*/
+
+    /** Remove an entry to the essential properties list by value
+     *
+     * @param val The essential property descriptor to remove from the essential properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &essentialPropertiesRemove(const Descriptor &val);
+
+    /**@{*/
+    /** Remove an entry to the essential properties list by iterator
+     *
+     * @param it An iterator referencing an entry from the essential properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &essentialPropertiesRemove(const std::list<Descriptor>::const_iterator &it);
+    RepresentationBase &essentialPropertiesRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
+
     // SupplementalProperty children
+
+    /** Get the supplemental properties list
+     *
+     * @return The supplemental properties list.
+     */
+    const std::list<Descriptor> &supplementalProperties() const { return m_supplementalProperties; };
+
+    /**@{*/
+    /** Set the supplemental properties list
+     * @param properties The list of supplemental properties to set as the supplemental properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &supplementalProperties(const std::list<Descriptor> &properties) {
+        m_supplementalProperties = properties; return *this;
+    };
+    RepresentationBase &supplementalProperties(std::list<Descriptor> &&properties) {
+        m_supplementalProperties = std::move(properties); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the supplemental properties list
+     *
+     * @return An iterator referencing the start of the supplemental properties list.
+     */
+    std::list<Descriptor>::const_iterator supplementalPropertiesBegin() const { return m_supplementalProperties.cbegin(); };
+    std::list<Descriptor>::iterator supplementalPropertiesBegin() { return m_supplementalProperties.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the supplemental properties list
+     *
+     * @return An iterator referencing the end of the supplemental properties list.
+     */
+    std::list<Descriptor>::const_iterator supplementalPropertiesEnd() const { return m_supplementalProperties.cend(); };
+    std::list<Descriptor>::iterator supplementalPropertiesEnd() { return m_supplementalProperties.end(); };
+    /**@}*/
+
+    /** Get the supplemental property descriptor at an index in the list
+     * 
+     * This will return the supplemental property descriptor at the index given in @a idx (starting at 0). If @a idx fall outside
+     * the supplemental properties list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of supplemental properties.
+     * @return The supplemental property descriptor at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the supplemental properties list.
+     */
+    const Descriptor &supplementalProperty(std::list<Descriptor>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the supplemental properties list
+     * 
+     * @param val The supplemental property descriptor to add to the supplemental properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &supplementalPropertiesAdd(const Descriptor &val) { m_supplementalProperties.push_back(val); return *this; };
+    RepresentationBase &supplementalPropertiesAdd(Descriptor &&val) { m_supplementalProperties.push_back(std::move(val)); return *this; };
+    /**@}*/
+
+    /** Remove an entry to the supplemental properties list by value
+     *
+     * @param val The supplemental property descriptor to remove from the supplemental properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &supplementalPropertiesRemove(const Descriptor &val);
+
+    /**@{*/
+    /** Remove an entry to the supplemental properties list by iterator
+     *
+     * @param it An iterator referencing an entry from the supplemental properties list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &supplementalPropertiesRemove(const std::list<Descriptor>::const_iterator &it);
+    RepresentationBase &supplementalPropertiesRemove(const std::list<Descriptor>::iterator &it);
+    /**@}*/
+
     // InbandEventStream children
+
+    /** Get the inband event streams list
+     *
+     * @return The inband event streams list.
+     */
+    const std::list<EventStream> &inbandEventStreams() const { return m_inbandEventStreams; };
+
+    /**@{*/
+    /** Set the inband event streams list
+     * @param streams The list of inband event streams to set as the inband event streams list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &inbandEventStreams(const std::list<EventStream> &streams) {
+        m_inbandEventStreams = streams; return *this;
+    };
+    RepresentationBase &inbandEventStreams(std::list<EventStream> &&streams) {
+        m_inbandEventStreams = std::move(streams); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the inband event streams list
+     *
+     * @return An iterator referencing the start of the inband event streams list.
+     */
+    std::list<EventStream>::const_iterator inbandEventStreamsBegin() const { return m_inbandEventStreams.cbegin(); };
+    std::list<EventStream>::iterator inbandEventStreamsBegin() { return m_inbandEventStreams.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the inband event streams list
+     *
+     * @return An iterator referencing the end of the inband event streams list.
+     */
+    std::list<EventStream>::const_iterator inbandEventStreamsEnd() const { return m_inbandEventStreams.cend(); };
+    std::list<EventStream>::iterator inbandEventStreamsEnd() { return m_inbandEventStreams.end(); };
+    /**@}*/
+
+    /** Get the inband event stream at an index in the list
+     * 
+     * This will return the inband event stream at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the inband event streams list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of inband event streams.
+     * @return The inband event stream at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the inband event streams list.
+     */
+    const EventStream &inbandEventStream(std::list<EventStream>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the inband event streams list
+     * 
+     * @param val The inband event stream to add to the inband event streams list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &inbandEventStreamsAdd(const EventStream &val) {
+        m_inbandEventStreams.push_back(val); return *this;
+    };
+    RepresentationBase &inbandEventStreamsAdd(EventStream &&val) {
+        m_inbandEventStreams.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the inband event streams list by value
+     *
+     * @param val The inband event stream to remove from the inband event streams list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &inbandEventStreamsRemove(const EventStream &val);
+
+    /**@{*/
+    /** Remove an entry to the inband event streams list by iterator
+     *
+     * @param it An iterator referencing an entry from the inband event streams list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &inbandEventStreamsRemove(const std::list<EventStream>::const_iterator &it);
+    RepresentationBase &inbandEventStreamsRemove(const std::list<EventStream>::iterator &it);
+    /**@}*/
+
     // Switching children
+
+    /** Get the switchings list
+     *
+     * @return The switchings list.
+     */
+    const std::list<Switching> &switchings() const { return m_switchings; };
+
+    /**@{*/
+    /** Set the switchings list
+     * @param _switchings The list of switchings to set as the switchings list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &switchings(const std::list<Switching> &_switchings) {
+        m_switchings = _switchings; return *this;
+    };
+    RepresentationBase &switchings(std::list<Switching> &&_switchings) {
+        m_switchings = std::move(_switchings); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the switchings list
+     *
+     * @return An iterator referencing the start of the switchings list.
+     */
+    std::list<Switching>::const_iterator switchingsBegin() const { return m_switchings.cbegin(); };
+    std::list<Switching>::iterator switchingsBegin() { return m_switchings.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the switchings list
+     *
+     * @return An iterator referencing the end of the switchings list.
+     */
+    std::list<Switching>::const_iterator switchingsEnd() const { return m_switchings.cend(); };
+    std::list<Switching>::iterator switchingsEnd() { return m_switchings.end(); };
+    /**@}*/
+
+    /** Get the switching at an index in the list
+     * 
+     * This will return the switching at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the switchings list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of switchings.
+     * @return The switching at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the switchings list.
+     */
+    const Switching &switching(std::list<Switching>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the switchings list
+     * 
+     * @param val The switching to add to the switchings list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &switchingsAdd(const Switching &val) {
+        m_switchings.push_back(val); return *this;
+    };
+    RepresentationBase &switchingsAdd(Switching &&val) {
+        m_switchings.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the switchings list by value
+     *
+     * @param val The switching to remove from the switchings list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &switchingsRemove(const Switching &val);
+
+    /**@{*/
+    /** Remove an entry to the switchings list by iterator
+     *
+     * @param it An iterator referencing an entry from the switchings list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &switchingsRemove(const std::list<Switching>::const_iterator &it);
+    RepresentationBase &switchingsRemove(const std::list<Switching>::iterator &it);
+    /**@}*/
+
     // RandomAccess children
+
+    /** Get the random accesses list
+     *
+     * @return The random accesses list.
+     */
+    const std::list<RandomAccess> &randomAccesses() const { return m_randomAccesses; };
+
+    /**@{*/
+    /** Set the random accesses list
+     * @param accesses The list of random accesses to set as the random accesses list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &randomAccesses(const std::list<RandomAccess> &accesses) {
+        m_randomAccesses = accesses; return *this;
+    };
+    RepresentationBase &randomAccesses(std::list<RandomAccess> &&accesses) {
+        m_randomAccesses = std::move(accesses); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the random accesses list
+     *
+     * @return An iterator referencing the start of the random accesses list.
+     */
+    std::list<RandomAccess>::const_iterator randomAccessesBegin() const { return m_randomAccesses.cbegin(); };
+    std::list<RandomAccess>::iterator randomAccessesBegin() { return m_randomAccesses.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the random accesses list
+     *
+     * @return An iterator referencing the end of the random accesses list.
+     */
+    std::list<RandomAccess>::const_iterator randomAccessesEnd() const { return m_randomAccesses.cend(); };
+    std::list<RandomAccess>::iterator randomAccessesEnd() { return m_randomAccesses.end(); };
+    /**@}*/
+
+    /** Get the random access value at an index in the list
+     * 
+     * This will return the random access at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the random accesses list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of random accesses.
+     * @return The random access at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the random accesses list.
+     */
+    const RandomAccess &randomAccess(std::list<RandomAccess>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the random accesses list
+     * 
+     * @param val The random access to add to the random accesses list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &randomAccessesAdd(const RandomAccess &val) {
+        m_randomAccesses.push_back(val); return *this;
+    };
+    RepresentationBase &randomAccessesAdd(RandomAccess &&val) {
+        m_randomAccesses.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the random accesses list by value
+     *
+     * @param val The random access to remove from the random accesses list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &randomAccessesRemove(const RandomAccess &val);
+
+    /**@{*/
+    /** Remove an entry to the random accesses list by iterator
+     *
+     * @param it An iterator referencing an entry from the random accesses list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &randomAccessesRemove(const std::list<RandomAccess>::const_iterator &it);
+    RepresentationBase &randomAccessesRemove(const std::list<RandomAccess>::iterator &it);
+    /**@}*/
+
     // GroupLabel children
+
+    /** Get the group labels list
+     *
+     * @return The group labels list.
+     */
+    const std::list<Label> &groupLabels() const { return m_groupLabels; };
+
+    /**@{*/
+    /** Set the group labels list
+     * @param labels The list of group labels to set as the group labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &groupLabels(const std::list<Label> &labels) {
+        m_groupLabels = labels; return *this;
+    };
+    RepresentationBase &groupLabels(std::list<Label> &&labels) {
+        m_groupLabels = std::move(labels); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the group labels list
+     *
+     * @return An iterator referencing the start of the group labels list.
+     */
+    std::list<Label>::const_iterator groupLabelsBegin() const { return m_groupLabels.cbegin(); };
+    std::list<Label>::iterator groupLabelsBegin() { return m_groupLabels.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the group labels list
+     *
+     * @return An iterator referencing the end of the group labels list.
+     */
+    std::list<Label>::const_iterator groupLabelsEnd() const { return m_groupLabels.cend(); };
+    std::list<Label>::iterator groupLabelsEnd() { return m_groupLabels.end(); };
+    /**@}*/
+
+    /** Get the group label at an index in the list
+     * 
+     * This will return the group label at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the group labels list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of group labels.
+     * @return The group label at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the group labels list.
+     */
+    const Label &groupLabel(std::list<Label>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the group labels list
+     * 
+     * @param val The group label to add to the group labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &groupLabelsAdd(const Label &val) {
+        m_groupLabels.push_back(val); return *this;
+    };
+    RepresentationBase &groupLabelsAdd(Label &&val) {
+        m_groupLabels.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the group labels list by value
+     *
+     * @param val The group label to remove from the group labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &groupLabelsRemove(const Label &val);
+
+    /**@{*/
+    /** Remove an entry to the group labels list by iterator
+     *
+     * @param it An iterator referencing an entry from the group labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &groupLabelsRemove(const std::list<Label>::const_iterator &it);
+    RepresentationBase &groupLabelsRemove(const std::list<Label>::iterator &it);
+    /**@}*/
+
     // Label children
+
+    /** Get the labels list
+     *
+     * @return The labels list.
+     */
+    const std::list<Label> &labels() const { return m_labels; };
+
+    /**@{*/
+    /** Set the labels list
+     * @param _labels The list of labels to set as the labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &labels(const std::list<Label> &_labels) {
+        m_labels = _labels; return *this;
+    };
+    RepresentationBase &labels(std::list<Label> &&_labels) {
+        m_labels = std::move(_labels); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the labels list
+     *
+     * @return An iterator referencing the start of the labels list.
+     */
+    std::list<Label>::const_iterator labelsBegin() const { return m_labels.cbegin(); };
+    std::list<Label>::iterator labelsBegin() { return m_labels.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the labels list
+     *
+     * @return An iterator referencing the end of the labels list.
+     */
+    std::list<Label>::const_iterator labelsEnd() const { return m_labels.cend(); };
+    std::list<Label>::iterator labelsEnd() { return m_labels.end(); };
+    /**@}*/
+
+    /** Get the label at an index in the list
+     * 
+     * This will return the label at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the labels list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of labels.
+     * @return The label at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the labels list.
+     */
+    const Label &label(std::list<Label>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the labels list
+     * 
+     * @param val The label to add to the labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &labelsAdd(const Label &val) {
+        m_labels.push_back(val); return *this;
+    };
+    RepresentationBase &labelsAdd(Label &&val) {
+        m_labels.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the labels list by value
+     *
+     * @param val The label to remove from the labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &labelsRemove(const Label &val);
+
+    /**@{*/
+    /** Remove an entry to the labels list by iterator
+     *
+     * @param it An iterator referencing an entry from the labels list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &labelsRemove(const std::list<Label>::const_iterator &it);
+    RepresentationBase &labelsRemove(const std::list<Label>::iterator &it);
+    /**@}*/
+
     // ProducerReferenceTime children
+
+    /** Get the producer reference times list
+     *
+     * @return The producer reference times list.
+     */
+    const std::list<ProducerReferenceTime> &producerReferenceTimes() const { return m_producerReferenceTimes; };
+
+    /**@{*/
+    /** Set the producer reference times list
+     * @param times The list of producer reference times to set as the producer reference times list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &producerReferenceTimes(const std::list<ProducerReferenceTime> &times) {
+        m_producerReferenceTimes = times; return *this;
+    };
+    RepresentationBase &producerReferenceTimes(std::list<ProducerReferenceTime> &&times) {
+        m_producerReferenceTimes = std::move(times); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the producer reference times list
+     *
+     * @return An iterator referencing the start of the producer reference times list.
+     */
+    std::list<ProducerReferenceTime>::const_iterator producerReferenceTimesBegin() const { return m_producerReferenceTimes.cbegin(); };
+    std::list<ProducerReferenceTime>::iterator producerReferenceTimesBegin() { return m_producerReferenceTimes.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the producer reference times list
+     *
+     * @return An iterator referencing the end of the producer reference times list.
+     */
+    std::list<ProducerReferenceTime>::const_iterator producerReferenceTimesEnd() const { return m_producerReferenceTimes.cend(); };
+    std::list<ProducerReferenceTime>::iterator producerReferenceTimesEnd() { return m_producerReferenceTimes.end(); };
+    /**@}*/
+
+    /** Get the producer reference time at an index in the list
+     * 
+     * This will return the producer reference time at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the producer reference times list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of producer reference times.
+     * @return The producer reference time at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the producer reference times list.
+     */
+    const ProducerReferenceTime &producerReferenceTime(std::list<ProducerReferenceTime>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the producer reference times list
+     * 
+     * @param val The producer reference time to add to the producer reference times list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &producerReferenceTimesAdd(const ProducerReferenceTime &val) {
+        m_producerReferenceTimes.push_back(val); return *this;
+    };
+    RepresentationBase &producerReferenceTimesAdd(ProducerReferenceTime &&val) {
+        m_producerReferenceTimes.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the producer reference times list by value
+     *
+     * @param val The producer reference time to remove from the producer reference times list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &producerReferenceTimesRemove(const ProducerReferenceTime &val);
+
+    /**@{*/
+    /** Remove an entry to the producer reference times list by iterator
+     *
+     * @param it An iterator referencing an entry from the producer reference times list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &producerReferenceTimesRemove(const std::list<ProducerReferenceTime>::const_iterator &it);
+    RepresentationBase &producerReferenceTimesRemove(const std::list<ProducerReferenceTime>::iterator &it);
+    /**@}*/
+
     // ContentPopularityRate children
+
+    /** Get the content popularity rates list
+     *
+     * @return The content popularity rates list.
+     */
+    const std::list<ContentPopularityRate> &contentPopularityRates() const { return m_contentPopularityRates; };
+
+    /**@{*/
+    /** Set the content popularity rates list
+     * @param rates The list of content popularity rates to set as the content popularity rates list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &contentPopularityRates(const std::list<ContentPopularityRate> &rates) {
+        m_contentPopularityRates = rates; return *this;
+    };
+    RepresentationBase &contentPopularityRates(std::list<ContentPopularityRate> &&rates) {
+        m_contentPopularityRates = std::move(rates); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the content popularity rates list
+     *
+     * @return An iterator referencing the start of the content popularity rates list.
+     */
+    std::list<ContentPopularityRate>::const_iterator contentPopularityRatesBegin() const { return m_contentPopularityRates.cbegin(); };
+    std::list<ContentPopularityRate>::iterator contentPopularityRatesBegin() { return m_contentPopularityRates.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the content popularity rates list
+     *
+     * @return An iterator referencing the end of the content popularity rates list.
+     */
+    std::list<ContentPopularityRate>::const_iterator contentPopularityRatesEnd() const { return m_contentPopularityRates.cend(); };
+    std::list<ContentPopularityRate>::iterator contentPopularityRatesEnd() { return m_contentPopularityRates.end(); };
+    /**@}*/
+
+    /** Get the content popularity rate at an index in the list
+     * 
+     * This will return the content popularity rate at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the content popularity rates list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of content popularity rates.
+     * @return The content popularity rate at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the content popularity rates list.
+     */
+    const ContentPopularityRate &contentPopularityRate(std::list<ContentPopularityRate>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the content popularity rates list
+     * 
+     * @param val The content popularity rate to add to the content popularity rates list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &contentPopularityRatesAdd(const ContentPopularityRate &val) {
+        m_contentPopularityRates.push_back(val); return *this;
+    };
+    RepresentationBase &contentPopularityRatesAdd(ContentPopularityRate &&val) {
+        m_contentPopularityRates.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the content popularity rates list by value
+     *
+     * @param val The content popularity rate to remove from the content popularity rates list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &contentPopularityRatesRemove(const ContentPopularityRate &val);
+
+    /**@{*/
+    /** Remove an entry to the content popularity rates list by iterator
+     *
+     * @param it An iterator referencing an entry from the content popularity rates list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &contentPopularityRatesRemove(const std::list<ContentPopularityRate>::const_iterator &it);
+    RepresentationBase &contentPopularityRatesRemove(const std::list<ContentPopularityRate>::iterator &it);
+    /**@}*/
+
     // Resync children
+
+    /** Get the resyncs list
+     *
+     * @return The resyncs list.
+     */
+    const std::list<Resync> &resyncs() const { return m_resyncs; };
+
+    /**@{*/
+    /** Set the resyncs list
+     * @param _resyncs The list of resyncs to set as the resyncs list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &resyncs(const std::list<Resync> &_resyncs) {
+        m_resyncs = _resyncs; return *this;
+    };
+    RepresentationBase &resyncs(std::list<Resync> &&_resyncs) {
+        m_resyncs = std::move(_resyncs); return *this;
+    };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the start of the resyncs list
+     *
+     * @return An iterator referencing the start of the resyncs list.
+     */
+    std::list<Resync>::const_iterator resyncsBegin() const { return m_resyncs.cbegin(); };
+    std::list<Resync>::iterator resyncsBegin() { return m_resyncs.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator referencing the end of the resyncs list
+     *
+     * @return An iterator referencing the end of the resyncs list.
+     */
+    std::list<Resync>::const_iterator resyncsEnd() const { return m_resyncs.cend(); };
+    std::list<Resync>::iterator resyncsEnd() { return m_resyncs.end(); };
+    /**@}*/
+
+    /** Get the resync at an index in the list
+     * 
+     * This will return the resync at the index given in @a idx (starting at 0). If @a idx falls
+     * outside the resyncs list then a std::out_of_range exception will be thrown.
+     *
+     * @param idx The index, starting from 0, of the entry to retrieve from the list of resyncs.
+     * @return The resync at list index @a idx.
+     * @throw std::out_of_range If @a idx lies outside of the resyncs list.
+     */
+    const Resync &resync(std::list<Resync>::size_type idx) const;
+
+    /**@{*/
+    /** Add an entry to the resyncs list
+     * 
+     * @param val The resync to add to the resyncs list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &resyncsAdd(const Resync &val) {
+        m_resyncs.push_back(val); return *this;
+    };
+    RepresentationBase &resyncsAdd(Resync &&val) {
+        m_resyncs.push_back(std::move(val)); return *this;
+    };
+    /**@}*/
+
+    /** Remove an entry to the resyncs list by value
+     *
+     * @param val The resync to remove from the resyncs list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &resyncsRemove(const Resync &val);
+
+    /**@{*/
+    /** Remove an entry to the resyncs list by iterator
+     *
+     * @param it An iterator referencing an entry from the resyncs list.
+     * @return This RepresentationBase.
+     */
+    RepresentationBase &resyncsRemove(const std::list<Resync>::const_iterator &it);
+    RepresentationBase &resyncsRemove(const std::list<Resync>::iterator &it);
+    /**@}*/
 
 ///@cond PROTECTED
 protected:
-    RepresentationBase(xmlpp::Node&);
-    void setXMLElement(xmlpp::Element&) const;
+    /** Constructor from libxml++ %Node
+     *
+     * Extract the attributes, elements and values from the libxml++ %Element for a %RepresentationBaseType element.
+     *
+     * @param node The Element node to retrieve the data from.
+     */
+    RepresentationBase(xmlpp::Node &node);
+
+    /** Add the representation of this RepresentationBase to a libxml++ %Element
+     * 
+     * This adds the attributes, child elements and values to the libxml++ %Element given in @a elem.
+     *
+     * @param elem The %Element to add the nodes to.
+     */
+    void setXMLElement(xmlpp::Element &elem) const;
 
 ///@endcond PROTECTED
 

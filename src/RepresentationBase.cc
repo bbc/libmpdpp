@@ -569,6 +569,316 @@ RepresentationBase &RepresentationBase::contentProtectionsRemove(const std::list
     return *this;
 }
 
+const Descriptor &RepresentationBase::essentialProperty(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_essentialProperties.size())
+        throw std::out_of_range("EssentialProperty entry in RepresentationBase does not exist");
+
+    auto it = m_essentialProperties.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}
+
+RepresentationBase &RepresentationBase::essentialPropertiesRemove(const Descriptor &val)
+{
+    return essentialPropertiesRemove(std::find(m_essentialProperties.begin(), m_essentialProperties.end(), val));
+}
+
+RepresentationBase &RepresentationBase::essentialPropertiesRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    if (it != m_essentialProperties.end()) {
+        m_essentialProperties.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::essentialPropertiesRemove(const std::list<Descriptor>::iterator &it)
+{
+    if (it != m_essentialProperties.end()) {
+        m_essentialProperties.erase(it);
+    }
+    return *this;
+}
+
+const Descriptor &RepresentationBase::supplementalProperty(std::list<Descriptor>::size_type idx) const
+{
+    if (idx >= m_supplementalProperties.size())
+        throw std::out_of_range("SupplementalProperty entry in RepresentationBase does not exist");
+  
+    auto it = m_supplementalProperties.begin();
+    while (idx-- > 0) it++;
+    return *it;
+} 
+  
+RepresentationBase &RepresentationBase::supplementalPropertiesRemove(const Descriptor &val)
+{
+    return supplementalPropertiesRemove(std::find(m_supplementalProperties.begin(), m_supplementalProperties.end(), val));
+}
+
+RepresentationBase &RepresentationBase::supplementalPropertiesRemove(const std::list<Descriptor>::const_iterator &it)
+{
+    if (it != m_supplementalProperties.end()) {
+        m_supplementalProperties.erase(it);
+    }
+    return *this;
+}
+
+RepresentationBase &RepresentationBase::supplementalPropertiesRemove(const std::list<Descriptor>::iterator &it)
+{
+    if (it != m_supplementalProperties.end()) {
+        m_supplementalProperties.erase(it);
+    }
+    return *this;
+}
+
+const EventStream &RepresentationBase::inbandEventStream(std::list<EventStream>::size_type idx) const
+{
+    if (idx >= m_inbandEventStreams.size())
+        throw std::out_of_range("InbandEventStream entry in RepresentationBase does not exist");
+
+    auto it = m_inbandEventStreams.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::inbandEventStreamsRemove(const EventStream &val)
+{
+    return inbandEventStreamsRemove(std::find(m_inbandEventStreams.begin(), m_inbandEventStreams.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::inbandEventStreamsRemove(const std::list<EventStream>::const_iterator &it)
+{
+    if (it != m_inbandEventStreams.end()) {
+        m_inbandEventStreams.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::inbandEventStreamsRemove(const std::list<EventStream>::iterator &it)
+{
+    if (it != m_inbandEventStreams.end()) {
+        m_inbandEventStreams.erase(it);
+    }
+    return *this;
+}
+
+const Switching &RepresentationBase::switching(std::list<Switching>::size_type idx) const
+{
+    if (idx >= m_switchings.size())
+        throw std::out_of_range("Switching entry in RepresentationBase does not exist");
+
+    auto it = m_switchings.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::switchingsRemove(const Switching &val)
+{
+    return switchingsRemove(std::find(m_switchings.begin(), m_switchings.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::switchingsRemove(const std::list<Switching>::const_iterator &it)
+{
+    if (it != m_switchings.end()) {
+        m_switchings.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::switchingsRemove(const std::list<Switching>::iterator &it)
+{
+    if (it != m_switchings.end()) {
+        m_switchings.erase(it);
+    }
+    return *this;
+}
+
+const RandomAccess &RepresentationBase::randomAccess(std::list<RandomAccess>::size_type idx) const
+{
+    if (idx >= m_randomAccesses.size())
+        throw std::out_of_range("RandomAccess entry in RepresentationBase does not exist");
+
+    auto it = m_randomAccesses.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::randomAccessesRemove(const RandomAccess &val)
+{
+    return randomAccessesRemove(std::find(m_randomAccesses.begin(), m_randomAccesses.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::randomAccessesRemove(const std::list<RandomAccess>::const_iterator &it)
+{
+    if (it != m_randomAccesses.end()) {
+        m_randomAccesses.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::randomAccessesRemove(const std::list<RandomAccess>::iterator &it)
+{
+    if (it != m_randomAccesses.end()) {
+        m_randomAccesses.erase(it);
+    }
+    return *this;
+}
+
+const Label &RepresentationBase::groupLabel(std::list<Label>::size_type idx) const
+{
+    if (idx >= m_groupLabels.size())
+        throw std::out_of_range("GroupLabel entry in RepresentationBase does not exist");
+
+    auto it = m_groupLabels.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::groupLabelsRemove(const Label &val)
+{
+    return groupLabelsRemove(std::find(m_groupLabels.begin(), m_groupLabels.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::groupLabelsRemove(const std::list<Label>::const_iterator &it)
+{
+    if (it != m_groupLabels.end()) {
+        m_groupLabels.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::groupLabelsRemove(const std::list<Label>::iterator &it)
+{
+    if (it != m_groupLabels.end()) {
+        m_groupLabels.erase(it);
+    }
+    return *this;
+}
+
+const Label &RepresentationBase::label(std::list<Label>::size_type idx) const
+{
+    if (idx >= m_labels.size())
+        throw std::out_of_range("Label entry in RepresentationBase does not exist");
+
+    auto it = m_labels.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::labelsRemove(const Label &val)
+{
+    return labelsRemove(std::find(m_labels.begin(), m_labels.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::labelsRemove(const std::list<Label>::const_iterator &it)
+{
+    if (it != m_labels.end()) {
+        m_labels.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::labelsRemove(const std::list<Label>::iterator &it)
+{
+    if (it != m_labels.end()) {
+        m_labels.erase(it);
+    }
+    return *this;
+}
+
+const ProducerReferenceTime &RepresentationBase::producerReferenceTime(std::list<ProducerReferenceTime>::size_type idx) const
+{
+    if (idx >= m_producerReferenceTimes.size())
+        throw std::out_of_range("ProducerReferenceTime entry in RepresentationBase does not exist");
+
+    auto it = m_producerReferenceTimes.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::producerReferenceTimesRemove(const ProducerReferenceTime &val)
+{
+    return producerReferenceTimesRemove(std::find(m_producerReferenceTimes.begin(), m_producerReferenceTimes.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::producerReferenceTimesRemove(const std::list<ProducerReferenceTime>::const_iterator &it)
+{
+    if (it != m_producerReferenceTimes.end()) {
+        m_producerReferenceTimes.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::producerReferenceTimesRemove(const std::list<ProducerReferenceTime>::iterator &it)
+{
+    if (it != m_producerReferenceTimes.end()) {
+        m_producerReferenceTimes.erase(it);
+    }
+    return *this;
+}
+
+const ContentPopularityRate &RepresentationBase::contentPopularityRate(std::list<ContentPopularityRate>::size_type idx) const
+{
+    if (idx >= m_contentPopularityRates.size())
+        throw std::out_of_range("ContentPopularityRate entry in RepresentationBase does not exist");
+
+    auto it = m_contentPopularityRates.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::contentPopularityRatesRemove(const ContentPopularityRate &val)
+{
+    return contentPopularityRatesRemove(std::find(m_contentPopularityRates.begin(), m_contentPopularityRates.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::contentPopularityRatesRemove(const std::list<ContentPopularityRate>::const_iterator &it)
+{
+    if (it != m_contentPopularityRates.end()) {
+        m_contentPopularityRates.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::contentPopularityRatesRemove(const std::list<ContentPopularityRate>::iterator &it)
+{
+    if (it != m_contentPopularityRates.end()) {
+        m_contentPopularityRates.erase(it);
+    }
+    return *this;
+}
+
+const Resync &RepresentationBase::resync(std::list<Resync>::size_type idx) const
+{
+    if (idx >= m_resyncs.size())
+        throw std::out_of_range("Resync entry in RepresentationBase does not exist");
+
+    auto it = m_resyncs.begin();
+    while (idx-- > 0) it++;
+    return *it;
+}   
+      
+RepresentationBase &RepresentationBase::resyncsRemove(const Resync &val)
+{
+    return resyncsRemove(std::find(m_resyncs.begin(), m_resyncs.end(), val));
+}
+  
+RepresentationBase &RepresentationBase::resyncsRemove(const std::list<Resync>::const_iterator &it)
+{
+    if (it != m_resyncs.end()) {
+        m_resyncs.erase(it);
+    }
+    return *this;
+}
+  
+RepresentationBase &RepresentationBase::resyncsRemove(const std::list<Resync>::iterator &it)
+{
+    if (it != m_resyncs.end()) {
+        m_resyncs.erase(it);
+    }
+    return *this;
+}
+
 // protected:
 RepresentationBase::RepresentationBase(xmlpp::Node &node)
     :m_profiles()
