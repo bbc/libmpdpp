@@ -177,5 +177,11 @@ std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs
     return os;
 }
 
+std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs) &codecs)
+{   
+    os << std::string(codecs);
+    return os;
+}
+
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
