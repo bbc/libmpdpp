@@ -26,6 +26,12 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** ProducerReferenceTime class
+ *
+ * Container for %DASH %MPD schema %ProducerReferenceTimeType.
+ *
+ * @todo Add the attributes and child elements for %MetricType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API ProducerReferenceTime {
 public:
     ProducerReferenceTime();
@@ -39,12 +45,15 @@ public:
 
     bool operator==(const ProducerReferenceTime &to_compare) const;
 
+///@cond PROTECTED
 protected:
     friend class RepresentationBase;
     ProducerReferenceTime(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for %MetricType in the schema.
     // ProducerReferenceTime attributes (ISO 23009-1:2022 Clause X.X.X.X)
 
     // ProducerReferenceTime child elements (ISO 23009-1:2022 Clause X.X.X.X)

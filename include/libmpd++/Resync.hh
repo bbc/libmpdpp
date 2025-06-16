@@ -26,6 +26,12 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** Resync class
+ *
+ * Container for %DASH %MPD schema %ResyncType.
+ *
+ * @todo Add the attributes and child elements for %ResyncType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API Resync {
 public:
     Resync();
@@ -39,12 +45,15 @@ public:
 
     bool operator==(const Resync &to_compare) const;
 
+///@cond PROTECTED
 protected:
     friend class RepresentationBase;
     Resync(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TOOD: Add the attributes and child elements for %ResyncType in the schema.
     // Resync attributes (ISO 23009-1:2022 Clause X.X.X.X)
 
     // Resync child elements (ISO 23009-1:2022 Clause X.X.X.X)

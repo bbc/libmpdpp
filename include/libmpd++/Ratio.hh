@@ -28,6 +28,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** Ratio class
+ *
+ * Container for %DASH %MPD schema %RatioType.
+ */
 class LIBMPDPP_PUBLIC_API Ratio {
 public:
     using size_type = size_t;
@@ -55,10 +59,12 @@ public:
     size_type denominator() const { return m_denominator; }
     Ratio &denominator(size_type den) { m_denominator = den; return *this; }
 
+///@cond PROTECTED
 protected:
     friend class AdaptationSet;
     Ratio(xmlpp::Node &node);
     void setXMLElement(xmlpp::Element &elem) const;
+///@endcond PROTECTED
 
 private:
     void convertString(const std::string &ratio_str);

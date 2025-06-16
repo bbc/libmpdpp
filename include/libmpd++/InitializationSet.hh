@@ -31,10 +31,13 @@ class LIBMPDPP_PUBLIC_API InitializationSet {
 public:
     InitializationSet() {};
     bool operator==(const InitializationSet &other) const { return true; };
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     InitializationSet(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 };
 
 LIBMPDPP_NAMESPACE_END

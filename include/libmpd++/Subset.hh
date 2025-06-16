@@ -28,6 +28,12 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Period;
 
+/** Subset class
+ *
+ * Container for %DASH %MPD schema %SubsetType.
+ *
+ * @todo Add the attributes and child elements for %SubsetType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API Subset {
 public:
     Subset() {};
@@ -36,12 +42,15 @@ public:
 
     bool operator==(const Subset&) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     Subset(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for SubsetType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

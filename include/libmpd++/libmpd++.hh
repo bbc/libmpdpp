@@ -16,7 +16,7 @@
  * @section intro Introduction
  *
  * This library provides a model of the %MPD file structure as documented in ISO 23009-1:2022. The model hierarchy starts with the
- * \ref com::bbc::libmpdpp::MPD "MPD" class, which can also parse and output the \ref com::bbc::libmpdpp::MPD "MPD" as %MPD XML
+ * @ref com::bbc::libmpdpp::MPD "MPD" class, which can also parse and output the @ref com::bbc::libmpdpp::MPD "MPD" as %MPD XML
  * using the libxml++ library.
  *
  * @section mainBuilding Building the library

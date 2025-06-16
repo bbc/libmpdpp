@@ -28,6 +28,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** SAP class
+ *
+ * Container for %DASH %MPD schema %SAPType.
+ */
 class LIBMPDPP_PUBLIC_API SAP {
 public:
     using value_type = unsigned int;
@@ -51,10 +55,12 @@ public:
 
     SAP &value(value_type val);
 
+///@cond PROTECTED
 protected:
     friend class AdaptationSet;
     SAP(xmlpp::Node &node);
     void setXMLElement(xmlpp::Element &elem) const;
+///@endcond PROTECTED
 
 private:
     void convertString(const std::string &sap_str);

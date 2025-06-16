@@ -28,18 +28,27 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Period;
 
+/** SegmentType class
+ *
+ * Container for %DASH %MPD schema %SegmentTypeType.
+ *
+ * @todo Add the attributes and child elements for %SegmentTypeType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API SegmentType {
 public:
     SegmentType() {};
 
     virtual ~SegmentType() {};
 
+///@cond PROTECTED
 protected:
     friend class Period;
     SegmentType(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for %SegmentTypeType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

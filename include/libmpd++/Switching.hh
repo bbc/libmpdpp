@@ -26,6 +26,12 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** Switching class
+ *
+ * Container for %DASH %MPD schema %SwitchingType.
+ *
+ * @todo Add the attributes and child elements for %SwitchingType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API Switching {
 public:
     Switching();
@@ -39,12 +45,15 @@ public:
 
     bool operator==(const Switching &to_compare) const;
 
+///@cond PROTECTED
 protected:
     friend class RepresentationBase;
     Switching(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for %SwitchingType in the schema.
     // Switching attributes (ISO 23009-1:2022 Clause X.X.X.X)
 
     // Switching child elements (ISO 23009-1:2022 Clause X.X.X.X)

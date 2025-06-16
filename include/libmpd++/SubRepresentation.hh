@@ -28,6 +28,12 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Representation;
 
+/** SubRepresentation class
+ *
+ * Container for %DASH %MPD schema %SubRepresentationType.
+ *
+ * @todo Add the attributes and child elements for %SubRepresentationType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API SubRepresentation {
 public:
     SubRepresentation() {};
@@ -36,12 +42,15 @@ public:
 
     bool operator==(const SubRepresentation&) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class Representation;
     SubRepresentation(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for SubRepresentationType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

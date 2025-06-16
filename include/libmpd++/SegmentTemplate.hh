@@ -32,8 +32,16 @@ LIBMPDPP_NAMESPACE_BEGIN
 class AdaptationSet;
 class Representation;
 
+/** SegmentTemplate class
+ *
+ * Container for %DASH %MPD schema %SegmentTemplateType.
+ */
 class LIBMPDPP_PUBLIC_API SegmentTemplate : public MultipleSegmentBase {
 public:
+    /** SegmentTemplate::Variables class
+     *
+     * Holds variables used in applying SegmentTemplate attributes to create formatted %URLs.
+     */
     class Variables {
     public:
         using duration_type = std::chrono::microseconds;
@@ -168,12 +176,14 @@ public:
     SegmentTemplate &bitstreamSwitching(const std::string &val) { m_bitstreamSwitching = val; return *this; };
     SegmentTemplate &bitstreamSwitching(std::string &&val) { m_bitstreamSwitching = std::move(val); return *this; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class AdaptationSet;
     friend class Representation;
     SegmentTemplate(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     std::string formatTemplate(const std::string &fmt, const Variables &vars) const;

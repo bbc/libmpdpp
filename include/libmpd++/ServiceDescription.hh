@@ -27,15 +27,27 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** ServiceDescription class
+ *
+ * Container for %DASH %MPD schema %ServiceDescriptionType.
+ *
+ * @todo Add the attributes and child elements for %ServiceDescriptionType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API ServiceDescription {
 public:
     ServiceDescription() {};
     bool operator==(const ServiceDescription &other) const { return true; };
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     friend class Period;
     ServiceDescription(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
+
+private:
+    // TODO: Add the attributes and child elements for %ServiceDescriptionType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

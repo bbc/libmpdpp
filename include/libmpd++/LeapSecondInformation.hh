@@ -27,13 +27,25 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** LeapSecondInformation class
+ *
+ * Container for %LeapSecondInformation elements in %DASH %MPDs.
+ *
+ * @todo Add the attributes and child elements for LeapSecondInformation.
+ */
 class LIBMPDPP_PUBLIC_API LeapSecondInformation {
 public:
     LIBMPDPP_PUBLIC_API LeapSecondInformation() {};
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     LeapSecondInformation(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
+
+private:
+    // TODO: add the attributes and child elements for LeapSecondInformation
 };
 
 LIBMPDPP_NAMESPACE_END

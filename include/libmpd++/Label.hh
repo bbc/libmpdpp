@@ -28,6 +28,12 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Period;
 
+/** Label class
+ *
+ * Container for %Label elements from an %MPD.
+ *
+ * @todo Add the attributes and children.
+ */
 class LIBMPDPP_PUBLIC_API Label {
 public:
     Label() {};
@@ -36,13 +42,16 @@ public:
 
     bool operator==(const Label&) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class RepresentationBase;
     Label(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for Label
 };
 
 LIBMPDPP_NAMESPACE_END

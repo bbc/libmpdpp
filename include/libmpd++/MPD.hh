@@ -35,44 +35,318 @@
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** MPD class
+ *
+ * This is the top level class for parsing, manipulating and outputting MPDs.
+ *
+ * Use this class to parse an existing MPD file or in-memory block, or create a new MPD.
+ *
+ * @section MPD_examples Example code
+ *
+ * To read an MPD from a named file:
+ * @code{.cpp}
+ * #include <string>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     const std::string filename("/path/to/manifest.mpd");
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(filename, original_url);
+ * }
+ * @endcode
+ *
+ * To read from an input stream:
+ * @code{.cpp}
+ * #include <fstream>
+ * #include <string>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     std::ifstream infile("/path/to/manifest.mpd");
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(infile, original_url);
+ * }
+ * @endcode
+ *
+ * To read from memory:
+ * @code{.cpp}
+ * #include <string>
+ * #include <vector>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     std::string mpd_text("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+ *         "<MPD xmlns=\"urn:mpeg:dash:schema:mpd:2011\" type=\"dynamic\" minBufferTime=\"PT10S\"\n"
+ *         "     profiles=\"urn:dvb:dash:profile:dvb-dash:isoff-ext-live:2014\">\n"
+ *         "  <Period id=\"1\" start=\"PT0S\"/>\n"
+ *         "</MPD>\n"
+ *     );
+ *     std::vector<char> mpd_vec(mpd_text.data(), mpd_text.data() + mpd_text.size());
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(mpd_vec, original_url);
+ * }
+ * @endcode
+ *
+ * To create a new MPD:
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ * }
+ * @endcode
+ *
+ * Output to a stream (compact XML form):
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ *
+ *     std::cout << MPD::compact << mpd;
+ * }
+ * @endcode
+ *
+ * Output to a stream (pretty XML form):
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ *
+ *     std::cout << mpd << std::endl; // pretty output is the default if MPD::compact has not previsouly been used in the stream
+ *
+ *     // if MPD::compact has been used previously then MPD::pretty can be use to change back to pretty format
+ *     std::cout << MPD::compact;
+ *     std::cout << MPD::pretty << mpd << std::endl;
+ * }
+ * @endcode
+ */
 class LIBMPDPP_PUBLIC_API MPD {
 public:
-    using time_type = std::chrono::system_clock::time_point;
-    using duration_type = std::chrono::microseconds;
+    using time_type = std::chrono::system_clock::time_point; ///< Date-time type used in the MPD
+    using duration_type = std::chrono::microseconds;         ///< Time duration type used in the MPD
+
+    /** MPD @@presentationType values enumeration
+     */
     enum PresentationType {
-        STATIC,
-        DYNAMIC
+        STATIC,  ///< Presentation is static (unchanging, e.g. video on demand)
+        DYNAMIC  ///< Presentation is dynamic (can change during playback, e.g. live stream)
     };
 
+    /** Default constructor
+     * 
+     * This is removed to force mandatory parameters in the MPD to be filled in.
+     */
     MPD() = delete;
+
+    /**@{*/
+    /** Value constructor
+     *
+     * This creates a new MPD with the mandatory values from @p minimum_buffer_time, @p profile, @p period and @p presentation_type.
+     *
+     * @param minimum_buffer_time The duration for the minimum buffer time.
+     * @param profile The profile URN.
+     * @param period A Period for this MPD.
+     * @param presentation_type The presentation type of the MPD, either MPD::STATIC or MPD::DYNAMIC. If not given then MPD::STATIC
+     *                          is used as the default.
+     */
     MPD(const duration_type &minimum_buffer_time, const URI &profile, const Period &period, PresentationType presentation_type = STATIC);
     MPD(const duration_type &minimum_buffer_time, const URI &profile, Period &&period, PresentationType presentation_type = STATIC);
+    /**@}*/
+
+    /** Construct from an input stream
+     *
+     * @param input_stream The stream to parse the MPD XML from.
+     * @param mpd_location The URL the MPD was obtained from.
+     */
     MPD(std::istream &input_stream, const std::optional<URI> &mpd_location = std::nullopt);
+
+    /**@{*/
+    /** Construct from MPD XML in memory
+     *
+     * @param mpd_xml The vector containing the MPD XML.
+     * @param mpd_location The URL the MPD was obtained from.
+     */
     MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_location = std::nullopt);
     MPD(const std::vector<unsigned char> &mpd_xml, const std::optional<URI> &mpd_location = std::nullopt);
+    /**@}*/
+
+    /** Construct from an MPD XML file
+     *
+     * @param filename The file path of the MPD XML file.
+     * @param mpd_location The URL the MPD was obtained from.
+     */
     MPD(const std::string &filename, const std::optional<URI> &mpd_location = std::nullopt);
+
+    /** Copy constructor
+     * 
+     * @param other The MPD to make a new copy of.
+     */
     MPD(const MPD &other);
+
+    /** Move constructor
+     *
+     * @param other The MPD to take the resources and values from to create a new MPD.
+     */
     MPD(MPD &&other);
 
+    /** Destructor
+     */
     virtual ~MPD();
 
+    /** Copy operator
+     * 
+     * @param other The MPD to copy into this one.
+     * @return This MPD.
+     */
     MPD &operator=(const MPD &other);
+
+    /** Move operator
+     * 
+     * @param other The MPD to take the resources and values from to set in this MPD.
+     * @return This MPD.
+     */
     MPD &operator=(MPD &&other);
 
+    /** Equality operator
+     * 
+     * @param other The MPD to compare to this MPD.
+     * @return `true` if the @p other MPD represents the same value as this MPD.
+     */
     bool operator==(const MPD &other) const;
 
+    /** Check if a source location URL has been set for this MPD
+     *
+     * Check if the source URL has been set by either using the @ref MPD::sourceURL setters or by providing the @p mpd_location to
+     * an MPD::MPD() constructor.
+     *
+     * @return `true` if a source URL has been set, otherwise `false`.
+     * @see MPD::MPD(std::istream&, const std::optional<URI>&)
+     * @see MPD::MPD(const std::vector<char>&, const std::optional<URI>&)
+     * @see MPD::MPD(const std::vector<unsigned char>&, const std::optional<URI>&)
+     * @see MPD::MPD(const std::string&, const std::optional<URI>&)
+     * @see MPD::sourceURL(const std::nullopt_t&)
+     * @see MPD::sourceURL(const URI&)
+     * @see MPD::sourceURL(URI&&)
+     * @see MPD::sourceURL(const std::optional<URI>&)
+     * @see MPD::sourceURL(std::optional<URI>&&)
+     */
     bool hasSourceURL() const { return m_mpdURL.has_value(); };
-    const URI &sourceURL(const URI &default_val) const { if (!m_mpdURL.has_value()) return default_val; return m_mpdURL.value(); };
+
+    /** Get the optional source URL
+     *
+     * @return The optional source URL.
+     */
     const std::optional<URI> &sourceURL() const { return m_mpdURL; };
+
+    /** Unset the source URL
+     *
+     * Will remove, if set, the source URL from this MPD.
+     *
+     * @return This MPD.
+     */
     MPD &sourceURL(const std::nullopt_t &) { m_mpdURL.reset(); return *this; };
+
+    /**@{*/
+    /** Set the source URL
+     *
+     * @param url The URL to set as the source URL for this MPD.
+     */
     MPD &sourceURL(const URI &url) { m_mpdURL = url; return *this; };
     MPD &sourceURL(URI &&url) { m_mpdURL = std::move(url); return *this; };
     MPD &sourceURL(const std::optional<URI> &url) { m_mpdURL = url; return *this; };
     MPD &sourceURL(std::optional<URI> &&url) { m_mpdURL = std::move(url); return *this; };
+    /**@}*/
 
+    /** Check if this is a live MPD
+     *
+     * Check if this is a live or on-demand MPD by checking the @@presentationType and @@profiles attributes.
+     *
+     * @return `true` if the presentation type is dynamic and the profile matches one of the known live profiles, otherwise `false`.
+     */
     bool isLive() const;
+
+    /** Get the MPD as an XML document string
+     * 
+     * If @p compact_form is `true` then the returned string will omit unnecessary white-space to make the returnned string more
+     * compact. If @p compact_form is `false` then a more human readable indented form of the XML is returned.
+     *
+     * @param compact_form `true` for a compact XML string, `false` for a more readable response.
+     * @return The XML representation of the MPD.
+     */
     std::string asXML(bool compact_form) const;
+
+    /** Stream manipulator to switch MPD XML streaming to compact form
+     * 
+     * This will make any subsequent MPD streamed to the std::ostream do so in a compact form.
+     *
+     * For example the following are both equivalent:
+     * @code{.cpp}
+     * os << MPD::compact << mpd;
+     * os << mpd.asXML(true);
+     * @endcode
+     *
+     * @param os The std::ostream that will be used to output the XML representation of the MPD to at a later time.
+     * @return @p os.
+     */
     static std::ostream &compact(std::ostream &os);
+
+    /** Stream manipulator to switch MPD XML streaming to pretty form
+     * 
+     * This will make any subsequent MPD streamed to the std::ostream do so in a pretty form.
+     *
+     * For example the following are both equivalent:
+     * @code{.cpp}
+     * os << MPD::pretty << mpd;
+     * os << mpd.asXML(false);
+     * @endcode
+     *
+     * @param os The std::ostream that will be used to output the XML representation of the MPD to at a later time.
+     * @return @p os.
+     */
     static std::ostream &pretty(std::ostream &os);
 
     bool hasId() const { return m_id.has_value(); };
@@ -193,6 +467,18 @@ public:
     MPD &baseURLRemove(const BaseURL &base_url);
     MPD &baseURLRemove(const std::list<BaseURL>::const_iterator &);
     MPD &baseURLRemove(const std::list<BaseURL>::iterator &);
+
+    /** Get the combined BaseURLs
+     *
+     * This will get the list of BaseURL elements, which are children of the MPD, with their %URLs resolved using the MPD source
+     * %URL as the base %URL, i.e. relative BaseURL entries will be resolved using the sourceURL() value (as set by the controlling
+     * application).
+     *
+     * If there are no BaseURLs set, then the return value is copied from the source %URL. If a source URL has been set then a
+     * single entry is returned with the source %URL in it, otherwise an empty list is returned.
+     *
+     * @return The list of BaseURL values applicable at the MPD level.
+     */
     std::list<BaseURL> getBaseURLs() const;
 
     const std::list<URI> &locations() const { return m_locations; };
@@ -337,20 +623,57 @@ public:
     MPD &leapSecondInformation(LeapSecondInformation &&val) { m_leapSecondInformation = std::move(val); return *this; };
     MPD &leapSecondInformation(const std::nullopt_t&) { m_leapSecondInformation.reset(); return *this; };
 
+    /** Select all %Representations
+     * 
+     * This will mark every Representation in every AdaptationSet in every Period as selected.
+     */
     void selectAllRepresentations();
+
+    /** Deselect all %Represtations
+     *
+     * This will remove every Representation in every AdaptationSet in every Period from the set of selected Representations.
+     */
     void deselectAllRepresentations();
 
+    /** Get the list of all selected Representation objects
+     * 
+     * @return The list of all currently selected @ref Representation "Representations" across all @ref Period "Periods".
+     */
     std::unordered_set<const Representation*> selectedRepresentations() const;
 
+    /** Get the media segment availability
+     *
+     * Gets the list of the segment URLs and their availability for the next segments available on or after @p query_time.
+     * If an empty list is returned then the @p query_time represents a time after the last segment is available.
+     *
+     * @param query_time The time to perform the query for, for live MPDs this is the wallclock time, for on-demand MPDs this is
+     *                   the stream offset assuming the stream starts from the epoch.
+     * @return The list of the next available segments.
+     */
     std::list<SegmentAvailability> selectedSegmentAvailability(const time_type &query_time = std::chrono::system_clock::now()) const;
+
+    /** Get the initialization segment availability
+     *
+     * Gets the list of the initialisation segment URLs and their availability for the Period into which @p query_time falls.
+     * If an empty list is returned then the @p query_time represents a time after the MPD availablility end time or there are no
+     * initialization segments in this MPD.
+     *
+     * @param query_time The time to perform the query for, for live MPDs this is the wallclock time, for on-demand MPDs this is
+     *                   the stream offset assuming the stream starts from the epoch.
+     * @return The list of the next available segments.
+     */
     std::list<SegmentAvailability> selectedInitializationSegments(const time_type &query_time = std::chrono::system_clock::now()) const;
 
+/**@cond PROTECTED
+ */
 protected:
     friend class Period;
     friend class AdaptationSet;
     friend class Representation;
     time_type systemTimeToPresentationTime(const time_type &system_time) const; // Returns presentation time
     time_type presentationTimeToSystemTime(const time_type &pres_time) const; // Returns system wallclock time
+/** @endcond PROTECTED
+ */
 
 private:
     void extractMPD(void *doc);
@@ -389,9 +712,9 @@ private:
     std::optional<LeapSecondInformation> m_leapSecondInformation;
 
     // MPD original location (if known)
-    std::optional<URI> m_mpdURL;
+    std::optional<URI> m_mpdURL;   ///< original location URL as given in the constructor or using the sourceURL() methods
 
-    // Cache values (can change even in const object)
+    // Cache values (can change, even in const object, hence the pointer)
     struct Cache {
         Cache();
         bool haveUtcTimingOffsetFromSystemClock;      // Indicate if we've fetched UTCTimings before now

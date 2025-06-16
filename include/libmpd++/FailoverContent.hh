@@ -36,10 +36,12 @@ public:
 
     bool operator==(const FailoverContent &) const { return true; };
 
+///@cond PROTECTED
 protected:
     friend class SegmentBase;
     FailoverContent(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
 };

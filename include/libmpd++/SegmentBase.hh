@@ -33,6 +33,10 @@ LIBMPDPP_NAMESPACE_BEGIN
 class AdaptationSet;
 class Representation;
 
+/** SegmentBase class
+ *
+ * Container for %DASH %MPD schema %SegmentBaseType.
+ */
 class LIBMPDPP_PUBLIC_API SegmentBase {
 public:
     using duration_type = std::chrono::microseconds;
@@ -127,12 +131,14 @@ public:
     SegmentBase &failoverContent(const FailoverContent &val) { m_failoverContent = val; return *this; };
     SegmentBase &failoverContent(FailoverContent &&val) { m_failoverContent = std::move(val); return *this; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class Representation;
     friend class AdaptationSet;
     SegmentBase(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // SegmentBase element from ISO 23009-1:2022 Clause 5.3.9.2.3

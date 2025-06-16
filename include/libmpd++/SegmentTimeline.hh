@@ -31,10 +31,18 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** SegmentTimeline class
+ *
+ * Container for %DASH %MPD schema %SegmentTimelineType.
+ */
 class LIBMPDPP_PUBLIC_API SegmentTimeline {
 public:
     using duration_type = std::chrono::microseconds;
 
+    /** SegmentTimeline::S class
+     *
+     * Container for %DASH %MPD schema %SType.
+     */
     class LIBMPDPP_PUBLIC_API S {
     public:
         S();
@@ -48,10 +56,12 @@ public:
 
         bool operator==(const S&) const;
 
+    ///@cond PROTECTED
     protected:
         friend class SegmentTimeline;
         S(xmlpp::Node&);
         void setXMLElement(xmlpp::Element&) const;
+    ///@endcond PROTECTED
 
     private:
         // S element type ISO 23009-1:2022 Clause 5.3.9.6.3
@@ -73,10 +83,12 @@ public:
 
     bool operator==(const SegmentTimeline &other) const { return m_sLines == other.m_sLines; };
 
+///@cond PROTECTED
 protected:
     friend class MultipleSegmentBase;
     SegmentTimeline(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // SegmentTimeline element from ISO 23009-1:2022 Clause 5.3.9.6.3

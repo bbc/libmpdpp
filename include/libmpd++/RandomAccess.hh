@@ -26,6 +26,12 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** RandomAccess class
+ *
+ * Container for %DASH %MPD schema %RandomAccessType.
+ *
+ * @todo Add the attributes and child elements for %RandomAccessType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API RandomAccess {
 public:
     RandomAccess();
@@ -39,12 +45,15 @@ public:
 
     bool operator==(const RandomAccess &to_compare) const;
 
+///@cond PROTECTED
 protected:
     friend class RepresentationBase;
     RandomAccess(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
+    // TODO: Add the attributes and child elements for %RandomAccessType in the schema.
     // RandomAccess attributes (ISO 23009-1:2022 Clause X.X.X.X)
 
     // RandomAccess child elements (ISO 23009-1:2022 Clause X.X.X.X)

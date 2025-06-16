@@ -27,6 +27,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** RFC6838ContentType class
+ *
+ * Container for %DASH %MPD schema %RFC6838ContentTypeType.
+ */
 class LIBMPDPP_PUBLIC_API RFC6838ContentType {
 public:
     RFC6838ContentType(const std::string &value);
@@ -36,10 +40,12 @@ public:
     const std::string &value() const { return m_value; }
     RFC6838ContentType &value(const std::string &val);
 
+///@cond PROTECTED
 protected:
     friend class AdaptationSet;
     RFC6838ContentType(xmlpp::Node &node);
     void setXMLElement(xmlpp::Element &elem) const;
+///@endcond PROTECTED
 
 private:
     void convertString(const std::string &val);

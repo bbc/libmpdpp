@@ -30,6 +30,10 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class BaseURL;
 
+/** URI class
+ *
+ * Container for %DASH %MPD schema %URIType
+ */
 class LIBMPDPP_PUBLIC_API URI {
 public:
     URI() :m_uri() {};
@@ -55,6 +59,7 @@ public:
     bool isURL() const;
     bool isAbsoluteURL() const;
 
+///@cond PROTECTED
 protected:
     friend class MPD;
     friend class Period;
@@ -64,6 +69,7 @@ protected:
     friend class SegmentBase;
     URI(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     void validate();

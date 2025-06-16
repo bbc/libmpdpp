@@ -27,14 +27,26 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** UIntVWithID class
+ *
+ * Container for %DASH %MPD schema %UIntVWithIDType.
+ *
+ * @todo Add the attributes and child elements for %UIntVWithIDType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API UIntVWithID {
 public:
     UIntVWithID() {};
     bool operator==(const UIntVWithID &other) const { return true; };
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     UIntVWithID(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
+
+private:
+    // TODO: Add the attributes and child elements for %UIntVWithIDType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

@@ -29,6 +29,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** URL class
+ *
+ * Container for %DASH %MPD schema %URLType (ISO 23009-1:2022 Clause 5.3.9.2.3).
+ */
 class LIBMPDPP_PUBLIC_API URL {
 public:
     URL();
@@ -56,6 +60,7 @@ public:
     URL &range(const SingleRFC7233Range &val) { m_range = val; return *this; };
     URL &range(SingleRFC7233Range &&val) { m_range = std::move(val); return *this; };
 
+///@cond PROTECTED
 protected:
     friend class MPD;
     friend class Period;
@@ -66,6 +71,7 @@ protected:
     friend class MultipleSegmentBase;
     URL(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // URLType from ISO 23009-1:2022 Clause 5.3.9.2.3

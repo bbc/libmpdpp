@@ -29,6 +29,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** MultipleSegmentBase class
+ *
+ * Container for %DASH %MPD schema %MultipleSegmentBaseType.
+ */
 class LIBMPDPP_PUBLIC_API MultipleSegmentBase : public SegmentBase {
 public:
     using duration_type = SegmentBase::duration_type;
@@ -89,9 +93,11 @@ public:
     // Get segment number that contains the wallclock duration since Period start
     unsigned long durationTypeToSegmentNumber(const duration_type &offset) const;
 
+///@cond PROTECTED
 protected:
     MultipleSegmentBase(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // MultipleSegmentBase element from ISO 23009-1:2022 Clause 5.3.9.2.3

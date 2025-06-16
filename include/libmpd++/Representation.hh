@@ -46,27 +46,95 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** Representation class
+ *
+ * This is the container for %Representation elements from an %MPD.
+ */
 class LIBMPDPP_PUBLIC_API Representation : public RepresentationBase {
 public:
-    using time_type = std::chrono::system_clock::time_point;
-    using duration_type = std::chrono::microseconds;
+    using time_type = std::chrono::system_clock::time_point; ///< The type used to represent date-time values in this class
+    using duration_type = std::chrono::microseconds;         ///< The type used to represent duration values in this class
 
+    /** Default constructor
+     *
+     * Create an empty Representation object
+     */
     Representation();
+
+    /** Copy constructor
+     *
+     * Create a new Representation as a copy of @p to_copy.
+     *
+     * @param to_copy The Representation object to copy into the new Representation.
+     */
     Representation(const Representation &to_copy);
+
+    /** Move constructor
+     *
+     * Create a new Representation using the values and resources of @p to_move.
+     *
+     * @param to_move The Representation object take the values and resources from to create the new Representation.
+     */
     Representation(Representation &&to_move);
 
+    /** Destructor
+     */
     virtual ~Representation() {};
 
+    /** Copy operator
+     *
+     * Make this Representation a copy of @p to_copy.
+     *
+     * @param to_copy The Representation object to copy into this Representation.
+     * @return This Representation.
+     */
     Representation &operator=(const Representation &to_copy);
+
+    /** Move operator
+     *
+     * Make this Representation a copy of @p to_move by moving the values and resources.
+     *
+     * @param to_move The Representation object to move into this Representation.
+     * @return This Representation.
+     */
     Representation &operator=(Representation &&to_move);
 
+    /** Equality operator
+     *
+     * Check if @p to_compare contains the same value as this Representation.
+     *
+     * @param to_compare The other Representation to compare to this Representation.
+     * @return `true` if the values match, otherwise `false`.
+     */
     bool operator==(const Representation &to_compare) const;
 
+    /**@{*/
+    /** Get the MPD this Representation is attached to
+     *
+     * Gets the MPD object this Representation is attached to. This is the equivalent of:
+     * @code{.cpp}
+     * getAdaptationSet() ? getAdaptationSet()->getMPD() : nullptr
+     * @endcode
+     *
+     * @return The MPD this Representation is part of or `nullptr`
+     */
     MPD *getMPD();
     const MPD *getMPD() const;
+    /**@}*/
 
+    /**@{*/
+    /** Get the Period this Representation is attached to
+     *
+     * Gets the Period object this Representation is attached to. This is the equivalent of:
+     * @code{.cpp}
+     * getAdaptationSet() ? getAdaptationSet()->getPeriod() : nullptr
+     * @endcode
+     *
+     * @return The Period this Representation is part of or `nullptr`.
+     */
     Period *getPeriod();
     const Period *getPeriod() const;
+    /**@}*/
 
     const std::string &id() const { return m_id; };
     Representation &id(const std::string &id) { m_id = id; return *this; };
@@ -89,8 +157,17 @@ public:
 
     const std::list<std::string> &mediaStreamStructureId() const { return m_mediaStreamStructureIds; };
 
+    /**@{*/
+    /** Get the AdaptationSet this Representation is attached to
+     *
+     * Gets the AdaptationSet object that this Representation is a child of. If the Representation has not been added to an
+     * AdaptationSet then `nullptr` is returned.
+     *
+     * @return The AdaptationSet this Representation is part of or `nullptr`.
+     */
     AdaptationSet *getAdaptationSet() { return m_adaptationSet; };
     const AdaptationSet *getAdaptationSet() const { return m_adaptationSet; };
+    /**@}*/
 
     /** Get media URL
      *
@@ -156,11 +233,13 @@ public:
      */
     SegmentAvailability initialisationSegmentAvailability() const;
 
+///@cond PROTECTED
 protected:
     friend class AdaptationSet;
     Representation(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
     void setAdaptationSet(AdaptationSet *);
+///@endcond PROTECTED
 
 private:
     SegmentTemplate::Variables getTemplateVars() const;
@@ -170,7 +249,7 @@ private:
     std::optional<duration_type> getPeriodDuration() const;
     const MultipleSegmentBase &getMultiSegmentBase() const;
 
-    AdaptationSet                 *m_adaptationSet;
+    AdaptationSet                 *m_adaptationSet;       ///< The AdaptationSet this Representation is part of or `nullptr`
 
     // Representation attributes (ISO 23009-1:2022 Table 9)
     std::string                    m_id;

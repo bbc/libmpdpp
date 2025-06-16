@@ -54,6 +54,7 @@ public:
     size_type denominator() const { return m_denominator; }
     FrameRate &denominator(size_type den) { m_denominator = den; return *this; }
 
+///@cond PROTECTED
 protected:
     friend class AdaptationSet;
     // Construct from an XML node; extracts the text content and converts.
@@ -61,6 +62,7 @@ protected:
 
     // Sets the XML element’s text to the string representation of this frame rate.
     void setXMLElement(xmlpp::Element &elem) const;
+///@endcond PROTECTED
 
 private:
     // Converts a frame rate string into numeric components.

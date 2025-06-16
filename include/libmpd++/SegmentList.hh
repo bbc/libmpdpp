@@ -33,6 +33,10 @@ class Period;
 class AdaptationSet;
 class Representation;
 
+/** SegmentList class
+ *
+ * Container for %DASH %MPD schema %SegmentListType.
+ */
 class LIBMPDPP_PUBLIC_API SegmentList : public MultipleSegmentBase {
 public:
     using duration_type = MultipleSegmentBase::duration_type;
@@ -97,12 +101,14 @@ public:
     const std::string &getMediaURLForSegmentTime(const duration_type &time) const;
     const std::string &getInitializationURL() const;
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class Representation;
     friend class AdaptationSet;
     SegmentList(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // SegmentList derived from XML schema in ISO 23009-1:2022 Clause 5.3.9.3.3

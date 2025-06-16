@@ -27,14 +27,26 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** ProgramInformation class
+ *
+ * Container for %DASH %MPD schema %ProgramInformationType.
+ *
+ * @todo Add the attributes and child elements for %ProgramInformationType in the schema.
+ */
 class LIBMPDPP_PUBLIC_API ProgramInformation {
 public:
     ProgramInformation() {};
     bool operator==(const ProgramInformation &other) const { return true; };
+
+///@cond PROTECTED
 protected:
     friend class MPD;
     ProgramInformation(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
+
+private:
+    // TODO: Add the attributes and child elements for %ProgramInformationType in the schema.
 };
 
 LIBMPDPP_NAMESPACE_END

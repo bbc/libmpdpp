@@ -27,6 +27,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** SingleRFC7233Range class
+ *
+ * Container for %DASH %MPD schema %SingleRFC7233RangeType.
+ */
 class LIBMPDPP_PUBLIC_API SingleRFC7233Range {
 public:
     using size_type = size_t;
@@ -55,10 +59,12 @@ public:
     SingleRFC7233Range &to(const std::nullopt_t&) { m_toByte.reset(); return *this; };
     SingleRFC7233Range &to(size_type val) { m_toByte = val; return *this; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     SingleRFC7233Range(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     void convertString(const std::string&);

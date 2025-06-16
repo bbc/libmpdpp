@@ -29,6 +29,12 @@ LIBMPDPP_NAMESPACE_BEGIN
 class Period;
 class AdaptationSet;
 
+/** XLink class
+ *
+ * This class aims to provide XLink functionality to %DASH %MPD elements that use it.
+ *
+ * @todo Add code to use curl to fetch additional resources according to the XLink parameters set.
+ */
 class LIBMPDPP_PUBLIC_API XLink {
 public:
     enum ActuateEnum {
@@ -96,11 +102,13 @@ public:
 
     const ShowEnum show() const { return m_show; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     friend class AdaptationSet;
     //XLink(xmlpp::Node&);
     //void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     URI m_href;

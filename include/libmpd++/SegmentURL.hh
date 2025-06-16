@@ -29,6 +29,10 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** SegmentURL class
+ *
+ * Container for %DASH %MPD schema %SegmentURLType.
+ */
 class LIBMPDPP_PUBLIC_API SegmentURL {
 public:
     SegmentURL();
@@ -70,10 +74,12 @@ public:
     SegmentURL &indexRange(const SingleRFC7233Range &val) { m_indexRange = val; return *this; };
     SegmentURL &indexRange(SingleRFC7233Range &&val) { m_indexRange = std::move(val); return *this; };
 
+///@cond PROTECTED
 protected:
     friend class Period;
     SegmentURL(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
+///@endcond PROTECTED
 
 private:
     // SegmentURL element from ISO 23009-1:2022 Clause 5.3.9.3.3
