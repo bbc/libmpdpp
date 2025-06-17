@@ -123,6 +123,38 @@ Codecs::operator std::string() const
     return oss.str();
 }
 
+const std::string &Codecs::codec(std::list<std::string>::size_type idx) const
+{
+    if (idx >= m_codecs.size()) {
+        throw std::out_of_range("The requested codec index does not exist in Codecs object");
+    }
+
+    auto it = m_codecs.begin();
+    while (idx > 0 && it != m_codecs.end()) {it++; idx--;}
+    return *it;
+}
+
+Codecs &Codecs::codecsRemove(const std::string &codec)
+{
+    return codecsRemove(std::find(m_codecs.begin(), m_codecs.end(), codec));
+}
+
+Codecs &Codecs::codecsRemove(const std::list<std::string>::const_iterator &it)
+{
+    if (it != m_codecs.cend()) {
+        m_codecs.erase(it);
+    }
+    return *this;
+}
+
+Codecs &Codecs::codecsRemove(const std::list<std::string>::iterator &it)
+{
+    if (it != m_codecs.end()) {
+        m_codecs.erase(it);
+    }
+    return *this;
+}
+
 static std::string pct_encode(const std::string &s)
 {
     std::string ret(s);

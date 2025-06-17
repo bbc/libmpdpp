@@ -47,6 +47,8 @@ LIBMPDPP_NAMESPACE_BEGIN
 /** @brief RepresentationBase class
  *
  * This is a container for the common attributes and elements for AdaptationSet and Representation as described in ISO 23009-1:2022.
+ *
+ * The %DASH %MPD %XML schema definition for %RepresentationBaseType can be found in ISO 23009-1:2022 Clause 5.3.7.3.
  */
 class LIBMPDPP_PUBLIC_API RepresentationBase {
 public:
@@ -110,8 +112,6 @@ public:
      * @return `true` if this RepresentationBase has the same values as @a to_compare.
      */
     bool operator==(const RepresentationBase &to_compare) const;
-
-    // TODO: provide accessors for the attribute and child element values
 
     // @profiles
 

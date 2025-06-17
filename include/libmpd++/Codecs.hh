@@ -28,6 +28,8 @@ public:
     /** Codecs encoding values
      * 
      * This models the character set and language encodings for extended @@codecs attribute values.
+     *
+     * This is a container for the %CodecsType from the %DASH %MPD %XML schema from ISO 23009-1:2022 Clause 5.3.7.3.
      */
     class Encoding {
     public:
@@ -187,7 +189,104 @@ public:
      */
     operator std::string() const;
 
-    //TODO: Add accessors for the encoding and codecs
+    /** Check if this Codecs list has an encoding set
+     *
+     * @return `true` if an Encoding object is set on this Codecs list object.
+     */
+    bool hasEncoding() const { return m_encoding.has_value(); };
+
+    /** Get the codecs encoding
+     *
+     * @return The optional codecs encoding.
+     */
+    const std::optional<Encoding> &encoding() const { return m_encoding; };
+
+    /** Unset the codec encoding
+     *
+     * Remove any encoding set on this Codecs object.
+     *
+     * @return This Codecs object.
+     */
+    Codecs &encoding(const std::nullopt_t &) { m_encoding.reset(); return *this; };
+
+    /**@{*/
+    /** Set the codec encoding
+     *
+     * @param enc The encoding to set for this Codecs object.
+     * @return This Codecs object.
+     */
+    Codecs &encoding(const Encoding &enc) { m_encoding = enc; return *this; };
+    Codecs &encoding(Encoding &&enc) { m_encoding = std::move(enc); return *this; };
+    Codecs &encoding(const std::optional<Encoding> &enc) { m_encoding = enc; return *this; };
+    Codecs &encoding(std::optional<Encoding> &&enc) { m_encoding = std::move(enc); return *this; };
+    /**@}*/
+
+    /** Get the codecs list
+     *
+     * @return ths codecs list for this Codecs list object.
+     */
+    const std::list<std::string> &codecs() const { return m_codecs; };
+
+    /**@{*/
+    /** Get an iterator for the start of the Codecs list
+     *
+     * @return An iterator pointing to the start of the Codecs list.
+     */
+    std::list<std::string>::const_iterator cbegin() const { return m_codecs.cbegin(); };
+    std::list<std::string>::const_iterator begin() const { return m_codecs.cbegin(); };
+    std::list<std::string>::iterator begin() { return m_codecs.begin(); };
+    std::list<std::string>::const_iterator codecsBegin() const { return m_codecs.cbegin(); };
+    std::list<std::string>::iterator codecsBegin() { return m_codecs.begin(); };
+    /**@}*/
+
+    /**@{*/
+    /** Get an iterator for the end of the Codecs list
+     *
+     * @return An iterator pointing to the end of the Codecs list.
+     */
+    std::list<std::string>::const_iterator cend() const { return m_codecs.cend(); };
+    std::list<std::string>::const_iterator end() const { return m_codecs.cend(); };
+    std::list<std::string>::iterator end() { return m_codecs.end(); };
+    std::list<std::string>::const_iterator codecsEnd() const { return m_codecs.cend(); };
+    std::list<std::string>::iterator codecsEnd() { return m_codecs.end(); };
+    /**@}*/
+
+    /** Get a codec from the list
+     *
+     * @param idx The index of the codec to get, starting at 0 for the first codec.
+     * @return The codec value at index @p idx.
+     * @throw std::out_of_range If @p idx is greater than or equal to the number of codecs in the list.
+     */
+    const std::string &codec(std::list<std::string>::size_type idx) const;
+
+    /**@{*/
+    /** Add a codec to the list
+     *
+     * @param codec The codec to add to the codecs list.
+     * @return This Codecs list object.
+     */
+    Codecs &codecsAdd(const std::string &codec) { m_codecs.push_back(codec); return *this; };
+    Codecs &codecsAdd(std::string &&codec) { m_codecs.push_back(std::move(codec)); return *this; };
+    /**@}*/
+
+    /** Remove a codec by value
+     *
+     * Remove a codec from the list which has the same value as @p codec.
+     *
+     * @param codec The value to remove from the list.
+     * @return This Codecs list object.
+     */
+    Codecs &codecsRemove(const std::string &codec);
+
+    /**@{*/
+    /** Remove a codec by iterator
+     *
+     * @param it Iterator referencing the codec to remove from the list.
+     * @return This Codecs list object.
+     */
+    Codecs &codecsRemove(const std::list<std::string>::const_iterator &it);
+    Codecs &codecsRemove(const std::list<std::string>::iterator &it);
+    /**@}*/
 
 private:
     // CodecsType from ISO 23009-1:2022 Clause 5.3.7.3
