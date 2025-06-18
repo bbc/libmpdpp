@@ -10,9 +10,12 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
+#include <list>
 #include <optional>
+#include <string>
 
 #include "macros.hh"
+#include "RepresentationBase.hh"
 
 /**@cond
  */
@@ -34,13 +37,20 @@ class Representation;
  *
  * @todo Add the attributes and child elements for %SubRepresentationType in the schema.
  */
-class LIBMPDPP_PUBLIC_API SubRepresentation {
+class LIBMPDPP_PUBLIC_API SubRepresentation : public RepresentationBase {
 public:
-    SubRepresentation() {};
+    SubRepresentation();
+    SubRepresentation(const SubRepresentation &to_copy);
+    SubRepresentation(SubRepresentation &&to_move);
 
     virtual ~SubRepresentation() {};
 
-    bool operator==(const SubRepresentation&) const { return true; };
+    SubRepresentation &operator=(const SubRepresentation &to_copy);
+    SubRepresentation &operator=(SubRepresentation &&to_move);
+
+    bool operator==(const SubRepresentation&) const;
+
+    // TODO: Add accessors for attributes.
 
 ///@cond PROTECTED
 protected:
@@ -50,7 +60,11 @@ protected:
 ///@endcond PROTECTED
 
 private:
-    // TODO: Add the attributes and child elements for SubRepresentationType in the schema.
+    // SubRepresentation element attributes - ISO 23009-1:2022 Clause 5.3.6.3
+    std::optional<unsigned int> m_level;
+    std::list<unsigned int> m_dependencyLevel;
+    std::optional<unsigned int> m_bandwidth;
+    std::list<std::string> m_contentComponent;
 };
 
 LIBMPDPP_NAMESPACE_END

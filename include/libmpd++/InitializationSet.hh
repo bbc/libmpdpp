@@ -14,6 +14,7 @@
 #include <string>
 
 #include "macros.hh"
+#include "RepresentationBase.hh"
 
 /**@cond
  */
@@ -27,10 +28,20 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
-class LIBMPDPP_PUBLIC_API InitializationSet {
+/** InitializationSet class
+ *
+ * This is the container representing the %InitializationSetType type from the %DASH %MPD %XML schema from ISO 23009-1:2022
+ * Clause 5.3.12.3.
+ *
+ * @todo Add the attributes and child elements
+ */
+class LIBMPDPP_PUBLIC_API InitializationSet : public RepresentationBase {
 public:
-    InitializationSet() {};
-    bool operator==(const InitializationSet &other) const { return true; };
+    InitializationSet() :RepresentationBase() {};
+
+    virtual ~InitializationSet() {};
+
+    bool operator==(const InitializationSet &other) const { return RepresentationBase::operator==(other); };
 
 ///@cond PROTECTED
 protected:
@@ -38,6 +49,10 @@ protected:
     InitializationSet(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 ///@endcond PROTECTED
+
+private:
+    // TODO: add the attributes and child element member variables
+    // ISO 23009-1:2022 Clause 5.3.12.3
 };
 
 LIBMPDPP_NAMESPACE_END

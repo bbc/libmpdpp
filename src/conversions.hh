@@ -11,7 +11,9 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <list>
 #include <regex>
+#include <sstream>
 #include <string>
 
 #include "libmpd++/macros.hh"
@@ -80,6 +82,27 @@ Durn str_to_duration(const std::string &str)
     }
     return ret;
 }
+
+template<typename T>
+std::list<T> str_to_list(const std::string &attr_val, char sep = ',')
+{
+    std::list<T> ret;
+    std::string::size_type start_pos = 0;
+    for (auto pos = attr_val.find_first_of(sep); pos != std::string::npos; start_pos = pos+1, pos = attr_val.find_first_of(sep, start_pos)) {
+        auto val = attr_val.substr(start_pos, pos - start_pos);
+        if (!val.empty()) {
+            ret.push_back(T(val));
+        }
+    }
+    auto val = attr_val.substr(start_pos);
+    if (!val.empty()) {
+        ret.push_back(T(val));
+    }
+    return ret;
+}
+
+template<>
+std::list<unsigned int> str_to_list<unsigned int>(const std::string &attr_val, char sep);
 
 LIBMPDPP_NAMESPACE_END
 

@@ -14,6 +14,7 @@
 #include <string>
 
 #include "macros.hh"
+#include "URI.hh"
 
 /**@cond
  */
@@ -33,10 +34,13 @@ LIBMPDPP_NAMESPACE_BEGIN
  *
  * @todo Add the attributes and child elements for %PatchLocationType in the schema.
  */
-class LIBMPDPP_PUBLIC_API PatchLocation {
+class LIBMPDPP_PUBLIC_API PatchLocation : public URI {
 public:
-    PatchLocation() {};
-    bool operator==(const PatchLocation &other) const { return true; };
+    PatchLocation() :URI() {};
+
+    virtual ~PatchLocation() {};
+
+    bool operator==(const PatchLocation &other) const { return URI::operator==(other); };
 
 ///@cond PROTECTED
 protected:

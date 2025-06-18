@@ -11,17 +11,20 @@
 #include <libxml++/libxml++.h>
 
 #include "libmpd++/macros.hh"
+#include "libmpd++/URI.hh"
 
 #include "libmpd++/PatchLocation.hh"
 
 LIBMPDPP_NAMESPACE_BEGIN
 
-PatchLocation::PatchLocation(xmlpp::Node&)
+PatchLocation::PatchLocation(xmlpp::Node &node)
+    :URI(node)
 {
 }
 
 void PatchLocation::setXMLElement(xmlpp::Element &elem) const
 {
+    URI::setXMLElement(elem);
 }
 
 LIBMPDPP_NAMESPACE_END

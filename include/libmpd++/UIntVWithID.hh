@@ -30,13 +30,61 @@ LIBMPDPP_NAMESPACE_BEGIN
 /** UIntVWithID class
  *
  * Container for %DASH %MPD schema %UIntVWithIDType.
- *
- * @todo Add the attributes and child elements for %UIntVWithIDType in the schema.
  */
-class LIBMPDPP_PUBLIC_API UIntVWithID {
+class LIBMPDPP_PUBLIC_API UIntVWithID : public std::list<unsigned int> {
 public:
-    UIntVWithID() {};
-    bool operator==(const UIntVWithID &other) const { return true; };
+    UIntVWithID() = delete;
+    UIntVWithID(unsigned int id,
+                const std::list<URI> &profiles = std::list<URI>{},
+                const std::optional<RFC6838ContentType> &content_type = std::nullopt);
+    UIntVWithID(const std::list<unsigned int> &init, unsigned int id,
+                const std::list<URI> &profiles = std::list<URI>{},
+                const std::optional<RFC6838ContentType> &content_type = std::nullopt);
+    UIntVWithID(std::list<unsigned int> &&init, unsigned int id,
+                const std::list<URI> &profiles = std::list<URI>{},
+                const std::optional<RFC6838ContentType> &content_type = std::nullopt);
+    UIntVWithID(std::initializer_list<unsigned int> init, unsigned int id,
+                const std::list<URI> &profiles = std::list<URI>{},
+                const std::optional<RFC6838ContentType> &content_type = std::nullopt);
+    UIntVWithID(const UIntVWithID &to_copy);
+    UIntVWithID(UIntVWithID &&to_move);
+
+    virtual ~UIntVWithID() {};
+
+    UIntVWithID &operator=(const UIntVWithID &to_copy);
+    UIntVWithID &operator=(UIntVWithID &&to_move);
+
+    bool operator==(const UIntVWithID &other) const;
+
+    operator std::string() const;
+
+    // @id
+    unsigned int id() const { return m_id; };
+    UIntVWithID &id(unsigned int val) { m_id = val; return *this; };
+
+    // @profiles
+    const std::list<URI> &profiles() const { return m_profiles; };
+    std::list<URI>::const_iterator profilesBegin() const { return m_profiles.cbegin(); };
+    std::list<URI>::iterator profilesBegin() { return m_profiles.begin(); };
+    std::list<URI>::const_iterator profilesEnd() const { return m_profiles.cend(); };
+    std::list<URI>::iterator profilesEnd() { return m_profiles.end(); };
+    const URI &profile(std::list<URI>::size_type idx) const;
+    UIntVWithID &profiles(const std::list<URI> &val) { m_profiles = val; return *this; };
+    UIntVWithID &profiles(std::list<URI> &&val) { m_profiles = std::move(val); return *this; };
+    UIntVWithID &profilesAdd(const URI &val) { m_profiles.push_back(val); return *this; };
+    UIntVWithID &profilesAdd(URI &&val) { m_profiles.push_back(std::move(val)); return *this; };
+    UIntVWithID &profilesRemove(const URI &val);
+    UIntVWithID &profilesRemove(const std::list<URI>::const_iterator &it);
+    UIntVWithID &profilesRemove(const std::list<URI>::iterator &it);
+
+    // @contentType
+    bool hasContentType() const { return m_contentType.has_value(); };
+    const std::optional<RFC6838ContentType> &contentType() const { return m_contentType; };
+    UIntVWithID &contentType(const std::nullopt_t&) { m_contentType.reset(); return *this; };
+    UIntVWithID &contentType(const RFC6838ContentType &val) { m_contentType = val; return *this; };
+    UIntVWithID &contentType(RFC6838ContentType &&val) { m_contentType = std::move(val); return *this; };
+    UIntVWithID &contentType(const std::optional<RFC6838ContentType> &val) { m_contentType = val; return *this; };
+    UIntVWithID &contentType(std::optional<RFC6838ContentType> &&val) { m_contentType = std::move(val); return *this; };
 
 ///@cond PROTECTED
 protected:
@@ -46,7 +94,9 @@ protected:
 ///@endcond PROTECTED
 
 private:
-    // TODO: Add the attributes and child elements for %UIntVWithIDType in the schema.
+    unsigned int                      m_id;
+    std::list<URI>                    m_profiles;
+    std::optional<RFC6838ContentType> m_contentType;
 };
 
 LIBMPDPP_NAMESPACE_END

@@ -314,44 +314,6 @@ static std::string videoScan_to_str(RepresentationBase::VideoScan val)
     return "unknown";
 }
 
-namespace {
-    template<typename T>
-    std::list<T> str_to_list(const std::string &attr_val, char sep = ',')
-    {
-        std::list<T> ret;
-        std::string::size_type start_pos = 0;
-        for (auto pos = attr_val.find_first_of(sep); pos != std::string::npos; start_pos = pos+1, pos = attr_val.find_first_of(sep, start_pos)) {
-            auto val = attr_val.substr(start_pos, pos - start_pos);
-            if (!val.empty()) {
-                ret.push_back(T(val));
-            }
-        }
-        auto val = attr_val.substr(start_pos);
-        if (!val.empty()) {
-            ret.push_back(T(val));
-        }
-        return ret;
-    }
-
-    template<>
-    std::list<unsigned int> str_to_list<unsigned int>(const std::string &attr_val, char sep)
-    {
-        std::list<unsigned int> ret;
-        std::string::size_type start_pos = 0;
-        for (auto pos = attr_val.find_first_of(sep); pos != std::string::npos; start_pos = pos+1, pos = attr_val.find_first_of(sep, start_pos)) {
-            auto val = attr_val.substr(start_pos, pos - start_pos);
-            if (!val.empty()) {
-                ret.push_back(str_to_ui(val));
-            }
-        }
-        auto val = attr_val.substr(start_pos);
-        if (!val.empty()) {
-            ret.push_back(str_to_ui(val));
-        }
-        return ret;
-    }
-}
-
 const URI &RepresentationBase::profile(std::list<URI>::size_type idx) const
 {
     if (idx >= m_profiles.size())

@@ -18,13 +18,14 @@
 #include "libmpd++/macros.hh"
 #include "libmpd++/exceptions.hh"
 
+#include "conversions.hh"
+
 #include "libmpd++/Codecs.hh"
 
 LIBMPDPP_NAMESPACE_BEGIN
 
 static std::string pct_encode(const std::string &str);
 static std::string pct_decode(const std::string &pct_encoded_str);
-static std::list<std::string> str_to_list(const std::string&);
 
 Codecs::Encoding::Encoding(const std::string &encoding)
 {
@@ -50,12 +51,12 @@ Codecs::Codecs(const std::string &attr_val)
     std::smatch result;
     if (std::regex_search(attr_val, result, encoding_re)) {
         m_encoding = Encoding(result.str());
-        m_codecs = str_to_list(result.suffix());
+        m_codecs = str_to_list<std::string>(result.suffix());
         for (auto &codec : m_codecs) {
             codec = pct_decode(codec);
         }
     } else {
-        m_codecs = str_to_list(attr_val);
+        m_codecs = str_to_list<std::string>(attr_val);
     }
 }
 
@@ -185,19 +186,6 @@ static std::string pct_decode(const std::string &s)
         auto charval = hex_to_val(ret[pos+1]) * 16 + hex_to_val(ret[pos+2]);
         ret.replace(pos, 3, 1, static_cast<char>(charval));
     }
-    return ret;
-}
-
-static std::list<std::string> str_to_list(const std::string &val)
-{
-    std::list<std::string> ret;
-    std::string::size_type start_pos = 0;
-    for (auto pos = val.find_first_of(',');
-         pos != std::string::npos;
-         start_pos = pos+1, pos = val.find_first_of(',', start_pos)) {
-        ret.push_back(val.substr(start_pos, pos-start_pos));
-    }
-    ret.push_back(val.substr(start_pos));
     return ret;
 }
 

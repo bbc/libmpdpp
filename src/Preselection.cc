@@ -19,12 +19,14 @@
 LIBMPDPP_NAMESPACE_BEGIN
 
 /* protected: */
-Preselection::Preselection(xmlpp::Node&)
+Preselection::Preselection(xmlpp::Node &node)
+    :RepresentationBase(node)
 {
 }
 
-void Preselection::setXMLElement(xmlpp::Element&) const
+void Preselection::setXMLElement(xmlpp::Element &elem) const
 {
+    RepresentationBase::setXMLElement(elem);
 }
 
 LIBMPDPP_NAMESPACE_END

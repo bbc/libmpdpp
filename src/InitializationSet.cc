@@ -16,12 +16,14 @@
 
 LIBMPDPP_NAMESPACE_BEGIN
 
-InitializationSet::InitializationSet(xmlpp::Node&)
+InitializationSet::InitializationSet(xmlpp::Node &node)
+    :RepresentationBase(node)
 {
 }
 
-void InitializationSet::setXMLElement(xmlpp::Element&) const
+void InitializationSet::setXMLElement(xmlpp::Element &elem) const
 {
+    RepresentationBase::setXMLElement(elem);
 }
 
 LIBMPDPP_NAMESPACE_END

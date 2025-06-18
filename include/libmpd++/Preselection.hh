@@ -13,6 +13,7 @@
 #include <optional>
 
 #include "macros.hh"
+#include "RepresentationBase.hh"
 
 /**@cond
  */
@@ -34,13 +35,13 @@ class Period;
  *
  * @todo Add the attributes and child elements for %PreselectionType in the schema.
  */
-class LIBMPDPP_PUBLIC_API Preselection {
+class LIBMPDPP_PUBLIC_API Preselection : public RepresentationBase {
 public:
-    Preselection() {};
+    Preselection() :RepresentationBase() {};
 
     virtual ~Preselection() {};
 
-    bool operator==(const Preselection&) const { return true; };
+    bool operator==(const Preselection &other) const { return RepresentationBase::operator==(other); };
 
 ///@cond PROTECTED
 protected:
@@ -51,6 +52,7 @@ protected:
 
 private:
     // TODO: Add the attributes and child elements for %PreselectionType in the schema.
+    // ISO 23009-1:2022 Clause 5.3.11.4
 };
 
 LIBMPDPP_NAMESPACE_END
