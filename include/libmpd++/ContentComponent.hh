@@ -28,12 +28,13 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class AdaptationSet;
 
-/**
- * @brief ContentComponent class
+/** ContentComponent class
  * @headerfile libmpd++/ContentComponent.hh <libmpd++/ContentComponent.hh>
- * Note: This class is not complete.
- * This is a container to hold the properties of a media content component described by ContentComponent element as defined in ISO 23009-1:2022.
  *
+ * This is a container to hold the properties of a media content component described by ContentComponent element as defined in
+ * ISO 23009-1:2022 Clause 5.3.4.3.
+ *
+ * @todo Add the attributes and child elements storage to this class
  */
 class LIBMPDPP_PUBLIC_API ContentComponent {
 public:

@@ -32,11 +32,16 @@ LIBMPDPP_NAMESPACE_BEGIN
 class MPD;
 class Period;
 
+/** Descriptor class
+ * @headerfile libmpd++/Descriptor.hh <libmpd++/Descriptor.hh>
+ *
+ * This is a container for %DASH %MPD %XML elements which use the %DescriptorType from the %XML schema. This type is defined in
+ * ISO 23009-1:2022 Clause 5.8.3.
+ */
 class LIBMPDPP_PUBLIC_API Descriptor {
 public:
 
-    /**
-     * @brief Deleted default constructor.
+    /** Default constructor (deleted).
      *
      * This constructor is explicitly deleted to prevent instantiation of a
      * Descriptor object without the necessary initialization parameters.

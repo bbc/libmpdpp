@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** LeapSecondInformation class
+ * @headerfile libmpd++/LeapSecondInformation.hh <libmpd++/LeapSecondInformation.hh>
  *
- * Container for %LeapSecondInformation elements in %DASH %MPDs.
+ * Container for %LeapSecondInformationType elements in %DASH %MPDs (ISO 23009-1:2022 Clause 5.13.3)
  *
  * @todo Add the attributes and child elements for LeapSecondInformation.
  */

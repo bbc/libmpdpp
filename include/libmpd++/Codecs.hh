@@ -20,16 +20,18 @@
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Codecs class
+ * @headerfile libmpd++/Codecs.hh <libmpd++/Codecs.hh>
  *
  * This class models the codecs listed in an @@codecs attribute in a DASH MPD.
+ *
+ * This is a container for the %CodecsType from the %DASH %MPD %XML schema from ISO 23009-1:2022 Clause 5.3.7.3.
  */
 class LIBMPDPP_PUBLIC_API Codecs {
 public:
     /** Codecs encoding values
+     * @headerfile libmpd++/Codecs.hh <libmpd++/Codecs.hh>
      * 
      * This models the character set and language encodings for extended @@codecs attribute values.
-     *
-     * This is a container for the %CodecsType from the %DASH %MPD %XML schema from ISO 23009-1:2022 Clause 5.3.7.3.
      */
     class Encoding {
     public:

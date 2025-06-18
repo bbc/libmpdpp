@@ -30,8 +30,9 @@ LIBMPDPP_NAMESPACE_BEGIN
 class Period;
 
 /** Preselection class
+ * @headerfile libmpd++/Preselection.hh <libmpd++/Preselection.hh>
  *
- * Container for %DASH %MPD schema %PreselectionType.
+ * Container for %DASH %MPD schema %PreselectionType as found in ISO 23009-1:2022 Clause 5.3.11.4.
  *
  * @todo Add the attributes and child elements for %PreselectionType in the schema.
  */

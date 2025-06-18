@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** UIntVWithID class
+ * @headerfile libmpd++/UIntVWithID.hh <libmpd++/UIntVWithID.hh>
  *
- * Container for %DASH %MPD schema %UIntVWithIDType.
+ * Container for %DASH %MPD schema %UIntVWithIDType as found in ISO 23009-1:2022 Clause 5.3.1.3.
  */
 class LIBMPDPP_PUBLIC_API UIntVWithID : public std::list<unsigned int> {
 public:

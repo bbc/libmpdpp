@@ -37,7 +37,8 @@ class AdaptationSet;
 /** BaseURL class
  * @headerfile libmpd++/BaseURL.hh <libmpd++/BaseURL.hh>
  *
- * This is a container for %BaseURL element values and attributes.
+ * This is a container for %BaseURL element values and attributes as given in the %DASH %MPD %XML schema found in ISO 23009-1:2022
+ * Clause 5.6.3.
  */
 class LIBMPDPP_PUBLIC_API BaseURL : public URI {
 public:
@@ -317,7 +318,7 @@ protected:
 ///@endcond PROTECTED
 
 private:
-    // BaseURL attributes ISO 23009-1 Table 30
+    // BaseURL attributes ISO 23009-1:2022 Clause 5.6.3
     std::optional<std::string>   m_serviceLocation;          ///< The optional @@serviceLocation attribute value
     std::optional<std::string>   m_byteRange;                ///< The optional @@byteRange attribute value
     std::optional<double>        m_availabilityTimeOffset;   ///< The optional @@availabilityTimeOffset attribute value

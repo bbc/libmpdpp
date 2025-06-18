@@ -29,8 +29,9 @@ LIBMPDPP_NAMESPACE_BEGIN
 class Period;
 
 /** Subset class
+ * @headerfile libmpd++/Subset.hh <libmpd++/Subset.hh>
  *
- * Container for %DASH %MPD schema %SubsetType.
+ * Container for %DASH %MPD schema %SubsetType as found in ISO 23009-1:2022 Clause 5.3.8.3.
  *
  * @todo Add the attributes and child elements for %SubsetType in the schema.
  */

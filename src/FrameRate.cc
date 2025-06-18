@@ -28,10 +28,6 @@ FrameRate::FrameRate(const std::string &frame_rate_str)
     convertString(frame_rate_str);
 }
 
-bool FrameRate::operator==(const FrameRate &other) const {
-    return (m_numerator == other.m_numerator) && (m_denominator == other.m_denominator);
-}
-
 FrameRate::operator std::string() const {
     std::ostringstream oss;
     oss << m_numerator;

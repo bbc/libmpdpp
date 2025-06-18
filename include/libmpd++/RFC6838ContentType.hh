@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** RFC6838ContentType class
+ * @headerfile libmpd++/RFC6838ContentType.hh <libmpd++/RFC6838ContentType.hh>
  *
- * Container for %DASH %MPD schema %RFC6838ContentTypeType.
+ * Container for %DASH %MPD schema %RFC6838ContentTypeType found in ISO 23009-1:2022 Clause 5.3.3.3.
  */
 class LIBMPDPP_PUBLIC_API RFC6838ContentType {
 public:

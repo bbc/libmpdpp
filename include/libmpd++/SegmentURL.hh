@@ -30,8 +30,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** SegmentURL class
+ * @headerfile libmpd++/SegmentURL.hh <libmpd++/SegmentURL.hh>
  *
- * Container for %DASH %MPD schema %SegmentURLType.
+ * Container for %DASH %MPD schema %SegmentURLType as found in ISO 23009-1:2022 Clause 5.3.9.3.3.
  */
 class LIBMPDPP_PUBLIC_API SegmentURL {
 public:

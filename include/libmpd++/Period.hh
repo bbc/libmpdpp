@@ -46,8 +46,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Period element class
+ * @headerfile libmpd++/Period.hh <libmpd++/Period.hh>
  *
- * This is the container class for Period elements from an MPD.
+ * This is the container class for %Period elements from an %MPD as described in ISO 23009-1:2022 Clause 5.3.2.3.
  */
 class LIBMPDPP_PUBLIC_API Period {
 public:

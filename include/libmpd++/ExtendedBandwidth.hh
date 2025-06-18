@@ -28,6 +28,14 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Representation;
 
+/** ExtendedBandwidth class
+ * @headerfile libmpd++/ExtendedBandwidth.hh <libmpd++/ExtendedBandwidth.hh>
+ *
+ * This is a container for %DASH %MPD %ExtendedBandwidth elements and follows the type as given by the %XML schema in
+ * ISO 23009-1:2022 Clause 5.3.5.6.
+ *
+ * @todo This class is incomplete and needs storage for any attributes and child elements adding.
+ */
 class LIBMPDPP_PUBLIC_API ExtendedBandwidth {
 public:
     /** Default constructor
@@ -69,6 +77,7 @@ protected:
 ///@endcond PROTECTED
 
 private:
+    // TODO: Add storage for any attributes and child elements of the ExtendedBandwidthType from the DASH MPD XML schema.
 };
 
 LIBMPDPP_NAMESPACE_END

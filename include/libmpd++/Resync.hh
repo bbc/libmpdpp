@@ -27,10 +27,11 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Resync class
+ * @headerfile libmpd++/Resync.hh <libmpd++/Resync.hh>
  *
- * Container for %DASH %MPD schema %ResyncType.
+ * Container for %DASH %MPD schema %ResyncType from ISO 23009-1:2022 Clause 5.3.13.3.
  *
- * @todo Add the attributes and child elements for %ResyncType in the schema.
+ * @todo Add the attributes for %ResyncType in the schema.
  */
 class LIBMPDPP_PUBLIC_API Resync {
 public:

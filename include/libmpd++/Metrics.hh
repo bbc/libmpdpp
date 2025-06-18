@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Metrics class
+ * @headerfile libmpd++/Metrics.hh <libmpd++/Metrics.hh>
  *
- * Container for %DASH %MPD schema %MetricType.
+ * Container for %DASH %MPD schema %MetricType from ISO 23009-1:2022 Clause 5.9.3.
  *
  * @todo Add the attributes and child elements for %MetricType in the schema.
  */

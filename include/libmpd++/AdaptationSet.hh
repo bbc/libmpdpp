@@ -50,10 +50,12 @@ LIBMPDPP_NAMESPACE_BEGIN
  * @brief AdaptationSet class
  * @headerfile libmpd++/AdaptationSet.hh <libmpd++/AdaptationSet.hh>
  *
- * This is the container for AdaptationSet representations from an MPD.
+ * This is the container for the AdaptationSet element from an MPD, and follows the %AdaptationSetType from the %DASH %MPD %XML
+ * schema found in ISO 23009-1:2022 Clause 5.3.3.3.
  *
  * The AdaptationSet also allows the application to mark child Representations as "selected". The selected set of Representations
- * can then be queried to find out the availability of the next media segments or initialization segments.
+ * can then be queried to find out the availability of the next media segments or to find the initialization segments associated
+ * with those representations.
  */
 class LIBMPDPP_PUBLIC_API AdaptationSet : public RepresentationBase {
 public:
@@ -2078,7 +2080,7 @@ private:
     Period *m_period;                                              ///< The Period object this adaptation set is a child of
     std::unordered_set<const Representation*> m_selectedRepresentations; ///< An index to the set of selected Representation entries
 
-    // Period attributes (ISO 23009-1:2022 Table 5)
+    // Period attributes (ISO 23009-1:2022 Clause 5.3.3.3)
     std::optional<XLink>               m_xlink;                    ///< The XLink settings for AdaptationSet HTTP referencing
     std::optional<unsigned int>        m_id;                       ///< The AdaptationSet @@id number
     std::optional<unsigned int>        m_group;                    ///< The AdaptationSet @@group number
@@ -2100,7 +2102,7 @@ private:
     std::list<unsigned int>            m_initializationSetRefs;    ///< The array of Initialization Set identifiers
     std::optional<URI>                 m_initializationPrincipal;  ///< The Initialization Segment URL
 
-    // Period child elements (ISO 23009-1:2022 Table 5)
+    // Period child elements (ISO 23009-1:2022 Clause 5.3.3.3)
     std::list<Descriptor>          m_accessibilities;              ///< Accessibility descriptors
     std::list<Descriptor>          m_roles;                        ///< Role descriptors
     std::list<Descriptor>          m_ratings;                      ///< Rating descriptors

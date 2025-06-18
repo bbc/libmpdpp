@@ -28,6 +28,14 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class Period;
 
+/** EventStream class
+ * @headerfile libmpd++/EventStream.hh <libmpd++/EventStream.hh>
+ *
+ * This is a container for %DASH %MPD %XML EventStream elements. Thsi class is derived from the %DASH %MPD %XML schema for the
+ * %EventStreamType as found in ISO 23009-1:2022 Clause 5.10.2.3.
+ *
+ * @todo This class is incomplete and needs storage adding for attributes and child elements.
+ */
 class LIBMPDPP_PUBLIC_API EventStream {
 public:
 

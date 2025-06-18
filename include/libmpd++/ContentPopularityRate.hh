@@ -10,7 +10,8 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
-#include <string>
+#include <list>
+#include <optional>
 
 #include "macros.hh"
 
@@ -26,16 +27,83 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
-/**
- * @brief ContentPopularityRate class
+/** ContentPopularityRate class
  * @headerfile libmpd++/ContentPopularityRate.hh <libmpd++/ContentPopularityRate.hh>
  *
- * This is the container for ContentPopularityRate that indicated a level of popularity of the containing entity
- * (i.e., the Adaptation Set, Representation orPreselection) within the Media Presentation
+ * This is the container for %ContentPopularityRate elements from a %DASH %MPD. This indicates the level of popularity of the
+ * containing entity (i.e. the %AdaptationSet, %Representation or %Preselection) within the media presentation.
  *
+ * This follows the %DASH %MPD %XML schema definition in ISO 23009-1:2022 Clause 5.14.3.
  */
 class LIBMPDPP_PUBLIC_API ContentPopularityRate {
 public:
+
+    /** ContentPopularityRate::PR class
+     * @headerfile libmpd++/ContentPopularityRate.hh <libmpd++/ContentPopularityRate.hh>
+     *
+     * This is a container for the %PR elements of a ContentPopularityRate.
+     */
+    class LIBMPDPP_PUBLIC_API PR {
+    public:
+        PR() = delete;
+        PR(const std::optional<unsigned int> popularity_rate = std::nullopt,
+           const std::optional<unsigned long> &start = std::nullopt,
+           int r = 0)
+            :m_popularityRate(popularity_rate)
+            ,m_start(start)
+            ,m_r(r)
+        {
+            if (popularity_rate < 1 || popularity_rate > 100)
+                throw std::out_of_range("popularityRate attribute of PR element must be between 1 and 100 inclusive.");
+        };
+        PR(const PR &other)
+            :m_popularityRate(other.m_popularityRate)
+            ,m_start(other.m_start)
+            ,m_r(other.m_r)
+        {};
+        PR(PR &&other)
+            :m_popularityRate(std::move(other.m_popularityRate))
+            ,m_start(std::move(other.m_start))
+            ,m_r(other.m_r)
+        {};
+
+        virtual ~PR() {};
+
+        PR &operator=(const PR &other) {
+            m_popularityRate = other.m_popularityRate;
+            m_start = other.m_start;
+            m_r = other.m_r;
+            return *this;
+        };
+        PR &operator=(PR &&other) {
+            m_popularityRate = std::move(other.m_popularityRate);
+            m_start = std::move(other.m_start);
+            m_r = other.m_r;
+            return *this;
+        };
+
+        bool operator==(const PR &other) {
+            if (m_r != other.m_r) return false;
+            if (m_popularityRate != other.m_popularityRate) return false;
+            if (m_start != other.m_start) return false;
+            return true;
+        }
+        bool operator!=(const PR &other) { return !(*this == other); };
+
+        // TODO: Add accessors for attributes
+
+    ///@cond PROTECTED
+    protected:
+        friend class ContentPopularityRate;
+        PR(xmlpp::Node &node);
+        void setXMLElement(xmlpp::Element &elem) const;
+    ///@endcond PROTECTED
+
+    private:
+        std::optional<unsigned int>  m_popularityRate;
+        std::optional<unsigned long> m_start;
+        int                          m_r; // default is 0
+    };
 
     /** Default constructor
      *
@@ -120,9 +188,8 @@ protected:
 ///@endcond PROTECTED
 
 private:
-    // ContentPopularityRate attributes (ISO 23009-1:2022 Clause X.X.X.X)
-
-    // ContentPopularityRate child elements (ISO 23009-1:2022 Clause X.X.X.X)
+    // ContentPopularityRate child elements (ISO 23009-1:2022 Clause 5.14.3)
+    std::list<PR> m_prs;
 };
 
 LIBMPDPP_NAMESPACE_END

@@ -29,8 +29,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** PatchLocation class
+ * @headerfile libmpd++/PatchLocation.hh <libmpd++/PatchLocation.hh>
  *
- * Container for %DASH %MPD schema %PatchLocationType.
+ * Container for %DASH %MPD schema %PatchLocationType as found in ISO 23009-1:2022 Clause 5.15.2.
  *
  * @todo Add the attributes and child elements for %PatchLocationType in the schema.
  */

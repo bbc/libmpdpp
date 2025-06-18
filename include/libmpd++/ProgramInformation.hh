@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** ProgramInformation class
+ * @headerfile libmpd++/ProgramInformation.hh <libmpd++/ProgramInformation.hh>
  *
- * Container for %DASH %MPD schema %ProgramInformationType.
+ * Container for %DASH %MPD schema %ProgramInformationType as found in ISO 23009-1:2022 Clause 5.7.3.
  *
  * @todo Add the attributes and child elements for %ProgramInformationType in the schema.
  */

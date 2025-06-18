@@ -33,8 +33,9 @@ class AdaptationSet;
 class Representation;
 
 /** SegmentTemplate class
+ * @headerfile libmpd++/SegmentTemplate.hh <libmpd++/SegmentTemplate.hh>
  *
- * Container for %DASH %MPD schema %SegmentTemplateType.
+ * Container for %DASH %MPD schema %SegmentTemplateType found in ISO 23009-1:2022 Clause 5.3.9.4.3.
  */
 class LIBMPDPP_PUBLIC_API SegmentTemplate : public MultipleSegmentBase {
 public:

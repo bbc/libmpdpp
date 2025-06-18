@@ -29,6 +29,7 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** ContentProtection class
+ * @headerfile libmpd++/ContentProtection.hh <libmpd++/ContentProtection.hh>
  *
  * This is a container for the %ContentProtectionType element from the %DASH %MPD %XML schema.
  * The schema definition can be found in ISO 23009-1:2022 Clause 5.8.4.1.5

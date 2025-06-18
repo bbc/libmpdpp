@@ -31,8 +31,11 @@ LIBMPDPP_NAMESPACE_BEGIN
 class BaseURL;
 
 /** URI class
+ * @headerfile libmpd++/URI.hh <libmpd++/URI.hh>
  *
- * Container for %DASH %MPD schema %URIType
+ * Container for %URI strings.
+ *
+ * This will parse and validate %URN and %URL strings and can resolve relative %URLs using a set of BaseURL objects from the %MPD.
  */
 class LIBMPDPP_PUBLIC_API URI {
 public:

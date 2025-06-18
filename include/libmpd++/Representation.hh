@@ -47,8 +47,10 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Representation class
+ * @headerfile libmpd++/Representation.hh <libmpd++/Representation.hh>
  *
- * This is the container for %Representation elements from an %MPD.
+ * This is the container for %Representation elements from an %MPD and follows the schema description of %RepresentationType from
+ * ISO 23009-1:2022 Clause 5.3.5.3.
  */
 class LIBMPDPP_PUBLIC_API Representation : public RepresentationBase {
 public:

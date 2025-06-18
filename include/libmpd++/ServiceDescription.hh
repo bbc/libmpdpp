@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** ServiceDescription class
+ * @headerfile libmpd++/ServiceDescription.hh <libmpd++/ServiceDescription.hh>
  *
- * Container for %DASH %MPD schema %ServiceDescriptionType.
+ * Container for %DASH %MPD schema %ServiceDescriptionType as found in ISO 23009-1:2022 Clause K.4.3.1.
  *
  * @todo Add the attributes and child elements for %ServiceDescriptionType in the schema.
  */

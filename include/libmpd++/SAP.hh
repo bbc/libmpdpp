@@ -29,8 +29,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** SAP class
+ * @headerfile libmpd++/SAP.hh <libmpd++/SAP.hh>
  *
- * Container for %DASH %MPD schema %SAPType.
+ * Container for %DASH %MPD schema %SAPType found in ISO 23009-1:2022 Clause 5.3.3.3.
  */
 class LIBMPDPP_PUBLIC_API SAP {
 public:

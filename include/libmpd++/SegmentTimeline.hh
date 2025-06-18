@@ -32,8 +32,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** SegmentTimeline class
+ * @headerfile libmpd++/SegmentTimeline.hh <libmpd++/SegmentTimeline.hh>
  *
- * Container for %DASH %MPD schema %SegmentTimelineType.
+ * Container for %DASH %MPD schema %SegmentTimelineType found in ISO 23009-1:2022 Clause 5.3.9.6.3.
  */
 class LIBMPDPP_PUBLIC_API SegmentTimeline {
 public:

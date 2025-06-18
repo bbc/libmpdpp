@@ -30,6 +30,7 @@ class Period;
 class AdaptationSet;
 
 /** XLink class
+ * @headerfile libmpd++/XLink.hh <libmpd++/XLink.hh>
  *
  * This class aims to provide XLink functionality to %DASH %MPD elements that use it.
  *

@@ -44,7 +44,8 @@ namespace xmlpp {
 
 LIBMPDPP_NAMESPACE_BEGIN
 
-/** @brief RepresentationBase class
+/** RepresentationBase class
+ * @headerfile libmpd++/RepresentationBase.hh <libmpd++/RepresentationBase.hh>
  *
  * This is a container for the common attributes and elements for AdaptationSet and Representation as described in ISO 23009-1:2022.
  *

@@ -23,6 +23,10 @@
  *
  * Please see the @subpage gettingStarted "Getting started" page for details.
  *
+ * @section mainArchitecture
+ *
+ * Please see the @subpage overview "Overview" page for a high level look at how this library is intended to work.
+ *
  * @section mainUsing Using the library
  *
  * Please see the codeExamples "Example code" page for details examples of using this library
@@ -107,9 +111,177 @@
  * @endcode
  */
 
+/** @page overview libmpd++ - Library high level overview
+ *
+ * @section overviewIntro Introduction
+ *
+ * The libmpd++ library is a C++ class library for parsing, manipulating, querying and outputting %DASH %MPD %XML documents.
+ *
+ * The library can parse an %MPD from a variety of sources such as a memory block or file. The library also allows the creation of
+ * new %MPDs in a programatic fashion.
+ *
+ * The %MPD is modelled by a set of classes which can contain the various values held by an %MPD in within its hierarchy of
+ * elements. This allows the %MPD to be programatically traversed and modified easily in a C++ program.
+ *
+ * The top level of the %MPD model is an @ref com::bbc::libmpdpp::MPD "MPD" object.
+ *
+ * The %MPD model can also be queried to find a set of next available media segments or the initialization segments for the
+ * %Representations in the %MPD. This is done by marking Representations in the model as selected and then using the query methods
+ * on the @ref com::bbc::libmpdpp::MPD "MPD" object to obtain a list of next segments or the availability of the initialization
+ * segments.
+ *
+ * The %MPD that is modelled can be output as a %DASH %MPD %XML string. This can be in either a compact form for communication, or
+ * as a formatted (pretty) form with extra whitespace for readability.
+ *
+ * @section overviewQuerying
+ *
+ * As mentioned above, the %MPD model provides methods at various levels to mark
+ * @ref com::bbc::libmpdpp::Representation "Representations" as selected. There are also some query methods on the
+ * @ref com::bbc::libmpdpp::MPD "MPD" object,
+ * @ref com::bbc::libmpdpp::MPD::selectedSegmentAvailability() "selectedSegmentAvailability()" and
+ * @ref com::bbc::libmpdpp::MPD::selectedInitializationSegments() "selectedInitializationSegments()", which will use the selected
+ * %Representations of the current @ref com::bbc::libmpdpp::Period "Period" to perform a query for the next available media
+ * segments or the initialization segments respectively.
+ *
+ * Individual @ref com::bbc::libmpdpp::Representation "Representations" can be selected by using the selection methods in the
+ * @ref com::bbc::libmpdpp::AdaptationSet "AdaptationSet" class. These methods allow individual %Representations to be selected or
+ * deselected, or the selection to be changed to a new %Representation. This is useful for playback where only the segments from the
+ * currently selected %Representations, in the %AdaptationSets which are in use, are required.
+ *
+ * For broadcast/multicast operations, where all %Representations are needed at the same time, the
+ * @ref com::bbc::libmpdpp::MPD "MPD", @ref com::bbc::libmpdpp::Period "Period" and
+ * @ref com::bbc::libmpdpp::AdaptationSet "AdaptationSet" classes all provide selectAllRepresentations() and
+ * deselectAllRepresentations() methods to select all the @ref com::bbc::libmpdpp::Representation "Representations" below that
+ * object's level.
+ *
+ * Both media segment and initialization segment queries will return a set of
+ * @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" objects which contain the resolved segment URL and
+ * availability start time for that segment. They may also contain an availability end time, if one is provided in the %MPD. For
+ * media segments, the segment duration is also returned to assist in scheduling of the next query.
+ */
+
 /** @page codeExamples libmpd++ - Example library usage
  *
- * Blah blah blah
+ * To read an MPD from a named file:
+ * @code{.cpp}
+ * #include <string>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     const std::string filename("/path/to/manifest.mpd");
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(filename, original_url);
+ * }
+ * @endcode
+ *
+ * To read from an input stream:
+ * @code{.cpp}
+ * #include <fstream>
+ * #include <string>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     std::ifstream infile("/path/to/manifest.mpd");
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(infile, original_url);
+ * }
+ * @endcode
+ *
+ * To read from memory:
+ * @code{.cpp}
+ * #include <string>
+ * #include <vector>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *   .
+ *   .
+ *   .
+ *
+ * {
+ *     std::string mpd_text("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+ *         "<MPD xmlns=\"urn:mpeg:dash:schema:mpd:2011\" type=\"dynamic\" minBufferTime=\"PT10S\"\n"
+ *         "     profiles=\"urn:dvb:dash:profile:dvb-dash:isoff-ext-live:2014\">\n"
+ *         "  <Period id=\"1\" start=\"PT0S\"/>\n"
+ *         "</MPD>\n"
+ *     );
+ *     std::vector<char> mpd_vec(mpd_text.data(), mpd_text.data() + mpd_text.size());
+ *     const std::string original_url("https://example.com/media/manifest.mpd");
+ *     MPD mpd(mpd_vec, original_url);
+ * }
+ * @endcode
+ *
+ * To create a new MPD:
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ * }
+ * @endcode
+ *
+ * Output to a stream (compact XML form):
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ *
+ *     std::cout << MPD::compact << mpd;
+ * }
+ * @endcode
+ *
+ * Output to a stream (pretty XML form):
+ * @code{.cpp}
+ * #include <chrono>
+ * #include <libmpd++/libmpd++.hh>
+ *
+ * using namespace std::literals::chrono_literals;
+ * LIBMPDPP_NAMESPACE_USING_ALL;
+ *
+ *  .
+ *  .
+ *  .
+ *
+ * {
+ *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
+ *
+ *     std::cout << mpd << std::endl; // pretty output is the default if MPD::compact has not previsouly been used in the stream
+ *
+ *     // if MPD::compact has been used previously then MPD::pretty can be use to change back to pretty format
+ *     std::cout << MPD::compact;
+ *     std::cout << MPD::pretty << mpd << std::endl;
+ * }
+ * @endcode
  */
 
 #include "macros.hh"
@@ -149,7 +321,6 @@
 #include "SegmentList.hh"
 #include "SegmentTemplate.hh"
 #include "SegmentTimeline.hh"
-#include "SegmentType.hh"
 #include "SegmentURL.hh"
 #include "ServiceDescription.hh"
 #include "SingleRFC7233Range.hh"

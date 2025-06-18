@@ -27,8 +27,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** RandomAccess class
+ * @headerfile libmpd++/RandomAccess.hh <libmpd++/RandomAccess.hh>
  *
- * Container for %DASH %MPD schema %RandomAccessType.
+ * Container for %DASH %MPD schema %RandomAccessType as found in ISO 23009-1:2022 Clause 5.3.5.5.
  *
  * @todo Add the attributes and child elements for %RandomAccessType in the schema.
  */

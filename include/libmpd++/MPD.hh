@@ -36,133 +36,15 @@
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** MPD class
+ * @headerfile libmpd++/MPD.hh <libmpd++/MPD.hh>
  *
  * This is the top level class for parsing, manipulating and outputting MPDs.
  *
  * Use this class to parse an existing MPD file or in-memory block, or create a new MPD.
  *
- * @section MPD_examples Example code
+ * This class stores the attributes and elements as described by the %MPDType in ISO 23009-1:2022 Clause 5.2.2.
  *
- * To read an MPD from a named file:
- * @code{.cpp}
- * #include <string>
- * #include <libmpd++/libmpd++.hh>
- *
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *   .
- *   .
- *   .
- *
- * {
- *     const std::string filename("/path/to/manifest.mpd");
- *     const std::string original_url("https://example.com/media/manifest.mpd");
- *     MPD mpd(filename, original_url);
- * }
- * @endcode
- *
- * To read from an input stream:
- * @code{.cpp}
- * #include <fstream>
- * #include <string>
- * #include <libmpd++/libmpd++.hh>
- *
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *   .
- *   .
- *   .
- *
- * {
- *     std::ifstream infile("/path/to/manifest.mpd");
- *     const std::string original_url("https://example.com/media/manifest.mpd");
- *     MPD mpd(infile, original_url);
- * }
- * @endcode
- *
- * To read from memory:
- * @code{.cpp}
- * #include <string>
- * #include <vector>
- * #include <libmpd++/libmpd++.hh>
- *
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *   .
- *   .
- *   .
- *
- * {
- *     std::string mpd_text("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
- *         "<MPD xmlns=\"urn:mpeg:dash:schema:mpd:2011\" type=\"dynamic\" minBufferTime=\"PT10S\"\n"
- *         "     profiles=\"urn:dvb:dash:profile:dvb-dash:isoff-ext-live:2014\">\n"
- *         "  <Period id=\"1\" start=\"PT0S\"/>\n"
- *         "</MPD>\n"
- *     );
- *     std::vector<char> mpd_vec(mpd_text.data(), mpd_text.data() + mpd_text.size());
- *     const std::string original_url("https://example.com/media/manifest.mpd");
- *     MPD mpd(mpd_vec, original_url);
- * }
- * @endcode
- *
- * To create a new MPD:
- * @code{.cpp}
- * #include <chrono>
- * #include <libmpd++/libmpd++.hh>
- *
- * using namespace std::literals::chrono_literals;
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *  .
- *  .
- *  .
- *
- * {
- *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
- * }
- * @endcode
- *
- * Output to a stream (compact XML form):
- * @code{.cpp}
- * #include <chrono>
- * #include <libmpd++/libmpd++.hh>
- *
- * using namespace std::literals::chrono_literals;
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *  .
- *  .
- *  .
- *
- * {
- *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
- *
- *     std::cout << MPD::compact << mpd;
- * }
- * @endcode
- *
- * Output to a stream (pretty XML form):
- * @code{.cpp}
- * #include <chrono>
- * #include <libmpd++/libmpd++.hh>
- *
- * using namespace std::literals::chrono_literals;
- * LIBMPDPP_NAMESPACE_USING_ALL;
- *
- *  .
- *  .
- *  .
- *
- * {
- *     MPD mpd(3840ms, "urn:dvb:dash:profile:dvb-dash:2014", Period());
- *
- *     std::cout << mpd << std::endl; // pretty output is the default if MPD::compact has not previsouly been used in the stream
- *
- *     // if MPD::compact has been used previously then MPD::pretty can be use to change back to pretty format
- *     std::cout << MPD::compact;
- *     std::cout << MPD::pretty << mpd << std::endl;
- * }
- * @endcode
+ * @see The @ref codeExamples "Example library usage" page for examples of using the MPD class.
  */
 class LIBMPDPP_PUBLIC_API MPD {
 public:

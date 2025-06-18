@@ -28,8 +28,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** SingleRFC7233Range class
+ * @headerfile libmpd++/SingleRFC7233Range.hh <libmpd++/SingleRFC7233Range.hh>
  *
- * Container for %DASH %MPD schema %SingleRFC7233RangeType.
+ * Container for %DASH %MPD schema %SingleRFC7233RangeType as found in ISO 23009-1:2022 Clause 5.3.9.2.3.
  */
 class LIBMPDPP_PUBLIC_API SingleRFC7233Range {
 public:

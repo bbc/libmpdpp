@@ -30,6 +30,7 @@ LIBMPDPP_NAMESPACE_BEGIN
 class Period;
 
 /** Label class
+ * @headerfile libmpd++/Label.hh <libmpd++/Label.hh>
  *
  * Container for %LabelType elements from an %MPD (ISO 23009-1:2022 Clause 5.3.10.3).
  */

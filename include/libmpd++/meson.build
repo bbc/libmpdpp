@@ -46,7 +46,6 @@ SegmentBase.hh
 SegmentList.hh
 SegmentTemplate.hh
 SegmentTimeline.hh
-SegmentType.hh
 SegmentURL.hh
 ServiceDescription.hh
 SingleRFC7233Range.hh

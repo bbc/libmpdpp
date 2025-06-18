@@ -28,6 +28,14 @@ LIBMPDPP_NAMESPACE_BEGIN
 
 class SegmentBase;
 
+/** FailoverContent class
+ * @headerfile libmpd++/FailoverContent.hh <libmpd++/FailoverContent.hh>
+ *
+ * This is a container for %DASH %MPD %XML %FailoverContent elements and follows the %XML schema definition of %FailoverContentType
+ * found in ISO 23009-1:2022 Clause 5.3.9.7.3.
+ *
+ * @todo This class is incomplete and needs storage adding for any attributes and child elements of the %FailoverContentType type.
+ */
 class LIBMPDPP_PUBLIC_API FailoverContent {
 public:
     FailoverContent() {};
@@ -44,6 +52,7 @@ protected:
 ///@endcond PROTECTED
 
 private:
+    // TODO: Add storage for any attributes and child elements of the %FailoverContentType type.
 };
 
 LIBMPDPP_NAMESPACE_END

@@ -27,8 +27,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Switching class
+ * @headerfile libmpd++/Switching.hh <libmpd++/Switching.hh>
  *
- * Container for %DASH %MPD schema %SwitchingType.
+ * Container for %DASH %MPD schema %SwitchingType as found in ISO 23009-1:2022 Clause 5.3.3.4.
  *
  * @todo Add the attributes and child elements for %SwitchingType in the schema.
  */

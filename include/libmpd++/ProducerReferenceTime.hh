@@ -27,10 +27,11 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** ProducerReferenceTime class
+ * @headerfile libmpd++/ProducerReferenceTime.hh <libmpd++/ProducerReferenceTime.hh>
  *
- * Container for %DASH %MPD schema %ProducerReferenceTimeType.
+ * Container for %DASH %MPD schema %ProducerReferenceTimeType as found in ISO 23009-1:2022 Clause 5.3.10.3.
  *
- * @todo Add the attributes and child elements for %MetricType in the schema.
+ * @todo Add the attributes and child elements for %ProducerReferenceTimeType in the schema.
  */
 class LIBMPDPP_PUBLIC_API ProducerReferenceTime {
 public:

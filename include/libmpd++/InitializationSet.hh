@@ -29,11 +29,12 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** InitializationSet class
+ * @headerfile libmpd++/InitializationSet.hh <libmpd++/InitializationSet.hh>
  *
  * This is the container representing the %InitializationSetType type from the %DASH %MPD %XML schema from ISO 23009-1:2022
  * Clause 5.3.12.3.
  *
- * @todo Add the attributes and child elements
+ * @todo Add the attributes and child elements storage for the %InitializationSetType %XML schema type.
  */
 class LIBMPDPP_PUBLIC_API InitializationSet : public RepresentationBase {
 public:

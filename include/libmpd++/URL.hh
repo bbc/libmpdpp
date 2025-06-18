@@ -30,6 +30,7 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** URL class
+ * @headerfile libmpd++/URL.hh <libmpd++/URL.hh>
  *
  * Container for %DASH %MPD schema %URLType (ISO 23009-1:2022 Clause 5.3.9.2.3).
  */

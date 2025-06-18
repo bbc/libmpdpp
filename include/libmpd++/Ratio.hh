@@ -29,8 +29,9 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** Ratio class
+ * @headerfile libmpd++/Ratio.hh <libmpd++/Ratio.hh>
  *
- * Container for %DASH %MPD schema %RatioType.
+ * Container for attribute values matching %DASH %MPD schema %RatioType as found in ISO 23009-1:2022 Clause 5.3.3.3.
  */
 class LIBMPDPP_PUBLIC_API Ratio {
 public:

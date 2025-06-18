@@ -16,6 +16,11 @@
 
 LIBMPDPP_NAMESPACE_BEGIN
 
+/** ParseError exception class
+ * @headerfile libmpd++/exceptions.hh <libmpd++/exceptions.hh>
+ *
+ * This type is thrown when the library encounters an error in parsing the %MPD input.
+ */
 class LIBMPDPP_PUBLIC_API ParseError : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
@@ -24,6 +29,12 @@ public:
     virtual ~ParseError() = default;
 };
 
+/** InvalidMPD exception class
+ * @headerfile libmpd++/exceptions.hh <libmpd++/exceptions.hh>
+ *
+ * This type is thrown when the MPD or child objects contain values inconsistent with a correct %MPD. This could include out of
+ * range values or missing child objects.
+ */
 class LIBMPDPP_PUBLIC_API InvalidMPD : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
@@ -32,6 +43,11 @@ public:
     virtual ~InvalidMPD() = default;
 };
 
+/** RangeError exception class
+ * @headerfile libmpd++/exceptions.hh <libmpd++/exceptions.hh>
+ *
+ * This type is thrown when a value is out of range or an array index outside the array bounds is requested from the library.
+ */
 class LIBMPDPP_PUBLIC_API RangeError : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;

@@ -20,8 +20,9 @@
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** SegmentAvailability class
+ * @headerfile libmpd++/SegmentAvailability.hh <libmpd++/SegmentAvailability.hh>
  *
- * This class is used to return details of the availability of a segment and where it can be found
+ * This class is used to return details of the availability date-time range of a segment and where it can be found.
  */
 class LIBMPDPP_PUBLIC_API SegmentAvailability {
 public:

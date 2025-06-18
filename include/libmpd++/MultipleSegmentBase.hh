@@ -30,8 +30,11 @@ namespace xmlpp {
 LIBMPDPP_NAMESPACE_BEGIN
 
 /** MultipleSegmentBase class
+ * @headerfile libmpd++/MultipleSegmentBase.hh <libmpd++/MultipleSegmentBase.hh>
  *
- * Container for %DASH %MPD schema %MultipleSegmentBaseType.
+ * Container for %DASH %MPD schema %MultipleSegmentBaseType as found in ISO 23009-1:2022 Clause 5.3.9.2.3.
+ *
+ * This is the base type for SegmentList and SegmentTemplate classes.
  */
 class LIBMPDPP_PUBLIC_API MultipleSegmentBase : public SegmentBase {
 public:

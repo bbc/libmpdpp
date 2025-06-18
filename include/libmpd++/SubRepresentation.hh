@@ -32,8 +32,9 @@ LIBMPDPP_NAMESPACE_BEGIN
 class Representation;
 
 /** SubRepresentation class
+ * @headerfile libmpd++/SubRepresentation.hh <libmpd++/SubRepresentation.hh>
  *
- * Container for %DASH %MPD schema %SubRepresentationType.
+ * Container for %DASH %MPD schema %SubRepresentationType as found in ISO 23009-1:2022 Clause 5.3.6.3.
  *
  * @todo Add the attributes and child elements for %SubRepresentationType in the schema.
  */
