@@ -52,7 +52,7 @@ public:
     /** Comparison operator
      *
      * @param other The other EventStream to comnpare to this one.
-     * @return `true` if the value of @a other is the same as the value of this EventStream, otherwise `false`.
+     * @return `true` if the value of @p other is the same as the value of this EventStream, otherwise `false`.
      */
     bool operator==(const EventStream &other) const { return true; };
 
@@ -63,7 +63,7 @@ protected:
 
     /** Constructor from libxml++ Node
      *
-     * Extract a new EventStream from the %EventStream element node passed in @a node.
+     * Extract a new EventStream from the %EventStream element node passed in @p node.
      *
      * @param node The libxml++ Node to read the EventStream element attributes and value from.
      */

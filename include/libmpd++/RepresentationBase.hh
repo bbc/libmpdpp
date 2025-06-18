@@ -69,7 +69,7 @@ public:
 
     /** Copy constructor
      * 
-     * Creates a new RepresentationBase which is a copy of @a to_copy.
+     * Creates a new RepresentationBase which is a copy of @p to_copy.
      *
      * @param to_copy The RepresentationBase to copy.
      */
@@ -77,7 +77,7 @@ public:
 
     /** Move constructor
      *
-     * Creates a new RepresentationBase which is a transfer of the resources and values from @a to_move.
+     * Creates a new RepresentationBase which is a transfer of the resources and values from @p to_move.
      *
      * @param to_move The RepresentationBase to move into this new RepresentationBase.
      */
@@ -89,7 +89,7 @@ public:
 
     /** Copy operator
      *
-     * Replace the current RepresentationBase with a copy of the values from @a to_copy.
+     * Replace the current RepresentationBase with a copy of the values from @p to_copy.
      *
      * @param to_copy The RepresentationBase to copy.
      * @return This RepresentationBase.
@@ -98,7 +98,7 @@ public:
 
     /** Move operator
      * 
-     * Replace the current RepresentationBase with the resources and values from @a to_move.
+     * Replace the current RepresentationBase with the resources and values from @p to_move.
      *
      * @param to_move The RepresentationBase to move into this new RepresentationBase.
      * @return This RepresentationBase.
@@ -107,10 +107,10 @@ public:
 
     /** Equality operator
      *
-     * Check if @a to_compare has an equal value to this RepresentationBase.
+     * Check if @p to_compare has an equal value to this RepresentationBase.
      *
      * @param to_compare The other RepresentationBase to compare to this.
-     * @return `true` if this RepresentationBase has the same values as @a to_compare.
+     * @return `true` if this RepresentationBase has the same values as @p to_compare.
      */
     bool operator==(const RepresentationBase &to_compare) const;
 
@@ -153,8 +153,8 @@ public:
     /** Get an entry from the profiles list
      *
      * @param idx The index in the list (starting from 0) of the profile URI to retrieve.
-     * @return The profile URI at list index @a idx.
-     * @throw std::out_of_range If the @a idx index references a URI outside the profiles list.
+     * @return The profile URI at list index @p idx.
+     * @throw std::out_of_range If the @p idx index references a URI outside the profiles list.
      */
     const URI &profile(std::list<URI>::size_type idx) const;
 
@@ -313,8 +313,8 @@ public:
 
     /** Set the @@frameRate attribute value
      *
-     * @param numerator The number of frames per @a denominator seconds.
-     * @param denominator The number of seconds over which @a numerator frames are given, defaults to 1 if not provided.
+     * @param numerator The number of frames per @p denominator seconds.
+     * @param denominator The number of seconds over which @p numerator frames are given, defaults to 1 if not provided.
      * @return This RepresentationBase.
      */
     RepresentationBase &frameRate(FrameRate::size_type numerator, FrameRate::size_type denominator = 1) {
@@ -322,27 +322,27 @@ public:
         return *this;
     };
 
-    // @audioSamplingRate
+    // @pudioSamplingRate
 
-    /** Get the @@audioSamplingRate attribute list
+    /** Get the @@pudioSamplingRate attribute list
      *
-     * @return The @@audioSamplingRate attribute value list.
+     * @return The @@pudioSamplingRate attribute value list.
      */
     const std::list<unsigned int> &audioSamplingRates() const { return m_audioSamplingRates; };
 
     /**@{*/
-    /** Get an iterator for the start of the @@audioSamplingRate attribute value list
+    /** Get an iterator for the start of the @@pudioSamplingRate attribute value list
      *
-     * @return An iterator at the start of the @@audioSamplingRate attribute value list.
+     * @return An iterator at the start of the @@pudioSamplingRate attribute value list.
      */
     std::list<unsigned int>::const_iterator audioSamplingRatesBegin() const { return m_audioSamplingRates.cbegin(); };
     std::list<unsigned int>::iterator audioSamplingRatesBegin() { return m_audioSamplingRates.begin(); };
     /**@}*/
 
     /**@{*/
-    /** Get an iterator for the end of the @@audioSamplingRate attribute value list
+    /** Get an iterator for the end of the @@pudioSamplingRate attribute value list
      *
-     * @return An iterator at the end of the @@audioSamplingRate attribute value list.
+     * @return An iterator at the end of the @@pudioSamplingRate attribute value list.
      */
     std::list<unsigned int>::const_iterator audioSamplingRatesEnd() const { return m_audioSamplingRates.cend(); };
     std::list<unsigned int>::iterator audioSamplingRatesEnd() { return m_audioSamplingRates.end(); };
@@ -351,39 +351,39 @@ public:
     /**@{*/
     /** Set the audio sampling rate list
      *
-     * @param rates The list of audio sample rates to set the @@audioSamplingRate attribute to.
+     * @param rates The list of audio sample rates to set the @@pudioSamplingRate attribute to.
      * @return This RepresentationBase.
      */
     RepresentationBase &audioSamplingRates(const std::list<unsigned int> &rates) { m_audioSamplingRates = rates; return *this; };
     RepresentationBase &audioSamplingRates(std::list<unsigned int> &&rates) { m_audioSamplingRates = std::move(rates); return *this; };
     /**@}*/
 
-    /** Get an @@audioSamplingRate attribute value from the list of @@audioSamplingRate attribute values
+    /** Get an @@pudioSamplingRate attribute value from the list of @@pudioSamplingRate attribute values
      *
-     * @param idx The index, starting from 0, of the entry in the @@audioSamplingRate attribute values list to retrieve.
-     * @return The audio sampling rate from index @a idx is the list of @@audioSamplingRate attribute values.
-     * @throw std::out_of_range If the @a idx index value lies outside the list of @@audioSamplingRate attribute values.
+     * @param idx The index, starting from 0, of the entry in the @@pudioSamplingRate attribute values list to retrieve.
+     * @return The audio sampling rate from index @p idx is the list of @@pudioSamplingRate attribute values.
+     * @throw std::out_of_range If the @p idx index value lies outside the list of @@pudioSamplingRate attribute values.
      */
     unsigned int audioSamplingRate(std::list<unsigned int>::size_type idx) const;
 
-    /** Add an @@audioSamplingRate entry
+    /** Add an @@pudioSamplingRate entry
      *
-     * @param val The @@audioSamplingRate value to add to the list.
+     * @param val The @@pudioSamplingRate value to add to the list.
      * @return This RepresentationBase.
      */
     RepresentationBase &audioSamplingRatesAdd(unsigned int val) { m_audioSamplingRates.push_back(val); return *this; };
 
-    /** Remove an @@audioSamplingRate value from the list
+    /** Remove an @@pudioSamplingRate value from the list
      *
-     * @param val The @@audioSamplingRate value to remove from the list.
+     * @param val The @@pudioSamplingRate value to remove from the list.
      * @return This RepresentationBase.
      */
     RepresentationBase &audioSamplingRatesRemove(unsigned int val);
 
     /**@{*/
-    /** Remove an @@audioSamplingRate entry from the list
+    /** Remove an @@pudioSamplingRate entry from the list
      *
-     * @param it An iterator for an entry in the @@audioSamplingRate values list.
+     * @param it An iterator for an entry in the @@pudioSamplingRate values list.
      * @return This RepresentationBase.
      */
     RepresentationBase &audioSamplingRatesRemove(const std::list<unsigned int>::const_iterator &it);
@@ -459,12 +459,12 @@ public:
 
     /** Get the segment profile string at an index in the list
      * 
-     * This will return the segment profile string at the index given in @a idx (starting at 0). If @a idx fall outside the
+     * This will return the segment profile string at the index given in @p idx (starting at 0). If @p idx fall outside the
      * segment profiles list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of segment profiles.
-     * @return The segment profile string at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the segment profiles list.
+     * @return The segment profile string at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the segment profiles list.
      */
     const std::string &segmentProfile(std::list<std::string>::size_type idx) const;
 
@@ -564,12 +564,12 @@ public:
 
     /** Get the container profile string at an index in the list
      * 
-     * This will return the container profile string at the index given in @a idx (starting at 0). If @a idx fall outside the
+     * This will return the container profile string at the index given in @p idx (starting at 0). If @p idx fall outside the
      * container profiles list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of container profiles.
-     * @return The container profile string at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the container profiles list.
+     * @return The container profile string at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the container profiles list.
      */
     const std::string &containerProfile(std::list<std::string>::size_type idx) const;
 
@@ -769,7 +769,7 @@ public:
      *
      * If this value is set to the default of 1, then it will be omitted from XML output.
      *
-     * @param val Set the @@selectionPriority attribute value to @a val.
+     * @param val Set the @@selectionPriority attribute value to @p val.
      * @return This RepresentationBase.
      */
     RepresentationBase &selectionPriority(unsigned int val) { m_selectionPriority = val; return *this; };
@@ -843,12 +843,12 @@ public:
 
     /** Get the frame packing descriptor at an index in the list
      * 
-     * This will return the frame packing descriptor at the index given in @a idx (starting at 0). If @a idx fall outside the
+     * This will return the frame packing descriptor at the index given in @p idx (starting at 0). If @p idx fall outside the
      * frame packings list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of frame packings.
-     * @return The frame packing descriptor at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the frame packings list.
+     * @return The frame packing descriptor at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the frame packings list.
      */
     const Descriptor &framePacking(std::list<Descriptor>::size_type idx) const;
 
@@ -916,12 +916,12 @@ public:
 
     /** Get the audio channel configuration descriptor at an index in the list
      * 
-     * This will return the audio channel configuration descriptor at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the audio channel configuration descriptor at the index given in @p idx (starting at 0). If @p idx falls
      * outside the audio channel configurations list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of audio channel configurations.
-     * @return The audio channel configuration descriptor at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the audio channel configurations list.
+     * @return The audio channel configuration descriptor at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the audio channel configurations list.
      */
     const Descriptor &audioChannelConfiguration(std::list<Descriptor>::size_type idx) const;
 
@@ -997,12 +997,12 @@ public:
 
     /** Get the content protection at an index in the list
      * 
-     * This will return the content protection at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the content protection at the index given in @p idx (starting at 0). If @p idx falls
      * outside the content protections list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of content protections.
-     * @return The content protection at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the content protections list.
+     * @return The content protection at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the content protections list.
      */
     const ContentProtection &contentProtection(std::list<ContentProtection>::size_type idx) const;
 
@@ -1110,12 +1110,12 @@ public:
 
     /** Get the essential property descriptor at an index in the list
      * 
-     * This will return the essential property descriptor at the index given in @a idx (starting at 0). If @a idx fall outside the
+     * This will return the essential property descriptor at the index given in @p idx (starting at 0). If @p idx fall outside the
      * essential properties list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of essential properties.
-     * @return The essential property descriptor at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the essential properties list.
+     * @return The essential property descriptor at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the essential properties list.
      */
     const Descriptor &essentialProperty(std::list<Descriptor>::size_type idx) const;
 
@@ -1187,12 +1187,12 @@ public:
 
     /** Get the supplemental property descriptor at an index in the list
      * 
-     * This will return the supplemental property descriptor at the index given in @a idx (starting at 0). If @a idx fall outside
+     * This will return the supplemental property descriptor at the index given in @p idx (starting at 0). If @p idx fall outside
      * the supplemental properties list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of supplemental properties.
-     * @return The supplemental property descriptor at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the supplemental properties list.
+     * @return The supplemental property descriptor at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the supplemental properties list.
      */
     const Descriptor &supplementalProperty(std::list<Descriptor>::size_type idx) const;
 
@@ -1264,12 +1264,12 @@ public:
 
     /** Get the inband event stream at an index in the list
      * 
-     * This will return the inband event stream at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the inband event stream at the index given in @p idx (starting at 0). If @p idx falls
      * outside the inband event streams list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of inband event streams.
-     * @return The inband event stream at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the inband event streams list.
+     * @return The inband event stream at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the inband event streams list.
      */
     const EventStream &inbandEventStream(std::list<EventStream>::size_type idx) const;
 
@@ -1345,12 +1345,12 @@ public:
 
     /** Get the switching at an index in the list
      * 
-     * This will return the switching at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the switching at the index given in @p idx (starting at 0). If @p idx falls
      * outside the switchings list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of switchings.
-     * @return The switching at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the switchings list.
+     * @return The switching at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the switchings list.
      */
     const Switching &switching(std::list<Switching>::size_type idx) const;
 
@@ -1426,12 +1426,12 @@ public:
 
     /** Get the random access value at an index in the list
      * 
-     * This will return the random access at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the random access at the index given in @p idx (starting at 0). If @p idx falls
      * outside the random accesses list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of random accesses.
-     * @return The random access at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the random accesses list.
+     * @return The random access at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the random accesses list.
      */
     const RandomAccess &randomAccess(std::list<RandomAccess>::size_type idx) const;
 
@@ -1507,12 +1507,12 @@ public:
 
     /** Get the group label at an index in the list
      * 
-     * This will return the group label at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the group label at the index given in @p idx (starting at 0). If @p idx falls
      * outside the group labels list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of group labels.
-     * @return The group label at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the group labels list.
+     * @return The group label at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the group labels list.
      */
     const Label &groupLabel(std::list<Label>::size_type idx) const;
 
@@ -1588,12 +1588,12 @@ public:
 
     /** Get the label at an index in the list
      * 
-     * This will return the label at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the label at the index given in @p idx (starting at 0). If @p idx falls
      * outside the labels list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of labels.
-     * @return The label at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the labels list.
+     * @return The label at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the labels list.
      */
     const Label &label(std::list<Label>::size_type idx) const;
 
@@ -1669,12 +1669,12 @@ public:
 
     /** Get the producer reference time at an index in the list
      * 
-     * This will return the producer reference time at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the producer reference time at the index given in @p idx (starting at 0). If @p idx falls
      * outside the producer reference times list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of producer reference times.
-     * @return The producer reference time at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the producer reference times list.
+     * @return The producer reference time at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the producer reference times list.
      */
     const ProducerReferenceTime &producerReferenceTime(std::list<ProducerReferenceTime>::size_type idx) const;
 
@@ -1750,12 +1750,12 @@ public:
 
     /** Get the content popularity rate at an index in the list
      * 
-     * This will return the content popularity rate at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the content popularity rate at the index given in @p idx (starting at 0). If @p idx falls
      * outside the content popularity rates list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of content popularity rates.
-     * @return The content popularity rate at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the content popularity rates list.
+     * @return The content popularity rate at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the content popularity rates list.
      */
     const ContentPopularityRate &contentPopularityRate(std::list<ContentPopularityRate>::size_type idx) const;
 
@@ -1831,12 +1831,12 @@ public:
 
     /** Get the resync at an index in the list
      * 
-     * This will return the resync at the index given in @a idx (starting at 0). If @a idx falls
+     * This will return the resync at the index given in @p idx (starting at 0). If @p idx falls
      * outside the resyncs list then a std::out_of_range exception will be thrown.
      *
      * @param idx The index, starting from 0, of the entry to retrieve from the list of resyncs.
-     * @return The resync at list index @a idx.
-     * @throw std::out_of_range If @a idx lies outside of the resyncs list.
+     * @return The resync at list index @p idx.
+     * @throw std::out_of_range If @p idx lies outside of the resyncs list.
      */
     const Resync &resync(std::list<Resync>::size_type idx) const;
 
@@ -1883,7 +1883,7 @@ protected:
 
     /** Add the representation of this RepresentationBase to a libxml++ %Element
      * 
-     * This adds the attributes, child elements and values to the libxml++ %Element given in @a elem.
+     * This adds the attributes, child elements and values to the libxml++ %Element given in @p elem.
      *
      * @param elem The %Element to add the nodes to.
      */

@@ -101,13 +101,13 @@ public:
     bool indexRangeExact() const { return m_indexRangeExact; };
     SegmentBase &indexRangeExact(bool val) { m_indexRangeExact = val; return *this; };
 
-    // @availabilityTimeOffset
+    // @pvailabilityTimeOffset
     bool hasAvailabilityTimeOffset() const { return m_availabilityTimeOffset.has_value(); };
     const std::optional<double> &availabilityTimeOffset() const { return m_availabilityTimeOffset; };
     SegmentBase &availabilityTimeOffset(const std::nullopt_t&) { m_availabilityTimeOffset.reset(); return *this; };
     SegmentBase &availabilityTimeOffset(double val) { m_availabilityTimeOffset = val; return *this; };
 
-    // @availabilityTimeComplete
+    // @pvailabilityTimeComplete
     bool availabilityTimeComplete() const { return m_availabilityTimeComplete; };
     SegmentBase &availabilityTimeComplete(bool val) { m_availabilityTimeComplete = val; return *this; };
 

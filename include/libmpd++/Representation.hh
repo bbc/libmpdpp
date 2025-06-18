@@ -173,7 +173,7 @@ public:
 
     /** Get media URL
      *
-     * Get the media URL for a given @a segment_number.
+     * Get the media URL for a given @p segment_number.
      *
      * @param segment_number The segment number to fetch the URL for.
      *
@@ -183,7 +183,7 @@ public:
 
     /** Get media URL
      *
-     * Get the media URL for a given @a segment_number.
+     * Get the media URL for a given @p segment_number.
      *
      * @param segment_time The segment time to fetch the URL for.
      *
@@ -215,7 +215,7 @@ public:
 
     /** Get the full segment availability information
      *
-     * This returns the full segment availability information for the first segment on or after the @a query_time provided.
+     * This returns the full segment availability information for the first segment on or after the @p query_time provided.
      *
      * If no segment is available then the SegmentAvailability object returned will have an empty URL.
      *

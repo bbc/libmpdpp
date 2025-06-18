@@ -136,7 +136,7 @@ public:
     /** Comparison operator
      *
      * @param other The other Descriptor to compare to this one.
-     * @return `true` if the value of @a other is the same as the value of this Descriptor, otherwise `false`.
+     * @return `true` if the value of @p other is the same as the value of this Descriptor, otherwise `false`.
      */
     bool operator==(const Descriptor &other) const {
         if (m_schemeIdUri != other.m_schemeIdUri) return false;

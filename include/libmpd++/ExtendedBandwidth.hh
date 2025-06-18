@@ -51,7 +51,7 @@ public:
     /** Comparison operator
      *
      * @param other The other ExtendedBandwidth to compare to this one.
-     * @return `true` if the value of @a other is the same as the value of this ExtendedBandwidth, otherwise `false`.
+     * @return `true` if the value of @p other is the same as the value of this ExtendedBandwidth, otherwise `false`.
      */
     bool operator==(const ExtendedBandwidth &other) const { return true; };
 
@@ -61,7 +61,7 @@ protected:
 
     /** Constructor from libxml++ Node
      *
-     * Extract a new ExtendedBandwidth from the %ExtendedBandwidth element node passed in @a node.
+     * Extract a new ExtendedBandwidth from the %ExtendedBandwidth element node passed in @p node.
      *
      * @param node The libxml++ Node to read the ExtendedBandwidth element attributes and value from.
      */

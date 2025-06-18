@@ -53,7 +53,7 @@ public:
     /**@{*/
     /** Construct with %URL
      * 
-     * Make a new BaseURL with @a url as the %URL string.
+     * Make a new BaseURL with @p url as the %URL string.
      *
      * @param url The %URL to set this BaseURL value to.
      */
@@ -63,7 +63,7 @@ public:
 
     /** Copy constructor
      *
-     * Create a new BaseURL which is a copy of @a other.
+     * Create a new BaseURL which is a copy of @p other.
      *
      * @param other The other BaseURL to copy.
      */
@@ -71,7 +71,7 @@ public:
 
     /** Move constructor
      *
-     * Create a new BaseURL by moving the values and resources from the @a other BaseURL.
+     * Create a new BaseURL by moving the values and resources from the @p other BaseURL.
      *
      * @param other The other BaseURL to transfer the values and resources from.
      */
@@ -84,7 +84,7 @@ public:
     /**@{*/
     /** Assignment operator
      *
-     * Set this BaseURL to the same value as @a other.
+     * Set this BaseURL to the same value as @p other.
      *
      * @param other The other BaseURL to copy/move into this BaseURL.
      * @return This BaseURL.
@@ -96,7 +96,7 @@ public:
     /** Comparison operator
      * 
      * @param other The other BaseURL to comnpare to this one.
-     * @return `true` if the value of @a other is the same as the value of this BaseURL, otherwise `false`.
+     * @return `true` if the value of @p other is the same as the value of this BaseURL, otherwise `false`.
      */
     bool operator==(const BaseURL &other) const;
 
@@ -121,13 +121,13 @@ public:
 
     /** Create a new BaseURL with the resolved version of this URL
      *
-     * Create a copy of this BaseURL with the url resolved using the provided @a base_urls.
+     * Create a copy of this BaseURL with the url resolved using the provided @p base_urls.
      * If this BaseURL is absolute then the result will just be a copy of this one.
-     * If this BaseURL is relative then the @a base_urls list will be used to generate an absolute (if possible) %URL by combining
-     * the relative %URL from this BaseURL with one of the absolute URLs from @a base_urls.
+     * If this BaseURL is relative then the @p base_urls list will be used to generate an absolute (if possible) %URL by combining
+     * the relative %URL from this BaseURL with one of the absolute URLs from @p base_urls.
      *
      * @param base_urls The list of BaseURL to use as base URL when resolving this URL.
-     * @return A copy of this BaseURL resolved using @a base_urls.
+     * @return A copy of this BaseURL resolved using @p base_urls.
      */
     BaseURL resolveURL(const std::list<BaseURL> &base_urls) const;
 
@@ -191,56 +191,56 @@ public:
     BaseURL &byteRange(std::string &&val) { m_byteRange = std::move(val); return *this; };
     /**@}*/
 
-    // @availabilityTimeOffset
+    // @pvailabilityTimeOffset
 
-    /** Check if the @@availabilityTimeOffset attribute has been set
+    /** Check if the @@pvailabilityTimeOffset attribute has been set
      *
-     * @return `true` if the @@availabilityTimeOffset attribute has been set, otherwise `false`.
+     * @return `true` if the @@pvailabilityTimeOffset attribute has been set, otherwise `false`.
      */
     bool hasAvailabilityTimeOffset() const { return m_availabilityTimeOffset.has_value(); };
 
-    /** Get the optional @@availabilityTimeOffset attribute value
+    /** Get the optional @@pvailabilityTimeOffset attribute value
      *
      * @return The optional availability time offset.
      */
     const std::optional<double> &availabilityTimeOffset() const { return m_availabilityTimeOffset; };
 
-    /** Unset the @@availabilityTimeOffset attribute value
+    /** Unset the @@pvailabilityTimeOffset attribute value
      *
      * @return This BaseURL.
      */
     BaseURL &availabilityTimeOffset(const std::nullopt_t&) { m_availabilityTimeOffset.reset(); return *this; };
 
-    /** Set the @@availabilityTimeOffset attribute value
+    /** Set the @@pvailabilityTimeOffset attribute value
      *
-     * @param val The value to set as the @@availabilityTimeOffset attribute value.
+     * @param val The value to set as the @@pvailabilityTimeOffset attribute value.
      * @return This BaseURL.
      */
     BaseURL &availabilityTimeOffset(double val) { m_availabilityTimeOffset = val; return *this; };
 
-    // @availabilityTimeComplete
+    // @pvailabilityTimeComplete
 
-    /** Check if the @@availabilityTimeComplete attribute has been set
+    /** Check if the @@pvailabilityTimeComplete attribute has been set
      *
-     * @return `true` if the @@availabilityTimeComplete attribute has been set.
+     * @return `true` if the @@pvailabilityTimeComplete attribute has been set.
      */
     bool hasAvailabilityTimeComplete() const { return m_availabilityTimeComplete.has_value(); };
 
-    /** Get the optional @@availabilityTimeComplete attribute value
+    /** Get the optional @@pvailabilityTimeComplete attribute value
      *
-     * @return the Optional @@availabilityTimeComplete attribute flag.
+     * @return the Optional @@pvailabilityTimeComplete attribute flag.
      */
     const std::optional<bool> &availabilityTimeComplete() const { return m_availabilityTimeComplete; };
 
-    /** Unset the @@availabilityTimeComplete attribute value
+    /** Unset the @@pvailabilityTimeComplete attribute value
      *
      * @return This BaseURL.
      */
     BaseURL &availabilityTimeComplete(const std::nullopt_t&) { m_availabilityTimeComplete.reset(); return *this; };
 
-    /** Set the @@availabilityTimeComplete attribute value
+    /** Set the @@pvailabilityTimeComplete attribute value
      *
-     * @param val The value for the @@availabilityTimeComplete attribute.
+     * @param val The value for the @@pvailabilityTimeComplete attribute.
      * @return This BaseURL.
      */
     BaseURL &availabilityTimeComplete(bool val) { m_availabilityTimeComplete = val; return *this; };
@@ -302,7 +302,7 @@ protected:
 
     /** Constructor from libxml++ Node
      *
-     * Extract a new BaseURL from the %BaseURL element node passed in @a node.
+     * Extract a new BaseURL from the %BaseURL element node passed in @p node.
      *
      * @param node The libxml++ Node to read the BaseURL element attributes and value from.
      */
@@ -321,8 +321,8 @@ private:
     // BaseURL attributes ISO 23009-1:2022 Clause 5.6.3
     std::optional<std::string>   m_serviceLocation;          ///< The optional @@serviceLocation attribute value
     std::optional<std::string>   m_byteRange;                ///< The optional @@byteRange attribute value
-    std::optional<double>        m_availabilityTimeOffset;   ///< The optional @@availabilityTimeOffset attribute value
-    std::optional<bool>          m_availabilityTimeComplete; ///< The optional @@availabilityTimeComplete attribute flag value
+    std::optional<double>        m_availabilityTimeOffset;   ///< The optional @@pvailabilityTimeOffset attribute value
+    std::optional<bool>          m_availabilityTimeComplete; ///< The optional @@pvailabilityTimeComplete attribute flag value
     std::optional<duration_type> m_timeShiftBufferDepth;     ///< The optional @@timeShiftBufferDepth attribute value
     bool                         m_rangeAccess;              ///< The @@rangeAccess attribute value (default: false)
 };

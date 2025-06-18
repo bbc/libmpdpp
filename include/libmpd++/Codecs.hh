@@ -60,7 +60,7 @@ public:
         
         /** Construct with encoding string
          *
-         * Make a new Encoding with @a encoding as the encoding string.
+         * Make a new Encoding with @p encoding as the encoding string.
          *
          * @param encoding The encoding to set this Encoding value to.
          */
@@ -109,7 +109,7 @@ public:
          */
         bool operator!=(const Encoding &other) const { return m_charset != other.m_charset || m_language != other.m_language; };
 
-        /** @anchor Codecs_Encoding_operator_std_string
+        /** @pnchor Codecs_Encoding_operator_std_string
          * @brief String cast operator
          * 
          * Return a string representation of the encodings values (as would appear in the @@codecs attribute).
@@ -137,7 +137,7 @@ public:
 
      /** Copy constructor
      *
-     * Creates a new Codecs object which is a copy of @a to_copy.
+     * Creates a new Codecs object which is a copy of @p to_copy.
      *
      * @param to_copy The Codecs object to copy.
      */
@@ -145,7 +145,7 @@ public:
 
     /** Move constructor
      *
-     * Creates a new Codecs object which transfers the resources from @a to_move.
+     * Creates a new Codecs object which transfers the resources from @p to_move.
      *
      * @param to_move The Codecs object to move.
      */
@@ -157,7 +157,7 @@ public:
 
     /** Copy operator
      *
-     * Copies the values from @a to_copy into this Codecs object.
+     * Copies the values from @p to_copy into this Codecs object.
      *
      * @param to_copy The Codecs object to copy.
      * @return This Codecs object.
@@ -166,7 +166,7 @@ public:
 
     /** Move operator
      *
-     * Transfers the resources from @a to_move into this Codecs object.
+     * Transfers the resources from @p to_move into this Codecs object.
      *
      * @param to_move The Codecs object to move.
      * @return This Codes object.
@@ -182,7 +182,7 @@ public:
      */
     bool operator==(const Codecs &to_compare) const;
 
-    /** @anchor Codecs_operator_std_string
+    /** @pnchor Codecs_operator_std_string
      * @brief String cast operator
      * 
      * This converts the Codecs list into a string suitable for use in a @@codecs attribute in an MPD.
@@ -300,22 +300,22 @@ LIBMPDPP_NAMESPACE_END
 
 /** Stream output operator for @ref com::bbc::libmpdpp::Codecs::Encoding "Codecs::Encoding"
  *
- * This will convert the @ref com::bbc::libmpdpp::Codecs::Encoding "Encoding" to a string and append it to the @a os output stream.
+ * This will convert the @ref com::bbc::libmpdpp::Codecs::Encoding "Encoding" to a string and append it to the @p os output stream.
  *
  * @param os The stream to output the @ref com::bbc::libmpdpp::Codecs::Encoding "Encoding" to.
  * @param enc The @ref com::bbc::libmpdpp::Codecs::Encoding "Encoding" to output.
- * @return The @a os stream.
+ * @return The @p os stream.
  * @see @ref Codecs_Encoding_operator_std_string "Codecs::Encoding::operator std::string()"
  */
 LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs::Encoding) &enc);
 
 /** Stream output operator for @ref com::bbc::libmpdpp::Codecs "Codecs"
  *
- * This will convert the @ref com::bbc::libmpdpp::Codecs "Codecs" to a string and append it to the @a os output stream.
+ * This will convert the @ref com::bbc::libmpdpp::Codecs "Codecs" to a string and append it to the @p os output stream.
  *
  * @param os The stream to output the @ref com::bbc::libmpdpp::Codecs "Codecs" to.
  * @param codecs The @ref com::bbc::libmpdpp::Codecs "Codecs" to output.
- * @return The @a os stream.
+ * @return The @p os stream.
  * @see @ref Codecs_operator_std_string "Codecs::operator std::string()"
  */
 LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(Codecs) &codecs);

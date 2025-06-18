@@ -262,7 +262,7 @@ public:
     /**
      * Set the @@lang attribute value (copy)
      *
-     * Copies the @a lang value into the @@lang attribute.
+     * Copies the @p lang value into the @@lang attribute.
      *
      * @param lang The language identifier to set the @@lang attribute to.
      * @return This AdaptationSet.
@@ -272,7 +272,7 @@ public:
     /**
      * Set the @@lang attribute value (move)
      *
-     * Move the @a lang value into the @@lang attribute.
+     * Move the @p lang value into the @@lang attribute.
      *
      * @param lang The language identifier to set the @@lang attribute to.
      * @return This AdaptationSet.
@@ -282,7 +282,7 @@ public:
     /**
      * Set the @@lang attribute value (optional value copy)
      *
-     * Copy the optional @a lang value as the setting for the @@lang attribute.
+     * Copy the optional @p lang value as the setting for the @@lang attribute.
      *
      * @param lang The optional language identifier to set the @@lang attribute to.
      * @return This AdaptationSet.
@@ -292,7 +292,7 @@ public:
     /**
      * Set the @@lang attribute value (optional value move)
      *
-     * Move the optional @a lang value as the setting for the @@lang attribute.
+     * Move the optional @p lang value as the setting for the @@lang attribute.
      *
      * @param lang The optional language identifier to set the @@lang attribute to.
      * @return This AdaptationSet.
@@ -327,7 +327,7 @@ public:
     /**
      * Set the @@contentType attribute value (copy)
      *
-     * Set the @@contentType attribute to a copy of the @a content_type value.
+     * Set the @@contentType attribute to a copy of the @p content_type value.
      *
      * @param content_type The RFC6838 content type to set the @@contentType attribute to.
      * @return This AdaptationSet.
@@ -337,7 +337,7 @@ public:
     /**
      * Set the @@contentType attribute value (move)
      *
-     * Move the RFC6838 content type value, @a content_type, into the @@contentType attribute.
+     * Move the RFC6838 content type value, @p content_type, into the @@contentType attribute.
      *
      * @param content_type The RFC6838 content type to move to the @@contentType attribute.
      * @return This AdaptationSet.
@@ -347,7 +347,7 @@ public:
     /**
      * Set the @@contentType attribute value (optional value copy)
      *
-     * Copy the optional value from @a content_type to the @@contentType attribute.
+     * Copy the optional value from @p content_type to the @@contentType attribute.
      *
      * @param content_type The optional RFC6838 content type value to copy into the @@contentType attribute.
      * @return This AdaptationSet.
@@ -357,7 +357,7 @@ public:
     /**
      * Set the @@contentType attribute value (optional value move)
      *
-     * Move the optional value from @a content_type into the @@contentType attribute.
+     * Move the optional value from @p content_type into the @@contentType attribute.
      *
      * @param content_type The optional RFC6838 content type value to move into the @@contentType attribute.
      * @return This AdaptationSet.
@@ -390,7 +390,7 @@ public:
     /**
      * Set the @@par attribute value (copy)
      *
-     * Copy the Ratio @a par as the value of the @@par attribute.
+     * Copy the Ratio @p par as the value of the @@par attribute.
      *
      * @param par The picture aspect ratio to copy into the @@par attribute.
      * @return This AdaptationSet.
@@ -400,7 +400,7 @@ public:
     /**
      * Set the @@par attribute value (move)
      *
-     * Move the Ratio @a par into the value of the @@par attribute.
+     * Move the Ratio @p par into the value of the @@par attribute.
      *
      * @param par The picture aspect ratio to move into the @@par attribute.
      * @return This AdaptationSet.
@@ -410,7 +410,7 @@ public:
     /**
      * Set the @@par attribute value (optional value copy)
      *
-     * Copy the optional Ratio @a par into the value of the @@par attribute.
+     * Copy the optional Ratio @p par into the value of the @@par attribute.
      *
      * @param par The optional picture aspect ratio to copy into the @@par attribute.
      * @return This AdaptationSet.
@@ -420,7 +420,7 @@ public:
     /**
      * Set the @@par attribute value (optional value move)
      *
-     * Move the optional Ratio @a par into the value of the @@par attribute.
+     * Move the optional Ratio @p par into the value of the @@par attribute.
      *
      * @param par The optional picture aspect ratio to move into the @@par attribute.
      * @return This AdaptationSet.
@@ -461,7 +461,7 @@ public:
     /**
      * Set the @@minBandwidth attribute value (optional value copy)
      *
-     * Copy the optional @a min_bandwidth into the value of the @@minBandwidth attribute.
+     * Copy the optional @p min_bandwidth into the value of the @@minBandwidth attribute.
      *
      * @param min_bandwidth The optional minimum bandwidth to copy into the @@minBandwidth attribute.
      * @return This AdaptationSet.
@@ -471,7 +471,7 @@ public:
     /**
      * Set the @@minBandwidth attribute value (optional value move)
      *
-     * Move the optional @a min_bandwidth into the @@minBandwidth attribute.
+     * Move the optional @p min_bandwidth into the @@minBandwidth attribute.
      *
      * @param min_bandwidth The optional minimum bandwidth to move into the @@minBandwidth attribute.
      * @return This AdaptationSet.
@@ -512,7 +512,7 @@ public:
     /**
      * Set the @@maxBandwidth attribute value (optional value copy)
      *
-     * Copy the optional @a max_bandwidth into the value of the @@maxBandwidth attribute.
+     * Copy the optional @p max_bandwidth into the value of the @@maxBandwidth attribute.
      *
      * @param max_bandwidth The optional maximum bandwidth to copy into the @@maxBandwidth attribute.
      * @return This AdaptationSet.
@@ -522,7 +522,7 @@ public:
     /**
      * Set the @@maxBandwidth attribute value (optional value move)
      *
-     * Move the optional @a max_bandwidth into the @@maxBandwidth attribute.
+     * Move the optional @p max_bandwidth into the @@maxBandwidth attribute.
      *
      * @param max_bandwidth The optional maximum bandwidth to move into the @@maxBandwidth attribute.
      * @return This AdaptationSet.
@@ -563,7 +563,7 @@ public:
     /**
      * Set the @@minWidth attribute value (optional value copy)
      *
-     * Copy the optional @a min_width into the value of the @@minWidth attribute.
+     * Copy the optional @p min_width into the value of the @@minWidth attribute.
      *
      * @param min_width The optional minimum video width to copy into the @@minWidth attribute.
      * @return This AdaptationSet.
@@ -573,7 +573,7 @@ public:
     /**
      * Set the @@minWidth attribute value (optional value move)
      *
-     * Move the optional @a min_width into the @@minWidth attribute.
+     * Move the optional @p min_width into the @@minWidth attribute.
      *
      * @param min_width The optional minimum video width to move into the @@minWidth attribute.
      * @return This AdaptationSet.
@@ -614,7 +614,7 @@ public:
     /**
      * Set the @@maxWidth attribute value (optional value copy)
      *
-     * Copy the optional @a max_width into the value of the @@maxWidth attribute.
+     * Copy the optional @p max_width into the value of the @@maxWidth attribute.
      *
      * @param max_width The optional maximum video width to copy into the @@maxWidth attribute.
      * @return This AdaptationSet.
@@ -624,7 +624,7 @@ public:
     /**
      * Set the @@maxWidth attribute value (optional value move)
      *
-     * Move the optional @a max_width into the @@maxWidth attribute.
+     * Move the optional @p max_width into the @@maxWidth attribute.
      *
      * @param max_width The optional maximum video width to move into the @@maxWidth attribute.
      * @return This AdaptationSet.
@@ -665,7 +665,7 @@ public:
     /**
      * Set the @@minHeight attribute value (optional value copy)
      *
-     * Copy the optional @a min_height into the value of the @@minHeight attribute.
+     * Copy the optional @p min_height into the value of the @@minHeight attribute.
      *
      * @param min_height The optional minimum video height to copy into the @@minHeight attribute.
      * @return This AdaptationSet.
@@ -675,7 +675,7 @@ public:
     /**
      * Set the @@minHeight attribute value (optional value move)
      *
-     * Move the optional @a min_height into the @@minHeight attribute.
+     * Move the optional @p min_height into the @@minHeight attribute.
      *
      * @param min_height The optional minimum video height to move into the @@minHeight attribute.
      * @return This AdaptationSet.
@@ -716,7 +716,7 @@ public:
     /**
      * Set the @@maxHeight attribute value (optional value copy)
      *
-     * Copy the optional @a max_height into the value of the @@maxHeight attribute.
+     * Copy the optional @p max_height into the value of the @@maxHeight attribute.
      *
      * @param max_height The optional maximum video height to copy into the @@maxHeight attribute.
      * @return This AdaptationSet.
@@ -726,7 +726,7 @@ public:
     /**
      * Set the @@maxHeight attribute value (optional value move)
      *
-     * Move the optional @a max_height into the @@maxHeight attribute.
+     * Move the optional @p max_height into the @@maxHeight attribute.
      *
      * @param max_height The optional maximum video height to move into the @@maxHeight attribute.
      * @return This AdaptationSet.
@@ -759,7 +759,7 @@ public:
     /**
      * Set the @@minFrameRate attribute value (copy)
      *
-     * Copy the @a min_frame_rate value into the @@minFrameRate attribute.
+     * Copy the @p min_frame_rate value into the @@minFrameRate attribute.
      *
      * @param min_frame_rate The minimum video frame rate to copy into the @@minFrameRate attribute.
      * @return This AdaptationSet.
@@ -769,7 +769,7 @@ public:
     /**
      * Set the @@minFrameRate attribute value (move)
      *
-     * Move the @a min_frame_rate value into the @@minFrameRate attribute.
+     * Move the @p min_frame_rate value into the @@minFrameRate attribute.
      *
      * @param min_frame_rate The minimum video frame rate to move into the @@minFrameRate attribute.
      * @return This AdaptationSet.
@@ -779,7 +779,7 @@ public:
     /**
      * Set the @@minFrameRate attribute value (optional value copy)
      *
-     * Copy the optional @a min_frame_rate into the value of the @@minFrameRate attribute.
+     * Copy the optional @p min_frame_rate into the value of the @@minFrameRate attribute.
      *
      * @param min_frame_rate The optional minimum video frame rate to copy into the @@minFrameRate attribute.
      * @return This AdaptationSet.
@@ -789,7 +789,7 @@ public:
     /**
      * Set the @@minFrameRate attribute value (optional value move)
      *
-     * Move the optional @a min_frame_rate into the @@minFrameRate attribute.
+     * Move the optional @p min_frame_rate into the @@minFrameRate attribute.
      *
      * @param min_frame_rate The optional minimum video frame rate to move into the @@minFrameRate attribute.
      * @return This AdaptationSet.
@@ -822,7 +822,7 @@ public:
     /**
      * Set the @@maxFrameRate attribute value (copy)
      *
-     * Copy the @a max_frame_rate value into the @@maxFrameRate attribute.
+     * Copy the @p max_frame_rate value into the @@maxFrameRate attribute.
      *
      * @param max_frame_rate The maximum video frame rate to copy into the @@maxFrameRate attribute.
      * @return This AdaptationSet.
@@ -832,7 +832,7 @@ public:
     /**
      * Set the @@maxFrameRate attribute value (move)
      *
-     * Move the @a max_frame_rate value into the @@maxFrameRate attribute.
+     * Move the @p max_frame_rate value into the @@maxFrameRate attribute.
      *
      * @param max_frame_rate The maximum video frame rate to move into the @@maxFrameRate attribute.
      * @return This AdaptationSet.
@@ -842,7 +842,7 @@ public:
     /**
      * Set the @@maxFrameRate attribute value (optional value copy)
      *
-     * Copy the optional @a max_frame_rate into the value of the @@maxFrameRate attribute.
+     * Copy the optional @p max_frame_rate into the value of the @@maxFrameRate attribute.
      *
      * @param max_frame_rate The optional maximum video frame rate to copy into the @@maxFrameRate attribute.
      * @return This AdaptationSet.
@@ -852,7 +852,7 @@ public:
     /**
      * Set the @@maxFrameRate attribute value (optional value move)
      *
-     * Move the optional @a max_frame_rate into the @@maxFrameRate attribute.
+     * Move the optional @p max_frame_rate into the @@maxFrameRate attribute.
      *
      * @param max_frame_rate The optional maximum video frame rate to move into the @@maxFrameRate attribute.
      * @return This AdaptationSet.
@@ -961,7 +961,7 @@ public:
 
     /** Set the @@bitstreamSwitching attribute value (optional value copy)
      *
-     * Copy the optional @a bitstream_switching into the value of the @@bitstreamSwitching attribute.
+     * Copy the optional @p bitstream_switching into the value of the @@bitstreamSwitching attribute.
      *
      * @param bitstream_switching The optional bitstream switching flag to copy into the @@bitstreamSwitching attribute.
      * @return This AdaptationSet.
@@ -970,7 +970,7 @@ public:
 
     /** Set the @@bitstreamSwitching attribute value (optional value move)
      *
-     * Move the optional @a bitstream_switching into the @@bitstreamSwitching attribute.
+     * Move the optional @p bitstream_switching into the @@bitstreamSwitching attribute.
      *
      * @param bitstream_switching The optional bitstream switching flag to move into the @@bitstreamSwitching attribute.
      * @return This AdaptationSet.
@@ -1009,8 +1009,8 @@ public:
     /** Get the Initialization Set reference at the given list index
      * 
      * @param idx The list index of the Initialization Set reference to retrieve.
-     * @return The Initialization Set reference at the list index @a idx.
-     * @throw std::out_of_range if @a idx is after the end of the Initialization Set reference list.
+     * @return The Initialization Set reference at the list index @p idx.
+     * @throw std::out_of_range if @p idx is after the end of the Initialization Set reference list.
      */
     unsigned int initializationSetRef(std::list<unsigned int>::size_type idx) const {
         if (idx >= m_initializationSetRefs.size())
@@ -1024,7 +1024,7 @@ public:
      * Check if the Initialization Set reference list contains a given reference value
      *
      * @param ref The reference value to check.
-     * @return `true` if the Initialization Set reference list contains the value of @a ref, otherwise `false`.
+     * @return `true` if the Initialization Set reference list contains the value of @p ref, otherwise `false`.
      */
     bool initializationSetRefsContains(unsigned int ref) const { return std::find(m_initializationSetRefs.cbegin(), m_initializationSetRefs.cend(), ref) != m_initializationSetRefs.cend(); };
 
@@ -1061,7 +1061,7 @@ public:
     /**
      * Set the list of Initialization Set references (copy)
      *
-     * Set the list of Initialization Set references to a copy of the list in @a initialization_set_refs. This replaces the current
+     * Set the list of Initialization Set references to a copy of the list in @p initialization_set_refs. This replaces the current
      * list.
      *
      * @param initialization_set_refs A list of Initialization Set references to copy into this list of Initialization Set
@@ -1073,7 +1073,7 @@ public:
     /**
      * Set the list of Initialization Set references (move)
      *
-     * Replace the list of Initialization Set references with the list from @a initialization_set_refs.
+     * Replace the list of Initialization Set references with the list from @p initialization_set_refs.
      *
      * @param initialization_set_refs A list of Initialization Set references to move into this list of Initialization Set
      *                                references.
@@ -1123,7 +1123,7 @@ public:
     /**
      * Set the @@initializationPrincipal attribute value (optional value copy)
      *
-     * Copy the optional @a initialization_principal into the value of the @@initializationPrincipal attribute.
+     * Copy the optional @p initialization_principal into the value of the @@initializationPrincipal attribute.
      *
      * @param initialization_principal The optional Initialization Principle URL to copy into the @@initializationPrincipal
      *                                 attribute.
@@ -1134,7 +1134,7 @@ public:
     /**
      * Set the @@initializationPrincipal attribute value (optional value move)
      *
-     * Move the optional @a initialization_principal into the value of the @@initializationPrincipal attribute.
+     * Move the optional @p initialization_principal into the value of the @@initializationPrincipal attribute.
      *
      * @param initialization_principal The optional Initialization Principle URL to move into the @@initializationPrincipal
      *                                 attribute.
@@ -1171,18 +1171,18 @@ public:
 
     /** Get an %Accessibility element
      * 
-     * Gets the %Accessibility Descriptor element at index @a idx in the %Accessibility elements list.
+     * Gets the %Accessibility Descriptor element at index @p idx in the %Accessibility elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %Accessibility Descriptor at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %Accessibility Descriptor at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const Descriptor &accessibility(std::list<Descriptor>::size_type idx) const;
 
     /** Check if an %Accessibility Descriptor is in the list
      * 
      * @param descriptor The %Accessibility Descriptor to look for.
-     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     * @return `true` if a Descriptor with the same value as @p descriptor is found, otherwise `false`.
      */
     bool accessibilitiesContains(const Descriptor &descriptor) const;
 
@@ -1198,7 +1198,7 @@ public:
 
     /** Remove an %Accessibility Descriptor from the %Accessibility elements
      *
-     * If the Descriptor @a accessibility exists in the %Accessibility elements, remove it from the list.
+     * If the Descriptor @p accessibility exists in the %Accessibility elements, remove it from the list.
      *
      * @param accessibility The %Accessibility Descriptor to remove from the list of %Accessibility elements.
      * @return This AdaptationSet.
@@ -1208,7 +1208,7 @@ public:
     /**@{*/
     /** Remove an %Accessibility Descriptor from the %Accessibility elements
      *
-     * Removes the %Accessibility Descriptor, referenced by the iterator @a it, from the list of %Accessibility elements.
+     * Removes the %Accessibility Descriptor, referenced by the iterator @p it, from the list of %Accessibility elements.
      *
      * @param it An iterator referencing an entry in the %Accessibility elements list.
      * @return This AdaptationSet.
@@ -1249,18 +1249,18 @@ public:
 
     /** Get an %Role element
      * 
-     * Gets the %Role Descriptor element at index @a idx in the %Role elements list.
+     * Gets the %Role Descriptor element at index @p idx in the %Role elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %Role Descriptor at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %Role Descriptor at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const Descriptor &role(std::list<Descriptor>::size_type idx) const;
 
     /** Check if a %Role Descriptor is in the list
      * 
      * @param descriptor The %Role Descriptor to look for.
-     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     * @return `true` if a Descriptor with the same value as @p descriptor is found, otherwise `false`.
      */
     bool rolesContains(const Descriptor &descriptor) const;
 
@@ -1276,7 +1276,7 @@ public:
 
     /** Remove a %Role Descriptor from the %Role elements
      *
-     * If the Descriptor @a role exists in the %Role elements, remove it from the list.
+     * If the Descriptor @p role exists in the %Role elements, remove it from the list.
      *
      * @param role The %Role Descriptor to remove from the list of %Role elements.
      * @return This AdaptationSet.
@@ -1286,7 +1286,7 @@ public:
     /**@{*/
     /** Remove a %Role Descriptor from the %Role elements
      *
-     * Removes the %Role Descriptor, referenced by the iterator @a it, from the list of %Role elements.
+     * Removes the %Role Descriptor, referenced by the iterator @p it, from the list of %Role elements.
      *
      * @param it An iterator referencing an entry in the %Role elements list.
      * @return This AdaptationSet.
@@ -1327,18 +1327,18 @@ public:
 
     /** Get an %Rating element
      * 
-     * Gets the %Rating Descriptor element at index @a idx in the %Rating elements list.
+     * Gets the %Rating Descriptor element at index @p idx in the %Rating elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %Rating Descriptor at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %Rating Descriptor at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const Descriptor &rating(std::list<Descriptor>::size_type idx) const;
 
     /** Check if a %Rating Descriptor is in the list
      * 
      * @param descriptor The %Rating Descriptor to look for.
-     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     * @return `true` if a Descriptor with the same value as @p descriptor is found, otherwise `false`.
      */
     bool ratingsContains(const Descriptor &descriptor) const;
 
@@ -1354,7 +1354,7 @@ public:
 
     /** Remove a %Rating Descriptor from the %Rating elements
      *
-     * If the Descriptor @a rating exists in the %Rating elements, remove it from the list.
+     * If the Descriptor @p rating exists in the %Rating elements, remove it from the list.
      *
      * @param rating The %Rating Descriptor to remove from the list of %Rating elements.
      * @return This AdaptationSet.
@@ -1364,7 +1364,7 @@ public:
     /**@{*/
     /** Remove a %Rating Descriptor from the %Rating elements
      *
-     * Removes the %Rating Descriptor, referenced by the iterator @a it, from the list of %Rating elements.
+     * Removes the %Rating Descriptor, referenced by the iterator @p it, from the list of %Rating elements.
      *
      * @param it An iterator referencing an entry in the %Rating elements list.
      * @return This AdaptationSet.
@@ -1405,18 +1405,18 @@ public:
 
     /** Get an %Viewpoint element
      * 
-     * Gets the %Viewpoint Descriptor element at index @a idx in the %Viewpoint elements list.
+     * Gets the %Viewpoint Descriptor element at index @p idx in the %Viewpoint elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %Viewpoint Descriptor at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %Viewpoint Descriptor at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const Descriptor &viewpoint(std::list<Descriptor>::size_type idx) const;
 
     /** Check if a %Viewpoint Descriptor is in the list
      * 
      * @param descriptor The %Viewpoint Descriptor to look for.
-     * @return `true` if a Descriptor with the same value as @a descriptor is found, otherwise `false`.
+     * @return `true` if a Descriptor with the same value as @p descriptor is found, otherwise `false`.
      */
     bool viewpointsContains(const Descriptor &descriptor) const;
 
@@ -1432,7 +1432,7 @@ public:
 
     /** Remove a %Viewpoint Descriptor from the %Viewpoint elements
      *
-     * If the Descriptor @a viewpoint exists in the %Viewpoint elements, remove it from the list.
+     * If the Descriptor @p viewpoint exists in the %Viewpoint elements, remove it from the list.
      *
      * @param viewpoint The %Viewpoint Descriptor to remove from the list of %Viewpoint elements.
      * @return This AdaptationSet.
@@ -1442,7 +1442,7 @@ public:
     /**@{*/
     /** Remove a %Viewpoint Descriptor from the %Viewpoint elements
      *
-     * Removes the %Viewpoint Descriptor, referenced by the iterator @a it, from the list of %Viewpoint elements.
+     * Removes the %Viewpoint Descriptor, referenced by the iterator @p it, from the list of %Viewpoint elements.
      *
      * @param it An iterator referencing an entry in the %Viewpoint elements list.
      * @return This AdaptationSet.
@@ -1483,18 +1483,18 @@ public:
 
     /** Get an %ContentComponent element
      * 
-     * Gets the %ContentComponent element at index @a idx in the %ContentComponent elements list.
+     * Gets the %ContentComponent element at index @p idx in the %ContentComponent elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %ContentComponent at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %ContentComponent at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const ContentComponent &contentComponent(std::list<ContentComponent>::size_type idx) const;
 
     /** Check if a %ContentComponent is in the list
      * 
      * @param content_component The %ContentComponent to look for.
-     * @return `true` if a ContentComponent with the same value as @a content_component is found, otherwise `false`.
+     * @return `true` if a ContentComponent with the same value as @p content_component is found, otherwise `false`.
      */
     bool contentComponentsContains(const ContentComponent &content_component) const;
 
@@ -1510,7 +1510,7 @@ public:
 
     /** Remove a %ContentComponent from the %ContentComponent elements
      *
-     * If the ContentComponent @a content_component exists in the %ContentComponent elements, remove it from the list.
+     * If the ContentComponent @p content_component exists in the %ContentComponent elements, remove it from the list.
      *
      * @param content_component The %ContentComponent to remove from the list of %ContentComponent elements.
      * @return This AdaptationSet.
@@ -1520,7 +1520,7 @@ public:
     /**@{*/
     /** Remove a %ContentComponent from the %ContentComponent elements
      *
-     * Removes the %ContentComponent, referenced by the iterator @a it, from the list of %ContentComponent elements.
+     * Removes the %ContentComponent, referenced by the iterator @p it, from the list of %ContentComponent elements.
      *
      * @param it An iterator referencing an entry in the %ContentComponent elements list.
      * @return This AdaptationSet.
@@ -1561,18 +1561,18 @@ public:
 
     /** Get an %BaseURL element
      * 
-     * Gets the %BaseURL element at index @a idx in the %BaseURL elements list.
+     * Gets the %BaseURL element at index @p idx in the %BaseURL elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %BaseURL at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %BaseURL at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const BaseURL &baseURL(std::list<BaseURL>::size_type idx) const;
 
     /** Check if a %BaseURL is in the list
      * 
      * @param base_url The %BaseURL to look for.
-     * @return `true` if a BaseURL with the same value as @a base_url is found, otherwise `false`.
+     * @return `true` if a BaseURL with the same value as @p base_url is found, otherwise `false`.
      */
     bool baseURLsContains(const BaseURL &base_url) const;
 
@@ -1588,7 +1588,7 @@ public:
 
     /** Remove a %BaseURL from the %BaseURL elements
      *
-     * If the BaseURL @a base_url exists in the %BaseURL elements, remove it from the list.
+     * If the BaseURL @p base_url exists in the %BaseURL elements, remove it from the list.
      *
      * @param base_url The %BaseURL to remove from the list of %BaseURL elements.
      * @return This AdaptationSet.
@@ -1598,7 +1598,7 @@ public:
     /**@{*/
     /** Remove a %BaseURL from the %BaseURL elements
      *
-     * Removes the %BaseURL, referenced by the iterator @a it, from the list of %BaseURL elements.
+     * Removes the %BaseURL, referenced by the iterator @p it, from the list of %BaseURL elements.
      *
      * @param it An iterator referencing an entry in the %BaseURL elements list.
      * @return This AdaptationSet.
@@ -1639,7 +1639,7 @@ public:
 
     /** Set the SegmentBase
      *
-     * Copy the SegmentBase from @a seg_base as the SegmentBase for this AdaptationSet.
+     * Copy the SegmentBase from @p seg_base as the SegmentBase for this AdaptationSet.
      *
      * @param seg_base The SegmentBase to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1648,7 +1648,7 @@ public:
 
     /** Set the SegmentBase
      *
-     * Move the value of SegmentBase @a seg_base as the SegmentBase for this AdaptationSet.
+     * Move the value of SegmentBase @p seg_base as the SegmentBase for this AdaptationSet.
      *
      * @param seg_base The SegmentBase to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1658,7 +1658,7 @@ public:
     /**@{*/
     /** Set the SegmentBase
      *
-     * Set the SegmentBase of this AdaptationSet to @a seg_base.
+     * Set the SegmentBase of this AdaptationSet to @p seg_base.
      *
      * @param seg_base The SegmentBase to set in this AdaptationSet.
      * @return This AdaptationSet.
@@ -1691,7 +1691,7 @@ public:
 
     /** Set the SegmentList
      *
-     * Copy the SegmentList from @a seg_list as the SegmentList for this AdaptationSet.
+     * Copy the SegmentList from @p seg_list as the SegmentList for this AdaptationSet.
      *
      * @param seg_list The SegmentList to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1700,7 +1700,7 @@ public:
 
     /** Set the SegmentList
      *
-     * Move the value of SegmentList @a seg_list as the SegmentList for this AdaptationSet.
+     * Move the value of SegmentList @p seg_list as the SegmentList for this AdaptationSet.
      *
      * @param seg_list The SegmentList to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1710,7 +1710,7 @@ public:
     /**@{*/
     /** Set the SegmentList
      *
-     * Set the SegmentList of this AdaptationSet to @a seg_list.
+     * Set the SegmentList of this AdaptationSet to @p seg_list.
      *
      * @param seg_list The SegmentList to set in this AdaptationSet.
      * @return This AdaptationSet.
@@ -1743,7 +1743,7 @@ public:
 
     /** Set the SegmentTemplate
      *
-     * Copy the SegmentTemplate from @a seg_template as the SegmentTemplate for this AdaptationSet.
+     * Copy the SegmentTemplate from @p seg_template as the SegmentTemplate for this AdaptationSet.
      *
      * @param seg_template The SegmentTemplate to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1752,7 +1752,7 @@ public:
 
     /** Set the SegmentTemplate
      *
-     * Move the value of SegmentTemplate @a seg_template as the SegmentTemplate for this AdaptationSet.
+     * Move the value of SegmentTemplate @p seg_template as the SegmentTemplate for this AdaptationSet.
      *
      * @param seg_template The SegmentTemplate to set on this AdaptationSet.
      * @return This AdaptationSet.
@@ -1762,7 +1762,7 @@ public:
     /**@{*/
     /** Set the SegmentTemplate
      *
-     * Set the SegmentTemplate of this AdaptationSet to @a seg_template.
+     * Set the SegmentTemplate of this AdaptationSet to @p seg_template.
      *
      * @param seg_template The SegmentTemplate to set in this AdaptationSet.
      * @return This AdaptationSet.
@@ -1801,18 +1801,18 @@ public:
 
     /** Get an %Representation element
      * 
-     * Gets the %Representation element at index @a idx in the %Representation elements list.
+     * Gets the %Representation element at index @p idx in the %Representation elements list.
      *
      * @param idx The index of the element to fetch.
-     * @return The %Representation at index @a idx.
-     * @throw std::out_of_range If @a idx is beyond the end of the list.
+     * @return The %Representation at index @p idx.
+     * @throw std::out_of_range If @p idx is beyond the end of the list.
      */
     const Representation &representation(std::list<Representation>::size_type idx) const;
 
     /** Check if a %Representation is in the list
      * 
      * @param representation The %Representation to look for.
-     * @return `true` if a Representation with the same value as @a representation is found, otherwise `false`.
+     * @return `true` if a Representation with the same value as @p representation is found, otherwise `false`.
      */
     bool representationsContains(const Representation &representation) const;
 
@@ -1828,7 +1828,7 @@ public:
 
     /** Remove a %Representation from the %Representation elements
      *
-     * If the Representation @a representation exists in the %Representation elements, remove it from the list.
+     * If the Representation @p representation exists in the %Representation elements, remove it from the list.
      *
      * @param representation The %Representation to remove from the list of %Representation elements.
      * @return This AdaptationSet.
@@ -1838,7 +1838,7 @@ public:
     /**@{*/
     /** Remove a %Representation from the %Representation elements
      *
-     * Removes the %Representation, referenced by the iterator @a it, from the list of %Representation elements.
+     * Removes the %Representation, referenced by the iterator @p it, from the list of %Representation elements.
      *
      * @param it An iterator referencing an entry in the %Representation elements list.
      * @return This AdaptationSet.
@@ -1912,7 +1912,7 @@ public:
     /**
      * Deselect a Representation
      *
-     * This will remove the Representation, @a rep, from the set of selected Representation objects.
+     * This will remove the Representation, @p rep, from the set of selected Representation objects.
      *
      * @param rep The Representation to remove from the set of selected Representation objects.
      *
@@ -1928,7 +1928,7 @@ public:
     /**
      * Deselect a Representation
      *
-     * This will remove the Representation, referenced by the @a rep_it iterator, from the set of selected Representation objects.
+     * This will remove the Representation, referenced by the @p rep_it iterator, from the set of selected Representation objects.
      *
      * @param rep_it The iterator referencing the Representation to remove.
      *
@@ -1955,9 +1955,9 @@ public:
      * Get the list of media segment availability metadata for all selected Representation objects
      *
      * This obtains a list of media segment availability metadata, for all currently selected Representation objects, for media
-     * segments available on or after @a query_time. The returned list will be empty if there are no media segments on or after
-     * @a query_time available in the parent Period associated with this AdaptationSet, i.e. the @a query_time is after the end
-     * of the Period or after the MPD/@@availabilityEndTime.
+     * segments available on or after @p query_time. The returned list will be empty if there are no media segments on or after
+     * @p query_time available in the parent Period associated with this AdaptationSet, i.e. the @p query_time is after the end
+     * of the Period or after the MPD/@@pvailabilityEndTime.
      *
      * @param query_time The time to find media segments at or after from the selected Representation objects.
      * @return A list of media segment availability metadata.
@@ -2009,7 +2009,7 @@ protected:
     /**
      * Get a media segment URL
      *
-     * Using the @a vars, get a media URL by applying a SegmentTemplate or SegmentList attached to this AdaptationSet.
+     * Using the @p vars, get a media URL by applying a SegmentTemplate or SegmentList attached to this AdaptationSet.
      *
      * @param vars The segment variables to apply to any template or list index.
      * @return The URL string for the media or an empty string if no template or list could be found.
@@ -2019,7 +2019,7 @@ protected:
     /**
      * Get an initialization segment URL
      *
-     * Using the @a vars, get an initialization segment URL by applying a SegmentTemplate or SegmentList attached to this
+     * Using the @p vars, get an initialization segment URL by applying a SegmentTemplate or SegmentList attached to this
      * AdaptationSet.
      *
      * @param vars The segment variables to apply to any template or list index.
@@ -2030,7 +2030,7 @@ protected:
     /**
      * Get the media segment availability and URL
      *
-     * Using the @a vars, get media segment metadata by applying a SegmentTemplate or SegmentList attached to this AdaptationSet.
+     * Using the @p vars, get media segment metadata by applying a SegmentTemplate or SegmentList attached to this AdaptationSet.
      *
      * @param vars The segment variables to apply to any template or list index.
      * @return The segment availability times and URL. The URL will be empty if no suitable segment could be found.
@@ -2040,7 +2040,7 @@ protected:
     /**
      * Get the initialization segment availability and URL
      *
-     * Using the @a vars, get initialization segment metadata by applying a SegmentTemplate or SegmentList attached to this
+     * Using the @p vars, get initialization segment metadata by applying a SegmentTemplate or SegmentList attached to this
      * AdaptationSet.
      *
      * @param vars The segment variables to apply to any template or list index.

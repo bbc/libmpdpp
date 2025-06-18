@@ -97,7 +97,7 @@ namespace std {
          * Get the hash value for a libmpd++ @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" object
          *
          * @param s The @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" to create a hash for.
-         * @return The hash value of @a s.
+         * @return The hash value of @p s.
          */
         std::size_t operator()(const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s) const noexcept {
             return s.hash();
@@ -112,7 +112,7 @@ namespace std {
  *
  * @param os The output stream to add the textual repesentation to.
  * @param s The @ref com::bbc::libmpdpp::SegmentAvailability "SegmentAvailability" object to output.
- * @return @a os
+ * @return @p os
  */
 LIBMPDPP_PUBLIC_API std::ostream &operator<<(std::ostream &os, const LIBMPDPP_NAMESPACE_CLASS(SegmentAvailability) &s);
 
