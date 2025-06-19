@@ -2,7 +2,7 @@ var index =
 [
     [ "Introduction", "index.html#intro", null ],
     [ "Building the library", "index.html#mainBuilding", null ],
-    [ "mainArchitecture", "index.html#mainArchitecture", null ],
+    [ "Library design", "index.html#mainArchitecture", null ],
     [ "Using the library", "index.html#mainUsing", null ],
     [ "libmpd++ - Getting started", "gettingStarted.html", [
       [ "Installing the prerequisites", "gettingStarted.html#prerequisites", null ],
@@ -13,6 +13,6 @@ var index =
     ] ],
     [ "libmpd++ - Library high level overview", "overview.html", [
       [ "Introduction", "overview.html#overviewIntro", null ],
-      [ "overviewQuerying", "overview.html#overviewQuerying", null ]
+      [ "Using the query methods", "overview.html#overviewQuerying", null ]
     ] ]
 ];

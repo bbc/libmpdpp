@@ -929,7 +929,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Copy constructor</p>
-<p>Creates a new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> which is a copy of <em class="arg">to_copy</em>.</p>
+<p>Creates a new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> which is a copy of <code class="param">to_copy</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to_copy</td><td>The <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> to copy. </td></tr>
@@ -954,7 +954,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Move constructor</p>
-<p>Creates a new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> which is a transfer of the resources and values from <em class="arg">to_move</em>.</p>
+<p>Creates a new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> which is a transfer of the resources and values from <code class="param">to_move</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to_move</td><td>The <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> to move into this new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a>. </td></tr>
@@ -1006,17 +1006,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the audio channel configuration descriptor at an index in the list</p>
-<p>This will return the audio channel configuration descriptor at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the audio channel configurations list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the audio channel configuration descriptor at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the audio channel configurations list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of audio channel configurations. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The audio channel configuration descriptor at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The audio channel configuration descriptor at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the audio channel configurations list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the audio channel configurations list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1377,17 +1377,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get an @audioSamplingRate attribute value from the list of @audioSamplingRate attribute values</p>
+<p>Get an @pudioSamplingRate attribute value from the list of @pudioSamplingRate attribute values</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry in the @audioSamplingRate attribute values list to retrieve. </td></tr>
+    <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry in the @pudioSamplingRate attribute values list to retrieve. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The audio sampling rate from index <em class="arg">idx</em> is the list of @audioSamplingRate attribute values. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The audio sampling rate from index <code class="param">idx</code> is the list of @pudioSamplingRate attribute values. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If the <em class="arg">idx</em> index value lies outside the list of @audioSamplingRate attribute values. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If the <code class="param">idx</code> index value lies outside the list of @pudioSamplingRate attribute values. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1416,8 +1416,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the @audioSamplingRate attribute list</p>
-<dl class="section return"><dt>Returns</dt><dd>The @audioSamplingRate attribute value list. </dd></dl>
+<p>Get the @pudioSamplingRate attribute list</p>
+<dl class="section return"><dt>Returns</dt><dd>The @pudioSamplingRate attribute value list. </dd></dl>
 
 </div>
 </div>
@@ -1446,7 +1446,7 @@ Public Member Functions</h2></td></tr>
 <p>Set the audio sampling rate list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rates</td><td>The list of audio sample rates to set the @audioSamplingRate attribute to. </td></tr>
+    <tr><td class="paramname">rates</td><td>The list of audio sample rates to set the @pudioSamplingRate attribute to. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1479,7 +1479,7 @@ Public Member Functions</h2></td></tr>
 <p>Set the audio sampling rate list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rates</td><td>The list of audio sample rates to set the @audioSamplingRate attribute to. </td></tr>
+    <tr><td class="paramname">rates</td><td>The list of audio sample rates to set the @pudioSamplingRate attribute to. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1509,10 +1509,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Add an @audioSamplingRate entry</p>
+<p>Add an @pudioSamplingRate entry</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">val</td><td>The @audioSamplingRate value to add to the list. </td></tr>
+    <tr><td class="paramname">val</td><td>The @pudioSamplingRate value to add to the list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1542,8 +1542,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get an iterator for the start of the @audioSamplingRate attribute value list</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator at the start of the @audioSamplingRate attribute value list. </dd></dl>
+<p>Get an iterator for the start of the @pudioSamplingRate attribute value list</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator at the start of the @pudioSamplingRate attribute value list. </dd></dl>
 
 </div>
 </div>
@@ -1569,8 +1569,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get an iterator for the start of the @audioSamplingRate attribute value list</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator at the start of the @audioSamplingRate attribute value list. </dd></dl>
+<p>Get an iterator for the start of the @pudioSamplingRate attribute value list</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator at the start of the @pudioSamplingRate attribute value list. </dd></dl>
 
 </div>
 </div>
@@ -1596,8 +1596,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get an iterator for the end of the @audioSamplingRate attribute value list</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator at the end of the @audioSamplingRate attribute value list. </dd></dl>
+<p>Get an iterator for the end of the @pudioSamplingRate attribute value list</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator at the end of the @pudioSamplingRate attribute value list. </dd></dl>
 
 </div>
 </div>
@@ -1623,8 +1623,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get an iterator for the end of the @audioSamplingRate attribute value list</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator at the end of the @audioSamplingRate attribute value list. </dd></dl>
+<p>Get an iterator for the end of the @pudioSamplingRate attribute value list</p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator at the end of the @pudioSamplingRate attribute value list. </dd></dl>
 
 </div>
 </div>
@@ -1642,10 +1642,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove an @audioSamplingRate entry from the list</p>
+<p>Remove an @pudioSamplingRate entry from the list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">it</td><td>An iterator for an entry in the @audioSamplingRate values list. </td></tr>
+    <tr><td class="paramname">it</td><td>An iterator for an entry in the @pudioSamplingRate values list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1667,10 +1667,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove an @audioSamplingRate entry from the list</p>
+<p>Remove an @pudioSamplingRate entry from the list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">it</td><td>An iterator for an entry in the @audioSamplingRate values list. </td></tr>
+    <tr><td class="paramname">it</td><td>An iterator for an entry in the @pudioSamplingRate values list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1692,10 +1692,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove an @audioSamplingRate value from the list</p>
+<p>Remove an @pudioSamplingRate value from the list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">val</td><td>The @audioSamplingRate value to remove from the list. </td></tr>
+    <tr><td class="paramname">val</td><td>The @pudioSamplingRate value to remove from the list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2057,17 +2057,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the container profile string at an index in the list</p>
-<p>This will return the container profile string at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> fall outside the container profiles list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the container profile string at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> fall outside the container profiles list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of container profiles. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The container profile string at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The container profile string at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the container profiles list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the container profiles list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2429,17 +2429,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the content popularity rate at an index in the list</p>
-<p>This will return the content popularity rate at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the content popularity rates list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the content popularity rate at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the content popularity rates list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of content popularity rates. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The content popularity rate at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The content popularity rate at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the content popularity rates list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the content popularity rates list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2801,17 +2801,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the content protection at an index in the list</p>
-<p>This will return the content protection at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the content protections list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the content protection at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the content protections list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of content protections. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The content protection at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The content protection at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the content protections list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the content protections list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3513,17 +3513,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the essential property descriptor at an index in the list</p>
-<p>This will return the essential property descriptor at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> fall outside the essential properties list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the essential property descriptor at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> fall outside the essential properties list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of essential properties. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The essential property descriptor at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The essential property descriptor at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the essential properties list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the essential properties list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3545,17 +3545,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the frame packing descriptor at an index in the list</p>
-<p>This will return the frame packing descriptor at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> fall outside the frame packings list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the frame packing descriptor at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> fall outside the frame packings list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of frame packings. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The frame packing descriptor at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The frame packing descriptor at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the frame packings list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the frame packings list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -4084,8 +4084,8 @@ Public Member Functions</h2></td></tr>
 <p>Set the @frameRate attribute value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">numerator</td><td>The number of frames per <em class="arg">denominator</em> seconds. </td></tr>
-    <tr><td class="paramname">denominator</td><td>The number of seconds over which <em class="arg">numerator</em> frames are given, defaults to 1 if not provided. </td></tr>
+    <tr><td class="paramname">numerator</td><td>The number of frames per <code class="param">denominator</code> seconds. </td></tr>
+    <tr><td class="paramname">denominator</td><td>The number of seconds over which <code class="param">numerator</code> frames are given, defaults to 1 if not provided. </td></tr>
   </table>
   </dd>
 </dl>
@@ -4141,17 +4141,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the group label at an index in the list</p>
-<p>This will return the group label at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the group labels list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the group label at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the group labels list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of group labels. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The group label at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The group label at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the group labels list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the group labels list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -5017,17 +5017,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the inband event stream at an index in the list</p>
-<p>This will return the inband event stream at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the inband event streams list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the inband event stream at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the inband event streams list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of inband event streams. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The inband event stream at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The inband event stream at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the inband event streams list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the inband event streams list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -5389,17 +5389,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the label at an index in the list</p>
-<p>This will return the label at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the labels list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the label at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the labels list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of labels. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The label at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The label at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the labels list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the labels list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -6253,7 +6253,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Copy operator</p>
-<p>Replace the current <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> with a copy of the values from <em class="arg">to_copy</em>.</p>
+<p>Replace the current <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> with a copy of the values from <code class="param">to_copy</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to_copy</td><td>The <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> to copy. </td></tr>
@@ -6279,7 +6279,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Move operator</p>
-<p>Replace the current <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> with the resources and values from <em class="arg">to_move</em>.</p>
+<p>Replace the current <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> with the resources and values from <code class="param">to_move</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to_move</td><td>The <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> to move into this new <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a>. </td></tr>
@@ -6305,14 +6305,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Equality operator</p>
-<p>Check if <em class="arg">to_compare</em> has an equal value to this <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a>.</p>
+<p>Check if <code class="param">to_compare</code> has an equal value to this <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">to_compare</td><td>The other <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> to compare to this. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> has the same values as <em class="arg">to_compare</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if this <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html">RepresentationBase</a> has the same values as <code class="param">to_compare</code>. </dd></dl>
 
 </div>
 </div>
@@ -6517,17 +6517,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the producer reference time at an index in the list</p>
-<p>This will return the producer reference time at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the producer reference times list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the producer reference time at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the producer reference times list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of producer reference times. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The producer reference time at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The producer reference time at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the producer reference times list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the producer reference times list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -6895,10 +6895,10 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The profile <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1URI.html">URI</a> at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The profile <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1URI.html">URI</a> at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If the <em class="arg">idx</em> index references a <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1URI.html">URI</a> outside the profiles list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If the <code class="param">idx</code> index references a <a class="el" href="classcom_1_1bbc_1_1libmpdpp_1_1URI.html">URI</a> outside the profiles list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -7262,17 +7262,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the random access value at an index in the list</p>
-<p>This will return the random access at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the random accesses list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the random access at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the random accesses list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of random accesses. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The random access at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The random access at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the random accesses list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the random accesses list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -7634,17 +7634,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the resync at an index in the list</p>
-<p>This will return the resync at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the resyncs list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the resync at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the resyncs list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of resyncs. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The resync at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The resync at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the resyncs list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the resyncs list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -8383,17 +8383,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the segment profile string at an index in the list</p>
-<p>This will return the segment profile string at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> fall outside the segment profiles list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the segment profile string at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> fall outside the segment profiles list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of segment profiles. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The segment profile string at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The segment profile string at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the segment profiles list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the segment profiles list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -8793,7 +8793,7 @@ Public Member Functions</h2></td></tr>
 <p>If this value is set to the default of 1, then it will be omitted from XML output.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">val</td><td>Set the @selectionPriority attribute value to <em class="arg">val</em>. </td></tr>
+    <tr><td class="paramname">val</td><td>Set the @selectionPriority attribute value to <code class="param">val</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -9342,17 +9342,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the supplemental property descriptor at an index in the list</p>
-<p>This will return the supplemental property descriptor at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> fall outside the supplemental properties list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the supplemental property descriptor at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> fall outside the supplemental properties list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of supplemental properties. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The supplemental property descriptor at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The supplemental property descriptor at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the supplemental properties list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the supplemental properties list. </td></tr>
   </table>
   </dd>
 </dl>
@@ -9374,17 +9374,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the switching at an index in the list</p>
-<p>This will return the switching at the index given in <em class="arg">idx</em> (starting at 0). If <em class="arg">idx</em> falls outside the switchings list then a std::out_of_range exception will be thrown.</p>
+<p>This will return the switching at the index given in <code class="param">idx</code> (starting at 0). If <code class="param">idx</code> falls outside the switchings list then a std::out_of_range exception will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index, starting from 0, of the entry to retrieve from the list of switchings. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The switching at list index <em class="arg">idx</em>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The switching at list index <code class="param">idx</code>. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <em class="arg">idx</em> lies outside of the switchings list. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code class="param">idx</code> lies outside of the switchings list. </td></tr>
   </table>
   </dd>
 </dl>
