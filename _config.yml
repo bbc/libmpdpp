@@ -1,0 +1,8 @@
+title: libmpd++ - C++ DASH MPD parsing, manipulation, querying and formatting library
+description: This is a C++ library to assist in parsing, manipulation querying and creating XML formatted output for DASH MPD.
+theme: just-the-docs
+
+url: https://bbc.github.io/libmpdpp
+
+aux_links:
+  Template Repository: https://github.com/just-the-docs/just-the-docs-template
