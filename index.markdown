@@ -12,4 +12,4 @@ This library is released under the LGPLv3 license.
 
 Go here to find the most recent [API documentation](api/current) for the library.
 
-The source repository can be found at https://github.com/bbc/libmpdpp.
+The source repository can be found at [https://github.com/bbc/libmpdpp](https://github.com/bbc/libmpdpp).
