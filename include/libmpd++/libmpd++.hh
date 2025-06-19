@@ -23,7 +23,7 @@
  *
  * Please see the @subpage gettingStarted "Getting started" page for details.
  *
- * @section mainArchitecture
+ * @section mainArchitecture Library design
  *
  * Please see the @subpage overview "Overview" page for a high level look at how this library is intended to work.
  *
@@ -133,7 +133,7 @@
  * The %MPD that is modelled can be output as a %DASH %MPD %XML string. This can be in either a compact form for communication, or
  * as a formatted (pretty) form with extra whitespace for readability.
  *
- * @section overviewQuerying
+ * @section overviewQuerying Using the query methods
  *
  * As mentioned above, the %MPD model provides methods at various levels to mark
  * @ref com::bbc::libmpdpp::Representation "Representations" as selected. There are also some query methods on the
