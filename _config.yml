@@ -22,7 +22,7 @@ title: libmpd++ - C++ DASH MPD library
 email: david.waring2@bbc.co.uk
 description: >- # this means to ignore newlines until "baseurl:"
   libmpd++ is a C++ library for parsing, manipulation, querying and XML formatting of DASH MPD.
-baseurl: "/libmpdpp/" # the subpath of your site, e.g. /blog
+baseurl: "/libmpdpp" # the subpath of your site, e.g. /blog
 url: "https://bbc.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: 
 github_username:  davidjwbbc
@@ -32,6 +32,10 @@ github_username:  davidjwbbc
 remote_theme: just-the-docs/just-the-docs
 plugins:
 #  - jekyll-feed
+  - jekyll-redirect-from
+
+whitelist:
+  - jekyll-redirect-from
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -52,3 +56,9 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+lang: en-GB
+defaults:
+  - scope:
+      path: "api/v*/*.html"
+    values:
+      layout: page
