@@ -1,0 +1,7 @@
+<map id="com::bbc::libmpdpp::URI" name="com::bbc::libmpdpp::URI">
+<area shape="rect" id="Node000001" title=" " alt="" coords="76,5,257,33"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1bbc_1_1libmpdpp_1_1BaseURL.html" title=" " alt="" coords="5,81,155,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,46,105,82,101,78,140,42"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1bbc_1_1libmpdpp_1_1PatchLocation.html" title=" " alt="" coords="179,81,328,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,42,232,78,228,82,190,46"/>
+</map>

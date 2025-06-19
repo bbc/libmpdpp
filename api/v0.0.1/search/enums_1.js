@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['presentationtype_0',['PresentationType',['../classcom_1_1bbc_1_1libmpdpp_1_1MPD.html#ab6d50687f3519f8173458fda4003bc3c',1,'com::bbc::libmpdpp::MPD']]]
+];

@@ -1,0 +1,9 @@
+<map id="com::bbc::libmpdpp::SegmentBase" name="com::bbc::libmpdpp::SegmentBase">
+<area shape="rect" id="Node000001" title=" " alt="" coords="92,5,241,50"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1bbc_1_1libmpdpp_1_1MultipleSegmentBase.html" title=" " alt="" coords="80,98,253,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,66,169,98,164,98,164,66"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1bbc_1_1libmpdpp_1_1SegmentList.html" title=" " alt="" coords="5,191,155,235"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,156,102,192,98,189,134,152"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1bbc_1_1libmpdpp_1_1SegmentTemplate.html" title=" " alt="" coords="179,191,328,235"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="199,152,235,189,231,192,196,156"/>
+</map>

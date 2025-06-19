@@ -1,0 +1,58 @@
+var annotated_dup =
+[
+    [ "com", "namespacecom.html", [
+      [ "bbc", "namespacecom_1_1bbc.html", [
+        [ "libmpdpp", "namespacecom_1_1bbc_1_1libmpdpp.html", [
+          [ "AdaptationSet", "classcom_1_1bbc_1_1libmpdpp_1_1AdaptationSet.html", "classcom_1_1bbc_1_1libmpdpp_1_1AdaptationSet" ],
+          [ "BaseURL", "classcom_1_1bbc_1_1libmpdpp_1_1BaseURL.html", "classcom_1_1bbc_1_1libmpdpp_1_1BaseURL" ],
+          [ "Codecs", "classcom_1_1bbc_1_1libmpdpp_1_1Codecs.html", "classcom_1_1bbc_1_1libmpdpp_1_1Codecs" ],
+          [ "ContentComponent", "classcom_1_1bbc_1_1libmpdpp_1_1ContentComponent.html", "classcom_1_1bbc_1_1libmpdpp_1_1ContentComponent" ],
+          [ "ContentPopularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate.html", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate" ],
+          [ "ContentProtection", "classcom_1_1bbc_1_1libmpdpp_1_1ContentProtection.html", "classcom_1_1bbc_1_1libmpdpp_1_1ContentProtection" ],
+          [ "Descriptor", "classcom_1_1bbc_1_1libmpdpp_1_1Descriptor.html", "classcom_1_1bbc_1_1libmpdpp_1_1Descriptor" ],
+          [ "EventStream", "classcom_1_1bbc_1_1libmpdpp_1_1EventStream.html", "classcom_1_1bbc_1_1libmpdpp_1_1EventStream" ],
+          [ "ExtendedBandwidth", "classcom_1_1bbc_1_1libmpdpp_1_1ExtendedBandwidth.html", "classcom_1_1bbc_1_1libmpdpp_1_1ExtendedBandwidth" ],
+          [ "FailoverContent", "classcom_1_1bbc_1_1libmpdpp_1_1FailoverContent.html", "classcom_1_1bbc_1_1libmpdpp_1_1FailoverContent" ],
+          [ "FrameRate", "classcom_1_1bbc_1_1libmpdpp_1_1FrameRate.html", "classcom_1_1bbc_1_1libmpdpp_1_1FrameRate" ],
+          [ "InitializationSet", "classcom_1_1bbc_1_1libmpdpp_1_1InitializationSet.html", "classcom_1_1bbc_1_1libmpdpp_1_1InitializationSet" ],
+          [ "InvalidMPD", "classcom_1_1bbc_1_1libmpdpp_1_1InvalidMPD.html", "classcom_1_1bbc_1_1libmpdpp_1_1InvalidMPD" ],
+          [ "Label", "classcom_1_1bbc_1_1libmpdpp_1_1Label.html", "classcom_1_1bbc_1_1libmpdpp_1_1Label" ],
+          [ "LeapSecondInformation", "classcom_1_1bbc_1_1libmpdpp_1_1LeapSecondInformation.html", "classcom_1_1bbc_1_1libmpdpp_1_1LeapSecondInformation" ],
+          [ "Metrics", "classcom_1_1bbc_1_1libmpdpp_1_1Metrics.html", "classcom_1_1bbc_1_1libmpdpp_1_1Metrics" ],
+          [ "MPD", "classcom_1_1bbc_1_1libmpdpp_1_1MPD.html", "classcom_1_1bbc_1_1libmpdpp_1_1MPD" ],
+          [ "MultipleSegmentBase", "classcom_1_1bbc_1_1libmpdpp_1_1MultipleSegmentBase.html", "classcom_1_1bbc_1_1libmpdpp_1_1MultipleSegmentBase" ],
+          [ "ParseError", "classcom_1_1bbc_1_1libmpdpp_1_1ParseError.html", "classcom_1_1bbc_1_1libmpdpp_1_1ParseError" ],
+          [ "PatchLocation", "classcom_1_1bbc_1_1libmpdpp_1_1PatchLocation.html", "classcom_1_1bbc_1_1libmpdpp_1_1PatchLocation" ],
+          [ "Period", "classcom_1_1bbc_1_1libmpdpp_1_1Period.html", "classcom_1_1bbc_1_1libmpdpp_1_1Period" ],
+          [ "Preselection", "classcom_1_1bbc_1_1libmpdpp_1_1Preselection.html", "classcom_1_1bbc_1_1libmpdpp_1_1Preselection" ],
+          [ "ProgramInformation", "classcom_1_1bbc_1_1libmpdpp_1_1ProgramInformation.html", "classcom_1_1bbc_1_1libmpdpp_1_1ProgramInformation" ],
+          [ "RandomAccess", "classcom_1_1bbc_1_1libmpdpp_1_1RandomAccess.html", "classcom_1_1bbc_1_1libmpdpp_1_1RandomAccess" ],
+          [ "RangeError", "classcom_1_1bbc_1_1libmpdpp_1_1RangeError.html", "classcom_1_1bbc_1_1libmpdpp_1_1RangeError" ],
+          [ "Ratio", "classcom_1_1bbc_1_1libmpdpp_1_1Ratio.html", "classcom_1_1bbc_1_1libmpdpp_1_1Ratio" ],
+          [ "Representation", "classcom_1_1bbc_1_1libmpdpp_1_1Representation.html", "classcom_1_1bbc_1_1libmpdpp_1_1Representation" ],
+          [ "RepresentationBase", "classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html", "classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase" ],
+          [ "Resync", "classcom_1_1bbc_1_1libmpdpp_1_1Resync.html", "classcom_1_1bbc_1_1libmpdpp_1_1Resync" ],
+          [ "RFC6838ContentType", "classcom_1_1bbc_1_1libmpdpp_1_1RFC6838ContentType.html", "classcom_1_1bbc_1_1libmpdpp_1_1RFC6838ContentType" ],
+          [ "SAP", "classcom_1_1bbc_1_1libmpdpp_1_1SAP.html", "classcom_1_1bbc_1_1libmpdpp_1_1SAP" ],
+          [ "SegmentAvailability", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentAvailability.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentAvailability" ],
+          [ "SegmentBase", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentBase.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentBase" ],
+          [ "SegmentList", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentList.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentList" ],
+          [ "SegmentTemplate", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentTemplate.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentTemplate" ],
+          [ "SegmentTimeline", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentTimeline.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentTimeline" ],
+          [ "SegmentURL", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentURL.html", "classcom_1_1bbc_1_1libmpdpp_1_1SegmentURL" ],
+          [ "ServiceDescription", "classcom_1_1bbc_1_1libmpdpp_1_1ServiceDescription.html", "classcom_1_1bbc_1_1libmpdpp_1_1ServiceDescription" ],
+          [ "SingleRFC7233Range", "classcom_1_1bbc_1_1libmpdpp_1_1SingleRFC7233Range.html", "classcom_1_1bbc_1_1libmpdpp_1_1SingleRFC7233Range" ],
+          [ "SubRepresentation", "classcom_1_1bbc_1_1libmpdpp_1_1SubRepresentation.html", "classcom_1_1bbc_1_1libmpdpp_1_1SubRepresentation" ],
+          [ "Subset", "classcom_1_1bbc_1_1libmpdpp_1_1Subset.html", "classcom_1_1bbc_1_1libmpdpp_1_1Subset" ],
+          [ "Switching", "classcom_1_1bbc_1_1libmpdpp_1_1Switching.html", "classcom_1_1bbc_1_1libmpdpp_1_1Switching" ],
+          [ "UIntVWithID", "classcom_1_1bbc_1_1libmpdpp_1_1UIntVWithID.html", "classcom_1_1bbc_1_1libmpdpp_1_1UIntVWithID" ],
+          [ "URI", "classcom_1_1bbc_1_1libmpdpp_1_1URI.html", "classcom_1_1bbc_1_1libmpdpp_1_1URI" ],
+          [ "URL", "classcom_1_1bbc_1_1libmpdpp_1_1URL.html", "classcom_1_1bbc_1_1libmpdpp_1_1URL" ],
+          [ "XLink", "classcom_1_1bbc_1_1libmpdpp_1_1XLink.html", "classcom_1_1bbc_1_1libmpdpp_1_1XLink" ]
+        ] ]
+      ] ]
+    ] ],
+    [ "std", "namespacestd.html", [
+      [ "hash< com::bbc::libmpdpp ::SegmentAvailability >", "structstd_1_1hash_3_01com_1_1bbc_1_1libmpdpp_01_1_1SegmentAvailability_01_4.html", "structstd_1_1hash_3_01com_1_1bbc_1_1libmpdpp_01_1_1SegmentAvailability_01_4" ]
+    ] ]
+];

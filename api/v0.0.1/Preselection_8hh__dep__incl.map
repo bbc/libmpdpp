@@ -1,0 +1,18 @@
+<map id="libmpd++/Preselection.hh" name="libmpd++/Preselection.hh">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,198,33"/>
+<area shape="rect" id="Node000002" href="$Period_8hh.html" title=" " alt="" coords="108,232,261,260"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,48,109,112,116,149,129,183,148,209,169,230,165,234,144,213,124,186,111,150,103,113,98,49"/>
+<area shape="rect" id="Node000004" href="$libmpd_09_09_8hh.html" title=" " alt="" coords="120,384,299,411"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="89,48,66,103,57,136,53,169,53,247,57,271,66,293,81,313,98,331,139,360,178,381,176,385,136,365,95,335,76,317,62,296,52,273,48,248,48,169,52,135,61,101,84,46"/>
+<area shape="rect" id="Node000005" href="$Representation_8hh.html" title=" " alt="" coords="138,81,350,109"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="142,38,220,78,218,83,139,43"/>
+<area shape="rect" id="Node000003" href="$MPD_8hh.html" title=" " alt="" coords="138,308,281,336"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="196,274,208,307,202,308,191,276"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="156,272,142,286,131,302,126,318,129,335,139,349,152,362,181,381,178,385,149,366,135,353,124,337,121,318,126,300,138,283,152,268"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,351,212,383,207,383,207,351"/>
+<area shape="poly" id="edge9_Node000005_Node000004" title=" " alt="" coords="308,113,336,130,359,155,362,170,359,185,351,266,340,300,317,337,285,366,248,385,246,381,282,362,313,334,336,297,345,265,354,184,356,170,354,158,333,134,305,118"/>
+<area shape="rect" id="Node000006" href="$AdaptationSet_8hh.html" title=" " alt="" coords="139,157,344,184"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="246,125,245,156,239,156,240,124"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="224,198,196,234,192,230,220,195"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="263,195,281,225,296,260,303,299,301,318,295,337,284,353,270,366,241,385,238,381,267,362,280,349,290,334,296,317,298,299,291,262,276,227,258,198"/>
+</map>

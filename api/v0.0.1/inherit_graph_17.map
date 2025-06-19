@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classcom_1_1bbc_1_1libmpdpp_1_1RepresentationBase.html" title=" " alt="" coords="5,144,166,189"/>
+<area shape="rect" id="Node000001" href="$classcom_1_1bbc_1_1libmpdpp_1_1AdaptationSet.html" title="AdaptationSet class." alt="" coords="215,5,364,50"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="120,131,163,95,212,60,234,48,236,53,215,65,166,100,124,136"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1bbc_1_1libmpdpp_1_1InitializationSet.html" title=" " alt="" coords="215,75,364,119"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="167,136,221,117,223,123,168,141"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1bbc_1_1libmpdpp_1_1Preselection.html" title=" " alt="" coords="215,144,364,189"/>
+<area shape="poly" id="edge4_Node000000_Node000003" title=" " alt="" coords="181,164,215,164,215,169,181,169"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1bbc_1_1libmpdpp_1_1Representation.html" title=" " alt="" coords="215,213,364,258"/>
+<area shape="poly" id="edge5_Node000000_Node000004" title=" " alt="" coords="168,192,223,210,221,215,167,197"/>
+<area shape="rect" id="Node000005" href="$classcom_1_1bbc_1_1libmpdpp_1_1SubRepresentation.html" title=" " alt="" coords="214,283,366,327"/>
+<area shape="poly" id="edge6_Node000000_Node000005" title=" " alt="" coords="124,197,166,233,215,268,236,280,234,285,212,273,163,237,120,201"/>
+</map>
