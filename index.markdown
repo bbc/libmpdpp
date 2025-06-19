@@ -9,6 +9,6 @@ This is a C++ library for parsing, manipulating, querying and formatting DASH MP
 
 This library is released under the LGPLv3 license.
 
-Go here to find the most recent [API documentation](api/current.html) for the library.
+The most recent [API documentation](api/current.html) for the library can be found by following the link.
 
-The source repository can be found at [https://github.com/bbc/libmpdpp](https://github.com/bbc/libmpdpp).
+The source repository for this project can be found at [https://github.com/bbc/libmpdpp](https://github.com/bbc/libmpdpp).
