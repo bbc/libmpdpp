@@ -1,12 +1,26 @@
 var classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR =
 [
     [ "PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a3eea57618ee1b6cffac44aab5c821cac", null ],
-    [ "PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a419a5a0b8e944b4158097a4d271b0e0e", null ],
+    [ "PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a4136decca8b63275f34c4d16e682b738", null ],
     [ "PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#ac7d6a8061a813ecf39eb2c8c35ffadbd", null ],
     [ "PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#ac9f0fe9254231471503945bd292a784b", null ],
     [ "~PR", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#af3c9d5355a7d948621a057db22e84ad6", null ],
+    [ "hasPopularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a0dc8feb1fa12abfab83d87315fad476b", null ],
+    [ "hasStart", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a5c0a490e5a1d45909617f6b2ec8e97e7", null ],
     [ "operator!=", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a25fc9407a481bb6a7d75ffa90a42ea22", null ],
     [ "operator=", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a78dc891e80930b8b85e7392abda51fb9", null ],
     [ "operator=", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#aedff75850db990db51c413eedc9070cf", null ],
-    [ "operator==", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a965066c08015f7b7905b22212bae0da6", null ]
+    [ "operator==", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a965066c08015f7b7905b22212bae0da6", null ],
+    [ "popularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#afa16bd9810dad40b01b38621048490b1", null ],
+    [ "popularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#ae0b63e83acf17a8b1e819260e5ae08ff", null ],
+    [ "popularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a5a1ea1310a22f66942a39991eaaea8cc", null ],
+    [ "popularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#ac61202bb8e04cc9d2371beff70321a3d", null ],
+    [ "popularityRate", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a063e7bffac0560406a6ccda0f825b3e9", null ],
+    [ "r", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#aec68f6741f77abbd581b4eab4ee0f09c", null ],
+    [ "r", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a175497ace136c7f8bfd56057a370b339", null ],
+    [ "start", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a05d897adc4ecd7a993db21efdeddefd8", null ],
+    [ "start", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a4b23e9d04bf52dfcd1a8f18474694518", null ],
+    [ "start", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#aa369f15d9d893a1c102d15ca2c5e3a4d", null ],
+    [ "start", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a38ceb4f89c32511f1effc27bd208eadc", null ],
+    [ "start", "classcom_1_1bbc_1_1libmpdpp_1_1ContentPopularityRate_1_1PR.html#a759d2785b239fa14ce31e011cbbac180", null ]
 ];
