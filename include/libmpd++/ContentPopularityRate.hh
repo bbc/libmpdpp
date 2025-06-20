@@ -45,8 +45,23 @@ public:
      */
     class LIBMPDPP_PUBLIC_API PR {
     public:
+        /** Default constructor (deleted)
+         *
+         * Please use the value assignment constructor to create a new PR. Since the value assign constructor's parameters are all
+         * optional, you can still use @c PR() to use the default values.
+         */
         PR() = delete;
-        PR(const std::optional<unsigned int> popularity_rate = std::nullopt,
+
+        /** Value assignment constructor
+         * 
+         * Create a new PR with the values provided in @p popularity_rate, @p start and @p r. If no parameters are given then this will
+         * default to no popularity rate, no start offset and an r value of 0.
+         *
+         * @param popularity_rate The popularity rate to set (default: no @@popularityRate).
+         * @param start The start offset to use (default: no @@start).
+         * @param r The r value for the popularity rate (default: 0).
+         */
+        PR(const std::optional<unsigned int> &popularity_rate = std::nullopt,
            const std::optional<unsigned long> &start = std::nullopt,
            int r = 0)
             :m_popularityRate(popularity_rate)
@@ -56,19 +71,43 @@ public:
             if (popularity_rate < 1 || popularity_rate > 100)
                 throw std::out_of_range("popularityRate attribute of PR element must be between 1 and 100 inclusive.");
         };
+
+        /** Copy constructor
+         *
+         * Copy the value from @p other to create a new PR.
+         *
+         * @param other The other PR to copy.
+         */
         PR(const PR &other)
             :m_popularityRate(other.m_popularityRate)
             ,m_start(other.m_start)
             ,m_r(other.m_r)
         {};
+
+        /** Move constructor
+         *
+         * Move the values from @p other to create a new PR.
+         *
+         * @param other The other PR to move the values from.
+         */
         PR(PR &&other)
             :m_popularityRate(std::move(other.m_popularityRate))
             ,m_start(std::move(other.m_start))
             ,m_r(other.m_r)
         {};
 
+        /** Destructor
+         */
         virtual ~PR() {};
 
+        /**@{*/
+        /** Assignment operator
+         *
+         * Set this PR to the same value as @p other.
+         *
+         * @param other The other PR to copy/move the values from into this PR.
+         * @return This PR.
+         */
         PR &operator=(const PR &other) {
             m_popularityRate = other.m_popularityRate;
             m_start = other.m_start;
@@ -81,13 +120,29 @@ public:
             m_r = other.m_r;
             return *this;
         };
+        /**@}*/
 
+        /** Equality operator
+         * 
+         * Compare this PR to @p other PR for equal values.
+         *
+         * @param other The other PR to compare to this one to see if they have the same value.
+         * @return `true` if @p other has the same value as this PR.
+         */
         bool operator==(const PR &other) {
             if (m_r != other.m_r) return false;
             if (m_popularityRate != other.m_popularityRate) return false;
             if (m_start != other.m_start) return false;
             return true;
         }
+
+        /** Inequality operator
+         *
+         * Compare this PR to @p other PR for differing values.
+         *
+         * @param other The other PR to compare to this one to see if they have different values.
+         * @return `true` if @p other has a different value to this PR.
+         */
         bool operator!=(const PR &other) { return !(*this == other); };
 
         // @popularityRate
