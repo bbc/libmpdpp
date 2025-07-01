@@ -1,0 +1,4 @@
+[wrap-git]
+directory=libxmlplusplus
+url=https://github.com/libxmlplusplus/libxmlplusplus.git
+revision=5.4.0
