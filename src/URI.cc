@@ -59,8 +59,9 @@ bool URI::isAbsoluteURL() const
 
 URI URI::resolveUsingBaseURLs(const std::list<BaseURL> &base_urls) const
 {
-    if (!isURL()) return *this;
-    if (isAbsoluteURL()) return *this;
+    if (!isURL()) return *this;          // not a URL so can't resolve, just return this URI
+    if (isAbsoluteURL()) return *this;   // already an absolute URL, just return this URL
+    if (base_urls.empty()) return *this; // nothing to resolve with, so just return this URL
 
     // find BaseURL to use (just use first for now)
     const auto &base_url = base_urls.front();
