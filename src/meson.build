@@ -106,7 +106,11 @@ project_config.set_quoted('PROJECT_VERSION_FLAG', project_version_flag, descript
 
 libmpdpp_config_h = configure_file(configuration: project_config, output: 'config.hh', macro_name: '_LIBMPDPP_CONFIG_HH_', output_format: 'c', install: false)
 
+libmpdpp_so_ver = project_version_arr[0]
+libmpdpp_ver = project_version_num
 libmpdpp = both_libraries('mpd++', libmpdpp_srcs + [libmpdpp_config_h],
+               version: libmpdpp_ver,
+               soversion: libmpdpp_so_ver,
                dependencies: [libxml_dep, glibmm_dep],
                cpp_args: ['-DBUILD_LIBMPDPP'],
                install: true,
