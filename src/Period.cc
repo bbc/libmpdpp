@@ -1013,7 +1013,7 @@ SegmentAvailability Period::getMediaAvailability(const SegmentTemplate::Variable
                 ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
             }
         }
-        ret.segmentURL(m_segmentTemplate.value().formatMediaTemplate(vars));
+        ret.segmentURL(URI(m_segmentTemplate.value().formatMediaTemplate(vars)).resolveUsingBaseURLs(base_urls));
     } else if (m_segmentList.has_value()) {
         base_urls = getBaseURLs();
         if (base_urls.empty()) {
@@ -1042,9 +1042,9 @@ SegmentAvailability Period::getMediaAvailability(const SegmentTemplate::Variable
         }
 
         if (vars.number()) {
-            ret.segmentURL(m_segmentList.value().getMediaURLForSegment(vars.number().value()));
+            ret.segmentURL(URI(m_segmentList.value().getMediaURLForSegment(vars.number().value())).resolveUsingBaseURLs(base_urls));
         } else if (vars.time()) {
-            ret.segmentURL(m_segmentList.value().getMediaURLForSegmentTime(vars.time().value()));
+            ret.segmentURL(URI(m_segmentList.value().getMediaURLForSegmentTime(vars.time().value())).resolveUsingBaseURLs(base_urls));
         }
     }
 
