@@ -170,6 +170,8 @@ MPD::MPD(std::istream &input_stream, const std::optional<URI> &mpd_location)
     ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
+    dom_parser.set_validate(false);
+    dom_parser.set_substitute_entities(true);
     dom_parser.parse_stream(input_stream);
     if (dom_parser) {
         extractMPD(dom_parser.get_document());
@@ -209,7 +211,9 @@ MPD::MPD(const std::vector<char> &mpd_xml, const std::optional<URI> &mpd_locatio
     ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
-    dom_parser.parse_memory(Glib::ustring(mpd_xml.data(), mpd_xml.size()));
+    dom_parser.set_validate(false);
+    dom_parser.set_substitute_entities(true);
+    dom_parser.parse_memory_raw(reinterpret_cast<const unsigned char*>(mpd_xml.data()), mpd_xml.size());
     if (dom_parser) {
         extractMPD(dom_parser.get_document());
     }
@@ -248,7 +252,9 @@ MPD::MPD(const std::vector<unsigned char> &mpd_xml, const std::optional<URI> &mp
     ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
-    dom_parser.parse_memory(Glib::ustring(reinterpret_cast<const char*>(mpd_xml.data()), mpd_xml.size()));
+    dom_parser.set_validate(false);
+    dom_parser.set_substitute_entities(true);
+    dom_parser.parse_memory_raw(mpd_xml.data(), mpd_xml.size());
     if (dom_parser) {
         extractMPD(dom_parser.get_document());
     }
@@ -287,6 +293,8 @@ MPD::MPD(const std::string &filename, const std::optional<URI> &mpd_location)
     ,m_cache(new Cache)
 {
     xmlpp::DomParser dom_parser;
+    dom_parser.set_validate(false);
+    dom_parser.set_substitute_entities(true);
     dom_parser.parse_file(filename);
     if (dom_parser) {
         extractMPD(dom_parser.get_document());
