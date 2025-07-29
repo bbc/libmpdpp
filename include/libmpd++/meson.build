@@ -33,6 +33,7 @@ MultipleSegmentBase.hh
 PatchLocation.hh
 Period.hh
 Preselection.hh
+ProducerReferenceTime.hh
 ProgramInformation.hh
 RandomAccess.hh
 Ratio.hh
@@ -49,8 +50,8 @@ SegmentTimeline.hh
 SegmentURL.hh
 ServiceDescription.hh
 SingleRFC7233Range.hh
-Subset.hh
 SubRepresentation.hh
+Subset.hh
 Switching.hh
 UIntVWithID.hh
 URI.hh
