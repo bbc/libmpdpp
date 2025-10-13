@@ -15,7 +15,6 @@ project('libmpdpp', 'cpp',
         meson_version : '>= 1.4.0',
         default_options : [
             'cpp_std=gnu++20',
-            'libxmlplusplus:build-documentation=false',
         ],
 )
 

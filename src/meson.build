@@ -20,7 +20,7 @@ libxml_dep = dependency('libxml++-3.0', required: false)
 if not libxml_dep.found()
     libxml_dep = dependency('libxml++-4.0', required: false)
     if not libxml_dep.found()
-        libxml_dep = dependency('libxml++-5.0', fallback: ['libxmlplusplus', 'xmlxx_own_dep'])
+        libxml_dep = dependency('libxml++-5.0', fallback: ['libxmlplusplus', 'xmlxx_own_dep'], default_options: ['build-documentation=false'])
         if not libxml_dep.found()
             error('This build requires libxml++ version 3.0, 4.0 or 5.0')
         endif
