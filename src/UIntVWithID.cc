@@ -105,8 +105,7 @@ UIntVWithID &UIntVWithID::operator=(UIntVWithID &&to_move)
 bool UIntVWithID::operator==(const UIntVWithID &other) const
 {
     if (m_id != other.m_id) return false;
-    if (m_contentType.has_value() != other.m_contentType.has_value()) return false;
-    if (m_contentType && m_contentType.value() != other.m_contentType.value()) return false;
+    if (m_contentType != other.m_contentType) return false;
     if (m_profiles.size() != other.m_profiles.size()) return false;
     {
         std::list<URI> to_find(other.m_profiles);

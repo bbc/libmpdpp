@@ -140,6 +140,13 @@ public:
      */
     bool operator==(const MPD &other) const;
 
+    /** Inequality operator
+     * 
+     * @param other The MPD to compare to this MPD.
+     * @return `true` if the @p other MPD does not represent the same value as this MPD.
+     */
+    bool operator!=(const MPD &other) const { return !(*this == other); };
+
     /** Check if a source location URL has been set for this MPD
      *
      * Check if the source URL has been set by either using the @ref MPD::sourceURL setters or by providing the @p mpd_location to

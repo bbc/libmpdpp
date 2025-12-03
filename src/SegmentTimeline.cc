@@ -77,16 +77,10 @@ SegmentTimeline::S &SegmentTimeline::S::operator=(SegmentTimeline::S &&other)
 
 bool SegmentTimeline::S::operator==(const SegmentTimeline::S &other) const
 {
-    if (m_t.has_value() != other.m_t.has_value()) return false;
-    if (m_t && !(m_t.value() == other.m_t.value())) return false;
-
-    if (m_n.has_value() != other.m_n.has_value()) return false;
-    if (m_n && !(m_n.value() == other.m_n.value())) return false;
-
+    if (m_t != other.m_t) return false;
+    if (m_n != other.m_n) return false;
     if (m_d != other.m_d) return false;
-
     if (m_r != other.m_r) return false;
-
     if (m_k != other.m_k) return false;
 
     return true;

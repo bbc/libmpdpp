@@ -21,8 +21,7 @@ LIBMPDPP_NAMESPACE_BEGIN
 bool Label::operator==(const Label &to_compare) const
 {
     if (m_id != to_compare.m_id) return false;
-    if (m_lang.has_value() != to_compare.m_lang.has_value()) return false;
-    if (m_lang.has_value() && m_lang.value() != to_compare.m_lang.value()) return false;
+    if (m_lang != to_compare.m_lang) return false;
     return static_cast<const std::string&>(*this) == static_cast<const std::string&>(to_compare);
 }
 

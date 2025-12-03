@@ -42,7 +42,7 @@ ProducerReferenceTime &ProducerReferenceTime::operator=(ProducerReferenceTime &&
 
 bool ProducerReferenceTime::operator==(const ProducerReferenceTime &other) const
 {
-    return false;
+    return true;
 }
 
 // protected:

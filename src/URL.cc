@@ -50,11 +50,8 @@ URL &URL::operator=(URL &&other)
 
 bool URL::operator==(const URL &other) const
 {
-    if (m_sourceURL.has_value() != other.m_sourceURL.has_value()) return false;
-    if (m_sourceURL && !(m_sourceURL.value() == other.m_sourceURL.value())) return false;
-
-    if (m_range.has_value() != other.m_range.has_value()) return false;
-    if (m_range && !(m_range.value() == other.m_range.value())) return false;
+    if (m_sourceURL != other.m_sourceURL) return false;
+    if (m_range != other.m_range) return false;
 
     return true;
 }

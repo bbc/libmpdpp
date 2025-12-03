@@ -77,20 +77,11 @@ MultipleSegmentBase &MultipleSegmentBase::operator=(MultipleSegmentBase &&other)
 
 bool MultipleSegmentBase::operator==(const MultipleSegmentBase &other) const
 {
-    if (m_duration.has_value() != other.m_duration.has_value()) return false;
-    if (m_duration && !(m_duration.value() == other.m_duration.value())) return false;
-
-    if (m_startNumber.has_value() != other.m_startNumber.has_value()) return false;
-    if (m_startNumber && !(m_startNumber.value() == other.m_startNumber.value())) return false;
-
-    if (m_endNumber.has_value() != other.m_endNumber.has_value()) return false;
-    if (m_endNumber && !(m_endNumber.value() == other.m_endNumber.value())) return false;
-
-    if (m_segmentTimeline.has_value() != other.m_segmentTimeline.has_value()) return false;
-    if (m_segmentTimeline && !(m_segmentTimeline.value() == other.m_segmentTimeline.value())) return false;
-
-    if (m_bitstreamSwitching.has_value() != other.m_bitstreamSwitching.has_value()) return false;
-    if (m_bitstreamSwitching && !(m_bitstreamSwitching.value() == other.m_bitstreamSwitching.value())) return false;
+    if (m_duration != other.m_duration) return false;
+    if (m_startNumber != other.m_startNumber) return false;
+    if (m_endNumber != other.m_endNumber) return false;
+    if (m_segmentTimeline != other.m_segmentTimeline) return false;
+    if (m_bitstreamSwitching != other.m_bitstreamSwitching) return false;
 
     return true;
 }

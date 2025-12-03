@@ -486,6 +486,85 @@ MPD &MPD::operator=(MPD &&other)
     return *this;
 }
 
+namespace {
+template <class T>
+bool any_order_list_equal(const std::list<T> &a, const std::list<T> &b)
+{
+    if (a.size() != b.size()) return false;
+
+    std::list<const T*> b_copy;
+    for (const T &b_item : b) {
+        b_copy.push_back(&b_item);
+    }
+
+    for (const T &a_item : a) {
+        typename std::list<const T*>::iterator it;
+        for (it = b_copy.begin(); it != b_copy.end(); it++) {
+            if (a_item == *(*it)) {
+                b_copy.erase(it);
+                break;
+            }
+        }
+        if (it == b_copy.end()) return false; // not found
+    }
+
+    return true;
+}
+}
+
+bool MPD::operator==(const MPD &other) const
+{
+    if (this == &other) return true; // shortcut for comparing same object
+
+    if (m_id != other.m_id) return false;
+    // do m_profiles later as any order list comparison
+    if (m_type != other.m_type) return false;
+    if (m_availabilityStartTime != other.m_availabilityStartTime) return false;
+    if (m_availabilityEndTime != other.m_availabilityEndTime) return false;
+    if (m_publishTime != other.m_publishTime) return false;
+    if (m_mediaPresentationDuration != other.m_mediaPresentationDuration) return false;
+    if (m_minimumUpdatePeriod != other.m_minimumUpdatePeriod) return false;
+    if (m_minBufferTime != other.m_minBufferTime) return false;
+    if (m_timeShiftBufferDepth != other.m_timeShiftBufferDepth) return false;
+    if (m_suggestedPresentationDelay != other.m_suggestedPresentationDelay) return false;
+    if (m_maxSegmentDuration != other.m_maxSegmentDuration) return false;
+    if (m_maxSubsegmentDuration != other.m_maxSubsegmentDuration) return false;
+    // do m_programInformations later as any order list comparison
+    // do m_baseURLs later as any order list comparison
+    // do m_locations later as any order list comparison
+    // do m_patchLocations later as any order list comparison
+    // do m_serviceDescriptions later as any order list comparison
+    // do m_initializationSets later as any order list comparison
+    // do m_initializationGroups later as any order list comparison
+    // do m_initializationPresentations later as any order list comparison
+    // do m_contentProtections later as any order list comparison
+    // do m_periods later as any order list comparison
+    // do m_metrics later as any order list comparison
+    // do m_essentialProperties later as any order list comparison
+    // do m_supplementaryProperties later as any order list comparison
+    // do m_utcTimings later as any order list comparison
+    if (m_leapSecondInformation != other.m_leapSecondInformation) return false;
+    
+    // any order list comparisons
+    if (!any_order_list_equal(m_profiles, other.m_profiles)) return false;
+    if (!any_order_list_equal(m_programInformations, other.m_programInformations)) return false;
+    if (!any_order_list_equal(m_baseURLs, other.m_baseURLs)) return false;
+    if (!any_order_list_equal(m_locations, other.m_locations)) return false;
+    if (!any_order_list_equal(m_patchLocations, other.m_patchLocations)) return false;
+    if (!any_order_list_equal(m_serviceDescriptions, other.m_serviceDescriptions)) return false;
+    if (!any_order_list_equal(m_initializationSets, other.m_initializationSets)) return false;
+    if (!any_order_list_equal(m_initializationGroups, other.m_initializationGroups)) return false;
+    if (!any_order_list_equal(m_initializationPresentations, other.m_initializationPresentations)) return false;
+    if (!any_order_list_equal(m_contentProtections, other.m_contentProtections)) return false;
+    if (!any_order_list_equal(m_periods, other.m_periods)) return false;
+    if (!any_order_list_equal(m_metrics, other.m_metrics)) return false;
+    if (!any_order_list_equal(m_essentialProperties, other.m_essentialProperties)) return false;
+    if (!any_order_list_equal(m_supplementaryProperties, other.m_supplementaryProperties)) return false;
+    if (!any_order_list_equal(m_utcTimings, other.m_utcTimings)) return false;
+
+    return true;
+}
+
 bool MPD::isLive() const
 {
     if (m_type != DYNAMIC) return false;                      // Live is "dynamic"

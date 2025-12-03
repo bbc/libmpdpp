@@ -233,10 +233,7 @@ bool RepresentationBase::operator==(const RepresentationBase &to_compare) const
             } \
         } \
     } while (0)
-#define COMPARE_OPT_VALUES(var) do { \
-        if (var.has_value() != to_compare.var.has_value()) return false; \
-        if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
-    } while(0)
+#define COMPARE_OPT_VALUES(var) if (var != to_compare.var) return false
 
     COMPARE_ANY_ORDER_LISTS(m_profiles);
     COMPARE_OPT_VALUES(m_width);

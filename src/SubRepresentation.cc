@@ -75,9 +75,7 @@ SubRepresentation &SubRepresentation::operator=(SubRepresentation &&to_move)
 
 bool SubRepresentation::operator==(const SubRepresentation &to_compare) const
 {
-    if (m_level.has_value() != to_compare.m_level.has_value()) return false;
-    if (m_level && m_level.value() != to_compare.m_level.value()) return false;
-
+    if (m_level != to_compare.m_level) return false;
     if (m_dependencyLevel.size() != to_compare.m_dependencyLevel.size()) return false;
     {
         std::list<unsigned int> to_find(to_compare.m_dependencyLevel);
@@ -87,10 +85,7 @@ bool SubRepresentation::operator==(const SubRepresentation &to_compare) const
             to_find.erase(it);
         }
     }
-
-    if (m_bandwidth.has_value() != to_compare.m_bandwidth.has_value()) return false;
-    if (m_bandwidth && m_bandwidth.value() != to_compare.m_bandwidth.value()) return false;
-
+    if (m_bandwidth != to_compare.m_bandwidth) return false;
     if (m_contentComponent.size() != to_compare.m_contentComponent.size()) return false;
     {
         std::list<std::string> to_find(to_compare.m_contentComponent);

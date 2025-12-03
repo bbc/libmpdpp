@@ -78,14 +78,9 @@ ContentProtection &ContentProtection::operator=(ContentProtection &&to_move)
 
 bool ContentProtection::operator==(const ContentProtection &to_compare) const
 {
-    if (m_robustness.has_value() != to_compare.m_robustness.has_value()) return false;
-    if (m_robustness && m_robustness.value() != to_compare.m_robustness.value()) return false;
-
-    if (m_refId.has_value() != to_compare.m_refId.has_value()) return false;
-    if (m_refId && m_refId.value() != to_compare.m_refId.value()) return false;
-
-    if (m_ref.has_value() != to_compare.m_ref.has_value()) return false;
-    if (m_ref && m_ref.value() != to_compare.m_ref.value()) return false;
+    if (m_robustness != to_compare.m_robustness) return false;
+    if (m_refId != to_compare.m_refId) return false;
+    if (m_ref != to_compare.m_ref) return false;
 
     return Descriptor::operator==(to_compare);
 }

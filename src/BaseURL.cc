@@ -109,23 +109,11 @@ bool BaseURL::operator==(const BaseURL &other) const
     if (!URI::operator==(other)) return false;
 
     if (m_rangeAccess != other.m_rangeAccess) return false;
-
-    if (m_timeShiftBufferDepth.has_value() != other.m_timeShiftBufferDepth.has_value()) return false;
-    if (m_timeShiftBufferDepth.has_value() && m_timeShiftBufferDepth.value() != other.m_timeShiftBufferDepth.value()) return false;
-
-    if (m_availabilityTimeComplete.has_value() != other.m_availabilityTimeComplete.has_value()) return false;
-    if (m_availabilityTimeComplete.has_value() && m_availabilityTimeComplete.value() != other.m_availabilityTimeComplete.value())
-        return false;
-
-    if (m_availabilityTimeOffset.has_value() != other.m_availabilityTimeOffset.has_value()) return false;
-    if (m_availabilityTimeOffset.has_value() && m_availabilityTimeOffset.value() != other.m_availabilityTimeOffset.value())
-        return false;
-
-    if (m_byteRange.has_value() != other.m_byteRange.has_value()) return false;
-    if (m_byteRange.has_value() && m_byteRange.value() != other.m_byteRange.value()) return false;
-
-    if (m_serviceLocation.has_value() != other.m_serviceLocation.has_value()) return false;
-    if (m_serviceLocation.has_value() && m_serviceLocation.value() != other.m_serviceLocation.value()) return false;
+    if (m_timeShiftBufferDepth != other.m_timeShiftBufferDepth) return false;
+    if (m_availabilityTimeComplete != other.m_availabilityTimeComplete) return false;
+    if (m_availabilityTimeOffset != other.m_availabilityTimeOffset) return false;
+    if (m_byteRange != other.m_byteRange) return false;
+    if (m_serviceLocation != other.m_serviceLocation) return false;
 
     return true;
 }

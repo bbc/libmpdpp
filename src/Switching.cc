@@ -42,7 +42,7 @@ Switching &Switching::operator=(Switching &&other)
 
 bool Switching::operator==(const Switching &other) const
 {
-    return false;
+    return true;
 }
 
 // protected:

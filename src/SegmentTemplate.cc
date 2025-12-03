@@ -126,17 +126,10 @@ SegmentTemplate &SegmentTemplate::operator=(SegmentTemplate &&other)
 
 bool SegmentTemplate::operator==(const SegmentTemplate &other) const
 {
-    if (m_media.has_value() != other.m_media.has_value()) return false;
-    if (m_media && !(m_media.value() == other.m_media.value())) return false;
-
-    if (m_index.has_value() != other.m_index.has_value()) return false;
-    if (m_index && !(m_index.value() == other.m_index.value())) return false;
-
-    if (m_initialization.has_value() != other.m_initialization.has_value()) return false;
-    if (m_initialization && !(m_initialization.value() == other.m_initialization.value())) return false;
-
-    if (m_bitstreamSwitching.has_value() != other.m_bitstreamSwitching.has_value()) return false;
-    if (m_bitstreamSwitching && !(m_bitstreamSwitching.value() == other.m_bitstreamSwitching.value())) return false;
+    if (m_media != other.m_media) return false;
+    if (m_index != other.m_index) return false;
+    if (m_initialization != other.m_initialization) return false;
+    if (m_bitstreamSwitching != other.m_bitstreamSwitching) return false;
 
     return MultipleSegmentBase::operator==(other);
 }

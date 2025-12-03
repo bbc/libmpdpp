@@ -217,10 +217,7 @@ Period &Period::operator=(Period &&to_move)
 
 bool Period::operator==(const Period &to_compare) const
 {
-#define COMPARE_OPT_VALUES(var) do { \
-        if (var.has_value() != to_compare.var.has_value()) return false; \
-        if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
-    } while(0)
+#define COMPARE_OPT_VALUES(var) if (var != to_compare.var) return false
 #define COMPARE_ANY_ORDER_LISTS(var) do { \
         if (var.size() != to_compare.var.size()) return false; \
         if (var.size() != 0) { \
@@ -232,7 +229,6 @@ bool Period::operator==(const Period &to_compare) const
             } \
         } \
     } while (0)
-
 
     COMPARE_OPT_VALUES(m_id);
     COMPARE_OPT_VALUES(m_start);
@@ -254,6 +250,9 @@ bool Period::operator==(const Period &to_compare) const
     COMPARE_ANY_ORDER_LISTS(m_emptyAdaptationSets);
     COMPARE_ANY_ORDER_LISTS(m_groupLabels);
     COMPARE_ANY_ORDER_LISTS(m_preselections);
+
+#undef COMPARE_ANY_ORDER_LISTS
+#undef COMPARE_OPT_VALUES
 
     return true;
 }

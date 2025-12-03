@@ -64,10 +64,7 @@ SegmentURL &SegmentURL::operator=(SegmentURL &&other)
 
 bool SegmentURL::operator==(const SegmentURL &other) const
 {
-#define COMPARE_OPT(var) do { \
-        if (var.has_value() != other.var.has_value()) return false; \
-        if (var && !(var.value() == other.var.value())) return false; \
-    } while(0)
+#define COMPARE_OPT(var) if (var != other.var) return false
 
     COMPARE_OPT(m_media);
     COMPARE_OPT(m_mediaRange);

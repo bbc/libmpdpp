@@ -42,7 +42,7 @@ RandomAccess &RandomAccess::operator=(RandomAccess &&other)
 
 bool RandomAccess::operator==(const RandomAccess &other) const
 {
-    return false;
+    return true;
 }
 
 // protected:

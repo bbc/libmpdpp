@@ -117,10 +117,7 @@ bool SegmentBase::operator==(const SegmentBase &other) const
     if (m_indexRangeExact != other.m_indexRangeExact) return false;
     if (m_availabilityTimeComplete != other.m_availabilityTimeComplete) return false;
 
-#define COMPARE_OPT_VALUES(var) do { \
-        if (var.has_value() != other.var.has_value()) return false; \
-        if (var.has_value() && !(var.value() == other.var.value())) return false; \
-    } while (0)
+#define COMPARE_OPT_VALUES(var) if (var != other.var) return false
 
     COMPARE_OPT_VALUES(m_timescale);
     COMPARE_OPT_VALUES(m_eptDelta);

@@ -96,6 +96,7 @@ ContentPopularityRate &ContentPopularityRate::operator=(ContentPopularityRate &&
 
 bool ContentPopularityRate::operator==(const ContentPopularityRate &other) const
 {
+    if (m_prs.size() != other.m_prs.size()) return false;
     std::list<ContentPopularityRate::PR> to_find(other.m_prs);
     for (const auto &pr : m_prs) {
         auto it = std::find(to_find.begin(), to_find.end(), pr);

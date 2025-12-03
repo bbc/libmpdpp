@@ -31,9 +31,7 @@ SingleRFC7233Range::SingleRFC7233Range(const std::string &range_str)
 bool SingleRFC7233Range::operator==(const SingleRFC7233Range &other) const
 {
     if (m_fromByte != other.m_fromByte) return false;
-
-    if (m_toByte.has_value() != other.m_toByte.has_value()) return false;
-    if (m_toByte.has_value() && !(m_toByte.value() != other.m_toByte.value())) return false;
+    if (m_toByte != other.m_toByte) return false;
 
     return true;
 }

@@ -138,10 +138,7 @@ Representation &Representation::operator=(Representation &&to_move)
 bool Representation::operator==(const Representation &to_compare) const
 {
 
-#define COMPARE_OPT_VALUES(var) do { \
-        if (var.has_value() != to_compare.var.has_value()) return false; \
-        if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
-    } while(0)
+#define COMPARE_OPT_VALUES(var) if (var != to_compare.var) return false
 #define COMPARE_ANY_ORDER_LISTS(var) do { \
         if (var.size() != to_compare.var.size()) return false; \
         if (var.size() != 0) { \
@@ -155,7 +152,6 @@ bool Representation::operator==(const Representation &to_compare) const
     } while (0)
 
     if (m_id != to_compare.m_id) return false;
-
     if (m_bandwidth != to_compare.m_bandwidth) return false;
 
     COMPARE_OPT_VALUES(m_qualityRanking);

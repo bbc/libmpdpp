@@ -72,7 +72,6 @@ ProgramInformation &ProgramInformation::operator=(ProgramInformation &&to_move)
 
 bool ProgramInformation::operator==(const ProgramInformation &other) const
 {
-
     return m_lang == other.m_lang && m_moreInformationURL == other.m_moreInformationURL && m_title == other.m_title &&
            m_source == other.m_source && m_copyright == other.m_copyright;
 }

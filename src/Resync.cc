@@ -42,7 +42,7 @@ Resync &Resync::operator=(Resync &&other)
 
 bool Resync::operator==(const Resync &other) const
 {
-    return false;
+    return true;
 }
 
 // protected:

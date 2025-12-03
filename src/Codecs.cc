@@ -88,8 +88,7 @@ Codecs &Codecs::operator=(Codecs &&other)
 
 bool Codecs::operator==(const Codecs &other) const
 {
-    if (m_encoding.has_value() != other.m_encoding.has_value()) return false;
-    if (m_encoding && !(m_encoding.value() != other.m_encoding.value())) return false;
+    if (m_encoding != other.m_encoding) return false;
 
     if (m_codecs.size() != other.m_codecs.size()) return false;
 
@@ -100,7 +99,7 @@ bool Codecs::operator==(const Codecs &other) const
         work_list.erase(it);
     }
 
-    return false;
+    return true;
 }
 
 Codecs::operator std::string() const

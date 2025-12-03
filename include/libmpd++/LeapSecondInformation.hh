@@ -37,6 +37,16 @@ LIBMPDPP_NAMESPACE_BEGIN
 class LIBMPDPP_PUBLIC_API LeapSecondInformation {
 public:
     LIBMPDPP_PUBLIC_API LeapSecondInformation() {};
+    LIBMPDPP_PUBLIC_API LeapSecondInformation(const LeapSecondInformation &other) {};
+    LIBMPDPP_PUBLIC_API LeapSecondInformation(LeapSecondInformation &&other) {};
+
+    LIBMPDPP_PUBLIC_API virtual ~LeapSecondInformation() {};
+
+    LIBMPDPP_PUBLIC_API LeapSecondInformation &operator=(const LeapSecondInformation &other) { return *this; };
+    LIBMPDPP_PUBLIC_API LeapSecondInformation &operator=(LeapSecondInformation &&other) { return *this; };
+
+    LIBMPDPP_PUBLIC_API bool operator==(const LeapSecondInformation &other) const { return true; };
+    LIBMPDPP_PUBLIC_API bool operator!=(const LeapSecondInformation &other) const { return false; };
 
 ///@cond PROTECTED
 protected:

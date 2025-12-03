@@ -268,10 +268,8 @@ AdaptationSet &AdaptationSet::operator=(AdaptationSet &&other)
 
 bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
 {
-#define COMPARE_OPT_VALUES(var) do { \
-        if (var.has_value() != to_compare.var.has_value()) return false; \
-        if (var.has_value() && !(var.value() == to_compare.var.value())) return false; \
-    } while(0)
+#define COMPARE_VALUES(var) if (var != to_compare.var) return false
+#define COMPARE_OPT_VALUES(var) if (var != to_compare.var) return false
 #define COMPARE_ANY_ORDER_LISTS(var) do { \
         if (var.size() != to_compare.var.size()) return false; \
         if (var.size() != 0) { \
@@ -284,10 +282,9 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
         } \
     } while (0)
 
-    if (m_segmentAlignment != to_compare.m_segmentAlignment) return false;
-    if (m_subsegmentAlignment != to_compare.m_subsegmentAlignment) return false;
-    if (!(m_subsegmentStartsWithSAP == to_compare.m_subsegmentStartsWithSAP)) return false;
-
+    COMPARE_VALUES(m_segmentAlignment);
+    COMPARE_VALUES(m_subsegmentAlignment);
+    COMPARE_VALUES(m_subsegmentStartsWithSAP);
     COMPARE_OPT_VALUES(m_id);
     COMPARE_OPT_VALUES(m_group);
     COMPARE_OPT_VALUES(m_lang);
@@ -315,6 +312,10 @@ bool AdaptationSet::operator==(const AdaptationSet &to_compare) const
     COMPARE_ANY_ORDER_LISTS(m_contentComponents);
     COMPARE_ANY_ORDER_LISTS(m_baseURLs);
     COMPARE_ANY_ORDER_LISTS(m_representations);
+
+#undef COMPARE_ANY_ORDER_LISTS
+#undef COMPARE_OPT_VALUES
+#undef COMPARE_VALUES
 
     return RepresentationBase::operator==(to_compare);
 }
