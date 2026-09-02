@@ -277,6 +277,7 @@ SegmentAvailability Representation::segmentAvailability(const time_type &query_t
     }
 
     if (m_segmentTemplate) {
+        std::optional<duration_type> availability_window;
         base_urls = getBaseURLs();
         auto vars = getTemplateVars(pres_time);
         unsigned int ts = 1;
@@ -307,6 +308,17 @@ SegmentAvailability Representation::segmentAvailability(const time_type &query_t
         if (mpd) {
             if (mpd->hasAvailabilityEndTime()) {
                 ret.availabilityEndTime(mpd->presentationTimeToSystemTime(mpd->availabilityEndTime().value()));
+            } else if (mpd->isLive() && mpd->hasTimeShiftBufferDepth()) {
+                /* A dynamic presentation normally carries no MPD@availabilityEndTime, since it has
+                   no announced end, but it still bounds how long a Segment can be fetched.
+                   ISO/IEC 23009-1:2026 clause 5.3.1.2, Table 3, @timeShiftBufferDepth: "specifies
+                   the duration of the smallest time shifting buffer for any Representation in the
+                   MPD that is guaranteed to be available for a Media Presentation with type
+                   'dynamic'." Leaving the end time unset instead made every Segment of a live
+                   presentation look available without limit, so a consumer had nothing to age its
+                   store by. Held here and applied once the start time and segment duration are
+                   final, since the end time is defined in terms of both. */
+                availability_window = mpd->timeShiftBufferDepth().value();
             }
             ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
         }
@@ -332,6 +344,19 @@ SegmentAvailability Representation::segmentAvailability(const time_type &query_t
                 // Availability is at the end of segments for live
                 ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));
             }
+        }
+        if (availability_window) {
+            /* ISO/IEC 23009-1:2026 clause 5.3.9.5.3: "The Segment availability end time of a Media
+               Segment is the sum of the Segment availability start time, the MPD duration of the
+               Media Segment and the value of the attribute @timeShiftBufferDepth for this
+               Representation." The duration is a term of its own here, additional to the one
+               already carried in the availability start time for a live presentation. */
+            auto end = ret.availabilityStartTime()
+                     + std::chrono::duration_cast<time_type::duration>(availability_window.value());
+            if (segment_duration) {
+                end += std::chrono::duration_cast<time_type::duration>(segment_duration.value());
+            }
+            ret.availabilityEndTime(end);
         }
         ret.segmentURL(URI(m_segmentTemplate.value().formatMediaTemplate(vars)).resolveUsingBaseURLs(base_urls));
     } else if (m_segmentList.has_value()) {
