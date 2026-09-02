@@ -310,8 +310,24 @@ SegmentAvailability Representation::segmentAvailability(const time_type &query_t
             }
             ret.availabilityStartTime(mpd->presentationTimeToSystemTime(ret.availabilityStartTime()));
         }
+        std::optional<duration_type> segment_duration;
         if (m_segmentTemplate.value().hasDuration()) {
-            ret.segmentDuration(m_segmentTemplate.value().durationAsDurationType());
+            segment_duration = m_segmentTemplate.value().durationAsDurationType();
+        } else if (m_segmentTemplate.value().hasSegmentTimeline() && vars.number().has_value()) {
+            /* Addressed by SegmentTimeline, so the duration is the one that timeline gives for this
+               segment rather than a single @duration. Without this the live adjustment below was
+               skipped for every timeline-addressed presentation, placing availability at the
+               segment's start instead of its end, which is one segment duration too early:
+               ISO/IEC 23009-1:2026 clause 5.3.9.5.3 sets the availability start time of a Media
+               Segment as the sum that includes "its MPD duration". */
+            auto timeline_duration = m_segmentTemplate.value().segmentTimeline().value().segmentDuration(vars.number().value());
+            if (timeline_duration) {
+                double timeline_ts = (ts == 0) ? 1.0 : static_cast<double>(ts);
+                segment_duration = std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(timeline_duration.value() / timeline_ts));
+            }
+        }
+        if (segment_duration) {
+            ret.segmentDuration(segment_duration.value());
             if (mpd && mpd->isLive()) {
                 // Availability is at the end of segments for live
                 ret.availabilityStartTime(ret.availabilityStartTime() + std::chrono::duration_cast<time_type::duration>(ret.segmentDuration()));

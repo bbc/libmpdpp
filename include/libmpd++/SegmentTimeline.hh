@@ -11,6 +11,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <functional>
 #include <optional>
 #include <list>
 
@@ -84,9 +85,36 @@ public:
 
     bool operator==(const SegmentTimeline &other) const { return m_sLines == other.m_sLines; };
 
+    /**@{*/
+    /** Segment timeline queries
+     *
+     * A SegmentTimeline describes its segments as a sequence of series (@c S elements), each series
+     * covering @c \@r + 1 segments of identical duration @c \@d starting at @c \@t. These map an
+     * index, counted from the first segment the timeline describes and therefore corresponding to
+     * @c \@startNumber, to that segment's start time and duration, and back.
+     *
+     * ISO/IEC 23009-1:2026 clause 5.3.9.6.3, Table 24, @c \@t: "If not present, then the value shall
+     * be assumed to be zero for the first S element and for the subsequent S elements, the value
+     * shall be assumed to be the sum of the previous S element's earliest presentation time and
+     * contiguous duration."
+     *
+     * Times and durations are in @c \@timescale units, as they appear in the timeline.
+     */
+    /** Number of segments this timeline describes */
+    unsigned long segmentCount() const;
+    /** Start time of the segment at @p index, or @c std::nullopt if @p index is out of range */
+    std::optional<unsigned long> segmentStartTime(unsigned long index) const;
+    /** Duration of the segment at @p index, or @c std::nullopt if @p index is out of range */
+    std::optional<unsigned long> segmentDuration(unsigned long index) const;
+    /** Index of the segment whose interval contains @p time, or @c std::nullopt if @p time lies
+     *  outside every series this timeline describes */
+    std::optional<unsigned long> segmentIndexForTime(unsigned long time) const;
+    /**@}*/
+
 ///@cond PROTECTED
 protected:
     friend class MultipleSegmentBase;
+    void forEachSegment(const std::function<bool(unsigned long, unsigned long, unsigned long)> &fn) const;
     SegmentTimeline(xmlpp::Node&);
     void setXMLElement(xmlpp::Element&) const;
 ///@endcond PROTECTED

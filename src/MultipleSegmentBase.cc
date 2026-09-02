@@ -8,6 +8,7 @@
  * For full license terms please see the LICENSE file distributed with this
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
+#include <chrono>
 #include <optional>
 
 #include <libxml++/libxml++.h>
@@ -105,7 +106,13 @@ unsigned long MultipleSegmentBase::segmentNumberToTime(unsigned long segment_num
 {
     // time = m_duration * segment_number since m_duration is already in the correct timescale
     if (m_duration) return m_duration.value() * segment_number;
-    return 0; // no duration then there's only one segment starting at the period start
+    // Without @duration the segment times come from the SegmentTimeline, where @startNumber names
+    // the first segment described, so segment_number indexes that timeline.
+    if (m_segmentTimeline) {
+        auto start = m_segmentTimeline.value().segmentStartTime(segment_number);
+        if (start) return start.value();
+    }
+    return 0; // neither @duration nor a timeline: one segment starting at the period start
 }
 
 // Get wallclock duration of a segment from Period start
@@ -113,7 +120,14 @@ MultipleSegmentBase::duration_type MultipleSegmentBase::segmentNumberToDurationT
 {
     // time = m_duration / m_timescale * segment_number, where m_timescale defaults to 1 if not given.
     if (m_duration) return durationAsDurationType() * segment_number;
-    return duration_type(0); // no duration then there's only one segment starting at the period start
+    if (m_segmentTimeline) {
+        auto start = m_segmentTimeline.value().segmentStartTime(segment_number);
+        if (start) {
+            double ts = hasTimescale()?static_cast<double>(timescale().value()):1.0;
+            return std::chrono::duration_cast<duration_type>(std::chrono::duration<double, std::ratio<1> >(start.value() / ts));
+        }
+    }
+    return duration_type(0); // neither @duration nor a timeline: one segment at the period start
 }
 
 // Get segment number from offset from Period start in the current timescale
@@ -129,7 +143,26 @@ unsigned long MultipleSegmentBase::durationTypeToSegmentNumber(const MultipleSeg
 {
     if (offset.count() < 0) return 0;
     if (m_duration) return (offset / durationAsDurationType());
-    return 0; // no duration then there's only one segment
+    /* Without @duration the timeline decides which segment covers this offset. Returning 0 here
+       regardless, as this did before, made every time map to the first segment the timeline
+       describes, so a live presentation addressed by SegmentTimeline always resolved to the oldest
+       segment still in its window however recent the query time. */
+    if (m_segmentTimeline) {
+        const SegmentTimeline &timeline = m_segmentTimeline.value();
+        double ts = hasTimescale()?static_cast<double>(timescale().value()):1.0;
+        double secs = std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1> > >(offset).count();
+        unsigned long time = static_cast<unsigned long>(secs * ts);
+        auto index = timeline.segmentIndexForTime(time);
+        if (index) return index.value();
+        /* Past the end of the timeline, which is normal while the next segment is still being
+           produced: the last segment it describes is the most recent one addressable. */
+        unsigned long count = timeline.segmentCount();
+        if (count > 0) {
+            auto last_start = timeline.segmentStartTime(count - 1);
+            if (last_start && time >= last_start.value()) return count - 1;
+        }
+    }
+    return 0; // neither @duration nor a timeline: there's only one segment
 }
 
 // protected
