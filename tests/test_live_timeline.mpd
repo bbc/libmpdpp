@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A dynamic presentation addressed by SegmentTimeline rather than @duration, carrying
+     @timeShiftBufferDepth and, as is normal for a live service with no announced end, no
+     MPD@availabilityEndTime.
+
+     Twenty 5 s segments starting at t=0, so segment N covers [(N-1)*5, N*5) seconds of the
+     presentation and MPD start times run 0 s .. 95 s. -->
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011"
+     type="dynamic"
+     availabilityStartTime="2026-01-01T00:00:00Z"
+     timeShiftBufferDepth="PT120S"
+     minimumUpdatePeriod="PT5S"
+     minBufferTime="PT2S"
+     profiles="urn:mpeg:dash:profile:isoff-live:2011">
+  <Period id="p0" start="PT0S">
+    <AdaptationSet mimeType="video/mp4" segmentAlignment="true">
+      <Representation id="v0" bandwidth="400000" codecs="avc1.4d401f">
+        <SegmentTemplate timescale="1000" media="chunk-$Number$.m4s"
+                         initialization="init.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="5000" r="19"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>

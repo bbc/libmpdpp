@@ -16,3 +16,8 @@ test('segment_templates', segment_templates_exe)
 
 segment_selection_exe = executable('segment_selection', 'segment_selection.cc', dependencies: [libmpdpp_dep], install: false)
 test('segment_selection', segment_selection_exe, args: [test_live_mpd])
+
+test_live_timeline_mpd = files('test_live_timeline.mpd')
+
+segment_timeline_selection_exe = executable('segment_timeline_selection', 'segment_timeline_selection.cc', dependencies: [libmpdpp_dep], install: false)
+test('segment_timeline_selection', segment_timeline_selection_exe, args: [test_live_timeline_mpd])
