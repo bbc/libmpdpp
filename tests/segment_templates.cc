@@ -41,12 +41,12 @@ bool test_segment_template_default()
 bool test_segment_template_media_template()
 {
     SegmentTemplate seg_temp;
-    seg_temp.media("$$/$RepresentationId$/$Number%06d$/$Bandwidth$/$Time%03d$/$SubNumber$/$Nonsense$/$FurtherNonsense$Number$");
+    seg_temp.media("$$/$RepresentationID$/$Number%06d$/$Bandwidth$/$Time%03d$/$SubNumber$/$Nonsense$/$FurtherNonsense$Number$");
     SegmentTemplate::Variables vars("repId", 1, 2, 3000, 4);
 
     auto media_url = seg_temp.formatMediaTemplate(vars);
-    if (media_url != "$/repId/000001/2/3000/4/$Nonsense$/$FurtherNonsense1") {
-        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000001/2/3000/4/$Nonsense$/$FurtherNonsense1\" got \"" << media_url << "\"" << std::endl;
+    if (media_url != "$/repId/000002/2/3000/4/$Nonsense$/$FurtherNonsense2") {
+        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000002/2/3000/4/$Nonsense$/$FurtherNonsense2\" got \"" << media_url << "\"" << std::endl;
         return false;
     }
 
@@ -56,28 +56,28 @@ bool test_segment_template_media_template()
 bool test_segment_template_vars_missing()
 {
     SegmentTemplate seg_temp;
-    seg_temp.media("$$/$RepresentationId$/$Number%06d$/$Bandwidth$/$Time%03d$/$SubNumber$/$Nonsense$/$FurtherNonsense$Number$");
+    seg_temp.media("$$/$RepresentationID$/$Number%06d$/$Bandwidth$/$Time%03d$/$SubNumber$/$Nonsense$/$FurtherNonsense$Number$");
 
     SegmentTemplate::Variables vars("repId", 1, 2, 3000);
     auto media_url = seg_temp.formatMediaTemplate(vars);
-    if (media_url != "$/repId/000001/2/3000/$SubNumber$/$Nonsense$/$FurtherNonsense1") {
-        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000001/2/3000/$SubNumber$/$Nonsense$/$FurtherNonsense1\" got \"" << media_url << "\"" << std::endl;
+    if (media_url != "$/repId/000002/2/3000/$SubNumber$/$Nonsense$/$FurtherNonsense2") {
+        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000002/2/3000/$SubNumber$/$Nonsense$/$FurtherNonsense2\" got \"" << media_url << "\"" << std::endl;
         return false;
     }
 
     vars.subNumber(4);
     vars.time(std::nullopt);
     media_url = seg_temp.formatMediaTemplate(vars);
-    if (media_url != "$/repId/000001/2/$Time%03d$/4/$Nonsense$/$FurtherNonsense1") {
-        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000001/2/$Time%03d$/4/$Nonsense$/$FurtherNonsense1\" got \"" << media_url << "\"" << std::endl;
+    if (media_url != "$/repId/000002/2/$Time%03d$/4/$Nonsense$/$FurtherNonsense2") {
+        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000002/2/$Time%03d$/4/$Nonsense$/$FurtherNonsense2\" got \"" << media_url << "\"" << std::endl;
         return false;
     }
 
     vars.time(3000);
     vars.bandwidth(std::nullopt);
     media_url = seg_temp.formatMediaTemplate(vars);
-    if (media_url != "$/repId/000001/$Bandwidth$/3000/4/$Nonsense$/$FurtherNonsense1") {
-        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000001/$Bandwidth$/3000/4/$Nonsense$/$FurtherNonsense1\" got \"" << media_url << "\"" << std::endl;
+    if (media_url != "$/repId/000002/$Bandwidth$/3000/4/$Nonsense$/$FurtherNonsense2") {
+        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/repId/000002/$Bandwidth$/3000/4/$Nonsense$/$FurtherNonsense2\" got \"" << media_url << "\"" << std::endl;
         return false;
     }
 
@@ -92,8 +92,8 @@ bool test_segment_template_vars_missing()
     vars.number(1234);
     vars.representationId(std::nullopt);
     media_url = seg_temp.formatMediaTemplate(vars);
-    if (media_url != "$/$RepresentationId$/001234/20000/3000/4/$Nonsense$/$FurtherNonsense1234") {
-        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/$RepresentationId$/001234/20000/3000/4/$Nonsense$/$FurtherNonsense1234\" got \"" << media_url << "\"" << std::endl;
+    if (media_url != "$/$RepresentationID$/001235/20000/3000/4/$Nonsense$/$FurtherNonsense1235") {
+        std::cerr << "SegmentTemplate.formatMediaTemplate() failed: expected \"$/$RepresentationID$/001235/20000/3000/4/$Nonsense$/$FurtherNonsense1235\" got \"" << media_url << "\"" << std::endl;
         return false;
     }
 
