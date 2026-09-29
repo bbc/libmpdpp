@@ -11,6 +11,7 @@
  * library or refer to: https://www.gnu.org/licenses/lgpl-3.0.txt.
  */
 #include <chrono>
+#include <iomanip>
 #include <list>
 #include <regex>
 #include <sstream>
